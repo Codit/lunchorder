@@ -17,8 +17,20 @@
 ehthumbs.db
 Thumbs.db
 
-# Application files #
-#####################
+# FE Application files #
+########################
 frontend/node_modules/**/*
 frontend/dist/**/*
 .vscode
+**/*.log
+
+# BE Application files #
+########################
+backend/WebApi/packages/**
+backend/WebApi/**/*.csproj.user
+backend/WebApi/**/bin/**
+backend/WebApi/DTAR_*
+backend/WebApi/**/obj/**
+backend/WebApi/**/.vs
+backend/WebApi/**/*.release.config
+backend/WebApi/**/PublishProfiles/**/*
