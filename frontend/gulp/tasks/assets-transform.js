@@ -24,9 +24,9 @@ var dist = {
 }
 
 var input = {
-    appScss: paths.webroot + '/scss/*.scss',
     vendorCss: paths.webroot + '/css/vendor/*.css',
     appJs: paths.webroot + '/js/*.js',
+    appCss: paths.webroot + '/css/*.css',
     vendorJs: paths.webroot + '/js/vendor/*.js',
     bootstrapJs: paths.webroot + '/js/vendor/bootstrap.min.js',
     jqueryJs: paths.webroot + '/js/vendor/jquery.min.js',
@@ -37,7 +37,8 @@ var input = {
 }
 
 // todo add uglify later
-gulp.task("assets-transform", gulpSequence(['assets-copy'], 'css:app:compile:sass', 'minify', 'concat'));
+gulp.task("assets-transform-release", gulpSequence(['assets-copy'], 'css:app:compile:sass', 'minify', 'concat'));
+gulp.task("assets-transform-debug", gulpSequence(['assets-copy'], 'css:app:compile:sass'));
 
 gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);
 gulp.task('minify:images', function() {
@@ -73,15 +74,16 @@ gulp.task('minify:js', function() {
 });
 
 gulp.task('css:app:compile:sass', function() {
-    gulp.src(input.distSass)
+    var result = gulp.src(input.distSass)
         .pipe(debug())
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest(dist.css));
 
            // cleanup
-        gulp.src([dist.css, '!*.scss'])
+        gulp.src(input.distSass)
         .pipe(debug())
    .pipe(vinylPaths(del));
+   return result;
 });
 
 gulp.task("concat", ['concat:css', 'concat:js']);
@@ -101,19 +103,6 @@ gulp.task("concat:css:app", function () {
 
     return result;
 });
-
-gulp.task("concat:sass", function() {
-    var result = gulp.src(input.appCss)
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(gulp.dest(input.distCss));
-
-        // cleanup
-    gulp.src([input.appScss, '!' + dist.cssAppConcat])
-        .pipe(debug())
-        .pipe(vinylPaths(del));
-
-    return result;
-})
 
 gulp.task("concat:css:vendor", function () {
     var result = gulp.src(input.vendorCss)

@@ -13,7 +13,7 @@ var input = {
     jsJqueryPath: paths.webroot + '/js/vendor/jquery.js'
 }
 
-    gulp.task('debug:inject-artifacts', ['assets-copy'], function () {
+    gulp.task('debug:inject-artifacts', ['assets-transform-debug'], function () {
 
     var target = gulp.src(input.appIndex);
 
@@ -29,7 +29,7 @@ var input = {
       .pipe(gulp.dest(paths.webroot));
 });
 
-gulp.task('release:inject-artifacts', ['assets-transform'], function () {
+gulp.task('release:inject-artifacts', ['assets-transform-release'], function () {
     
     var target = gulp.src(input.appIndex);
         
