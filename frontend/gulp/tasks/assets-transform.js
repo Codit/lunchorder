@@ -24,7 +24,7 @@ var dist = {
 }
 
 var input = {
-    appCss: paths.webroot + '/css/*.css',
+    appScss: paths.webroot + '/scss/*.scss',
     vendorCss: paths.webroot + '/css/vendor/*.css',
     appJs: paths.webroot + '/js/*.js',
     vendorJs: paths.webroot + '/js/vendor/*.js',
@@ -101,6 +101,19 @@ gulp.task("concat:css:app", function () {
 
     return result;
 });
+
+gulp.task("concat:sass", function() {
+    var result = gulp.src(input.appCss)
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(gulp.dest(input.distCss));
+
+        // cleanup
+    gulp.src([input.appScss, '!' + dist.cssAppConcat])
+        .pipe(debug())
+        .pipe(vinylPaths(del));
+
+    return result;
+})
 
 gulp.task("concat:css:vendor", function () {
     var result = gulp.src(input.vendorCss)
