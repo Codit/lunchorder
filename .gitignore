@@ -21,6 +21,7 @@ Thumbs.db
 ########################
 frontend/node_modules/**/*
 frontend/dist/**/*
+frontend/_package/**/*
 .vscode
 **/*.log
 
