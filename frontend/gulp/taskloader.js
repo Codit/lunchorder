@@ -14,6 +14,8 @@ var assetsClean = require('./tasks/assets-clean');
 var assetsCopy = require('./tasks/assets-copy');
 var assetsInject = require('./tasks/assets-inject');
 var assetsTransform = require('./tasks/assets-transform');
+var csharpToTypescript = require('./tasks/csharp-to-typescript');
+csharpToTypescript();
 assetsClean(paths);
 assetsCopy(paths);
 assetsInject(paths);

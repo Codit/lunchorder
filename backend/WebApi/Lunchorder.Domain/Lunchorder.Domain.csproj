@@ -65,6 +65,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Dtos\Address.cs" />
+    <Compile Include="Dtos\Buyer.cs" />
+    <Compile Include="Dtos\BuyerAddress.cs" />
+    <Compile Include="Dtos\VendorHistoryEntryRule.cs" />
+    <Compile Include="Dtos\Menu.cs" />
+    <Compile Include="Dtos\MenuCategory.cs" />
+    <Compile Include="Dtos\MenuEntry.cs" />
+    <Compile Include="Dtos\MenuRule.cs" />
+    <Compile Include="Dtos\MenuVendor.cs" />
+    <Compile Include="Dtos\MenuVendorAddress.cs" />
+    <Compile Include="Dtos\UserHistory.cs" />
+    <Compile Include="Dtos\UserOrderHistory.cs" />
+    <Compile Include="Dtos\UserOrderHistoryEntry.cs" />
+    <Compile Include="Dtos\UserOrderHistoryRule.cs" />
+    <Compile Include="Dtos\VendorHistoryEntry.cs" />
+    <Compile Include="Dtos\VendorOrderHistory.cs" />
     <Compile Include="Entities\Authentication\ApplicationUser.cs" />
     <Compile Include="Entities\Configuration\ApiKeyElement.cs" />
     <Compile Include="Entities\Configuration\ApiKeysElementCollection.cs" />
