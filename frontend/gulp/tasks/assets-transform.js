@@ -10,6 +10,7 @@ var gulp = require("gulp"),
     gulpSequence = require('gulp-sequence'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
+    sass = require('gulp-sass'),
     jsmin = require('gulp-jsmin');
 
 var dist = {
@@ -31,11 +32,12 @@ var input = {
     jqueryJs: paths.webroot + '/js/vendor/jquery.min.js',
     images: paths.webroot + '/css/images/*',
     distCss: paths.webroot + '/css/**/*.css',
+    distSass: paths.webroot + '/css/**/*.scss',
     distJs: paths.webroot + '/js/**/*.js'
 }
 
 // todo add uglify later
-gulp.task("assets-transform", gulpSequence(['assets-copy'], 'minify', 'concat'));
+gulp.task("assets-transform", gulpSequence(['assets-copy'], 'css:app:compile:sass', 'minify', 'concat'));
 
 gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);
 gulp.task('minify:images', function() {
@@ -66,6 +68,18 @@ gulp.task('minify:js', function() {
 
         // cleanup
         gulp.src([input.distJs, '!*min.css'])
+        .pipe(debug())
+   .pipe(vinylPaths(del));
+});
+
+gulp.task('css:app:compile:sass', function() {
+    gulp.src(input.distSass)
+        .pipe(debug())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(dist.css));
+
+           // cleanup
+        gulp.src([dist.css, '!*.scss'])
         .pipe(debug())
    .pipe(vinylPaths(del));
 });

@@ -5,7 +5,7 @@ var gulp = require("gulp"),
 
 var input = {
     images: paths.root + 'css/images/**/*.{png,gif,jpg,jpeg,svg}',
-    cssApp: paths.root + 'css/**/*.css',
+    cssApp: paths.root + 'css/**/*.scss',
     cssBootstrap: paths.modules + '/bootstrap/dist/css/bootstrap.css',
     cssOwlCarousel: paths.modules + '/owlcarousel-pre/owl-carousel/owl.carousel.css',
     cssOwlCarouselTheme: paths.modules + '/owlcarousel-pre/owl-carousel/owl.theme.css',
