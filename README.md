@@ -12,14 +12,7 @@ In essence, it should solve the following problems:
 The application is being been developed primarily to get a better understanding on how [angular2] works.
 
 ## Running the application
-Clone the repository using 
-```sh
-$ git clone https://github.com/CoditEU/lunchorder.git
-```
-Install npm packages (in repo directory)
-```sh
-$ npm install
-```
+Please see the [wiki installation section]
 
 Our local development is done in [Visual Studio Code].
 
@@ -45,3 +38,4 @@ Lunchorder is licensed under The MIT License (MIT). Which means that you can use
 [MomentJS]: <http://momentjs.com/>
 [Sass]: <http://sass-lang.com/>
 [ASP.NET Web Api]: <http://www.asp.net/web-api>
+[wiki installation section]: <https://github.com/CoditEU/lunchorder/wiki/Installation>

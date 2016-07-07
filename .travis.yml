@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "4.4.3"
+before_install:
+  - cd frontend
+before_script:
+  - npm install -g gulp
+script: 
+  - gulp release
