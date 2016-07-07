@@ -21,9 +21,10 @@
     "fontawesome": "4.5.0",
     "jquery": "1.12.0",
     "owlcarousel-pre": "1.3.3",
-     "wow": "matthieua/WOW#1.1.2"
+    "wow": "matthieua/WOW#1.1.2"
   },
   "devDependencies": {
+    "coveralls": "^2.11.9",
     "del": "2.2.1",
     "fs": "0.0.2",
     "gulp": "3.9.1",
