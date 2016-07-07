@@ -130,7 +130,8 @@ gulp.task("concat:js:app", function () {
 });
 
 gulp.task("concat:js:vendor", function () {
-    var sourceItems = [input.jqueryJs, input.bootstrapJs];
+    // add files where order is important first, then add other files (dupes should be ignored)
+    var sourceItems = [input.jqueryJs, input.bootstrapJs, input.vendorJs];
     var result = gulp.src(sourceItems)
         .pipe(debug())
         .pipe(concat(dist.JsVendorConcat))
