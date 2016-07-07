@@ -38,13 +38,13 @@ var input = {
 gulp.task("assets-transform", gulpSequence(['assets-copy'], 'minify', 'concat'));
 
 gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);
-gulp.task('minify:images', () => {
+gulp.task('minify:images', function() {
     return gulp.src(input.images)
 		.pipe(imagemin())
 		.pipe(gulp.dest(dist.images))
 });
 
-gulp.task('minify:css', () => {
+gulp.task('minify:css', function() {
     gulp.src(input.distCss)
         .pipe(debug())
         .pipe(cssmin())
@@ -57,7 +57,7 @@ gulp.task('minify:css', () => {
    .pipe(vinylPaths(del));
 });
 
-gulp.task('minify:js', () => {
+gulp.task('minify:js', function() {
     gulp.src(input.distJs)
         .pipe(debug())
         .pipe(jsmin())
