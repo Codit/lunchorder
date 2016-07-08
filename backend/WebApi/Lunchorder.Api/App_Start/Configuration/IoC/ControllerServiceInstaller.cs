@@ -19,6 +19,10 @@ namespace Lunchorder.Api.Configuration.IoC
         {
             container.Register(Component.For<IAccountControllerService>().ImplementedBy<AccountControllerService>());
             container.Register(Component.For<IBalanceControllerService>().ImplementedBy<BalanceControllerService>());
+            container.Register(Component.For<IEmailControllerService>().ImplementedBy<EmailControllerService>());
+            container.Register(Component.For<IFavoriteControllerService>().ImplementedBy<FavoriteControllerService>());
+            container.Register(Component.For<IMenuControllerService>().ImplementedBy<MenuControllerService>());
+            container.Register(Component.For<IOrderControllerService>().ImplementedBy<OrderControllerService>());
         }
     }
 }
