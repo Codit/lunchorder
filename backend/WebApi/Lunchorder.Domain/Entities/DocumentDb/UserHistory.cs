@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Lunchorder.Domain.Dtos
+namespace Lunchorder.Domain.Entities.DocumentDb
 {
     /// <summary>
     /// Represents a history per user

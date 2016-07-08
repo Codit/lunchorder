@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lunchorder.Domain.Dtos
+namespace Lunchorder.Domain.Entities.DocumentDb
 {
     /// <summary>
     /// Represents a set of rules that were applied for an entry at a point in time

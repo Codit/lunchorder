@@ -1,6 +1,6 @@
 using System;
 
-namespace Lunchorder.Domain.Dtos
+namespace Lunchorder.Domain.Entities.DocumentDb
 {
     /// <summary>
     /// Defines the actual company that will order lunch

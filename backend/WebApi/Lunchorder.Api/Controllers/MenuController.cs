@@ -1,20 +1,35 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Dtos.Requests;
+using Swashbuckle.Swagger.Annotations;
 
 namespace Lunchorder.Api.Controllers
 {
     [RoutePrefix("menus")]
     public class MenuController : BaseApiController
     {
+        private readonly IMenuControllerService _menuControllerService;
+
+        public MenuController(IMenuControllerService menuControllerService)
+        {
+            if (menuControllerService == null) throw new ArgumentNullException(nameof(menuControllerService));
+            _menuControllerService = menuControllerService;
+        }
+
         /// <summary>
         /// returns the active lunch menu
         /// </summary>
         /// <returns></returns>
         [Route("")]
         [HttpGet]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Domain.Dtos.Menu))]
         public async Task<IHttpActionResult> Get()
         {
-            return Ok();
+            var menu = await _menuControllerService.Get();
+            return Ok(menu);
         }
 
         /// <summary>
@@ -23,8 +38,10 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public async Task<IHttpActionResult> Post()
+        [SwaggerResponse(HttpStatusCode.OK)]
+        public async Task<IHttpActionResult> Post(PostMenuRequest postMenuRequest)
         {
+            await _menuControllerService.Add(postMenuRequest.Menu);
             return Ok();
         }
 
@@ -34,8 +51,10 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [Route("")]
         [HttpPut]
-        public IHttpActionResult Put()
+        [SwaggerResponse(HttpStatusCode.OK)]
+        public async Task<IHttpActionResult> Put(PutMenuRequest putMenuRequest)
         {
+           await _menuControllerService.Update(putMenuRequest.Menu);
             return Ok();
         }
 
@@ -45,8 +64,10 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [Route("")]
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete()
+        [SwaggerResponse(HttpStatusCode.OK)]
+        public async Task<IHttpActionResult> Delete(Guid menuId)
         {
+            await _menuControllerService.Delete(menuId);
             return Ok();
         }
     }

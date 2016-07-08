@@ -1,20 +1,38 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Dtos.Requests;
+using Lunchorder.Domain.Dtos.Responses;
+using Swashbuckle.Swagger.Annotations;
 
 namespace Lunchorder.Api.Controllers
 {
     [RoutePrefix("orders")]
     public class OrderController : BaseApiController
     {
+        private readonly IOrderControllerService _orderControllerService;
+
+        public OrderController(IOrderControllerService orderControllerService)
+        {
+            if (orderControllerService == null) throw new ArgumentNullException(nameof(orderControllerService));
+            _orderControllerService = orderControllerService;
+        }
+
         /// <summary>
         /// Retrieves order history for a user
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [Route("")]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Domain.Dtos.UserOrderHistory>))]
         public async Task<IHttpActionResult> Get()
         {
-            return Ok();
+            // todo extract user id
+            var history = await _orderControllerService.GetHistory("");
+            return Ok(history);
         }
 
         /// <summary>
@@ -23,8 +41,11 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Post()
+        [SwaggerResponse(HttpStatusCode.OK)]
+        public async Task<IHttpActionResult> Post(PostUserHistoryRequest postUserHistoryRequest)
         {
+            // todo extract userId
+            await _orderControllerService.Add("", postUserHistoryRequest.MenuOrders);
             return Ok();
         }
 
@@ -34,8 +55,10 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("")]
-        public async Task<IHttpActionResult> Delete()
+        [SwaggerResponse(HttpStatusCode.OK)]
+        public async Task<IHttpActionResult> Delete(Guid orderId)
         {
+            await _orderControllerService.Delete(orderId);
             return Ok();
         }
     }

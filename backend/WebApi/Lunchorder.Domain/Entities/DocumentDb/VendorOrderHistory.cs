@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Lunchorder.Domain.Dtos
+namespace Lunchorder.Domain.Entities.DocumentDb
 {
     /// <summary>
     /// The history of the vendor
