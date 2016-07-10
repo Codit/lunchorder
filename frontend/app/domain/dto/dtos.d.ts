@@ -50,7 +50,7 @@ declare module api.dto {
     
     export interface IMenuVendor {
         address: IMenuVendorAddress;
-        submitOrderTime: ITimeSpan;
+        // submitOrderTime: ITimeSpan;
     }
     
     export interface IMenuVendorAddress extends IAddress {

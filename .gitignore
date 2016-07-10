@@ -24,6 +24,7 @@ frontend/dist/**/*
 frontend/_package/**/*
 .vscode
 **/*.log
+frontend/typings/**
 
 # BE Application files #
 ########################
