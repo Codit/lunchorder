@@ -34,5 +34,5 @@ backend/WebApi/**/bin/**
 backend/WebApi/DTAR_*
 backend/WebApi/**/obj/**
 backend/WebApi/**/.vs
-backend/WebApi/**/*.release.config
+backend/WebApi/**/*.debug.config
 backend/WebApi/**/PublishProfiles/**/*
