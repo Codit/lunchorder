@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet} from '@angular/router-deprecated';
-import {AdalService} from 'angular2-adal/core';
-import {ConfigService} from './services/configService';
+import { Component, OnInit } from '@angular/core';
+import { ROUTER_DIRECTIVES, RouteConfig, RouterOutlet } from '@angular/router-deprecated';
+import { AdalService } from 'angular2-adal/core';
+import { ConfigService } from './services/configService';
+import { AccountService } from './services/accountService';
 
 @Component({
 	selector: 'my-app',
@@ -429,10 +430,20 @@ import {ConfigService} from './services/configService';
 			</div>
 		</div>
 		</footer>`})
-export class AppComponent {
-	isAuthenticated: boolean = false;
 
-	constructor(private adalService: AdalService, private configService: ConfigService) {
+export class AppComponent implements OnInit {
+	isAuthenticated: boolean = false;
+	userInfo : api.dto.IGetUserInfoResponse;
+	userInfoError: any;
+
+	constructor(private adalService: AdalService, private configService: ConfigService, private accountService: AccountService) { }
+
+	ngOnInit() {
+		debugger;
+		this.accountService.getUserProfile().subscribe(
+                       userInfo => this.userInfo = userInfo,
+                       error =>  this.userInfoError = <any>error);
+
 		this.adalService.init(this.configService.adalConfig);
 		console.log('ctor AppComponent');
         this.adalService.handleWindowCallback();

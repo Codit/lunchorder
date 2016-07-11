@@ -21,7 +21,8 @@ module.exports = function (paths, dist) {
         jsZone: paths.modules + '/zone.js/dist/zone.js',
         jsReflect: paths.modules + '/reflect-metadata/Reflect.js',
         jsSystemJs: paths.modules + '/systemjs/dist/system.src.js',
-        systemJsConfig: paths.root + 'systemjs.config.js'
+        systemJsConfig: paths.root + 'systemjs.config.js',
+        webConfig: paths.root + 'web.config'
     }
 
     var dist = {
@@ -33,7 +34,7 @@ module.exports = function (paths, dist) {
         html: paths.webroot + 'app/html'
     }
 
-    gulp.task('assets-copy', gulpSequence('clean:dist', ['copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:systemJsConfig', 'copy:npm:dependencies']));
+    gulp.task('assets-copy', gulpSequence('clean:dist', ['copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
 
     gulp.task('copy:css', ['copy:css:vendor', 'copy:css:app']);
     gulp.task('copy:js', ['copy:js:vendor']);//, 'copy:js:app']);
@@ -80,6 +81,12 @@ module.exports = function (paths, dist) {
     gulp.task("copy:systemJsConfig",
         function (cb) {
             return gulp.src(input.systemJsConfig)
+                .pipe(gulp.dest(paths.webroot));
+        });
+
+        gulp.task("copy:webConfig",
+        function (cb) {
+            return gulp.src(input.webConfig)
                 .pipe(gulp.dest(paths.webroot));
         });
 
