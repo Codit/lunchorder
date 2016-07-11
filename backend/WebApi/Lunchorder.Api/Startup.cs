@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using AutoMapper;
 using Castle.Windsor;
 using FluentValidation.WebApi;
 using Lunchorder.Api.Configuration.IoC;
 using Lunchorder.Api.Infrastructure.Filters;
 using Lunchorder.Common.Extensions;
 using Microsoft.Owin;
+using Microsoft.Owin.Security.ActiveDirectory;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
@@ -34,9 +36,17 @@ namespace Lunchorder.Api
                 SwaggerConfig.Register(HttpConfiguration);
             }
 
+            var mapper = _container.Resolve<IMapper>();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
             var oAuthBearerOptions = _container.Resolve<JwtBearerAuthenticationOptions>();
             var oAuthServerOptions = _container.Resolve<OAuthAuthorizationServerOptions>();
-            var authorizationOptions = new AuthorizationOptions { OAuthAuthorizationServerOptions = oAuthServerOptions, JwtBearerAuthenticationOptions = oAuthBearerOptions };
+            var azureAdServerOptions = _container.Resolve<WindowsAzureActiveDirectoryBearerAuthenticationOptions>();
+            var authorizationOptions = new AuthorizationOptions
+            {
+                OAuthAuthorizationServerOptions = oAuthServerOptions, JwtBearerAuthenticationOptions = oAuthBearerOptions,
+                AzureAdServerOptions = azureAdServerOptions
+            };
 
             ConfigureAuth(app, authorizationOptions);
             ConfigureWebApi();

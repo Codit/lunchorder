@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.ActiveDirectory;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Jwt;
@@ -51,6 +52,10 @@ namespace Lunchorder.Api.Configuration.IoC
                 .UsingFactoryMethod(CreateJwtBearerAuthenticationOptions)
                 .LifestyleSingleton());
 
+            container.Register(Component.For<WindowsAzureActiveDirectoryBearerAuthenticationOptions>()
+                    .UsingFactoryMethod(CreateAzureAdOptions)
+                    .LifestyleSingleton());
+
             container.Register(Component.For<IOAuthAuthorizationServerProvider>()
                 .ImplementedBy<CustomOAuthProvider>().LifestylePerWebRequest());
 
@@ -58,6 +63,21 @@ namespace Lunchorder.Api.Configuration.IoC
                 .ImplementedBy<ApplicationUserManager>()
                 .UsingFactoryMethod(SetupApplicationManager)
                 .LifestylePerWebRequest());
+        }
+
+        private WindowsAzureActiveDirectoryBearerAuthenticationOptions CreateAzureAdOptions(IKernel container)
+        {
+            var configurationService = container.Resolve<IConfigurationService>();
+
+            return new WindowsAzureActiveDirectoryBearerAuthenticationOptions
+            {
+                Tenant = configurationService.AzureAuthentication.Tenant,
+
+                TokenValidationParameters = new System.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidAudience = configurationService.AzureAuthentication.AudienceId
+                }
+            };
         }
 
         private JwtBearerAuthenticationOptions CreateJwtBearerAuthenticationOptions(IKernel container)

@@ -10,6 +10,8 @@ namespace Lunchorder.Domain.Entities.Authentication
 
         public string LastName { get; set; }
 
+        public int Balance { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);

@@ -19,11 +19,13 @@ namespace Lunchorder.Api.Configuration.IoC
             _httpconfiguration = httpconfiguration;
         }
 
-
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Install(new ApiControllerInstaller());
+            container.Install(new ControllerServiceInstaller());
             container.Install(new ConfigurationInstaller());
+            container.Install(new AutoMapperInstaller());
+            container.Install(new DalInstaller());
             container.Install(new OAuthInstaller(_dataProtectionProvider));
 
             foreach (var i in container.ResolveAll<IRequiresInitialization>())

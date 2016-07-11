@@ -15,6 +15,6 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The ultimate time limit that an order should be submitted to the vendor
         /// </summary>
-        public TimeSpan SubmitOrderTime { get; set; }
+        public string SubmitOrderTime { get; set; }
     }
 }

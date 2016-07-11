@@ -50,8 +50,8 @@
     <DocumentationFile>bin\Lunchorder.Api.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.0.0\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -96,6 +96,10 @@
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Owin.1.2.2\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.7.0\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -115,6 +119,10 @@
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.ActiveDirectory, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.ActiveDirectory.3.0.1\lib\net45\Microsoft.Owin.Security.ActiveDirectory.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -201,15 +209,9 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config">
+    <Content Include="Web.Base.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
@@ -217,14 +219,30 @@
     <Compile Include="App_Start\Configuration\IoC\ApiControllerInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\AutoMapperInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\ConfigurationInstaller.cs" />
+    <Compile Include="App_Start\Configuration\IoC\ControllerServiceInstaller.cs" />
+    <Compile Include="App_Start\Configuration\IoC\DalInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\OAuthInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WebInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WindsorCompositionRoot.cs" />
-    <Compile Include="App_Start\Configuration\Mapper\MapInitialization.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\AddressMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuCategoryMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuEntryMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuRuleMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuVendorAddressMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuVendorMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryEntryMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryRuleMap.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
-    <Compile Include="Controllers\LunchOrderController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\FavoriteController.cs" />
+    <Compile Include="Controllers\BalanceController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Infrastructure\Filters\ExceptionHandlingFilter.cs" />
     <Compile Include="Infrastructure\Providers\CustomJwtFormat.cs" />
@@ -233,7 +251,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="web.config" />
+    <None Include="Web.Debug.config" />
+    <None Include="Web.Release.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lunchorder.Common\Lunchorder.Common.csproj">
       <Project>{412F593D-987F-4483-A07C-99C0F5295081}</Project>
@@ -279,6 +301,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Azure.DocumentDB.1.7.0\build\Microsoft.Azure.DocumentDB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.DocumentDB.1.7.0\build\Microsoft.Azure.DocumentDB.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -287,4 +310,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Target Name="BeforeBuild">
+    <TransformXml Source="Web.Base.config" Transform="Web.$(Configuration).config" Destination="Web.config" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.7.0\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.7.0\build\Microsoft.Azure.DocumentDB.targets')" />
 </Project>

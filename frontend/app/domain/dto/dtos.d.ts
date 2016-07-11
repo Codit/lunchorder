@@ -7,14 +7,14 @@ declare module api.dto {
         email: string;
     }
     
-    export interface IBuyer {
-        id: string;
+    export interface IBadge {
         name: string;
-        address: IBuyerAddress;
-        valuta: string;
+        icon: string;
+        description: string;
+        earned: boolean;
     }
     
-    export interface IBuyerAddress extends IAddress {
+    export interface IMenu {
         id: string;
         enabled: boolean;
         deleted: boolean;
@@ -40,6 +40,17 @@ declare module api.dto {
         enabled: boolean;
     }
     
+    export interface IMenuEntryFavorite {
+        menuEntryId: string;
+    }
+    
+    export interface IMenuOrder {
+        menuEntryId: string;
+        freeText: string;
+        appliedMenuRules: IMenuRule[];
+        price: number;
+    }
+    
     export interface IMenuRule {
         id: string;
         categoryIds: number[];
@@ -50,16 +61,10 @@ declare module api.dto {
     
     export interface IMenuVendor {
         address: IMenuVendorAddress;
-        submitOrderTime: ITimeSpan;
+        submitOrderTime: string;
     }
     
     export interface IMenuVendorAddress extends IAddress {
-        id: string;
-        userId: string;
-        orderHistories: IUserOrderHistory[];
-    }
-    
-    export interface IUserOrderHistory {
         id: string;
         finalPrice: number;
         entry: IUserOrderHistoryEntry;
@@ -80,27 +85,32 @@ declare module api.dto {
         priceDelta: number;
     }
     
-    export interface IVendorHistoryEntry {
-        id: string;
-        name: string;
-        userId: string;
-        userName: string;
-        finalPrice: number;
-        userOrderHistoryId: string;
-        rules: IVendorHistoryEntryRule[];
+    export interface IUserProfile {
+        firstName: string;
+        lastName: string;
+        picture: string;
     }
     
-    export interface IVendorHistoryEntryRule {
-        id: string;
-        description: string;
-        priceDelta: number;
+    export interface IPostFavoriteRequest {
+        menuEntryId: string;
     }
     
-    export interface IVendorOrderHistory {
-        id: string;
-        vendorId: string;
-        orderTime: Date;
-        entries: IVendorHistoryEntry[];
-        submitted: boolean;
+    export interface IPostMenuRequest {
+        menu: IMenu;
+    }
+    
+    export interface IPostUserHistoryRequest {
+        menuOrders: IMenuOrder[];
+    }
+    
+    export interface IPutMenuRequest {
+        menu: IMenu;
+    }
+    
+    export interface IGetUserInfoResponse {
+        balance: number;
+        profile: IUserProfile;
+        badges: IBadge[];
+        favorites: IMenuEntryFavorite[];
     }
 }

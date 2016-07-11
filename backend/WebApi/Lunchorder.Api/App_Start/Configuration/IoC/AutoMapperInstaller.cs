@@ -15,7 +15,7 @@ namespace Lunchorder.Api.Configuration.IoC
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             // register value resolvers
-            container.Register(Types.FromAssembly(Assembly.GetExecutingAssembly()).BasedOn(typeof(IValueResolver<,>)));
+            container.Register(Types.FromAssembly(Assembly.GetExecutingAssembly()).BasedOn(typeof(IValueResolver<,,>)));
 
             // register profiles
             container.Register(Types.FromThisAssembly().BasedOn<Profile>().WithServiceBase().Configure(c => c.Named(c.Implementation.FullName)).LifestyleTransient());
@@ -35,8 +35,6 @@ namespace Lunchorder.Api.Configuration.IoC
 
             container.Register(
                 Component.For<IMapper>().UsingFactoryMethod(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper(ctx.Resolve)));
-
-            MapInitialization.InitializeMapper();
         }
     }
 }

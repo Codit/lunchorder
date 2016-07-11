@@ -11,7 +11,8 @@ var gulp = require("gulp"),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
-    jsmin = require('gulp-jsmin');
+    jsmin = require('gulp-jsmin'),
+    tsproject = require("tsproject");
 
 var dist = {
     css: paths.webroot + '/css',
@@ -37,8 +38,8 @@ var input = {
 }
 
 // todo add uglify later
-gulp.task("assets-transform-release", gulpSequence(['assets-copy'], 'css:app:compile:sass', 'minify', 'concat'));
-gulp.task("assets-transform-debug", gulpSequence(['assets-copy'], 'css:app:compile:sass'));
+gulp.task("assets-transform-release", gulpSequence(['assets-copy'], ['css:app:compile:sass', 'transpile:ts:release'], 'minify', 'concat'));
+gulp.task("assets-transform-debug", gulpSequence(['assets-copy'], 'css:app:compile:sass', 'transpile:ts:debug'));
 
 gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);
 gulp.task('minify:images', function() {
@@ -46,6 +47,22 @@ gulp.task('minify:images', function() {
 		.pipe(imagemin())
 		.pipe(gulp.dest(dist.images))
 });
+
+gulp.task('transpile:ts:release', function() {
+    	return tsproject.src("tsconfig.json", {
+    		compilerOptions: {
+    			"inlineSourceMap": false,
+    			"inlineSources": false
+    		}
+    	})
+        .pipe(gulp.dest("."));
+    });
+
+gulp.task('transpile:ts:debug', function () {
+    	return tsproject.src("tsconfig.json")
+        .pipe(debug())
+			.pipe(gulp.dest("."));
+    });
 
 gulp.task('minify:css', function() {
     gulp.src(input.distCss)

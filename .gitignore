@@ -7,6 +7,9 @@
 *.o
 *.so
 
+
+
+
 # OS generated files #
 ######################
 .DS_Store
@@ -24,6 +27,7 @@ frontend/dist/**/*
 frontend/_package/**/*
 .vscode
 **/*.log
+frontend/typings/**
 
 # BE Application files #
 ########################
@@ -33,5 +37,9 @@ backend/WebApi/**/bin/**
 backend/WebApi/DTAR_*
 backend/WebApi/**/obj/**
 backend/WebApi/**/.vs
-backend/WebApi/**/*.release.config
+backend/WebApi/**/Web.Debug.config
+backend/WebApi/**/Web.config
+backend/WebApi/**/App.Debug.config
+backend/WebApi/**/App.config
+
 backend/WebApi/**/PublishProfiles/**/*

@@ -21,6 +21,8 @@ namespace Lunchorder.Test.Integration.Helpers.Base
             Container
                 .Install(MockedApiInstaller)
                 .Install(new OAuthInstaller(null))
+                .Install(new AutoMapperInstaller())
+                .Install(new DalInstaller())
                 .Install(new TestWebInstaller(null, startup.HttpConfiguration));
 
             startup.InjectTestContainer(() => Container);

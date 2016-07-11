@@ -66,21 +66,41 @@
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Dtos\Address.cs" />
-    <Compile Include="Dtos\Buyer.cs" />
-    <Compile Include="Dtos\BuyerAddress.cs" />
-    <Compile Include="Dtos\VendorHistoryEntryRule.cs" />
+    <Compile Include="Dtos\Badge.cs" />
     <Compile Include="Dtos\Menu.cs" />
     <Compile Include="Dtos\MenuCategory.cs" />
     <Compile Include="Dtos\MenuEntry.cs" />
+    <Compile Include="Dtos\MenuEntryFavorite.cs" />
+    <Compile Include="Dtos\MenuOrder.cs" />
     <Compile Include="Dtos\MenuRule.cs" />
     <Compile Include="Dtos\MenuVendor.cs" />
     <Compile Include="Dtos\MenuVendorAddress.cs" />
-    <Compile Include="Dtos\UserHistory.cs" />
+    <Compile Include="Dtos\Requests\PostFavoriteRequest.cs" />
+    <Compile Include="Dtos\Requests\PostMenuRequest.cs" />
+    <Compile Include="Dtos\Requests\PostUserHistoryRequest.cs" />
+    <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
+    <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
     <Compile Include="Dtos\UserOrderHistory.cs" />
     <Compile Include="Dtos\UserOrderHistoryEntry.cs" />
     <Compile Include="Dtos\UserOrderHistoryRule.cs" />
-    <Compile Include="Dtos\VendorHistoryEntry.cs" />
-    <Compile Include="Dtos\VendorOrderHistory.cs" />
+    <Compile Include="Dtos\UserProfile.cs" />
+    <Compile Include="Entities\DocumentDb\Address.cs" />
+    <Compile Include="Entities\DocumentDb\BalanceAudit.cs" />
+    <Compile Include="Entities\DocumentDb\Buyer.cs" />
+    <Compile Include="Entities\DocumentDb\BuyerAddress.cs" />
+    <Compile Include="Entities\DocumentDb\VendorHistoryEntryRule.cs" />
+    <Compile Include="Entities\DocumentDb\Menu.cs" />
+    <Compile Include="Entities\DocumentDb\MenuCategory.cs" />
+    <Compile Include="Entities\DocumentDb\MenuEntry.cs" />
+    <Compile Include="Entities\DocumentDb\MenuRule.cs" />
+    <Compile Include="Entities\DocumentDb\MenuVendor.cs" />
+    <Compile Include="Entities\DocumentDb\MenuVendorAddress.cs" />
+    <Compile Include="Entities\DocumentDb\UserHistory.cs" />
+    <Compile Include="Entities\DocumentDb\UserOrderHistory.cs" />
+    <Compile Include="Entities\DocumentDb\UserOrderHistoryEntry.cs" />
+    <Compile Include="Entities\DocumentDb\UserOrderHistoryRule.cs" />
+    <Compile Include="Entities\DocumentDb\VendorHistoryEntry.cs" />
+    <Compile Include="Entities\DocumentDb\VendorOrderHistory.cs" />
     <Compile Include="Entities\Authentication\ApplicationUser.cs" />
     <Compile Include="Entities\Configuration\ApiKeyElement.cs" />
     <Compile Include="Entities\Configuration\ApiKeysElementCollection.cs" />
@@ -102,6 +122,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.7.0\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.7.0\build\Microsoft.Azure.DocumentDB.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -17,6 +17,7 @@ namespace Lunchorder.Api
         public void ConfigureAuth(IAppBuilder app, AuthorizationOptions authorizationOptions)
         {
             app.UseBearerTokenAuthentication(authorizationOptions);
+            app.UseWindowsAzureActiveDirectoryBearerAuthentication(authorizationOptions.AzureAdServerOptions);
         }
     }
 }
