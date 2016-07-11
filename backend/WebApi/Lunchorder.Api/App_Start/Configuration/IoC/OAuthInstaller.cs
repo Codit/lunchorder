@@ -75,8 +75,7 @@ namespace Lunchorder.Api.Configuration.IoC
 
                 TokenValidationParameters = new System.IdentityModel.Tokens.TokenValidationParameters
                 {
-                    ValidAudience = configurationService.AzureAuthentication.AudienceId,
-                    ValidateIssuer = true
+                    ValidAudience = configurationService.AzureAuthentication.AudienceId
                 }
             };
         }

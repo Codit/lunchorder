@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
+import {ROUTER_DIRECTIVES, RouteConfig, RouterOutlet} from '@angular/router-deprecated';
+import {AdalService} from 'angular2-adal/core';
+import {ConfigService} from './services/configService';
+
 @Component({
-  selector: 'my-app',
-  template: `<!-- FullScreen -->
+	selector: 'my-app',
+	template: `<!-- FullScreen -->
 	<div class="intro-header">
 		<div class="col-xs-12 text-center abcen1">
 			<h1 class="h1_home wow fadeIn" data-wow-delay="0.4s">Lunch Order</h1>
 			<h3 class="h3_home wow fadeIn" data-wow-delay="0.6s">Order lunch at your enterprise with ease</h3>
 			<ul class="list-inline intro-social-buttons">
-				<li><a href="#" class="btn  btn-lg mybutton_cyano wow fadeIn" data-wow-delay="0.8s"><span class="network-name">Login using Company Account</span></a>
+				<li><button class="btn btn-lg mybutton_cyano wow fadeIn" data-wow-delay="0.8s" (click)="login()"><span class="network-name">Login using Company Account</span></button>
 				</li>
 				<!--<li id="download" ><a href="#downloadlink" class="btn  btn-lg mybutton_standard wow swing wow fadeIn" data-wow-delay="1.2s"><span class="network-name">Order now!</span></a>-->
 				<!--</li>-->
@@ -21,7 +25,7 @@ import { Component } from '@angular/core';
 		</div>
 	</div>
   
-
+<div [hidden]="!isAuthenticated">
 	<!-- NavBar-->
 	<nav class="navbar-default" role="navigation">
 		<div class="container">
@@ -387,7 +391,7 @@ import { Component } from '@angular/core';
 			</div>
 		</div>
 	</div>
-
+</div>
 
 
 	<footer>
@@ -424,5 +428,21 @@ import { Component } from '@angular/core';
 				</div>
 			</div>
 		</div>
-		< </footer>`})
-export class AppComponent { }
+		</footer>`})
+export class AppComponent {
+	isAuthenticated: boolean = false;
+
+	constructor(private adalService: AdalService, private configService: ConfigService) {
+		this.adalService.init(this.configService.adalConfig);
+		console.log('ctor AppComponent');
+        this.adalService.handleWindowCallback();
+		if (this.adalService) {
+			this.isAuthenticated = this.adalService.userInfo.isAuthenticated
+			console.log(`isAuthenticated: ${this.isAuthenticated}`);
+		}
+	}
+
+	public login() {
+        this.adalService.login();
+    }
+}
