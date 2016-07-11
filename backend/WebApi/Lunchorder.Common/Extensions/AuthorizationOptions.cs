@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Security.Jwt;
+﻿using Microsoft.Owin.Security.ActiveDirectory;
+using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 
 namespace Lunchorder.Common.Extensions
@@ -17,5 +18,7 @@ namespace Lunchorder.Common.Extensions
         /// Options for JwtBearer Authentication
         /// </summary>
         public JwtBearerAuthenticationOptions JwtBearerAuthenticationOptions { get; set; }
+
+        public WindowsAzureActiveDirectoryBearerAuthenticationOptions AzureAdServerOptions { get; set; }
     }
 }

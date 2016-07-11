@@ -7,6 +7,9 @@
 *.o
 *.so
 
+
+
+
 # OS generated files #
 ######################
 .DS_Store
@@ -34,5 +37,7 @@ backend/WebApi/**/bin/**
 backend/WebApi/DTAR_*
 backend/WebApi/**/obj/**
 backend/WebApi/**/.vs
-backend/WebApi/**/*.debug.config
+backend/WebApi/**/Web.Debug.config
+backend/WebApi/**/Web.config
+
 backend/WebApi/**/PublishProfiles/**/*

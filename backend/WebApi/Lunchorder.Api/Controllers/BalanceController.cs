@@ -23,6 +23,7 @@ namespace Lunchorder.Api.Controllers
         /// Updates the balance for a user
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         [HttpPut]
         [Route("")]
         [SwaggerResponse(HttpStatusCode.Created, Type = typeof(double))]
