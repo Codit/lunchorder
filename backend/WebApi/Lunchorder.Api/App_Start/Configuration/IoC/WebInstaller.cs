@@ -25,6 +25,7 @@ namespace Lunchorder.Api.Configuration.IoC
             container.Install(new ControllerServiceInstaller());
             container.Install(new ConfigurationInstaller());
             container.Install(new AutoMapperInstaller());
+            container.Install(new DalInstaller());
             container.Install(new OAuthInstaller(_dataProtectionProvider));
 
             foreach (var i in container.ResolveAll<IRequiresInitialization>())

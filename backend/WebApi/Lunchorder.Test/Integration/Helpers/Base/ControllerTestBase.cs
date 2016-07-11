@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using Lunchorder.Common.Interfaces;
 using Lunchorder.Test.Integration.Helpers.Base.IoC;
 using Microsoft.Owin.Testing;
 using NUnit.Framework;
@@ -21,6 +22,9 @@ namespace Lunchorder.Test.Integration.Helpers.Base
             var startup = new TestStartup();
             Server = TestServer.Create(builder => startup.Configuration(builder));
             MockedApiInstaller = startup.MockedApiInstaller;
+
+            var documentDbBase = new DocumentDbBase(startup.Container.Resolve<IDocumentStore>());
+            documentDbBase.Init();
         }
 
         public MockedApiControllerInstaller MockedApiInstaller { get; set; }

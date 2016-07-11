@@ -13,9 +13,8 @@ namespace Lunchorder.Test.Integration.ApiController
         [Test]
         public async Task Get()
         {
-            
             var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
-            Assert.IsNotEmpty(token.Token);
+            Assert.IsNotNullOrEmpty(token.Token);
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}"));
 

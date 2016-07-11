@@ -39,5 +39,7 @@ backend/WebApi/**/obj/**
 backend/WebApi/**/.vs
 backend/WebApi/**/Web.Debug.config
 backend/WebApi/**/Web.config
+backend/WebApi/**/App.Debug.config
+backend/WebApi/**/App.config
 
 backend/WebApi/**/PublishProfiles/**/*

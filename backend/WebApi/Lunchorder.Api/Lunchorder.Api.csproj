@@ -220,6 +220,7 @@
     <Compile Include="App_Start\Configuration\IoC\AutoMapperInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\ConfigurationInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\ControllerServiceInstaller.cs" />
+    <Compile Include="App_Start\Configuration\IoC\DalInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\OAuthInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WebInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WindsorCompositionRoot.cs" />
