@@ -4,8 +4,8 @@ import {Injectable} from '@angular/core';
 export class ConfigService {
     public get adalConfig(): any {
         return {
-            tenant: 'codit.onmicrosoft.com',
-            clientId: 'f2477cb6-a5a2-40d1-8ba2-736ffd224519',
+            tenant: '__configTenant__',
+            clientId: '__configClientId__',
             redirectUri: window.location.origin + '/',
             postLogoutRedirectUri: window.location.origin + '/'
         };

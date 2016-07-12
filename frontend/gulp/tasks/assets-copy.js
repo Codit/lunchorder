@@ -2,7 +2,11 @@ module.exports = function (paths, dist) {
     var gulp = require("gulp"),
         debug = require("gulp-debug"),
         gulpSequence = require('gulp-sequence'),
-        gnf = require('gulp-npm-files');
+        gnf = require('gulp-npm-files'),
+        foreach = require('gulp-foreach'),
+        rename = require('gulp-rename'),
+        replace = require('gulp-replace'),
+        fs = require('fs');
 
     var input = {
         images: paths.root + 'css/images/**/*.{png,gif,jpg,jpeg,svg}',
@@ -34,10 +38,34 @@ module.exports = function (paths, dist) {
         html: paths.webroot + 'app/html'
     }
 
-    gulp.task('assets-copy', gulpSequence('clean:dist', ['copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
+    gulp.task('assets-copy', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
 
     gulp.task('copy:css', ['copy:css:vendor', 'copy:css:app']);
     gulp.task('copy:js', ['copy:js:vendor']);//, 'copy:js:app']);
+
+    gulp.task("copy:ts:params",
+        function (cb) {
+            return gulp.src([paths.root + '**/*.ts.dev', paths.root + '**/*.ts.params'])
+                .pipe(debug())
+                .pipe(foreach(function (stream, file) {
+                    return stream
+                        .pipe(rename(function (path) {
+                            console.log('ext:' + path.extname)
+                            // always overwrite when dev
+                            if (path.extname === '.dev') {
+                                path.extname = "";
+                            }
+                            else {
+                                // if there is a dev file, ignore.
+                                if (!fs.existsSync(path.dirname + "\\" + path.basename + ".dev")) {
+                                    path.extname = "";
+                                }
+                            }
+                        }))
+                }))
+                .pipe(debug())
+                .pipe(gulp.dest('.'));
+        });
 
     gulp.task("copy:css:vendor",
         function (cb) {
@@ -84,7 +112,7 @@ module.exports = function (paths, dist) {
                 .pipe(gulp.dest(paths.webroot));
         });
 
-        gulp.task("copy:webConfig",
+    gulp.task("copy:webConfig",
         function (cb) {
             return gulp.src(input.webConfig)
                 .pipe(gulp.dest(paths.webroot));

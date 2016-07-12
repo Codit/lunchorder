@@ -28,6 +28,8 @@ frontend/_package/**/*
 .vscode
 **/*.log
 frontend/typings/**
+frontend/**/configService.ts
+frontend/**/configService.ts.dev
 
 # BE Application files #
 ########################
@@ -43,3 +45,4 @@ backend/WebApi/**/App.Debug.config
 backend/WebApi/**/App.config
 
 backend/WebApi/**/PublishProfiles/**/*
+
