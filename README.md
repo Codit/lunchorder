@@ -1,4 +1,4 @@
-[![Travis Build Status](https://travis-ci.org/CoditEU/lunchorder.svg?branch=master)](https://travis-ci.org/CoditEU/lunchorder) [![Coverage Status](https://coveralls.io/repos/github/CoditEU/lunchorder/badge.svg?branch=master)](https://coveralls.io/github/CoditEU/lunchorder?branch=master) [![Dependencies](https://david-dm.org/jvanderbiest/lunchorder.svg)](https://david-dm.org/jvanderbiest/lunchorder) 
+![Visual Studio Team Services](https://codit.visualstudio.com/_apis/public/build/definitions/af04086b-9d24-45cd-a1e6-8b7b65149a98/172/badge) [![Travis Build Status](https://travis-ci.org/CoditEU/lunchorder.svg?branch=master)](https://travis-ci.org/CoditEU/lunchorder) [![Coverage Status](https://coveralls.io/repos/github/CoditEU/lunchorder/badge.svg?branch=master)](https://coveralls.io/github/CoditEU/lunchorder?branch=master) [![Dependencies](https://david-dm.org/jvanderbiest/lunchorder.svg)](https://david-dm.org/jvanderbiest/lunchorder) 
 
 # lunchorder
 Lunch order is a web application where a user can order lunch using money that was paid in advance. The order will then be delivered by a lunch company at lunchtime.

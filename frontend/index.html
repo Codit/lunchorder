@@ -28,30 +28,30 @@
 			<div id="status"></div>
 		</div>
 	</my-app>
-	
 
-			<!-- inject:js -->
-			<!-- endinject -->
 
-			<script type="text/javascript">
+	<!-- inject:js -->
+	<!-- endinject -->
+
+	<script type="text/javascript">
 	  jQuery(function($) {
-		$(document).ready( function() {
-		  $('.navbar-default').stickUp();
-		  
-		});
+			$(document).ready( function() {
+				$('.navbar-default').stickUp();
+			});
 	  });
 	
 	</script>
 
-			<script>
+	<script>
 	 new WOW().init();
 	</script>
 
-			<!-- 2. Configure SystemJS -->
-			<script src="systemjs.config.js"></script>
-			<script>
+	<!-- 2. Configure SystemJS -->
+	<script src="systemjs.config.js"></script>
+	<script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>
+
 </body>
 
 </html>
