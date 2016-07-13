@@ -61,7 +61,7 @@ gulp.task('bundle:systemJs', function() {
            - options {}
     */
     return builder
-        .buildStatic('dist/app/main.js', 'dist/app/bundle.js', { minify: false, sourceMaps: false, mangle: false, rollup: false })
+        .buildStatic('dist/app/main.js', 'dist/app/bundle.js', { minify: true, sourceMaps: false, mangle: true, rollup: false })
         .then(function() {
             console.log('Build complete');
         })
