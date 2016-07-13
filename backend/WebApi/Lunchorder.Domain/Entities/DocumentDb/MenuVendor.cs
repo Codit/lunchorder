@@ -8,6 +8,11 @@ namespace Lunchorder.Domain.Entities.DocumentDb
     public class MenuVendor
     {
         /// <summary>
+        /// The name of the vendor
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// The address of the menu vendor
         /// </summary>
         public MenuVendorAddress Address { get; set; }

@@ -3,6 +3,7 @@
     "adal": "github:DefinitelyTyped/DefinitelyTyped/adal-angular/adal.d.ts#53347571e6f44ed9a961b569bb81893fde4789c1",
     "core-js": "registry:dt/core-js#0.0.0+20160602141332",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
-    "node": "registry:dt/node#6.0.0+20160621231320"
+    "node": "registry:dt/node#6.0.0+20160621231320",
+    "automapper-ts": "../node_modules/automapper-ts/dist"
   }
 }

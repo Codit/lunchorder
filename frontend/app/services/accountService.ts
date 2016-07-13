@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
+import { ConfigService } from './configService';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AccountService {
-   constructor(private http: Http) {}
+   constructor(private http: Http, private configService: ConfigService) {}
 
-   private accountApiUrl = '/api/accounts';
+   private accountApiUrl = `${this.configService.apiPrefix}/accounts`;
 
-   getUserProfile (): Observable<api.dto.IGetUserInfoResponse> {
-       debugger;
+   getUserProfile (): Observable<app.domain.dto.IGetUserInfoResponse> {
     return this.http.get(`${this.accountApiUrl}`)
                     .map(this.extractData)
                     .catch(this.handleError);
@@ -19,7 +18,7 @@ export class AccountService {
    private extractData(res: Response) {
        console.log(res);
     let body = res.json();
-    return body.data || { };
+    return body || { };
   }
   private handleError (error: any) {
     // In a real world app, we might use a remote logging infrastructure

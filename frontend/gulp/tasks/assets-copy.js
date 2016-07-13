@@ -26,6 +26,7 @@ module.exports = function (paths, dist) {
         jsReflect: paths.modules + '/reflect-metadata/Reflect.js',
         jsSystemJs: paths.modules + '/systemjs/dist/system.src.js',
         systemJsConfig: paths.root + 'systemjs.config.js',
+        automapperJs: paths.modules + '/automapper-ts/dist/automapper.js',
         webConfig: paths.root + 'web.config'
     }
 
@@ -81,7 +82,7 @@ module.exports = function (paths, dist) {
 
     gulp.task("copy:js:vendor",
         function (cb) {
-            return gulp.src([input.jsJquery, input.jsBootstrap, input.jsWow, input.jsOwlCarousel, input.jsZone, input.jsReflect, input.jsSystemJs, input.js])
+            return gulp.src([input.jsJquery, input.jsBootstrap, input.jsWow, input.jsOwlCarousel, input.jsZone, input.jsReflect, input.jsSystemJs, input.automapperJs, input.js])
                 .pipe(gulp.dest(dist.jsVendor));
         });
 

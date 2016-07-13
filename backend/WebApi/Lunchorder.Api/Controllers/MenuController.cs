@@ -28,6 +28,7 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Domain.Dtos.Menu))]
         public async Task<IHttpActionResult> Get()
         {
+            // todo get from cache
             var menu = await _menuControllerService.Get();
             return Ok(menu);
         }
@@ -41,6 +42,7 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> Post(PostMenuRequest postMenuRequest)
         {
+            // todo set cache
             await _menuControllerService.Add(postMenuRequest.Menu);
             return Ok();
         }
@@ -54,7 +56,8 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> Put(PutMenuRequest putMenuRequest)
         {
-           await _menuControllerService.Update(putMenuRequest.Menu);
+            // todo set cache
+            await _menuControllerService.Update(putMenuRequest.Menu);
             return Ok();
         }
 

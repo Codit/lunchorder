@@ -7,7 +7,7 @@ concat = require('gulp-concat');
     gulp.task('csharp-to-typescript', function () {
         var pocoGenOptions = {
             prefixWithI: true,
-            baseNamespace: 'api.dto',
+            baseNamespace: 'app.domain.dto',
             dateTimeToDate: true,
             propertyNameResolver: function camelCaseResolver(propName) { return propName[0].toLowerCase() + propName.substring(1); }
         };

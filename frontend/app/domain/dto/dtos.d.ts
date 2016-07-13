@@ -1,4 +1,4 @@
-declare module api.dto {
+declare module app.domain.dto {
     export interface IAddress {
         street: string;
         streetNumber: string;
@@ -60,6 +60,7 @@ declare module api.dto {
     }
     
     export interface IMenuVendor {
+        name: string;
         address: IMenuVendorAddress;
         submitOrderTime: string;
     }

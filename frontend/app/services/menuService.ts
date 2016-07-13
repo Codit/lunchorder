@@ -1,26 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
+import { ConfigService } from './configService';
 import { Observable } from 'rxjs/Observable';
+import { Menu } from '../domain/dto/menu';
+
 
 @Injectable()
 export class MenuService {
-   constructor(private http: Http) {}
+   constructor(private http: Http, private configService: ConfigService) {
+     automapper.createMap('{}', 'Menu');
+   }
 
-   private menuApiUri = '/api/menus';
+   private menuApiUri = `${this.configService.apiPrefix}/menus`;
 
-   getMenu (): Observable<api.dto.IMenu> {
-       debugger;
+   getMenu (): Observable<app.domain.dto.IMenu> {
     return this.http.get(`${this.menuApiUri}`)
-                    .map(this.extractData)
+                    .map(this.mapMenu)
                     .catch(this.handleError);
   }
 
-   private extractData(res: Response) {
+   private mapMenu(res: Response) : Menu {
+     
+     debugger;
        console.log(res);
     let body = res.json();
-    return body.data || { };
+    var menu: Menu = automapper.map('{}', 'Menu', body);
+    return menu;
   }
+  
   private handleError (error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message

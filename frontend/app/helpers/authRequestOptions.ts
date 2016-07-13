@@ -5,6 +5,6 @@ export class AuthRequestOptions extends BaseRequestOptions {
     constructor(private adalService: AdalService) {
         super();
         // todo add token using acquiretoken from adal when implemented.
-        this.headers.append('Authorization','Bearer TODOADDTOKEN');
+        // this.headers.append('Authorization','Bearer TODOADDTOKEN');
     }
 }
