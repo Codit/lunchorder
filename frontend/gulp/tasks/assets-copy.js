@@ -22,8 +22,6 @@ module.exports = function (paths, dist) {
         jsBootstrap: paths.modules + '/bootstrap/dist/js/bootstrap.js',
         jsWow: paths.modules + '/wow/dist/wow.js',
         jsOwlCarousel: paths.modules + '/owlcarousel-pre/owl-carousel/owl.carousel.js',
-        jsZone: paths.modules + '/zone.js/dist/zone.js',
-        jsReflect: paths.modules + '/reflect-metadata/Reflect.js',
         jsSystemJs: paths.modules + '/systemjs/dist/system.src.js',
         systemJsConfig: paths.root + 'systemjs.config.js',
         automapperJs: paths.modules + '/automapper-ts/dist/automapper.js',
@@ -39,7 +37,8 @@ module.exports = function (paths, dist) {
         html: paths.webroot + 'app/html'
     }
 
-    gulp.task('assets-copy', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
+    gulp.task('assets-copy-release', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:webConfig']));
+    gulp.task('assets-copy-debug', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
 
     gulp.task('copy:css', ['copy:css:vendor', 'copy:css:app']);
     gulp.task('copy:js', ['copy:js:vendor']);//, 'copy:js:app']);
@@ -82,7 +81,7 @@ module.exports = function (paths, dist) {
 
     gulp.task("copy:js:vendor",
         function (cb) {
-            return gulp.src([input.jsJquery, input.jsBootstrap, input.jsWow, input.jsOwlCarousel, input.jsZone, input.jsReflect, input.jsSystemJs, input.automapperJs, input.js])
+            return gulp.src([input.jsJquery, input.jsBootstrap, input.jsWow, input.jsOwlCarousel, input.jsSystemJs, input.automapperJs, input.js])
                 .pipe(gulp.dest(dist.jsVendor));
         });
 

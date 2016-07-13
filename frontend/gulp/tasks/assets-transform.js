@@ -12,7 +12,8 @@ var gulp = require("gulp"),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
     jsmin = require('gulp-jsmin'),
-    tsproject = require("tsproject");
+    tsproject = require("tsproject"),
+    systemJsBuilder = require('systemjs-builder');
 
 var dist = {
     css: paths.webroot + '/css',
@@ -38,14 +39,36 @@ var input = {
 }
 
 // todo add uglify later
-gulp.task("assets-transform-release", gulpSequence(['assets-copy'], ['css:app:compile:sass', 'transpile:ts:release'], 'minify', 'concat'));
-gulp.task("assets-transform-debug", gulpSequence(['assets-copy'], 'css:app:compile:sass', 'transpile:ts:debug'));
+gulp.task("assets-transform-release", gulpSequence(['assets-copy-release'], ['css:app:compile:sass', 'transpile:ts:release'], 'bundle:systemJs', 'minify', 'concat'));
+gulp.task("assets-transform-debug", gulpSequence(['assets-copy-debug'], 'css:app:compile:sass', 'transpile:ts:debug'));
 
 gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);
 gulp.task('minify:images', function() {
     return gulp.src(input.images)
 		.pipe(imagemin())
 		.pipe(gulp.dest(dist.images))
+});
+
+gulp.task('bundle:systemJs', function() {
+ // optional constructor options
+    // sets the baseURL and loads the configuration file
+    var builder = new systemJsBuilder('', './systemjs.config.js');
+
+    /*
+       the parameters of the below buildStatic() method are:
+           - your transcompiled application boot file (the one wich would contain the bootstrap(MyApp, [PROVIDERS]) function - in my case 'dist/app/boot.js'
+           - the output (file into which it would output the bundled code)
+           - options {}
+    */
+    return builder
+        .buildStatic('dist/app/main.js', 'dist/app/bundle.js', { minify: false, sourceMaps: false, mangle: false, rollup: false })
+        .then(function() {
+            console.log('Build complete');
+        })
+        .catch(function(err) {
+            console.log('Build error');
+            console.log(err);
+        });
 });
 
 gulp.task('transpile:ts:release', function() {

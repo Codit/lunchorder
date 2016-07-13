@@ -7,18 +7,25 @@
   var map = {
     'app':                        'app', // 'dist',
     '@angular':                   'node_modules/@angular',
-    'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
+    // 'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
+    "zone":                       'node_modules/zone.js/dist',
+    "crypto":                     'node_modules/crypto',
+    'reflect-metadata':           'node_modules/reflect-metadata',
     'rxjs':                       'node_modules/rxjs',
     'angular2-adal':              'node_modules/angular2-adal',
     'adal':                       'node_modules/adal-angular/lib'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
-    'app':                        { main: 'main.js',  defaultExtension: 'js' },
-    'rxjs':                       { defaultExtension: 'js' },
-    'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
+    
+    // 'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
+    'zone': { main: 'zone.js', defaultExtension: 'js' },
+    'reflect-metadata': { main: 'Reflect.js', defaultExtension: 'js' },
+    'crypto': { main: 'sha1.js', defaultExtension: 'js' },
+    'rxjs':                       {  main: 'Rx.js', defaultExtension: 'js' },
 	  'angular2-adal': { main: 'core.js', defaultExtension: 'js' },
-    'adal': { main: 'adal.js', defaultExtension: 'js' }
+    'adal': { main: 'adal.js', defaultExtension: 'js' },
+    'app':                        { main: 'main.js',  defaultExtension: 'js' }
   };
   var ngPackageNames = [
     'common',
@@ -29,7 +36,7 @@
     'platform-browser',
     'platform-browser-dynamic',
     'router',
-    'router-deprecated',
+    // 'router-deprecated',
     'upgrade',
   ];
   // Individual files (~300 requests):
@@ -46,7 +53,8 @@
   ngPackageNames.forEach(setPackageConfig);
   var config = {
     map: map,
-    packages: packages
+    packages: packages,
+    defaultJSExtensions: true
   };
   System.config(config);
 })(this);
