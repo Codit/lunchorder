@@ -1,4 +1,4 @@
-[![Travis Build Status](https://travis-ci.org/CoditEU/lunchorder.svg?branch=master)](https://travis-ci.org/CoditEU/lunchorder) [![Coverage Status](https://coveralls.io/repos/github/CoditEU/lunchorder/badge.svg?branch=master)](https://coveralls.io/github/CoditEU/lunchorder?branch=master) [![Dependencies](https://david-dm.org/jvanderbiest/lunchorder.svg)](https://david-dm.org/jvanderbiest/lunchorder) 
+![Visual Studio Team Services](https://codit.visualstudio.com/_apis/public/build/definitions/af04086b-9d24-45cd-a1e6-8b7b65149a98/172/badge) [![Travis Build Status](https://travis-ci.org/CoditEU/lunchorder.svg?branch=master)](https://travis-ci.org/CoditEU/lunchorder) [![Coverage Status](https://coveralls.io/repos/github/CoditEU/lunchorder/badge.svg?branch=master)](https://coveralls.io/github/CoditEU/lunchorder?branch=master) [![Dependencies](https://david-dm.org/jvanderbiest/lunchorder.svg)](https://david-dm.org/jvanderbiest/lunchorder) 
 
 # lunchorder
 Lunch order is a web application where a user can order lunch using money that was paid in advance. The order will then be delivered by a lunch company at lunchtime.
@@ -12,14 +12,7 @@ In essence, it should solve the following problems:
 The application is being been developed primarily to get a better understanding on how [angular2] works.
 
 ## Running the application
-Clone the repository using 
-```sh
-$ git clone https://github.com/CoditEU/lunchorder.git
-```
-Install npm packages (in repo directory)
-```sh
-$ npm install
-```
+Please see the [wiki installation section]
 
 Our local development is done in [Visual Studio Code].
 
@@ -45,3 +38,4 @@ Lunchorder is licensed under The MIT License (MIT). Which means that you can use
 [MomentJS]: <http://momentjs.com/>
 [Sass]: <http://sass-lang.com/>
 [ASP.NET Web Api]: <http://www.asp.net/web-api>
+[wiki installation section]: <https://github.com/CoditEU/lunchorder/wiki/Installation>

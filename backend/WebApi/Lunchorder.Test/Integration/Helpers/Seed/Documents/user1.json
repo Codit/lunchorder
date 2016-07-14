@@ -1,0 +1,22 @@
+﻿{
+  "FirstName": "Test",
+  "LastName": "User",
+  "Language": null,
+  "Culture": "en-US",
+  "Picture": "",
+  "id": "9761a644-c2f6-476d-978f-58accaa09d0a",
+  "UserName": "tuser",
+  "Email": "products@codit.eu",
+  "EmailConfirmed": false,
+  "PasswordHash": "AMhMWrBUK8kO0RRCE6pKFO4KvSbcW5LgFzBZZ57bKOWYnpbLZV0CF3uYiLDAWlNZWg==",
+  "SecurityStamp": "53404a52-d2a3-4a3d-ac5a-792c01853b2d",
+  "PhoneNumber": "",
+  "PhoneNumberConfirmed": false,
+  "TwoFactorEnabled": false,
+  "LockoutEnd": "0001-01-01T01:00:00+01:00",
+  "LockoutEnabled": true,
+  "AccessFailedCount": 0,
+  "Logins": [ ],
+  "Claims": [ ],
+  "Roles": [ ]
+}
