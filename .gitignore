@@ -45,4 +45,3 @@ backend/WebApi/**/App.Debug.config
 backend/WebApi/**/App.config
 
 backend/WebApi/**/PublishProfiles/**/*
-

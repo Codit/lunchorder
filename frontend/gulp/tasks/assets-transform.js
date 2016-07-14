@@ -40,7 +40,7 @@ var input = {
 
 // todo add uglify later
 gulp.task("assets-transform-release", gulpSequence(['assets-copy-release'], ['css:app:compile:sass', 'transpile:ts:release'], 'bundle:systemJs', 'minify', 'concat'));
-gulp.task("assets-transform-debug", gulpSequence(['assets-copy-debug'], 'css:app:compile:sass', 'transpile:ts:debug'));
+gulp.task("assets-transform-debug", gulpSequence(['assets-copy-debug'], 'css:app:compile:sass', 'watch:ts'));
 
 gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);
 gulp.task('minify:images', function() {
@@ -80,6 +80,10 @@ gulp.task('transpile:ts:release', function() {
     	})
         .pipe(gulp.dest("."));
     });
+
+gulp.task('watch:ts', ['transpile:ts:debug'], function() {
+    gulp.watch('app/**/*.ts', ['transpile:ts:debug']);
+});
 
 gulp.task('transpile:ts:debug', function () {
     	return tsproject.src("tsconfig.json")
