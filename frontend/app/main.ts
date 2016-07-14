@@ -21,6 +21,6 @@ if (window.location.href.indexOf('localhost') < 0) {
 }
 bootstrap(AppComponent, [HTTP_PROVIDERS, 
   disableDeprecatedForms(),     // Disable old Forms API!
-  provideForms()                // Use new Forms API!
+  provideForms(),                // Use new Forms API!
 {provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService])
 .catch((err: any) => console.error(err));
