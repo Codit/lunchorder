@@ -5,8 +5,8 @@ using System.Security;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Filters;
+using Elmah;
 using Lunchorder.Domain.Exceptions;
-using StackExchange.Exceptional;
 
 namespace Lunchorder.Api.Infrastructure.Filters
 {
@@ -32,11 +32,11 @@ namespace Lunchorder.Api.Infrastructure.Filters
             //Log Critical errors
             if (HttpContext.Current == null)
             {
-                ErrorStore.Default.Log(new Error(context.Exception));
+                ErrorLog.GetDefault(null).Log(new Elmah.Error(context.Exception));
             }
             else
             {
-                ErrorStore.LogException(context.Exception, HttpContext.Current);
+                ErrorSignal.FromCurrentContext().Raise(context.Exception, HttpContext.Current);
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
