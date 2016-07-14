@@ -35,7 +35,7 @@ Lunchorder is licensed under The MIT License (MIT). Which means that you can use
 [Visual Studio Code]: <https://code.visualstudio.com/>
 [DocumentDb]: <https://azure.microsoft.com/en-us/services/documentdb/>
 [Bootstrap 3]: <http://getbootstrap.com/>
-[MomentJS]: <http://momentjs.com/>
+[MomentJS]: <https://github.com/urish/angular2-moment>
 [Sass]: <http://sass-lang.com/>
 [ASP.NET Web Api]: <http://www.asp.net/web-api>
 [wiki installation section]: <https://github.com/CoditEU/lunchorder/wiki/Installation>
