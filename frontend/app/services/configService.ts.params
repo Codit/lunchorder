@@ -12,4 +12,5 @@ export class ConfigService {
     }
 
     public apiPrefix : string = 'api';
+    public authToken: string;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES, RouteConfig, RouterOutlet } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, RouteConfig, RouterOutlet} from '@angular/router-deprecated';
 import { AdalService } from 'angular2-adal/core';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';
@@ -9,6 +9,7 @@ import { MenuComponent } from './app.menu';
 import { BalanceComponent } from './app.balance';
 import { ReminderComponent } from './app.reminder';
 import { BadgeComponent } from './app.badges';
+import { HttpClient } from './helpers/httpClient';
 
 @Component({
 	selector: 'lunchorder-app',
@@ -131,7 +132,21 @@ export class AppComponent implements OnInit {
 		if (this.adalService) {
 			this.isAuthenticated = this.adalService.userInfo.isAuthenticated
 			console.log(`isAuthenticated: ${this.isAuthenticated}`);
+
+			if(window.location.href.indexOf('id_token') > -1) {
+				var url = window.location.href;
+				var params = url.split('#')[1].split('&') 
+				for(var i =0;i<params.length;i++){
+					var temp = params[i].split('=');
+					var key   = temp[0];
+					var value = temp[1];
+					if(key.indexOf('id_token') > -1) {
+						this.configService.authToken = value;
+					}
+				}
+			}
 		}
+		
 	}
 
 	public login() {
