@@ -40,7 +40,7 @@ var input = {
 
 // todo add uglify later
 gulp.task("assets-transform-release", gulpSequence(['assets-copy-release'], ['css:app:compile:sass', 'transpile:ts:release'], 'bundle:systemJs', 'minify', 'concat'));
-gulp.task("assets-transform-debug", gulpSequence(['assets-copy-debug'], 'css:app:compile:sass', 'watch:ts'));
+gulp.task("assets-transform-debug", gulpSequence(['assets-copy-debug'], 'css:app:compile:sass', 'transpile:ts:debug'));
 
 gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);
 gulp.task('minify:images', function() {
@@ -73,7 +73,7 @@ gulp.task('bundle:systemJs', function() {
 
 gulp.task('transpile:ts:release', function() {
     	return tsproject.src("tsconfig.json", {
-    		compilerOptions: {
+          compilerOptions: {
     			"inlineSourceMap": false,
     			"inlineSources": false
     		}
@@ -84,6 +84,21 @@ gulp.task('transpile:ts:release', function() {
 gulp.task('watch:ts', ['transpile:ts:debug'], function() {
     gulp.watch('app/**/*.ts', ['transpile:ts:debug']);
 });
+
+gulp.task('transpile:ts:test', function () {
+    	return tsproject.src("tsconfig.json",
+        {  "exclude": [
+        "node_modules",
+        "dist",
+        "app/**"
+    ],
+    		
+    		compilerOptions: {
+    		}
+    	})
+        .pipe(debug())
+			.pipe(gulp.dest("."));
+    });
 
 gulp.task('transpile:ts:debug', function () {
     	return tsproject.src("tsconfig.json")
