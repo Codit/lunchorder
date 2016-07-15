@@ -9,7 +9,7 @@ import { MenuComponent } from './app.menu';
 import { BalanceComponent } from './app.balance';
 import { ReminderComponent } from './app.reminder';
 import { BadgeComponent } from './app.badges';
-import { HttpClient } from './helpers/httpClient';
+import { TokenHelper } from './helpers/tokenHelper';
 
 @Component({
 	selector: 'lunchorder-app',
@@ -119,7 +119,7 @@ export class AppComponent implements OnInit {
 	userInfo : app.domain.dto.IGetUserInfoResponse;
 	userInfoError: any;
 
-	constructor(private adalService: AdalService, private configService: ConfigService, private accountService: AccountService) { }
+	constructor(private adalService: AdalService, private configService: ConfigService, private accountService: AccountService, private tokenHelper: TokenHelper) { }
 
 	ngOnInit() {
 		this.accountService.getUserProfile().subscribe(
@@ -133,18 +133,7 @@ export class AppComponent implements OnInit {
 			this.isAuthenticated = this.adalService.userInfo.isAuthenticated
 			console.log(`isAuthenticated: ${this.isAuthenticated}`);
 
-			if(window.location.href.indexOf('id_token') > -1) {
-				var url = window.location.href;
-				var params = url.split('#')[1].split('&') 
-				for(var i =0;i<params.length;i++){
-					var temp = params[i].split('=');
-					var key   = temp[0];
-					var value = temp[1];
-					if(key.indexOf('id_token') > -1) {
-						this.configService.authToken = value;
-					}
-				}
-			}
+			this.tokenHelper.getToken();
 		}
 		
 	}
