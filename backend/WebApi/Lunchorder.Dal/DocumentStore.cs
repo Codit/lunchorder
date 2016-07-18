@@ -6,7 +6,9 @@ using Lunchorder.Common.Interfaces;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace Lunchorder.Dal
 {
@@ -193,7 +195,13 @@ namespace Lunchorder.Dal
 
         public async Task UpsertDocument<T>(T document)
         {
-            ResourceResponse<Document> result = await DocumentDbClient.UpsertDocumentAsync(Collection.DocumentsLink, document);
+            //var doc = JsonConvert.SerializeObject(document,
+            //    new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
+            //JObject.Parse(doc)
+
+            ResourceResponse<Document> result = await DocumentDbClient.UpsertDocumentAsync(
+                Collection.DocumentsLink,
+                document);
         }
 
         public async Task UpsertDocument(string document)
@@ -217,8 +225,8 @@ namespace Lunchorder.Dal
 
         public IQueryable<dynamic> GetItem<T>(string sqlExpression)
         {
-            return DocumentDbClient.CreateDocumentQuery(Collection.DocumentsLink, sqlExpression);
-
+            var result = DocumentDbClient.CreateDocumentQuery(Collection.DocumentsLink, sqlExpression);
+            return result;
         }
 
         public async Task<Document> ReplaceDocument(Document document)

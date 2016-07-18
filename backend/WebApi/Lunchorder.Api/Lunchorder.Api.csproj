@@ -236,6 +236,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ChecklistController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\BalanceController.cs" />
@@ -250,7 +251,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config" />
     <None Include="Web.Release.config" />
   </ItemGroup>

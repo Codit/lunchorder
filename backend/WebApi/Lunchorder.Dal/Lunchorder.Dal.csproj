@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lunchorder.Common\Lunchorder.Common.csproj">
-      <Project>{412F593D-987F-4483-A07C-99C0F5295081}</Project>
+      <Project>{412f593d-987f-4483-a07c-99c0f5295081}</Project>
       <Name>Lunchorder.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lunchorder.Domain\Lunchorder.Domain.csproj">

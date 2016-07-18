@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="ControllerServices\AccountControllerService.cs" />
     <Compile Include="ControllerServices\BalanceControllerService.cs" />
+    <Compile Include="ControllerServices\ChecklistControllerService.cs" />
     <Compile Include="ControllerServices\EmailControllerService.cs" />
     <Compile Include="ControllerServices\FavoriteControllerService.cs" />
     <Compile Include="ControllerServices\MenuControllerService.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Extensions\AuthorizationOptions.cs" />
     <Compile Include="Interfaces\IAccountControllerService.cs" />
     <Compile Include="Interfaces\IBalanceControllerService.cs" />
+    <Compile Include="Interfaces\IChecklistControllerService.cs" />
     <Compile Include="Interfaces\IConfigurationService.cs" />
     <Compile Include="Interfaces\IDocumentStore.cs" />
     <Compile Include="Interfaces\IEmailControllerService.cs" />
