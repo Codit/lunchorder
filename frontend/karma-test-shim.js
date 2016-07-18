@@ -16,7 +16,6 @@ function isSpecFile(path) {
 
 function isBuiltFile(path) {
   var builtPath = '/base/dist/';
-  console.log("true?: " + path.substr(0, builtPath.length));
   return isJsFile(path) && (path.substr(0, builtPath.length) == builtPath);
 }
 

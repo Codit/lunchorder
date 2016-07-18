@@ -1,5 +1,5 @@
 module.exports = function(config) {
-  config.set({
+  var configuration = {
 
     basePath: '',
 
@@ -54,18 +54,36 @@ module.exports = function(config) {
       {pattern: 'dist/**/*.js.map', included: false, watched: false}
     ],
 
+    preprocessors: {
+      'dist/!(js|node_modules|test)/**/!(*spec).js': ['coverage']
+    },
+    coverageReporter: {
+      includeAllSources: true,
+      dir: 'coverage/',
+      reporters: [
+        { type: 'lcov', subdir: 'frontend/lcov' },
+        { type: 'html', subdir: 'frontend/html' },
+        { type: 'json', subdir: 'frontend/json', file: 'coverage-final.json' }
+      ]
+    },
     // proxied base paths
     proxies: {
       // required for component assests fetched by Angular's compiler
       "/app/": "/base/dist/app/"
     },
 
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'PhantomJS'],
     singleRun: false
-  })
+  };
+
+  if (process.env.TRAVIS) {
+    configuration.browsers = ['PhantomJS'];
+  }
+
+  config.set(configuration)
 }

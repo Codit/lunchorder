@@ -4,8 +4,6 @@ module.exports = function (paths, dist) {
         zip = require('gulp-zip'),
         debug = require('gulp-debug');
 
- 
-
     gulp.task('zip-release', function () {
         var options = { packageName: "package-release.zip", packagePath: path.join(__dirname, '../../_package') };
 
@@ -15,8 +13,6 @@ module.exports = function (paths, dist) {
     });
 
     gulp.task('zip-debug', function () {
-
-
         var options = { packageName: "package-debug.zip", packagePath: path.join(__dirname, '../../_package') };
 
         return gulp.src('dist/**/*')
