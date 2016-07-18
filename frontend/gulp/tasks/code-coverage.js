@@ -11,21 +11,23 @@ module.exports = function (paths, dist) {
     // remaps code coverage back to typescript files instead of plain js files
     var remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 
+    var mappedPath = './coverage/lcov-frontend-remapped.info';
     gulp.task('remap-istanbul-frontend', function () {
         return gulp.src('./coverage/frontend/json/coverage-final.json')
         .pipe(debug())
             .pipe(remapIstanbul({
                 fail: true,
                 reports: {
-                    'lcovonly': 'coverage/lcov-frontend-remapped.info',
-                }, basePath: 'app'
+                    'lcovonly': mappedPath,
+                },
             }))
             .pipe(debug());
     });
 
     gulp.task('coveralls', ['remap-istanbul-frontend']
         , function () {
-            return gulp.src('./coverage/lcov-frontend-remapped.info')
+            return gulp.src(mappedPath)
+            .pipe(debug())
                 .pipe(coveralls());
         });
 };

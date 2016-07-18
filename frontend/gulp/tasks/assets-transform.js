@@ -95,10 +95,7 @@ module.exports = function (paths, dist) {
                     "node_modules",
                     "dist",
                     "app/**"
-                ],
-
-                compilerOptions: {
-                }
+                ]
             })
             .pipe(debug())
             .pipe(gulp.dest(".")).once("error", function () {

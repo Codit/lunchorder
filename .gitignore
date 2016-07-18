@@ -31,6 +31,7 @@ frontend/typings/**
 frontend/**/configService.ts
 frontend/**/configService.ts.dev
 frontend/coverage/**
+.coveralls.yml
 
 # BE Application files #
 ########################
