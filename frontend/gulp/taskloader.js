@@ -25,7 +25,9 @@ assetsTransform(paths);
 zipPackage();
 
 gulp.task("debug", ['debug:inject-artifacts']);
+gulp.task("debug-watch", ['debug:inject-artifacts', 'watch:ts']);
 gulp.task("release", ['release:inject-artifacts']);
+gulp.task("test", ['debug:inject-artifacts']);
 
 gulp.task("debug-package", gulpSequence('debug', 'zip-debug'));
 gulp.task("release-package", gulpSequence('release', 'zip-release'));
