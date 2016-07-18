@@ -6,7 +6,7 @@ before_install:
 before_script:
   - npm install -g gulp
 script:
-  - npm run test 
+  - npm run testbuild
   - gulp release-package
 after_success:
   - 'cat ./coverage/lcov-frontend-remapped.info | ./node_modules/.bin/coveralls'
