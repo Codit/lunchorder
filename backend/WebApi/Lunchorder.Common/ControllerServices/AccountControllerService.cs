@@ -1,22 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Dtos.Responses;
+using Lunchorder.Domain.Entities.DocumentDb;
+using Microsoft.Azure.Documents.Linq;
 using Ploeh.AutoFixture;
 
 namespace Lunchorder.Common.ControllerServices
 {
     public class AccountControllerService : IAccountControllerService
     {
-        private readonly Fixture _fixture;
+        private readonly IDocumentStore _db;
 
-        public AccountControllerService()
+        public AccountControllerService(IDocumentStore documentStore)
         {
-            _fixture = new Fixture();
+            _db = documentStore;
         }
 
         public async Task<GetUserInfoResponse> GetUserInfo(string userId)
         {
-            return await Task.FromResult(_fixture.Create<GetUserInfoResponse>());
+            var user = _db.GetItems<User>(o => o.Id == Guid.Parse(userId)).AsDocumentQuery();
+            var response = await user.ExecuteNextAsync<User>();
+
+            return null;
         }
     }
 }
