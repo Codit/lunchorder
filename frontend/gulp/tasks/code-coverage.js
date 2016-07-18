@@ -11,6 +11,9 @@ module.exports = function (paths, dist) {
     // remaps code coverage back to typescript files instead of plain js files
     var remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 
+
+// not working locally, use travis command instead from node cmd line
+// https://github.com/markdalgleish/gulp-coveralls/pull/4
     var mappedPath = './coverage/lcov-frontend-remapped.info';
     gulp.task('remap-istanbul-frontend', function () {
         return gulp.src('./coverage/frontend/json/coverage-final.json')
