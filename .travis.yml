@@ -5,7 +5,8 @@ before_install:
   - cd frontend
 before_script:
   - npm install -g gulp
-script: 
+script:
+  - npm run test 
   - gulp release-package
 after_success:
-  - 'cat ./coverage/lcov-frontend-backend-remapped.info | ./node_modules/.bin/coveralls'
+  - 'cat ./coverage/lcov-frontend-remapped.info | ./node_modules/.bin/coveralls'
