@@ -17,6 +17,7 @@ module.exports = function (paths, dist) {
         .pipe(debug())
             .pipe(remapIstanbul({
                 fail: true,
+                basePath: '.',
                 reports: {
                     'lcovonly': mappedPath,
                 },
