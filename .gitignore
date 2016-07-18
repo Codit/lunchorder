@@ -44,5 +44,5 @@ backend/WebApi/**/Web.Debug.config
 backend/WebApi/**/Web.config
 backend/WebApi/**/App.Debug.config
 backend/WebApi/**/App.config
-
+backend/WebApi/**/App_Data/**
 backend/WebApi/**/PublishProfiles/**/*

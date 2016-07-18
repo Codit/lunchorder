@@ -202,8 +202,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Elmah.Errors\ElmahErrors.txt" />
-    <Content Include="App_Data\Errors\placeholder.txt" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -270,6 +268,9 @@
       <Project>{97E6C179-1629-4636-BC45-56C2124E8278}</Project>
       <Name>Lunchorder.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\Elmah.Errors\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
