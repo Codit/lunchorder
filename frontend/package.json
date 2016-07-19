@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp test && karma start karma.conf.js",
-    "testbuild": "gulp test && karma start karma.conf.js --single-run --no-auto-watch",
+    "testbuild": "gulp test && karma start karma.conf.js --single-run --no-auto-watch && gulp remap-istanbul-frontend",
     "postinstall": "typings install"
   },
   "repository": {
