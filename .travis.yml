@@ -9,5 +9,6 @@ script:
   - npm run testbuild
   - gulp release-package
 after_success:
+  - cd ..
   - codeclimate-test-reporter < ./frontend/coverage/lcov-frontend-remapped.info
   - 'cat ./frontend/coverage/lcov-frontend-remapped.info | ./frontend/node_modules/.bin/coveralls'
