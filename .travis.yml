@@ -5,5 +5,9 @@ before_install:
   - cd frontend
 before_script:
   - npm install -g gulp
-script: 
-  - gulp release
+script:
+  - npm run testbuild
+  - gulp release-package
+after_success:
+  - codeclimate-test-reporter < ./frontend/coverage/lcov-frontend-remapped.info
+  - 'cat ./frontend/coverage/lcov-frontend-remapped.info | ./frontend/node_modules/.bin/coveralls'

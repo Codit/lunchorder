@@ -6,6 +6,9 @@
   // map tells the System loader where to look for things
   var map = {
     'app':                        'app', // 'dist',
+    'moment':                     'node_modules/moment',
+    'angular2-moment':            'node_modules/angular2-moment',
+    'angular2-toaster':            'node_modules/angular2-toaster',
     '@angular':                   'node_modules/@angular',
     // 'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     "zone":                       'node_modules/zone.js/dist',
@@ -21,8 +24,11 @@
     // 'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
     'zone': { main: 'zone.js', defaultExtension: 'js' },
     'reflect-metadata': { main: 'Reflect.js', defaultExtension: 'js' },
+    'angular2-toaster': { main: 'angular2-toaster.js', defaultExtension: 'js' },
     'crypto': { main: 'sha1.js', defaultExtension: 'js' },
-    'rxjs':                       {  main: 'Rx.js', defaultExtension: 'js' },
+    'moment':  { main: 'moment.js', defaultExtension: 'js' },
+    'rxjs':  { main: 'Rx.js', defaultExtension: 'js' },
+    'angular2-moment': { defaultExtension: 'js' },
 	  'angular2-adal': { main: 'core.js', defaultExtension: 'js' },
     'adal': { main: 'adal.js', defaultExtension: 'js' },
     'app':                        { main: 'main.js',  defaultExtension: 'js' }

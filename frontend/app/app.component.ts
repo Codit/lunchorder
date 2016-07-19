@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES, RouteConfig, RouterOutlet } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, RouteConfig, RouterOutlet} from '@angular/router-deprecated';
 import { AdalService } from 'angular2-adal/core';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';
@@ -9,6 +9,7 @@ import { MenuComponent } from './app.menu';
 import { BalanceComponent } from './app.balance';
 import { ReminderComponent } from './app.reminder';
 import { BadgeComponent } from './app.badges';
+import { TokenHelper } from './helpers/tokenHelper';
 
 @Component({
 	selector: 'lunchorder-app',
@@ -118,7 +119,7 @@ export class AppComponent implements OnInit {
 	userInfo : app.domain.dto.IGetUserInfoResponse;
 	userInfoError: any;
 
-	constructor(private adalService: AdalService, private configService: ConfigService, private accountService: AccountService) { }
+	constructor(private adalService: AdalService, private configService: ConfigService, private accountService: AccountService, private tokenHelper: TokenHelper) { }
 
 	ngOnInit() {
 		this.accountService.getUserProfile().subscribe(
@@ -131,7 +132,10 @@ export class AppComponent implements OnInit {
 		if (this.adalService) {
 			this.isAuthenticated = this.adalService.userInfo.isAuthenticated
 			console.log(`isAuthenticated: ${this.isAuthenticated}`);
+
+			this.tokenHelper.getToken();
 		}
+		
 	}
 
 	public login() {

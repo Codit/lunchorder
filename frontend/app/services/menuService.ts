@@ -3,11 +3,11 @@ import { Http, Response } from '@angular/http';
 import { ConfigService } from './configService';
 import { Observable } from 'rxjs/Observable';
 import { Menu } from '../domain/dto/menu';
-
+import { HttpClient } from '../helpers/httpClient';
 
 @Injectable()
 export class MenuService {
-   constructor(private http: Http, private configService: ConfigService) {
+   constructor(private http: HttpClient, private configService: ConfigService) {
      automapper.createMap('{}', 'Menu');
    }
 

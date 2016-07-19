@@ -14,6 +14,7 @@ module.exports = function (paths, dist) {
         cssBootstrap: paths.modules + '/bootstrap/dist/css/bootstrap.css',
         cssOwlCarousel: paths.modules + '/owlcarousel-pre/owl-carousel/owl.carousel.css',
         cssOwlCarouselTheme: paths.modules + '/owlcarousel-pre/owl-carousel/owl.theme.css',
+        cssToastr: paths.modules + '/angular2-toaster/lib/toaster.css',
         fontsApp: paths.root + 'css/fonts/**/*',
         fontsFontAwesome: paths.modules + '/font-awesome/fonts/**/*',
         html: paths.root + 'app/**/*.html',
@@ -69,7 +70,7 @@ module.exports = function (paths, dist) {
 
     gulp.task("copy:css:vendor",
         function (cb) {
-            return gulp.src([input.cssOwlCarousel, input.cssOwlCarouselTheme, input.cssBootstrap])
+            return gulp.src([input.cssOwlCarousel, input.cssOwlCarouselTheme, input.cssBootstrap, input.cssToastr])
                 .pipe(gulp.dest(dist.cssVendor));
         });
 

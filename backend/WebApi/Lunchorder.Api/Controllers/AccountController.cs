@@ -26,10 +26,10 @@ namespace Lunchorder.Api.Controllers
         [Route("")]
         [HttpGet]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(GetUserInfoResponse))]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> Get(string userId)
         {
             // todo extract user
-            return Ok(_accountControllerService.GetUserInfo(""));
+            return Ok(_accountControllerService.GetUserInfo(userId));
         }
     }
 }

@@ -1,7 +1,7 @@
-import { MenuVendor } from './MenuVendor'
-import { MenuEntry } from './MenuEntry'
-import { MenuCategory } from './MenuCategory'
-import { MenuRule } from './MenuRule'
+import { MenuVendor } from './menuVendor'
+import { MenuEntry } from './menuEntry'
+import { MenuCategory } from './menuCategory'
+import { MenuRule } from './menuRule'
 
 export class Menu implements app.domain.dto.IMenu {
         constructor(obj : any) {

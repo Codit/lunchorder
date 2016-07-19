@@ -28,6 +28,14 @@ module.exports = function (paths, dist) {
         var appCssSource = gulp.src([paths.webroot + '/css/*.css'], { read: false });
 
         return target.pipe(inject(series(jQueryJsSource, vendorJsSource, appJsSource, vendorCssSource, appCssSource), { ignorePath: 'dist/', addRootSlash: false }))
+        .pipe(insertLines({
+                'before': /<\/body>$/,
+                'lineBefore': `<!-- 2. Configure SystemJS only for debug, for production its included in the bundle -->
+                    <script src="systemjs.config.js"></script>
+                    <script>
+                    System.import('app').catch(function(err){ console.error(err); });
+                    </script>`
+            }))
             .pipe(gulp.dest(paths.webroot));
     });
 
