@@ -218,6 +218,7 @@
     <Compile Include="App_Start\Configuration\IoC\ControllerServiceInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\DalInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\OAuthInstaller.cs" />
+    <Compile Include="App_Start\Configuration\IoC\ServiceInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WebInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WindsorCompositionRoot.cs" />
     <Compile Include="App_Start\Configuration\Mapper\AddressMap.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Infrastructure\Providers\CustomJwtFormat.cs" />
     <Compile Include="Infrastructure\Providers\CustomOAuthProvider.cs" />
     <Compile Include="Infrastructure\Services\ConfigurationService.cs" />
+    <Compile Include="Infrastructure\Services\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -270,7 +272,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\Elmah.Errors\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -91,12 +91,14 @@
     <Compile Include="Interfaces\IBalanceControllerService.cs" />
     <Compile Include="Interfaces\IChecklistControllerService.cs" />
     <Compile Include="Interfaces\IConfigurationService.cs" />
+    <Compile Include="Interfaces\IDatabaseRepository.cs" />
     <Compile Include="Interfaces\IDocumentStore.cs" />
     <Compile Include="Interfaces\IEmailControllerService.cs" />
     <Compile Include="Interfaces\IFavoriteControllerService.cs" />
     <Compile Include="Interfaces\IMenuControllerService.cs" />
     <Compile Include="Interfaces\IOrderControllerService.cs" />
     <Compile Include="Interfaces\IRequireInitialization.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

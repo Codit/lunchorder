@@ -47,6 +47,7 @@
     "zone.js": "0.6.12"
   },
   "devDependencies": {
+    "codeclimate-test-reporter": "^0.3.3",
     "coveralls": "2.11.9",
     "del": "2.2.1",
     "es6-promise": "3.2.1",
