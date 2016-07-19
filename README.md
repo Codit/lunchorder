@@ -1,4 +1,8 @@
-![Visual Studio Team Services](https://codit.visualstudio.com/_apis/public/build/definitions/af04086b-9d24-45cd-a1e6-8b7b65149a98/172/badge) [![Travis Build Status](https://travis-ci.org/CoditEU/lunchorder.svg?branch=master)](https://travis-ci.org/CoditEU/lunchorder) [![Coverage Status](https://coveralls.io/repos/github/CoditEU/lunchorder/badge.svg?branch=master)](https://coveralls.io/github/CoditEU/lunchorder?branch=master) [![Dependencies](https://david-dm.org/jvanderbiest/lunchorder.svg)](https://david-dm.org/jvanderbiest/lunchorder) 
+[![Visual Studio Team services](https://img.shields.io/vso/build/codit/af04086b-9d24-45cd-a1e6-8b7b65149a98/172.svg?maxAge=2592000?style=flat-square)]()
+[![Travis Master branch](https://img.shields.io/travis/CoditEU/lunchorder/master.svg?maxAge=2592000?style=flat-square)]()
+[![Coveralls Master branch](https://img.shields.io/coveralls/CoditEU/lunchorder/master.svg?maxAge=2592000?style=flat-square)]()
+[![Code Climate](https://img.shields.io/codeclimate/github/CoditEU/lunchorder.svg?maxAge=2592000?style=flat-square)]()
+[![David](https://img.shields.io/david/CoditEU/lunchorder.svg?maxAge=2592000?style=flat-square)]()
 
 # lunchorder
 Lunch order is a web application where a user can order lunch using money that was paid in advance. The order will then be delivered by a lunch company at lunchtime.
@@ -14,7 +18,7 @@ The application is being been developed primarily to get a better understanding 
 ## Running the application
 Please see the [wiki installation section]
 
-Our local development is done in [Visual Studio Code].
+Our local development is done in [Visual Studio Code] (frontend) and [Visual Studio 2015] (WebApi backend).
 
 ## Technology
 Front-End:
