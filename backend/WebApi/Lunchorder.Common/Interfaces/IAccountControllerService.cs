@@ -5,6 +5,6 @@ namespace Lunchorder.Common.Interfaces
 {
     public interface IAccountControllerService
     {
-        Task<GetUserInfoResponse> GetUserInfo(string userId, string username, string email);
+        Task<GetUserInfoResponse> GetUserInfo(string username, bool isAzureActiveDirectoryUser);
     }
 }

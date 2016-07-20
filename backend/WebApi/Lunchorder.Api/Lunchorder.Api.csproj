@@ -222,11 +222,15 @@
     <Compile Include="App_Start\Configuration\IoC\WebInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WindsorCompositionRoot.cs" />
     <Compile Include="App_Start\Configuration\Mapper\AddressMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\BadgeMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\ApplicationUserMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuCategoryMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\UserBadgeMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuRuleMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuVendorAddressMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuEntryFavoriteMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuVendorMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryMap.cs" />

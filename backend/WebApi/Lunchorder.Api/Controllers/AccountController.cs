@@ -32,19 +32,21 @@ namespace Lunchorder.Api.Controllers
         public async Task<IHttpActionResult> Get()
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
-
+            
             if (claimsIdentity == null)
                 return InternalServerError();
 
-            var emailClaim = claimsIdentity.FindFirst(ClaimTypes.Email);
-
-            string email = null;
-            if (emailClaim != null)
+            bool isAzureActiveDirectoryUser = false;
+            var hasIssClaim = claimsIdentity.FindFirst("iss");
+            if (hasIssClaim != null)
             {
-                email = emailClaim.Value;
+                if (hasIssClaim.Value.Contains("sts.windows.net"))
+                {
+                    isAzureActiveDirectoryUser = true;
+                }
             }
 
-            return Ok(_accountControllerService.GetUserInfo(User.Identity.GetUserId(), User.Identity.GetUserName(), email));
+            return Ok(_accountControllerService.GetUserInfo(User.Identity.GetUserName(), isAzureActiveDirectoryUser));
         }
     }
 }

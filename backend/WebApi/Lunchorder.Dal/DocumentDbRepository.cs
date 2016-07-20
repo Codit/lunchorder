@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Dtos.Responses;
-using Lunchorder.Domain.Entities.DocumentDb;
+using Lunchorder.Domain.Entities.Authentication;
 using Microsoft.Azure.Documents.Linq;
 
 namespace Lunchorder.Dal
@@ -22,12 +22,16 @@ namespace Lunchorder.Dal
             _mapper = mapper;
         }
 
-        public async Task<GetUserInfoResponse> GetUserInfo(string userId)
+        public async Task<GetUserInfoResponse> GetUserInfo(string username)
         {
-            var userQuery = _documentStore.GetItems<User>(o => o.Id == Guid.Parse(userId)).AsDocumentQuery();
-            var queryResponse = await userQuery.ExecuteNextAsync<User>();
-            var user = queryResponse.FirstOrDefault();
-            var userInfo = _mapper.Map<User, GetUserInfoResponse>(user);
+            var userQuery = _documentStore.GetItems<ApplicationUser>(o => o.UserName == username).AsDocumentQuery();
+            var queryResponse = userQuery.ExecuteNextAsync<ApplicationUser>();
+
+            // await bug in document db? http://stackoverflow.com/questions/27083501/documentdb-call-hangs
+            queryResponse.Wait();
+            var user = queryResponse.Result.FirstOrDefault();
+            var userInfo = _mapper.Map<ApplicationUser, GetUserInfoResponse>(user);
+
             return userInfo;
         }
     }

@@ -1,0 +1,35 @@
+﻿{
+  "Id": "cfaaadbb-11a8-4318-b270-929a6cf582a1",
+  "Badges": [
+    {
+      "Id": "5de5ecfd-6e4d-47e3-b129-96614e745ee5",
+      "Name": "Badge 1",
+      "Icon": "Badge 1 Icon",
+      "Description": "Badge 1 Description"
+    },
+    {
+      "Id": "21a61423-5815-442f-b213-ddc5814e5fd9",
+      "Name": "Badge 2",
+      "Icon": "Badge 2 Icon",
+      "Description": "Badge 2 Description"
+    },
+    {
+      "Id": "d9d6fd8a-d562-40ea-8014-34f70264f4bf",
+      "Name": "Badge 3",
+      "Icon": "Badge 3 Icon",
+      "Description": "Badge 3 Description"
+    },
+    {
+      "Id": "9560bbb4-1334-4544-89b1-c7a1fb9cc900",
+      "Name": "Badge 4",
+      "Icon": "Badge 4 Icon",
+      "Description": "Badge 4 Description"
+    },
+    {
+      "Id": "4bf730f1-8937-4f61-81ea-a695528fab3f",
+      "Name": "Badge 5",
+      "Icon": "Badge 5 Icon",
+      "Description": "Badge 5 Description"
+    }
+  ]
+}

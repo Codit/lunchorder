@@ -20,6 +20,7 @@ namespace Lunchorder.Test.Integration.Helpers.Base
             Container.Kernel.ComponentModelBuilder.AddContributor(new SingletonEqualizer());
             Container
                 .Install(MockedApiInstaller)
+                .Install(new ApiControllerInstaller())
                 .Install(new OAuthInstaller(null))
                 .Install(new AutoMapperInstaller())
                 .Install(new DalInstaller())

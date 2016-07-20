@@ -138,9 +138,7 @@ export class AppComponent implements OnInit {
 
 		this.userBadges.push(badge, badge2);
 
-		this.accountService.getUserProfile().subscribe(
-			userInfo => this.userInfo = userInfo,
-			error => this.userInfoError = <any>error);
+		
 
 		this.adalService.init(this.configService.adalConfig);
 		console.log('ctor AppComponent');
@@ -150,6 +148,10 @@ export class AppComponent implements OnInit {
 			console.log(`isAuthenticated: ${this.isAuthenticated}`);
 
 			this.tokenHelper.getToken();
+
+			this.accountService.getUserProfile().subscribe(
+			userInfo => this.userInfo = userInfo,
+			error => this.userInfoError = <any>error);
 		}
 
 	}

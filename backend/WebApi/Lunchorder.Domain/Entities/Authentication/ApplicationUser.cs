@@ -1,6 +1,9 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Lunchorder.Domain.Dtos;
 using Microsoft.AspNet.Identity;
+using MenuEntryFavorite = Lunchorder.Domain.Entities.DocumentDb.MenuEntryFavorite;
 
 namespace Lunchorder.Domain.Entities.Authentication
 {
@@ -9,6 +12,10 @@ namespace Lunchorder.Domain.Entities.Authentication
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string Picture { get; set; }
+
+        public string Culture { get; set; }
 
         public int Balance { get; set; }
 
@@ -19,5 +26,8 @@ namespace Lunchorder.Domain.Entities.Authentication
 
             return userIdentity;
         }
+
+        public IEnumerable<UserBadge> Badges { get; set; }
+        public IEnumerable<MenuEntryFavorite> Favorites { get; set; }
     }
 }

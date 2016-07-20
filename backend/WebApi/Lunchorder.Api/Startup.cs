@@ -35,10 +35,7 @@ namespace Lunchorder.Api
 
                 SwaggerConfig.Register(HttpConfiguration);
             }
-
-            var mapper = _container.Resolve<IMapper>();
-            mapper.ConfigurationProvider.AssertConfigurationIsValid();
-
+            
             var oAuthBearerOptions = _container.Resolve<JwtBearerAuthenticationOptions>();
             var oAuthServerOptions = _container.Resolve<OAuthAuthorizationServerOptions>();
             var azureAdServerOptions = _container.Resolve<WindowsAzureActiveDirectoryBearerAuthenticationOptions>();

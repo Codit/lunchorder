@@ -14,14 +14,10 @@ namespace Lunchorder.Common.ControllerServices
             _documentStore = documentStore;
         }
 
-        public async Task SeedUserData()
+
+        public Task SeedUserData()
         {
-            await _documentStore.UpsertDocument(new User
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Test",
-                LastName = "User"
-            });
+            throw new NotImplementedException();
         }
     }
 }

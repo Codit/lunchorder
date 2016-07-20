@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lunchorder.Domain.Dtos
+namespace Lunchorder.Domain.Entities.DocumentDb
 {
     /// <summary>
     /// Represents a badge that can be earned by a user

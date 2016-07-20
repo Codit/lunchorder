@@ -19,5 +19,10 @@
         /// Picture of the user (url)
         /// </summary>
         public string Picture { get; set; }
+
+        /// <summary>
+        /// The UI culture of the user
+        /// </summary>
+        public object Culture { get; set; }
     }
 }

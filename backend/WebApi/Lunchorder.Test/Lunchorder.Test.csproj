@@ -135,6 +135,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\ApiController\AccountControllerTest.cs" />
     <Compile Include="Integration\ApiController\LunchorderControllerTest.cs" />
     <Compile Include="Integration\AuthenticateUserTest.cs" />
     <Compile Include="Integration\Helpers\Base\AuthorizationControllerTestBase.cs" />
@@ -142,10 +143,14 @@
     <Compile Include="Integration\Helpers\Base\DocumentDbBase.cs" />
     <Compile Include="Integration\Helpers\Base\IoC\MockedApiControllerInstaller.cs" />
     <Compile Include="Integration\Helpers\Base\IoC\TestWebInstaller.cs" />
+    <Compile Include="Integration\Helpers\Base\ServiceBase.cs" />
+    <Compile Include="Integration\Helpers\Base\RepositoryBase.cs" />
     <Compile Include="Integration\Helpers\Base\SingletonEqualizer.cs" />
     <Compile Include="Integration\Helpers\Base\TestStartup.cs" />
     <Compile Include="Integration\Helpers\Base\TokenResponse.cs" />
     <Compile Include="Integration\Helpers\TestConstants.cs" />
+    <Compile Include="Integration\Repositories\DocumentDbRepositoryTest.cs" />
+    <Compile Include="Integration\Services\ApplicationUserServiceTest.cs" />
     <Compile Include="SampleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -160,6 +165,9 @@
     <None Include="app.Debug.config">
     </None>
     <None Include="app.Release.config">
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\badges.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Integration\Helpers\Seed\Documents\user1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

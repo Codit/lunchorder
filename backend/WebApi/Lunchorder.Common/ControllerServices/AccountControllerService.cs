@@ -18,16 +18,14 @@ namespace Lunchorder.Common.ControllerServices
             _userService = userService;
         }
 
-        public async Task<GetUserInfoResponse> GetUserInfo(string userId, string username, string email)
+        public async Task<GetUserInfoResponse> GetUserInfo(string username, bool isAzureActiveDirectoryUser)
         {
-            // todo check if waad token or not.
-            var userInfo = await _databaseRepository.GetUserInfo(userId);
+            var userInfo = await _databaseRepository.GetUserInfo(username);
 
             // if the user is unknown, we store it in our own database.
-            if (userInfo == null)
+            if (userInfo == null && isAzureActiveDirectoryUser)
             {
-                await _userService.Create(userId, username, email);
-                // todo generate token and userinfo
+                await _userService.Create(username, username);
             }
 
             return userInfo;
