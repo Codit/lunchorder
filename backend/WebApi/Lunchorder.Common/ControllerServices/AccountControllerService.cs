@@ -26,6 +26,7 @@ namespace Lunchorder.Common.ControllerServices
             if (userInfo == null && isAzureActiveDirectoryUser)
             {
                 await _userService.Create(username, username);
+                userInfo = await _databaseRepository.GetUserInfo(username);
             }
 
             return userInfo;

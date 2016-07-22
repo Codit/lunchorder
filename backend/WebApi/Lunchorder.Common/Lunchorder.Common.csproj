@@ -41,6 +41,14 @@
       <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DocumentDB.AspNet.Identity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentDB.AspNet.Identity.1.0.9-beta\lib\net45\DocumentDB.AspNet.Identity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Azure.Documents.Client, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.7.0\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
       <Private>True</Private>
@@ -79,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerServices\AccountControllerService.cs" />
+    <Compile Include="ControllerServices\BadgeControllerService.cs" />
     <Compile Include="ControllerServices\BalanceControllerService.cs" />
     <Compile Include="ControllerServices\ChecklistControllerService.cs" />
     <Compile Include="ControllerServices\EmailControllerService.cs" />
@@ -88,6 +97,7 @@
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Extensions\AuthorizationOptions.cs" />
     <Compile Include="Interfaces\IAccountControllerService.cs" />
+    <Compile Include="Interfaces\IBadgeControllerService.cs" />
     <Compile Include="Interfaces\IBalanceControllerService.cs" />
     <Compile Include="Interfaces\IChecklistControllerService.cs" />
     <Compile Include="Interfaces\IConfigurationService.cs" />

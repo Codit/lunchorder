@@ -62,8 +62,9 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DocumentDB.AspNet.Identity">
+    <Reference Include="DocumentDB.AspNet.Identity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentDB.AspNet.Identity.1.0.9-beta\lib\net45\DocumentDB.AspNet.Identity.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\elmah.1.2\lib\Elmah.dll</HintPath>
@@ -238,6 +239,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BadgeController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ChecklistController.cs" />
     <Compile Include="Controllers\EmailController.cs" />

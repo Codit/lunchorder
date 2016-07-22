@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Constants\DocumentDbTypes.cs" />
     <Compile Include="Dtos\Address.cs" />
     <Compile Include="Dtos\Badge.cs" />
     <Compile Include="Dtos\Menu.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Dtos\UserProfile.cs" />
     <Compile Include="Entities\DocumentDb\Address.cs" />
     <Compile Include="Entities\DocumentDb\Badge.cs" />
+    <Compile Include="Entities\DocumentDb\BadgeResponse.cs" />
     <Compile Include="Entities\DocumentDb\BalanceAudit.cs" />
     <Compile Include="Entities\DocumentDb\Buyer.cs" />
     <Compile Include="Entities\DocumentDb\BuyerAddress.cs" />

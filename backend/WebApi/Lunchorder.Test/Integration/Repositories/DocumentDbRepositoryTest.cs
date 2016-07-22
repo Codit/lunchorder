@@ -9,6 +9,21 @@ namespace Lunchorder.Test.Integration.Repositories
     [TestFixture]
     public class DocumentDbRepositoryTest : RepositoryBase
     {
+        [Test]
+        public async Task GetBadges()
+        {
+            var badges = await DatabaseRepository.GetBadges();
+            Assert.IsNotNull(badges);
+            var badgesList = badges.ToList();
+            Assert.AreEqual(5, badgesList.Count);
+
+            var firstBadge = badgesList.First();
+            Assert.AreEqual(firstBadge.Id.ToString(), "5de5ecfd-6e4d-47e3-b129-96614e745ee5");
+            Assert.AreEqual(firstBadge.Name, "Badge 1");
+            Assert.AreEqual(firstBadge.Icon, "Badge 1 Icon");
+            Assert.AreEqual(firstBadge.Description, "Badge 1 Description");
+        }
+
         /// <summary>
         /// We retrieve users by username, not by Id
         /// </summary>

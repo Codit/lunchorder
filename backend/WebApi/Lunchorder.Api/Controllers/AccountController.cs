@@ -46,7 +46,7 @@ namespace Lunchorder.Api.Controllers
                 }
             }
 
-            return Ok(_accountControllerService.GetUserInfo(User.Identity.GetUserName(), isAzureActiveDirectoryUser));
+            return Ok(await _accountControllerService.GetUserInfo(User.Identity.GetUserName(), isAzureActiveDirectoryUser));
         }
     }
 }

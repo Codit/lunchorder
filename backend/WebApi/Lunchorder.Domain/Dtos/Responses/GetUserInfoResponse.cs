@@ -6,6 +6,7 @@ namespace Lunchorder.Domain.Dtos.Responses
     public class GetUserInfoResponse
     {
         public Guid Id { get; set; }
+        public string UserName { get; set; }
         public double Balance { get; set; }
         public UserProfile Profile { get; set; }
         public IEnumerable<UserBadge> Badges { get; set; }
