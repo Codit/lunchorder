@@ -4,27 +4,27 @@
   "Badges": [
     {
       "Id": "5de5ecfd-6e4d-47e3-b129-96614e745ee5",
-      "Name": "Badge 1",
-      "Icon": "Badge 1 Icon",
-      "Description": "Badge 1 Description"
+      "Name": "Close Call (15 sec)",
+      "Icon": "close_call_15sec_200x200.png",
+      "Description": "Make an order 15 seconds before all orders are sent"
     },
     {
       "Id": "21a61423-5815-442f-b213-ddc5814e5fd9",
-      "Name": "Badge 2",
-      "Icon": "Badge 2 Icon",
-      "Description": "Badge 2 Description"
+      "Name": "Close Call (30 sec)",
+      "Icon": "close_call_30sec_200x200.png",
+      "Description": "Make an order 30 seconds before all orders are sent"
     },
     {
       "Id": "d9d6fd8a-d562-40ea-8014-34f70264f4bf",
-      "Name": "Badge 3",
-      "Icon": "Badge 3 Icon",
-      "Description": "Badge 3 Description"
+      "Name": "Close Call (45 sec)",
+      "Icon": "close_call_45sec_200x200.png",
+      "Description": "Make an order 45 seconds before all orders are sent"
     },
     {
       "Id": "9560bbb4-1334-4544-89b1-c7a1fb9cc900",
-      "Name": "Badge 4",
-      "Icon": "Badge 4 Icon",
-      "Description": "Badge 4 Description"
+      "Name": "Close Call (60 sec)",
+      "Icon": "close_call_60sec_200x200.png",
+      "Description": "Make an order 60 seconds before all orders are sent"
     },
     {
       "Id": "4bf730f1-8937-4f61-81ea-a695528fab3f",

@@ -6,16 +6,13 @@ import { Badge } from './domain/dto/badge';
 @Component({
 	selector: 'badge-row',
 	inputs: ['badgeItem: badge'],
-	template: `<div class="col-sm-6  block wow bounceIn">
-					<div class="row">
-						<div class="col-md-4 box-icon rotate">
-							<i class="fa fa-desktop fa-4x "> </i>
+	template: `<div class="block wow bounceIn">
+						<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+							<img src='/css/images/badges/{{badgeItem?.icon}}' title='{{badgeItem?.description}}' style='opacity: 0.3;
+								max-height: 100%;
+								max-width: 100%;' />
+	<p class='text-center'>{{badgeItem?.name}}</p>
 						</div>
-						<div class="col-md-8 box-ct">
-							<h3>{{badgeItem?.name}}</h3>
-							<!--<p> Lorem ipsum dolor sit ametconsectetur adipiscing elit. Suspendisse orci quam. </p>-->
-						</div>
-					</div>
 				</div>`})
 
 export class BadgeRow implements OnInit {

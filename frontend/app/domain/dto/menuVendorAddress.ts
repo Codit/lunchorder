@@ -3,7 +3,6 @@ import { UserOrderHistoryRule } from './userOrderHistoryRule'
 
 export class MenuVendorAddress implements app.domain.dto.IMenuVendorAddress {
     id: string;
-    finalPrice: number;
     entry: UserOrderHistoryEntry;
     orderTime: Date;
     rules: UserOrderHistoryRule[];

@@ -124,19 +124,19 @@ export class AppComponent implements OnInit {
 	constructor(private adalService: AdalService, private configService: ConfigService, private accountService: AccountService, private tokenHelper: TokenHelper) { }
 
 	ngOnInit() {
-		var badge = new Badge();
-		badge.description = "first badge",
-			badge.name = "test first badge",
-			badge.icon = "",
-			badge.earned = false;
+		// var badge = new Badge();
+		// badge.description = "first badge",
+		// 	badge.name = "test first badge",
+		// 	badge.icon = "",
+		// 	badge.earned = false;
 
-		var badge2 = new Badge();
-		badge2.description = "second badge",
-			badge2.name = "test second badge",
-			badge2.icon = "",
-			badge2.earned = true;
+		// var badge2 = new Badge();
+		// badge2.description = "second badge",
+		// 	badge2.name = "test second badge",
+		// 	badge2.icon = "",
+		// 	badge2.earned = true;
 
-		this.userBadges.push(badge, badge2);
+		// this.userBadges.push(badge, badge2);
 
 		
 

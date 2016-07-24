@@ -1,10 +1,13 @@
 import { UserProfile } from './userProfile'
-import { Badge } from './badge'
+import { UserBadge } from './userBadge'
 import { MenuEntryFavorite } from './menuEntryFavorite'
 
 export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse {
+    id: string;
+    userName: string;
     balance: number;
     profile: UserProfile;
-    badges: Badge[];
+    badges: UserBadge[];
     favorites: MenuEntryFavorite[];
+    userToken: string;
 }

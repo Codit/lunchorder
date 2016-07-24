@@ -23,6 +23,6 @@
         /// <summary>
         /// The UI culture of the user
         /// </summary>
-        public object Culture { get; set; }
+        public string Culture { get; set; }
     }
 }

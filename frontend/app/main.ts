@@ -14,6 +14,7 @@ import { AccountService } from './services/accountService';
 import { AuthRequestOptions } from './helpers/authRequestOptions';
 import { MenuService } from './services/menuService';
 import { BalanceService } from './services/balanceService';
+import { BadgeService } from './services/badgeService';
 import {enableProdMode} from '@angular/core';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
@@ -24,5 +25,5 @@ if (window.location.href.indexOf('localhost') < 0) {
 bootstrap(AppComponent, [HTTP_PROVIDERS, 
   disableDeprecatedForms(),     // Disable old Forms API!
   provideForms(),                // Use new Forms API!
-{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, HttpClient, TokenHelper])
+{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, BadgeService, HttpClient, TokenHelper])
 .catch((err: any) => console.error(err));

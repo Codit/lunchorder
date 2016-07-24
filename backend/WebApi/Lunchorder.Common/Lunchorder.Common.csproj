@@ -78,6 +78,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -109,6 +110,7 @@
     <Compile Include="Interfaces\IOrderControllerService.cs" />
     <Compile Include="Interfaces\IRequireInitialization.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="MemoryCacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

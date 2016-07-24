@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos;
 
 namespace Lunchorder.Common.ControllerServices
@@ -18,7 +19,9 @@ namespace Lunchorder.Common.ControllerServices
 
         public async Task<IEnumerable<Badge>> Get()
         {
-            var badges = await _databaseRepository.GetBadges();
+            var badges = MemoryCacher.GetValue(Cache.Badges) as IEnumerable<Badge> ??
+                         await _databaseRepository.GetBadges();
+
             return badges;
         }
     }

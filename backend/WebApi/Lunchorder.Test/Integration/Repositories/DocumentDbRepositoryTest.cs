@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Lunchorder.Test.Integration.Helpers;
 using Lunchorder.Test.Integration.Helpers.Base;
@@ -17,11 +18,12 @@ namespace Lunchorder.Test.Integration.Repositories
             var badgesList = badges.ToList();
             Assert.AreEqual(5, badgesList.Count);
 
-            var firstBadge = badgesList.First();
+            var firstBadge = badgesList.FirstOrDefault(x => x.Id == Guid.Parse("5de5ecfd-6e4d-47e3-b129-96614e745ee5"));
+            Assert.NotNull(firstBadge);
             Assert.AreEqual(firstBadge.Id.ToString(), "5de5ecfd-6e4d-47e3-b129-96614e745ee5");
-            Assert.AreEqual(firstBadge.Name, "Badge 1");
-            Assert.AreEqual(firstBadge.Icon, "Badge 1 Icon");
-            Assert.AreEqual(firstBadge.Description, "Badge 1 Description");
+            Assert.AreEqual(firstBadge.Name, "Close Call (15 sec)");
+            Assert.AreEqual(firstBadge.Icon, "close_call_15sec_200x200.png");
+            Assert.AreEqual(firstBadge.Description, "Make an order 15 seconds before all orders are sent");
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ zipPackage();
 codeCoverage();
 
 gulp.task("debug", ['debug:inject-artifacts']);
-gulp.task("debug-watch", ['debug:inject-artifacts', 'watch:ts']);
+gulp.task("debug-watch", gulpSequence('debug:inject-artifacts', 'watch:ts'));
 gulp.task("release", ['release:inject-artifacts']);
 gulp.task("test", ['debug:inject-artifacts']);
 

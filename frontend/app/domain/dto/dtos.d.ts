@@ -8,10 +8,10 @@ declare module app.domain.dto {
     }
     
     export interface IBadge {
+        id: string;
         name: string;
         icon: string;
         description: string;
-        earned: boolean;
     }
     
     export interface IMenu {
@@ -67,6 +67,15 @@ declare module app.domain.dto {
     
     export interface IMenuVendorAddress extends IAddress {
         id: string;
+    }
+    
+    export interface IUserBadge {
+        badgeId: string;
+        timesEarned: number;
+    }
+    
+    export interface IUserOrderHistory {
+        id: string;
         finalPrice: number;
         entry: IUserOrderHistoryEntry;
         orderTime: Date;
@@ -90,6 +99,7 @@ declare module app.domain.dto {
         firstName: string;
         lastName: string;
         picture: string;
+        culture: string;
     }
     
     export interface IPostFavoriteRequest {
@@ -109,9 +119,12 @@ declare module app.domain.dto {
     }
     
     export interface IGetUserInfoResponse {
+        id: string;
+        userName: string;
         balance: number;
         profile: IUserProfile;
-        badges: IBadge[];
+        badges: IUserBadge[];
         favorites: IMenuEntryFavorite[];
+        userToken: string;
     }
 }

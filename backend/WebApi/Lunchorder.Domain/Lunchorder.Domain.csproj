@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Cache.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\DocumentDbTypes.cs" />
     <Compile Include="Dtos\Address.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Dtos\Requests\PostUserHistoryRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
+    <Compile Include="Dtos\Test.cs" />
     <Compile Include="Dtos\UserBadge.cs" />
     <Compile Include="Dtos\UserOrderHistory.cs" />
     <Compile Include="Dtos\UserOrderHistoryEntry.cs" />

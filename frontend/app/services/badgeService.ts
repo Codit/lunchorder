@@ -2,30 +2,29 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ConfigService } from './configService';
 import { Observable } from 'rxjs/Observable';
-import { Menu } from '../domain/dto/menu';
+import { Badge } from '../domain/dto/badge';
 import { HttpClient } from '../helpers/httpClient';
 
 @Injectable()
-export class MenuService {
+export class BadgeService {
   constructor(private http: HttpClient, private configService: ConfigService) {
-    automapper.createMap('{}', 'Menu');
+    automapper.createMap('{}', 'Badge');
   }
 
-  private menuApiUri = `${this.configService.apiPrefix}/menus`;
+  private badgeApiUri = `${this.configService.apiPrefix}/badges`;
 
-  getMenu(): Observable<Menu> {
-    return this.http.get(`${this.menuApiUri}`)
-      .map(this.mapMenu)
+  getBadges(): Observable<Badge[]> {
+    return this.http.get(`${this.badgeApiUri}`)
+      .map(this.mapBadges)
       .catch(this.handleError);
   }
 
-  private mapMenu(res: Response): Menu {
-
+  private mapBadges(res: Response): Badge[] {
     debugger;
     console.log(res);
     let body = res.json();
-    var menu: Menu = automapper.map('{}', 'Menu', body);
-    return menu;
+    var badge: Badge[] = automapper.map('{}', 'Badge', body);
+    return badge;
   }
 
   private handleError(error: any) {

@@ -18,6 +18,7 @@ namespace Lunchorder.Api.Configuration.IoC
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IAccountControllerService>().ImplementedBy<AccountControllerService>());
+            container.Register(Component.For<IBadgeControllerService>().ImplementedBy<BadgeControllerService>());
             container.Register(Component.For<IBalanceControllerService>().ImplementedBy<BalanceControllerService>());
             container.Register(Component.For<IEmailControllerService>().ImplementedBy<EmailControllerService>());
             container.Register(Component.For<IFavoriteControllerService>().ImplementedBy<FavoriteControllerService>());

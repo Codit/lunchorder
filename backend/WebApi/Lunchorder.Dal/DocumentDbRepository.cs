@@ -43,9 +43,7 @@ namespace Lunchorder.Dal
             var badgeResponse = queryResponse.FirstOrDefault();
             if (badgeResponse == null) return null;
 
-            var badges =
-                _mapper.Map<IEnumerable<Domain.Entities.DocumentDb.Badge>, IEnumerable<Badge>>(
-                    badgeResponse.Badges);
+            var badges = _mapper.Map<IEnumerable<Domain.Entities.DocumentDb.Badge>, IEnumerable<Badge>>(badgeResponse.Badges);
             return badges;
         }
     }
