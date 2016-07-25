@@ -18,6 +18,7 @@ import { BadgeService } from './services/badgeService';
 import {enableProdMode} from '@angular/core';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
+import { WindowRef, BrowserWindowRef, WINDOW } from './services/windowService';
 
 if (window.location.href.indexOf('localhost') < 0) {
     enableProdMode();
@@ -25,5 +26,12 @@ if (window.location.href.indexOf('localhost') < 0) {
 bootstrap(AppComponent, [HTTP_PROVIDERS, 
   disableDeprecatedForms(),     // Disable old Forms API!
   provideForms(),                // Use new Forms API!
-{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, BadgeService, HttpClient, TokenHelper])
+{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, BadgeService, HttpClient, TokenHelper, 
+{ provide: WindowRef, useClass: BrowserWindowRef }, { provide: WINDOW, useFactory: _window, deps: [] }
+
+])
 .catch((err: any) => console.error(err));
+
+function _window(): any {
+    return window;
+}

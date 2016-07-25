@@ -21,7 +21,6 @@ export class MenuService {
 
   private mapMenu(res: Response): Menu {
 
-    debugger;
     console.log(res);
     let body = res.json();
     var menu: Menu = automapper.map('{}', 'Menu', body);

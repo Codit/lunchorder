@@ -11,12 +11,13 @@ import { ReminderComponent } from './app.reminder';
 import { BadgesList } from './app.badges-list';
 import { TokenHelper } from './helpers/tokenHelper';
 import { Badge } from './domain/dto/badge';
+import { StickRxDirective } from './directives/stickDirective';
 
 @Component({
 	selector: 'lunchorder-app',
 	// question: why do we need a provider here for a component that has its own descriptor?
 	providers: [BalanceService],
-	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList],
+	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList, StickRxDirective],
 	template: `<!-- FullScreen -->
 	<div class="intro-header">
 		<div class="col-xs-12 text-center abcen1">
@@ -37,7 +38,7 @@ import { Badge } from './domain/dto/badge';
   
 <div [hidden]="!isAuthenticated">
 	<!-- NavBar-->
-	<nav class="navbar-default" role="navigation">
+	<nav class="navbar-default" role="navigation" stick-rx>
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">

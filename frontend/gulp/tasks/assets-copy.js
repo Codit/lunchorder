@@ -39,7 +39,7 @@ module.exports = function (paths, dist) {
     }
 
     gulp.task('assets-copy-release', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:webConfig']));
-    gulp.task('assets-copy-debug', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
+    gulp.task('assets-copy-debug', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js','copy:ts', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
 
     gulp.task('copy:css', ['copy:css:vendor', 'copy:css:app']);
     gulp.task('copy:js', ['copy:js:vendor']);//, 'copy:js:app']);
@@ -72,6 +72,14 @@ module.exports = function (paths, dist) {
         function (cb) {
             return gulp.src([input.cssOwlCarousel, input.cssOwlCarouselTheme, input.cssBootstrap, input.cssToastr])
                 .pipe(gulp.dest(dist.cssVendor));
+        });
+
+         gulp.task("copy:ts",
+        function (cb) {
+            console.log(paths.root);
+            return gulp.src(paths.root + "/app/**/*.ts")
+                    .pipe(debug())
+                    .pipe(gulp.dest('./dist/app'));
         });
 
     gulp.task("copy:css:app",

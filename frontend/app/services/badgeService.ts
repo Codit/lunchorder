@@ -20,7 +20,6 @@ export class BadgeService {
   }
 
   private mapBadges(res: Response): Badge[] {
-    debugger;
     console.log(res);
     let body = res.json();
     var badge: Badge[] = automapper.map('{}', 'Badge', body);

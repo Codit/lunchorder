@@ -75,7 +75,8 @@ module.exports = function (paths, dist) {
         return tsproject.src("tsconfig.json", {
             compilerOptions: {
                 "inlineSourceMap": false,
-                "inlineSources": false
+                "inlineSources": false,
+                "sourceRoot": ""
             }
         })
             .pipe(gulp.dest("."))
@@ -89,8 +90,9 @@ module.exports = function (paths, dist) {
     });
 
     gulp.task('transpile:ts:test', function () {
-        return tsproject.src("tsconfig.json",
+        return tsproject.src("tsconfig.json", 
             {
+                "compilerOptions": {"sourceRoot": ".", "sourceMap": true },
                 "exclude": [
                     "node_modules",
                     "dist",
@@ -104,7 +106,11 @@ module.exports = function (paths, dist) {
     });
 
     gulp.task('transpile:ts:debug', function () {
-        return tsproject.src("tsconfig.json")
+        return tsproject.src("tsconfig.json", {
+            "compilerOptions": {
+                "sourceMap": true
+            }
+        })
             .pipe(debug())
             .pipe(gulp.dest(".")).once("error", function () {
                 this.once("finish", () => process.exit(1));
