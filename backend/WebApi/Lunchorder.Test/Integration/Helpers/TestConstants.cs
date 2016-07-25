@@ -4,6 +4,24 @@ namespace Lunchorder.Test.Integration.Helpers
 {
     public class TestConstants
     {
+        public class Menu
+        {
+            public class Menu1
+            {
+                public const string Id = "d0e0cba9-ab95-4666-ac54-dd44d2a5530a";
+            }
+
+            public class Menu2
+            {
+                public const string Id = "5632f42b-c0ef-45b1-b6cb-1f7c8ebc95c9";
+            }
+
+            public class Menu3
+            {
+                public const string Id = "96597ea7-8412-447a-8b47-43ddb51425a0";
+            }
+        }
+
         public class Badges
         {
             public class Badge1

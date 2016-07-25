@@ -3,5 +3,6 @@
     public class Cache
     {
         public const string Badges = "Badges";
+        public const string Menu = "Menu";
     }
 }

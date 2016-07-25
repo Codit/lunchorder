@@ -66,7 +66,7 @@
   <ItemGroup>
     <Compile Include="Constants\Cache.cs" />
     <Compile Include="Constants\Constants.cs" />
-    <Compile Include="Constants\DocumentDbTypes.cs" />
+    <Compile Include="Constants\DocumentDbType.cs" />
     <Compile Include="Dtos\Address.cs" />
     <Compile Include="Dtos\Badge.cs" />
     <Compile Include="Dtos\Menu.cs" />

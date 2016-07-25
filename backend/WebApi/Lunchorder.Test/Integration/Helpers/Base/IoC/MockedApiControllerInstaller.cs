@@ -24,9 +24,11 @@ namespace Lunchorder.Test.Integration.Helpers.Base.IoC
             MockedFavoriteControllerService = new Mock<IFavoriteControllerService>();
             MockedMenuControllerService = new Mock<IMenuControllerService>();
             MockedOrderControllerService = new Mock<IOrderControllerService>();
+            MockedBadgeControllerService = new Mock<IBadgeControllerService>();
 
             container.Register(Component.For<IAccountControllerService>().Instance(MockedAccountControllerService.Object).LifestylePerWebRequest());
             container.Register(Component.For<IBalanceControllerService>().Instance(MockedBalanceControllerService.Object).LifestylePerWebRequest());
+            container.Register(Component.For<IBadgeControllerService>().Instance(MockedBadgeControllerService.Object).LifestylePerWebRequest());
             container.Register(Component.For<IChecklistControllerService>().Instance(MockedChecklistControllerService.Object).LifestylePerWebRequest());
             container.Register(Component.For<IEmailControllerService>().Instance(MockedEmailControllerService.Object).LifestylePerWebRequest());
             container.Register(Component.For<IFavoriteControllerService>().Instance(MockedFavoriteControllerService.Object).LifestylePerWebRequest());
@@ -46,6 +48,8 @@ namespace Lunchorder.Test.Integration.Helpers.Base.IoC
         public Mock<IChecklistControllerService> MockedChecklistControllerService { get; set; }
 
         public Mock<IBalanceControllerService> MockedBalanceControllerService { get; set; }
+
+        public Mock<IBadgeControllerService> MockedBadgeControllerService { get; set; }
 
         public Mock<IAccountControllerService> MockedAccountControllerService { get; set; }
     }

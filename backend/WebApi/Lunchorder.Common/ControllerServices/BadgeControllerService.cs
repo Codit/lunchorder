@@ -19,9 +19,12 @@ namespace Lunchorder.Common.ControllerServices
 
         public async Task<IEnumerable<Badge>> Get()
         {
-            var badges = MemoryCacher.GetValue(Cache.Badges) as IEnumerable<Badge> ??
-                         await _databaseRepository.GetBadges();
+            var badges = MemoryCacher.GetValue(Cache.Badges) as IEnumerable<Badge>;
+            if (badges != null)
+            return badges;
 
+            badges = await _databaseRepository.GetBadges();
+            MemoryCacher.Add(Cache.Badges, badges);
             return badges;
         }
     }

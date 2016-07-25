@@ -28,8 +28,7 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Domain.Dtos.Menu))]
         public async Task<IHttpActionResult> Get()
         {
-            // todo get from cache
-            var menu = await _menuControllerService.Get();
+            var menu = await _menuControllerService.GetActiveMenu();
             return Ok(menu);
         }
 
@@ -42,7 +41,6 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> Post(PostMenuRequest postMenuRequest)
         {
-            // todo set cache
             await _menuControllerService.Add(postMenuRequest.Menu);
             return Ok();
         }
@@ -56,8 +54,22 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> Put(PutMenuRequest putMenuRequest)
         {
-            // todo set cache
             await _menuControllerService.Update(putMenuRequest.Menu);
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// Updates active menu
+        /// </summary>
+        /// <returns></returns>
+        [Route("active/{menuId}")]
+        [HttpPost]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        public async Task<IHttpActionResult> SetActive(string menuId)
+        {
+            // todo, only authorize admin
+            await _menuControllerService.SetActive(menuId);
             return Ok();
         }
 
@@ -68,7 +80,7 @@ namespace Lunchorder.Api.Controllers
         [Route("")]
         [HttpDelete]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public async Task<IHttpActionResult> Delete(Guid menuId)
+        public async Task<IHttpActionResult> Delete(string menuId)
         {
             await _menuControllerService.Delete(menuId);
             return Ok();

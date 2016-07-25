@@ -7,6 +7,7 @@ namespace Lunchorder.Api.Configuration.Mapper
         protected override void Configure()
         {
             CreateMap<Domain.Entities.DocumentDb.MenuVendor, Domain.Dtos.MenuVendor>();
+            CreateMap<Domain.Dtos.MenuVendor, Domain.Entities.DocumentDb.MenuVendor>();
         }
     }
 }

@@ -11,6 +11,11 @@ namespace Lunchorder.Common
             return memoryCache.Get(key);
         }
 
+        public static bool Add(string key, object value)
+        {
+            return Add(key, value, DateTimeOffset.UtcNow.AddDays(7));
+        }
+
         public static bool Add(string key, object value, DateTimeOffset absExpiration)
         {
             MemoryCache memoryCache = MemoryCache.Default;

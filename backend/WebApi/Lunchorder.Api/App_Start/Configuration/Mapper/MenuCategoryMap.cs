@@ -7,6 +7,7 @@ namespace Lunchorder.Api.Configuration.Mapper
         protected override void Configure()
         {
             CreateMap<Domain.Entities.DocumentDb.MenuCategory, Domain.Dtos.MenuCategory>();
+            CreateMap<Domain.Dtos.MenuCategory, Domain.Entities.DocumentDb.MenuCategory>();
         }
     }
 }

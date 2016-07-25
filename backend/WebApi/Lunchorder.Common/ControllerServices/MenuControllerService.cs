@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos;
 using Ploeh.AutoFixture;
 
@@ -9,13 +9,13 @@ namespace Lunchorder.Common.ControllerServices
 {
     public class MenuControllerService : IMenuControllerService
     {
-        private readonly IMapper _mapper;
+        private readonly IDatabaseRepository _databaseRepository;
         private readonly Fixture _fixture;
 
-        public MenuControllerService(IMapper mapper)
+        public MenuControllerService(IDatabaseRepository databaseRepository)
         {
-            if (mapper == null) throw new ArgumentNullException(nameof(mapper));
-            _mapper = mapper;
+            if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
+            _databaseRepository = databaseRepository;
             _fixture = new Fixture();
         }
 
@@ -24,26 +24,43 @@ namespace Lunchorder.Common.ControllerServices
             return await Task.FromResult(_fixture.Create<bool>());
         }
 
-        public async Task<Domain.Dtos.Menu> Get()
+        public async Task<Menu> GetActiveMenu()
         {
-            var docDbMenu = _fixture.Create<Domain.Entities.DocumentDb.Menu>();
-            var menuDto = _mapper.Map<Domain.Entities.DocumentDb.Menu, Domain.Dtos.Menu>(docDbMenu);
-            return await Task.FromResult(menuDto);
+            var cacheMenu = MemoryCacher.GetValue(Cache.Menu) as Menu;
+            if (cacheMenu != null) return cacheMenu;
+
+            var menu = await _databaseRepository.GetEnabledMenu();
+            if (menu != null)
+                MemoryCacher.Add(Cache.Menu, menu);
+            return menu;
         }
 
-        public Task Add(Menu menu)
+        public async Task Add(Menu menu)
         {
-            return null;
+            await _databaseRepository.AddMenu(menu);
+            ClearMenuCache();
         }
 
-        public Task Update(Menu menu)
+        public async Task Update(Menu menu)
         {
-            return null;
+            await _databaseRepository.UpdateMenu(menu);
+            ClearMenuCache();
         }
 
-        public Task Delete(Guid menuId)
+        public async Task Delete(string menuId)
         {
-            return null;
+            await _databaseRepository.DeleteMenu(menuId);
+            ClearMenuCache();
+        }
+
+        public async Task SetActive(string menuId)
+        {
+            await _databaseRepository.SetActiveMenu(menuId);
+        }
+
+        private void ClearMenuCache()
+        {
+            MemoryCacher.Delete(Cache.Menu);
         }
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Lunchorder.Domain.Constants;
+using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -11,7 +13,8 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The identifier for the menu
         /// </summary>
-        public Guid Id { get; set; }
+        [JsonProperty("id")]
+        public new Guid Id { get; set; }
 
         /// <summary>
         /// Field that represents the enabled state
@@ -42,5 +45,20 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// A set of rules that can be applied to one or more MenuCategories 
         /// </summary>
         public IEnumerable<MenuRule> Rules { get; set; }
+
+        /// <summary>
+        /// Last change of the menu
+        /// </summary>
+        public DateTime LastUpdated { get; set; }
+
+        /// <summary>
+        /// How many times has it been updated
+        /// </summary>
+        public int Revision { get; set; }
+
+        /// <summary>
+        /// Easy query
+        /// </summary>
+        public string Type = DocumentDbType.Menu;
     }
 }

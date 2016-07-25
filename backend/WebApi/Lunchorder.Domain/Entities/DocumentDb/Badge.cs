@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -10,6 +11,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The id of the badge
         /// </summary>
+        [JsonProperty("id")]
         public Guid Id { get; set; }
 
         /// <summary>

@@ -16,6 +16,6 @@ namespace Lunchorder.Domain.Entities.DocumentDb
 
         public IEnumerable<Badge> Badges { get; set; }
 
-        public string Type = DocumentDbTypes.Badges;
+        public string Type = DocumentDbType.Badges;
     }
 }
