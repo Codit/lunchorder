@@ -79,7 +79,7 @@
     <Compile Include="Dtos\MenuVendorAddress.cs" />
     <Compile Include="Dtos\Requests\PostFavoriteRequest.cs" />
     <Compile Include="Dtos\Requests\PostMenuRequest.cs" />
-    <Compile Include="Dtos\Requests\PostUserHistoryRequest.cs" />
+    <Compile Include="Dtos\Requests\PostOrderRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
     <Compile Include="Dtos\Test.cs" />

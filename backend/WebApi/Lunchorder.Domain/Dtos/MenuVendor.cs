@@ -1,5 +1,3 @@
-using System;
-
 namespace Lunchorder.Domain.Dtos
 {
     /// <summary>
@@ -7,6 +5,11 @@ namespace Lunchorder.Domain.Dtos
     /// </summary>
     public class MenuVendor
     {
+        /// <summary>
+        /// The id of the menu vendor
+        /// </summary>
+        public string Id { get; set; }
+
         /// <summary>
         /// The name of the vendor
         /// </summary>

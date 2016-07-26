@@ -11,4 +11,5 @@ export class MenuVendorAddress implements app.domain.dto.IMenuVendorAddress {
     city: string;
     phone: string;
     email: string;
+    fax: string;
 }

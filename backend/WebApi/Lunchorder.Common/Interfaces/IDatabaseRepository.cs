@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
+using Lunchorder.Domain.Entities.DocumentDb;
+using Badge = Lunchorder.Domain.Dtos.Badge;
+using Menu = Lunchorder.Domain.Dtos.Menu;
+using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
 
 namespace Lunchorder.Common.Interfaces
 {
@@ -15,5 +18,7 @@ namespace Lunchorder.Common.Interfaces
         Task<Menu> UpdateMenu(Menu menu);
         Task SetActiveMenu(string menuId);
         Task DeleteMenu(string menuId);
+        Task AddOrder(string userId, string vendorId, UserOrderHistory menuOrders);
+        Task<VendorOrderHistory> GetVendorOrder(string orderDate, string vendorId);
     }
 }

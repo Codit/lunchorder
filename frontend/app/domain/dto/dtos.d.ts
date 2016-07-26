@@ -4,6 +4,7 @@ declare module app.domain.dto {
         streetNumber: string;
         city: string;
         phone: string;
+        fax: string;
         email: string;
     }
     
@@ -22,12 +23,15 @@ declare module app.domain.dto {
         entries: IMenuEntry[];
         categories: IMenuCategory[];
         rules: IMenuRule[];
+        lastUpdated: Date;
+        revision: number;
     }
     
     export interface IMenuCategory {
         id: string;
         name: string;
         description: string;
+        subCategories: IMenuCategory[];
     }
     
     export interface IMenuEntry {
@@ -35,7 +39,6 @@ declare module app.domain.dto {
         name: string;
         description: string;
         categoryId: string;
-        picture: string;
         price: string;
         enabled: boolean;
     }
@@ -53,7 +56,7 @@ declare module app.domain.dto {
     
     export interface IMenuRule {
         id: string;
-        categoryIds: number[];
+        categoryIds: string[];
         description: string;
         priceDelta: number;
         enabled: boolean;
@@ -62,7 +65,9 @@ declare module app.domain.dto {
     export interface IMenuVendor {
         name: string;
         address: IMenuVendorAddress;
+        website: string;
         submitOrderTime: string;
+        logo: string;
     }
     
     export interface IMenuVendorAddress extends IAddress {

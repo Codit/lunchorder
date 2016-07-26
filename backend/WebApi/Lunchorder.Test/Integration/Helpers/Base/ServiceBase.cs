@@ -1,5 +1,6 @@
 using Castle.Windsor;
 using Lunchorder.Api.Configuration.IoC;
+using Lunchorder.Api.Infrastructure.Services;
 using Lunchorder.Common.Interfaces;
 using NUnit.Framework;
 
@@ -25,7 +26,7 @@ namespace Lunchorder.Test.Integration.Helpers.Base
                 .Install(new ServiceInstaller())
                 .Install(new DalInstaller());
 
-            var documentDbBase = new DocumentDbBase(_container.Resolve<IDocumentStore>());
+            var documentDbBase = new DocumentDbBase(_container.Resolve<IDocumentStore>(), _container.Resolve<SeedService>());
             documentDbBase.Init();
 
             ApplicationUserService = _container.Resolve<IUserService>();

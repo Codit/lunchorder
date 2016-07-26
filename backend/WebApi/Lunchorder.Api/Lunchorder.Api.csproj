@@ -253,6 +253,7 @@
     <Compile Include="Infrastructure\Providers\CustomJwtFormat.cs" />
     <Compile Include="Infrastructure\Providers\CustomOAuthProvider.cs" />
     <Compile Include="Infrastructure\Services\ConfigurationService.cs" />
+    <Compile Include="Infrastructure\Services\SeedService.cs" />
     <Compile Include="Infrastructure\Services\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

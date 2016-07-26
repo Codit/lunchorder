@@ -4,12 +4,16 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Lunchorder.Common;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
-using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
+using Lunchorder.Domain.Entities.DocumentDb;
 using Microsoft.Azure.Documents.Linq;
+using Badge = Lunchorder.Domain.Dtos.Badge;
+using Menu = Lunchorder.Domain.Dtos.Menu;
+using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
 
 namespace Lunchorder.Dal
 {
@@ -82,6 +86,43 @@ namespace Lunchorder.Dal
             var dbMenu = await GetMenuItem(x => x.Id == menuGuidId && !x.Deleted);
             dbMenu.Deleted = true;
             await _documentStore.ReplaceDocument(dbMenu);
+        }
+
+        public async Task AddOrder(string userId, string vendorId, UserOrderHistory userOrderHistory)
+        {
+            var docDbUserOrderHistory = _mapper.Map<UserOrderHistory, Domain.Entities.DocumentDb.UserOrderHistory>(userOrderHistory);
+            
+            docDbUserOrderHistory.UserId = userId;
+
+            var vendorOrderHistory = new VendorOrderHistory { Id = Guid.NewGuid(), VendorId = Guid.Parse(vendorId)};
+            vendorOrderHistory.OrderDate = vendorOrderHistory.GenerateToday();
+
+            // todo, this should be user local time
+            // make sure that the vendor order history isn't created multiple times because of concurrency. We do this in a different query.
+            var vendorOrderId = await _documentStore.ExecuteStoredProcedure<Guid>("getOrCreateVendorOrderHistory", vendorOrderHistory);
+
+            /* transaction for multiple operations in documentdb is done using stored procedure.
+             * let's call it here and leave it up to the sp */
+            //var success = await _documentStore.ExecuteStoredProcedure<bool>("addUserOrder", vendorOrderId, docDbUserOrderHistory);
+
+            // add order to order history
+
+
+            // subtract total price from user balance
+
+            // add order to current vendor order list
+        }
+
+        public async Task<VendorOrderHistory> GetVendorOrder(string orderDate, string vendorId)
+        {
+           var vendorOrderHistoryQuery = _documentStore.GetItems<Domain.Entities.DocumentDb.VendorOrderHistory>(
+                x =>
+                    x.Type == DocumentDbType.VendorOrderHistory && x.OrderDate == orderDate &&
+                    x.VendorId == Guid.Parse(vendorId)).AsDocumentQuery();
+
+            var queryResponse = await vendorOrderHistoryQuery.ExecuteNextAsync<Domain.Entities.DocumentDb.VendorOrderHistory>();
+            var vendorOrderHistory = queryResponse.FirstOrDefault();
+            return vendorOrderHistory;
         }
 
         private async Task<Domain.Entities.DocumentDb.Menu> GetMenuItem(Expression<Func<Domain.Entities.DocumentDb.Menu, bool>> predicate)

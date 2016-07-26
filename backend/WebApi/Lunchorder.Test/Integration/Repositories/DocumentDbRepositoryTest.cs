@@ -2,16 +2,51 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lunchorder.Domain.Dtos;
+using Lunchorder.Domain.Entities.DocumentDb;
 using Lunchorder.Test.Integration.Helpers;
 using Lunchorder.Test.Integration.Helpers.Base;
 using NUnit.Framework;
+using Menu = Lunchorder.Domain.Dtos.Menu;
+using MenuCategory = Lunchorder.Domain.Dtos.MenuCategory;
+using MenuEntry = Lunchorder.Domain.Dtos.MenuEntry;
+using MenuRule = Lunchorder.Domain.Dtos.MenuRule;
+using MenuVendor = Lunchorder.Domain.Dtos.MenuVendor;
+using MenuVendorAddress = Lunchorder.Domain.Dtos.MenuVendorAddress;
+using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
+using UserOrderHistoryEntry = Lunchorder.Domain.Dtos.UserOrderHistoryEntry;
 
 namespace Lunchorder.Test.Integration.Repositories
 {
     [TestFixture]
     public class DocumentDbRepositoryTest : RepositoryBase
     {
+        [Test]
+        public async Task AddOrder_Should_Create_VendorOrderHistory()
+        {
+            var userId = Guid.NewGuid().ToString();
+            var vendorId = Guid.NewGuid().ToString();
+
+            var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
+            {
+                new UserOrderHistoryEntry
+                {
+                    Id = Guid.NewGuid(),
+                    MenuEntryId = Guid.NewGuid(),
+                    Price = 5,
+                    Rules = null,
+                    Name = "test item"
+                }
+            };
+
+            var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
+
+            await DatabaseRepository.AddOrder(userId, vendorId, userOrderHistory);
+            var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(new VendorOrderHistory().GenerateToday(), vendorId);
+
+            Assert.NotNull(vendorOrderHistory);
+            Assert.AreEqual(vendorOrderHistory.VendorId.ToString(), vendorId);
+        }
+
         [Test]
         public async Task SetActiveMenu()
         {
@@ -46,6 +81,7 @@ namespace Lunchorder.Test.Integration.Repositories
         {
             var menuVendor = new MenuVendor
             {
+                Id = "34b19c20-395c-4811-a532-b91469afc5ac",
                 Name = "'t kruimelken",
                 Website = new Uri("http://www.tkruimelken.be/").ToString(),
                 Logo = "",
@@ -64,6 +100,8 @@ namespace Lunchorder.Test.Integration.Repositories
             var categoryBroodjesId = "5576c479-c37c-41c3-9c67-a464c656e002";
             var categoryKazenId = "8c60254c-1044-40f7-8740-cd1c09de824d";
             var categoryVisId = "cbe0c450-7b24-42fc-85be-f9e201ffba98";
+            var categoryVleeswarenId = "7aaa919d-71a1-4b24-8ee1-1fa68b3ae1c7";
+            var categoryAndereId = "7120557d-9b3a-4c00-bc6a-a7b040e5fe07";
 
             var menuCategories = new List<MenuCategory>
             {
@@ -82,7 +120,17 @@ namespace Lunchorder.Test.Integration.Repositories
                         {
                         Id = categoryVisId,
                         Name = "Vis en schaaldieren"
-                        }
+                        },
+                         new MenuCategory
+                        {
+                        Id = categoryVleeswarenId,
+                        Name = "Vleeswaren"
+                        },
+                         new MenuCategory
+                         {
+                             Id = categoryAndereId,
+                             Name = "Andere"
+                         }
                     }
                 }
             };
@@ -223,6 +271,123 @@ namespace Lunchorder.Test.Integration.Repositories
                     Picture = null,
                     Name = "Scampi-diabolique salade",
                     Price = "4,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "5dcb1472-33ae-419c-95f4-b4d3b6ffae31",
+                    Picture = null,
+                    Name = "Hesp",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "c69e17e1-8578-436a-9048-c51bce5a06f4",
+                    Picture = null,
+                    Name = "Préparé",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "be9980c4-a19f-47bf-97ad-ec98d6cddbce",
+                    Picture = null,
+                    Name = "Varkensgebraad",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "9cd02feb-6c40-4dbe-97ec-ac501f789d86",
+                    Picture = null,
+                    Name = "Salami",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "0d9fa498-aad5-493d-9431-83a4137f016c",
+                    Picture = null,
+                    Name = "Frikandon",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "49cd466d-7477-439c-9446-48895dfc16ab",
+                    Picture = null,
+                    Name = "Kip salade",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "f76281d8-0d62-4899-9bbb-2aee9db1bb17",
+                    Picture = null,
+                    Name = "Kip curry",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "713ac2d0-3abc-4147-9e80-38465a819af5",
+                    Picture = null,
+                    Name = "Kip samourai salade",
+                    Price = "3,80"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "af75f6ce-c4df-46fd-a1bf-7f2791c75c25",
+                    Picture = null,
+                    Name = "Kip in pepersaus",
+                    Price = "3,80"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "deda0c26-eee1-4da7-8d12-ddc8c6725ab9",
+                    Picture = null,
+                    Name = "Ham-prei salade",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "3f4349c1-6c65-43d3-9d57-7f18208c1b33",
+                    Picture = null,
+                    Name = "Breydelhamsalade",
+                    Price = "3,30"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryVleeswarenId,
+                    Enabled = true,
+                    Id = "d1c14454-2405-4108-8c79-723dee975d81",
+                    Picture = null,
+                    Name = "Italiaanse ham",
+                    Price = "3,80"
+                },
+                new MenuEntry
+                {
+                    CategoryId = categoryAndereId,
+                    Enabled = true,
+                    Id = "24fe0f4e-6942-4391-b8b9-8045d5399698",
+                    Picture = null,
+                    Name = "Eiersalade",
+                    Price = "3,30"
                 }
             };
 

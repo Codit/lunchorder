@@ -176,6 +176,9 @@
     </None>
     <None Include="app.Release.config">
     </None>
+    <None Include="Integration\Helpers\Seed\Documents\menu4.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Integration\Helpers\Seed\Documents\menu3.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

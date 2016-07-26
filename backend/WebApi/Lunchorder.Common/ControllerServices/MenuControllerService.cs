@@ -26,6 +26,7 @@ namespace Lunchorder.Common.ControllerServices
 
         public async Task<Menu> GetActiveMenu()
         {
+
             var cacheMenu = MemoryCacher.GetValue(Cache.Menu) as Menu;
             if (cacheMenu != null) return cacheMenu;
 

@@ -20,6 +20,6 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The positive or negative price difference of the user order history rule
         /// </summary>
-        public int PriceDelta { get; set; }
+        public double PriceDelta { get; set; }
     }
 }

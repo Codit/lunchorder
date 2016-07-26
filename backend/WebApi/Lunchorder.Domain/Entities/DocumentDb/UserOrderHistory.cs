@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lunchorder.Domain.Constants;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -14,14 +15,19 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         public Guid Id { get; set; }
 
         /// <summary>
-        /// The final price for a user order history, this represents the price the user actually pays
+        /// The associated userid for the order
         /// </summary>
-        public int FinalPrice { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
-        /// A representation of the entry that the user has ordered
+        /// The final price for a user order history, this represents the price the user actually pays
         /// </summary>
-        public UserOrderHistoryEntry Entry { get; set; }
+        public double FinalPrice { get; set; }
+
+        /// <summary>
+        /// A representation of the entr(y)(ies) that the user has ordered
+        /// </summary>
+        public IEnumerable<UserOrderHistoryEntry> Entries { get; set; }
 
         /// <summary>
         /// The time the user has placed the order
@@ -32,5 +38,10 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// A set of rules that were applied to the order at that specific time
         /// </summary>
         public IEnumerable<UserOrderHistoryRule> Rules { get; set; }
+
+        /// <summary>
+        /// Easy query on type
+        /// </summary>
+        public string Type = DocumentDbType.UserHistory;
     }
 }

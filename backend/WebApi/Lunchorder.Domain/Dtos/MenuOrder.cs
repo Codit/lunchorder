@@ -14,6 +14,11 @@ namespace Lunchorder.Domain.Dtos
         public Guid MenuEntryId { get; set; }
 
         /// <summary>
+        /// The name of the menu item at that time
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Freetext that a user can choose
         /// </summary>
         public string FreeText { get; set; }
@@ -26,6 +31,6 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The price for the order
         /// </summary>
-        public int Price;
+        public double Price;
     }
 }

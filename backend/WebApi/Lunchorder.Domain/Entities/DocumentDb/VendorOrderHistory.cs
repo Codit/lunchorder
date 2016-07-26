@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lunchorder.Domain.Constants;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -19,9 +20,9 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         public Guid VendorId { get; set; }
 
         /// <summary>
-        /// The time that the order has been placed at the vendor
+        /// The date for the order in yyyyMMdd
         /// </summary>
-        public DateTime OrderTime { get; set; }
+        public string OrderDate { get; set; }
 
         /// <summary>
         /// A set of entries that have been ordered at the vendor
@@ -32,5 +33,15 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// Determines if the order has been sent to the vendor
         /// </summary>
         public bool Submitted { get; set; }
+
+        /// <summary>
+        /// Easy query using type
+        /// </summary>
+        public string Type = DocumentDbType.VendorOrderHistory;
+
+        public string GenerateToday()
+        {
+            return DateTime.UtcNow.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
+        }
     }
 }

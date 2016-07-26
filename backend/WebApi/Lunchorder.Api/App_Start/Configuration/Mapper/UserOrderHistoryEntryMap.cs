@@ -7,6 +7,7 @@ namespace Lunchorder.Api.Configuration.Mapper
         protected override void Configure()
         {
             CreateMap<Domain.Entities.DocumentDb.UserOrderHistoryEntry, Domain.Dtos.UserOrderHistoryEntry>();
+            CreateMap<Domain.Dtos.UserOrderHistoryEntry, Domain.Entities.DocumentDb.UserOrderHistoryEntry>();
         }
     }
 }

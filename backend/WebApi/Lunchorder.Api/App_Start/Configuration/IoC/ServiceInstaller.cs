@@ -16,6 +16,8 @@ namespace Lunchorder.Api.Configuration.IoC
         {
             container.Register(Component.For<IUserService>().ImplementedBy<ApplicationUserService>()
                 .LifestylePerWebRequest());
+
+            container.Register(Component.For<SeedService>().LifestylePerWebRequest());
         }
     }
 }
