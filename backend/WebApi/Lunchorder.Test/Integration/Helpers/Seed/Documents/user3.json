@@ -1,0 +1,41 @@
+﻿{
+  "FirstName": "Test3",
+  "LastName": "User3",
+  "Language": null,
+  "Culture": "en-US",
+  "Picture": "http://pic.tu.re",
+  "id": "d185114e-e34c-4abd-8de6-020f814e8377",
+  "UserName": "tuser3",
+  "Email": "products@codit.eu",
+  "EmailConfirmed": false,
+  "PasswordHash": "AMhMWrBUK8kO0RRCE6pKFO4KvSbcW5LgFzBZZ57bKOWYnpbLZV0CF3uYiLDAWlNZWg==",
+  "SecurityStamp": "53404a52-d2a3-4a3d-ac5a-792c01853b2d",
+  "PhoneNumber": "",
+  "PhoneNumberConfirmed": false,
+  "TwoFactorEnabled": false,
+  "LockoutEnd": "0001-01-01T01:00:00+01:00",
+  "LockoutEnabled": true,
+  "AccessFailedCount": 0,
+  "Balance": 1,
+  "Badges": [
+    {
+      "BadgeId": "5de5ecfd-6e4d-47e3-b129-96614e745ee5",
+      "TimesEarned": 2
+    }
+  ],
+  "Favorites": [
+    { "MenuEntryId": "f2d6b026-0e57-45a9-9270-f8fa4590079c" },
+    { "MenuEntryId": "bd341859-1e68-4650-a8a5-31c409f91b3a" },
+    { "MenuEntryId": "63a04825-1489-46cb-83c5-8dfda58c27c0" }
+  ],
+  "Logins": [ ],
+  "Claims": [
+    {
+      "ClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+      "ClaimValue": "products@codit.eu"
+    }
+
+  ],
+  "Roles": [ ],
+  "Last5Orders": [ ]
+}

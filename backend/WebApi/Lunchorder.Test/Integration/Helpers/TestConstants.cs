@@ -8,7 +8,7 @@ namespace Lunchorder.Test.Integration.Helpers
         {
             public class VendorOrderHistory1
             {
-                public const string Id = "d4ce508f-49cf-7d00-e04a-2f2b614cb35d";
+                public const string Id = "5af19786-948f-41cd-bc98-944a811cacae";
                 public const string VendorId = "07f24005-cf66-47bd-9368-16007e1ed0a2";
                 public static DateTime OrderDate = DateTime.Parse("2016/07/26");
             }
@@ -55,6 +55,23 @@ namespace Lunchorder.Test.Integration.Helpers
             public class Favorite1 { public const string MenuEntryId = "f2d6b026-0e57-45a9-9270-f8fa4590079c"; }
             public class Favorite2 { public const string MenuEntryId = "bd341859-1e68-4650-a8a5-31c409f91b3a"; }
             public class Favorite3 { public const string MenuEntryId = "63a04825-1489-46cb-83c5-8dfda58c27c0"; }
+        }
+        
+
+            public class User3
+        {
+            public const string Id = "d185114e-e34c-4abd-8de6-020f814e8377";
+            public const string Username = "tuser3";
+            public const string Email = "products@codit.eu";
+            public const string Password = "test-us3r";
+        }
+
+        public class User2
+        {
+            public const string Id = "f28763cf-569c-4043-a31e-e92842eba077";
+            public const string Username = "tuser2";
+            public const string Email = "products@codit.eu";
+            public const string Password = "test-us3r";
         }
 
         public class User1

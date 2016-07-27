@@ -191,6 +191,12 @@
     <None Include="Integration\Helpers\Seed\Documents\badges.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Integration\Helpers\Seed\Documents\user3.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\user2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Integration\Helpers\Seed\Documents\vendorOrderHistory2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

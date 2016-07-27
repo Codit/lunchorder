@@ -10,6 +10,7 @@ using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
 using Lunchorder.Domain.Entities.DocumentDb;
+using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Linq;
 using Badge = Lunchorder.Domain.Dtos.Badge;
 using Menu = Lunchorder.Domain.Dtos.Menu;
@@ -117,7 +118,8 @@ namespace Lunchorder.Dal
             var lastOrder = _mapper.Map<Domain.Entities.DocumentDb.UserOrderHistory, Domain.Entities.DocumentDb.LastOrder>(docDbUserOrderHistory);
             lastOrder.UserOrderHistoryId = docDbUserOrderHistory.Id;
 
-            /* transaction for multiple operations in documentdb is done using stored procedure.
+
+                /* transaction for multiple operations in documentdb is done using stored procedure.
              * let's call it here and leave it up to the sp
              * 1. does a check on user balance 
              * 2. adds order to user order history
@@ -125,7 +127,10 @@ namespace Lunchorder.Dal
              * 4. updates user last orders
              * 5. updates user balance
              */
-            var success = await _documentStore.ExecuteStoredProcedure<bool>("addUserOrder", vendorOrderId, docDbVendorOrderHistoryEntries, docDbUserOrderHistory, lastOrder);
+                var success =
+                    await
+                        _documentStore.ExecuteStoredProcedure<bool>("addUserOrder", vendorOrderId,
+                            docDbVendorOrderHistoryEntries, docDbUserOrderHistory, lastOrder);
         }
 
         public async Task<VendorOrderHistory> GetVendorOrder(string orderDate, string vendorId)

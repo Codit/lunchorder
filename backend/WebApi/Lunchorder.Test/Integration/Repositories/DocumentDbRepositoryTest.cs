@@ -6,6 +6,7 @@ using Lunchorder.Common;
 using Lunchorder.Domain.Dtos;
 using Lunchorder.Test.Integration.Helpers;
 using Lunchorder.Test.Integration.Helpers.Base;
+using Microsoft.Azure.Documents;
 using NUnit.Framework;
 using Menu = Lunchorder.Domain.Dtos.Menu;
 using MenuCategory = Lunchorder.Domain.Dtos.MenuCategory;
@@ -21,6 +22,44 @@ namespace Lunchorder.Test.Integration.Repositories
     [TestFixture]
     public class DocumentDbRepositoryTest : RepositoryBase
     {
+        [Test]
+        public async Task AddOrder_Should_Fail_When_Insufficient_Balance()
+        {
+            var userId = TestConstants.User3.Id;
+            var userName = TestConstants.User3.Username;
+
+            var vendorId = Guid.NewGuid().ToString();
+
+            var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
+            {
+                new UserOrderHistoryEntry
+                {
+                    Id = Guid.NewGuid(),
+                    MenuEntryId = Guid.NewGuid(),
+                    Price = 5,
+                    Rules = new List<UserOrderHistoryRule>
+                    {
+                        new UserOrderHistoryRule
+                        {
+                            Description = "No vegetables",
+                            Id = Guid.NewGuid(),
+                            PriceDelta = 0.35
+                        }
+                    },
+                    Name = "test item"
+                },
+            };
+
+            var orderDate = new DateGenerator().GenerateDateFormat(DateTime.UtcNow);
+
+            var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
+
+            // Add an order and it should create 2 entries
+            Assert.Throws<DocumentClientException>(async () => await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory));
+
+            // todo thank you document db that we cannot parse the exception as it's invalid json... too much work for now
+        }
+
         [Test]
         public async Task AddOrder_Should_CreateNewEntries()
         {
@@ -130,7 +169,8 @@ namespace Lunchorder.Test.Integration.Repositories
         [Test]
         public async Task AddOrder_Should_UseExisting_VendorOrderHistory()
         {
-            var userId = Guid.NewGuid().ToString();
+            var userId = TestConstants.User2.Id;
+            var userName = TestConstants.User2.Username;
             var vendorId = TestConstants.VendorOrderHistory.VendorOrderHistory1.VendorId;
             var vendorOrderHistoryId = TestConstants.VendorOrderHistory.VendorOrderHistory1.Id;
 
@@ -155,7 +195,7 @@ namespace Lunchorder.Test.Integration.Repositories
             Assert.IsNotNull(vendorOrderHistory);
 
             // Add an order and it should use the existing vendor order history
-            await DatabaseRepository.AddOrder(userId, "abc", vendorId, orderDate, userOrderHistory);
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory);
             vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
             Assert.NotNull(vendorOrderHistory);
             Assert.AreEqual(vendorId, vendorOrderHistory.VendorId.ToString());
@@ -165,7 +205,8 @@ namespace Lunchorder.Test.Integration.Repositories
         [Test]
         public async Task AddOrder_Should_Create_A_New_VendorOrderHistory()
         {
-            var userId = Guid.NewGuid().ToString();
+            var userId = TestConstants.User2.Id;
+            var userName = TestConstants.User2.Username;
             var vendorId = Guid.NewGuid().ToString();
 
             var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
@@ -188,7 +229,7 @@ namespace Lunchorder.Test.Integration.Repositories
             Assert.IsNull(vendorOrderHistory);
 
             // Add an order and there should be a new vendor order history
-            await DatabaseRepository.AddOrder(userId, "abc", vendorId, orderDate, userOrderHistory);
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory);
             vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
             Assert.NotNull(vendorOrderHistory);
             Assert.AreEqual(vendorOrderHistory.VendorId.ToString(), vendorId);
