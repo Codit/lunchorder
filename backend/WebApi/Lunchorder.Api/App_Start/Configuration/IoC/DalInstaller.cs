@@ -14,9 +14,10 @@ namespace Lunchorder.Api.Configuration.IoC
         /// <param name="container">The container.</param><param name="store">The configuration store.</param>
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(
-                Component.For<IDocumentStore>()
-                    .ImplementedBy<DocumentStore>()
+            container.Register(Component.For<IDocumentStore>().ImplementedBy<DocumentStore>()
+                    .LifestylePerWebRequest());
+
+            container.Register(Component.For<IDatabaseRepository>().ImplementedBy<DocumentDbRepository>()
                     .LifestylePerWebRequest());
         }
     }

@@ -15,4 +15,6 @@ export class Menu implements app.domain.dto.IMenu {
         entries: MenuEntry[];
         categories: MenuCategory[];
         rules: MenuRule[];
+        lastUpdated: Date;
+        revision: number;
 }

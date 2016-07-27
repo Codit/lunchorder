@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Dtos.Requests;
-using Lunchorder.Domain.Dtos.Responses;
+using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Lunchorder.Api.Controllers
 {
+    [Authorize]
     [RoutePrefix("orders")]
     public class OrderController : BaseApiController
     {
@@ -42,10 +43,9 @@ namespace Lunchorder.Api.Controllers
         [HttpPost]
         [Route("")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public async Task<IHttpActionResult> Post(PostUserHistoryRequest postUserHistoryRequest)
+        public async Task<IHttpActionResult> Post(PostOrderRequest postOrderRequest)
         {
-            // todo extract userId
-            await _orderControllerService.Add("", postUserHistoryRequest.MenuOrders);
+            await _orderControllerService.Add(User.Identity.GetUserId(), User.Identity.GetUserName(), postOrderRequest.MenuOrders);
             return Ok();
         }
 

@@ -1,10 +1,17 @@
-﻿namespace Lunchorder.Domain.Dtos
+﻿using System;
+
+namespace Lunchorder.Domain.Dtos
 {
     /// <summary>
     /// Represents a badge that can be earned by a user
     /// </summary>
     public class Badge
     {
+        /// <summary>
+        /// The id of the badge
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// The name of the badge
         /// </summary>
@@ -19,10 +26,5 @@
         /// Description of the badge
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// Determines if the badge has been earned
-        /// </summary>
-        public bool Earned { get; set; }
     }
 }

@@ -8,14 +8,16 @@ import { InformationComponent } from './app.information';
 import { MenuComponent } from './app.menu';
 import { BalanceComponent } from './app.balance';
 import { ReminderComponent } from './app.reminder';
-import { BadgeComponent } from './app.badges';
+import { BadgesList } from './app.badges-list';
 import { TokenHelper } from './helpers/tokenHelper';
+import { Badge } from './domain/dto/badge';
+import { StickRxDirective } from './directives/stickDirective';
 
 @Component({
 	selector: 'lunchorder-app',
 	// question: why do we need a provider here for a component that has its own descriptor?
 	providers: [BalanceService],
-	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgeComponent],
+	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList, StickRxDirective],
 	template: `<!-- FullScreen -->
 	<div class="intro-header">
 		<div class="col-xs-12 text-center abcen1">
@@ -36,7 +38,7 @@ import { TokenHelper } from './helpers/tokenHelper';
   
 <div [hidden]="!isAuthenticated">
 	<!-- NavBar-->
-	<nav class="navbar-default" role="navigation">
+	<nav class="navbar-default" role="navigation" stick-rx>
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -70,7 +72,7 @@ import { TokenHelper } from './helpers/tokenHelper';
 
 	<div reminder  class="content-section-c "></div>
 
-	<div badges id="badges" class="content-section-a"></div>
+    <div badges-list [badgesList]="userBadges" id="badges" class="content-section-a"></div> 
 
 	<!-- Banner Download -->
 	<div id="downloadlink" class="banner">
@@ -116,15 +118,28 @@ import { TokenHelper } from './helpers/tokenHelper';
 
 export class AppComponent implements OnInit {
 	isAuthenticated: boolean = false;
-	userInfo : app.domain.dto.IGetUserInfoResponse;
+	userInfo: app.domain.dto.IGetUserInfoResponse;
 	userInfoError: any;
+	userBadges: Badge[] = new Array<Badge>();;
 
 	constructor(private adalService: AdalService, private configService: ConfigService, private accountService: AccountService, private tokenHelper: TokenHelper) { }
 
 	ngOnInit() {
-		this.accountService.getUserProfile().subscribe(
-                       userInfo => this.userInfo = userInfo,
-                       error =>  this.userInfoError = <any>error);
+		// var badge = new Badge();
+		// badge.description = "first badge",
+		// 	badge.name = "test first badge",
+		// 	badge.icon = "",
+		// 	badge.earned = false;
+
+		// var badge2 = new Badge();
+		// badge2.description = "second badge",
+		// 	badge2.name = "test second badge",
+		// 	badge2.icon = "",
+		// 	badge2.earned = true;
+
+		// this.userBadges.push(badge, badge2);
+
+		
 
 		this.adalService.init(this.configService.adalConfig);
 		console.log('ctor AppComponent');
@@ -134,8 +149,12 @@ export class AppComponent implements OnInit {
 			console.log(`isAuthenticated: ${this.isAuthenticated}`);
 
 			this.tokenHelper.getToken();
+
+			this.accountService.getUserProfile().subscribe(
+			userInfo => this.userInfo = userInfo,
+			error => this.userInfoError = <any>error);
 		}
-		
+
 	}
 
 	public login() {

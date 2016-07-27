@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -21,5 +22,10 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// The description of the menu category
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Possible subcategories
+        /// </summary>
+        public IEnumerable<Dtos.MenuCategory> SubCategories { get; set; }
     }
 }

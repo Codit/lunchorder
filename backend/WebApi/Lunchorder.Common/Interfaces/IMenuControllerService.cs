@@ -6,9 +6,10 @@ namespace Lunchorder.Common.Interfaces
 {
     public interface IMenuControllerService
     {
-        Task<Menu> Get();
+        Task<Menu> GetActiveMenu();
         Task Add(Menu menu);
         Task Update(Menu menu);
-        Task Delete(Guid menuId);
+        Task Delete(string menuId);
+        Task SetActive(string menuId);
     }
 }

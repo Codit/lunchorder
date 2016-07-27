@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lunchorder.Domain.Dtos
 {
@@ -13,6 +14,11 @@ namespace Lunchorder.Domain.Dtos
         public Guid Id { get; set; }
 
         /// <summary>
+        /// The associated menu entry id
+        /// </summary>
+        public Guid MenuEntryId { get; set; }
+
+        /// <summary>
         /// The name of the entry
         /// </summary>
         public string Name { get; set; }
@@ -25,6 +31,11 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The price of the menu entry without applying any possible rules
         /// </summary>
-        public int Price { get; set; }
+        public double Price { get; set; }
+
+        /// <summary>
+        /// A set of rules that were applied to the order at that specific time
+        /// </summary>
+        public IEnumerable<UserOrderHistoryRule> Rules { get; set; }
     }
 }

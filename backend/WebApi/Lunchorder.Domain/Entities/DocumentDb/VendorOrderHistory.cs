@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lunchorder.Domain.Constants;
+using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -11,6 +13,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// An identifier for the order history at the vendor
         /// </summary>
+        [JsonProperty("id")]
         public Guid Id { get; set; }
 
         /// <summary>
@@ -19,18 +22,29 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         public Guid VendorId { get; set; }
 
         /// <summary>
-        /// The time that the order has been placed at the vendor
+        /// The date for the order in yyyyMMdd
         /// </summary>
-        public DateTime OrderTime { get; set; }
+        public string OrderDate { get; set; }
 
         /// <summary>
         /// A set of entries that have been ordered at the vendor
         /// </summary>
-        public IEnumerable<VendorHistoryEntry> Entries { get; set; }
+        public IEnumerable<VendorOrderHistoryEntry> Entries
+        {
+            get { return _entries ?? (_entries = new List<VendorOrderHistoryEntry>()); }
+            set { _entries = value; }
+        }
 
         /// <summary>
         /// Determines if the order has been sent to the vendor
         /// </summary>
         public bool Submitted { get; set; }
+
+        /// <summary>
+        /// Easy query using type
+        /// </summary>
+        public string Type = DocumentDbType.VendorOrderHistory;
+
+        private IEnumerable<VendorOrderHistoryEntry> _entries;
     }
 }

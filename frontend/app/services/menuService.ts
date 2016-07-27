@@ -7,28 +7,27 @@ import { HttpClient } from '../helpers/httpClient';
 
 @Injectable()
 export class MenuService {
-   constructor(private http: HttpClient, private configService: ConfigService) {
-     automapper.createMap('{}', 'Menu');
-   }
-
-   private menuApiUri = `${this.configService.apiPrefix}/menus`;
-
-   getMenu (): Observable<app.domain.dto.IMenu> {
-    return this.http.get(`${this.menuApiUri}`)
-                    .map(this.mapMenu)
-                    .catch(this.handleError);
+  constructor(private http: HttpClient, private configService: ConfigService) {
+    automapper.createMap('{}', 'Menu');
   }
 
-   private mapMenu(res: Response) : Menu {
-     
-     debugger;
-       console.log(res);
+  private menuApiUri = `${this.configService.apiPrefix}/menus`;
+
+  getMenu(): Observable<Menu> {
+    return this.http.get(`${this.menuApiUri}`)
+      .map(this.mapMenu)
+      .catch(this.handleError);
+  }
+
+  private mapMenu(res: Response): Menu {
+
+    console.log(res);
     let body = res.json();
     var menu: Menu = automapper.map('{}', 'Menu', body);
     return menu;
   }
-  
-  private handleError (error: any) {
+
+  private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :

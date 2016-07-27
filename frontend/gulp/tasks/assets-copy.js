@@ -15,6 +15,7 @@ module.exports = function (paths, dist) {
         cssOwlCarousel: paths.modules + '/owlcarousel-pre/owl-carousel/owl.carousel.css',
         cssOwlCarouselTheme: paths.modules + '/owlcarousel-pre/owl-carousel/owl.theme.css',
         cssToastr: paths.modules + '/angular2-toaster/lib/toaster.css',
+        cssFontAwesome: paths.modules + '/font-awesome/css/font-awesome.css',
         fontsApp: paths.root + 'css/fonts/**/*',
         fontsFontAwesome: paths.modules + '/font-awesome/fonts/**/*',
         html: paths.root + 'app/**/*.html',
@@ -39,7 +40,7 @@ module.exports = function (paths, dist) {
     }
 
     gulp.task('assets-copy-release', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:webConfig']));
-    gulp.task('assets-copy-debug', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
+    gulp.task('assets-copy-debug', gulpSequence('clean:dist', ['copy:ts:params', 'copy:css', 'copy:fonts', 'copy:html', 'copy:images', 'copy:js','copy:ts', 'copy:systemJsConfig', 'copy:webConfig', 'copy:npm:dependencies']));
 
     gulp.task('copy:css', ['copy:css:vendor', 'copy:css:app']);
     gulp.task('copy:js', ['copy:js:vendor']);//, 'copy:js:app']);
@@ -70,8 +71,16 @@ module.exports = function (paths, dist) {
 
     gulp.task("copy:css:vendor",
         function (cb) {
-            return gulp.src([input.cssOwlCarousel, input.cssOwlCarouselTheme, input.cssBootstrap, input.cssToastr])
+            return gulp.src([input.cssOwlCarousel, input.cssOwlCarouselTheme, input.cssBootstrap, input.cssToastr, input.cssFontAwesome])
                 .pipe(gulp.dest(dist.cssVendor));
+        });
+
+         gulp.task("copy:ts",
+        function (cb) {
+            console.log(paths.root);
+            return gulp.src(paths.root + "/app/**/*.ts")
+                    .pipe(debug())
+                    .pipe(gulp.dest('./dist/app'));
         });
 
     gulp.task("copy:css:app",

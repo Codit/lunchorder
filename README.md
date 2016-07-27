@@ -1,8 +1,8 @@
 [![Visual Studio Team services](https://img.shields.io/vso/build/codit/af04086b-9d24-45cd-a1e6-8b7b65149a98/172.svg?maxAge=2592000?style=flat-square)]()
-[![Travis Master branch](https://img.shields.io/travis/CoditEU/lunchorder/master.svg?maxAge=2592000?style=flat-square)]()
-[![Coveralls Master branch](https://img.shields.io/coveralls/CoditEU/lunchorder/master.svg?maxAge=2592000?style=flat-square)]()
-[![Code Climate](https://img.shields.io/codeclimate/github/CoditEU/lunchorder.svg?maxAge=2592000?style=flat-square)]()
-[![David](https://img.shields.io/david/CoditEU/lunchorder.svg?maxAge=2592000?style=flat-square)]()
+[![Travis Master branch](https://img.shields.io/travis/CoditEU/lunchorder/master.svg?maxAge=2592000?style=flat-square)](https://travis-ci.org/CoditEU/lunchorder)
+[![Coveralls Master branch](https://img.shields.io/coveralls/CoditEU/lunchorder/master.svg?maxAge=2592000?style=flat-square)](https://coveralls.io/github/CoditEU/lunchorder)
+[![Code Climate](https://img.shields.io/codeclimate/github/CoditEU/lunchorder.svg?maxAge=2592000?style=flat-square)](https://codeclimate.com/github/CoditEU/lunchorder)
+[![David](https://img.shields.io/david/CoditEU/lunchorder.svg?maxAge=2592000?style=flat-square)](https://david-dm.org/CoditEU/lunchorder)
 
 # lunchorder
 Lunch order is a web application where a user can order lunch using money that was paid in advance. The order will then be delivered by a lunch company at lunchtime.

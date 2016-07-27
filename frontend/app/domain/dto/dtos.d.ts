@@ -4,14 +4,15 @@ declare module app.domain.dto {
         streetNumber: string;
         city: string;
         phone: string;
+        fax: string;
         email: string;
     }
     
     export interface IBadge {
+        id: string;
         name: string;
         icon: string;
         description: string;
-        earned: boolean;
     }
     
     export interface IMenu {
@@ -22,12 +23,15 @@ declare module app.domain.dto {
         entries: IMenuEntry[];
         categories: IMenuCategory[];
         rules: IMenuRule[];
+        lastUpdated: Date;
+        revision: number;
     }
     
     export interface IMenuCategory {
         id: string;
         name: string;
         description: string;
+        subCategories: IMenuCategory[];
     }
     
     export interface IMenuEntry {
@@ -35,7 +39,6 @@ declare module app.domain.dto {
         name: string;
         description: string;
         categoryId: string;
-        picture: string;
         price: string;
         enabled: boolean;
     }
@@ -53,7 +56,7 @@ declare module app.domain.dto {
     
     export interface IMenuRule {
         id: string;
-        categoryIds: number[];
+        categoryIds: string[];
         description: string;
         priceDelta: number;
         enabled: boolean;
@@ -62,10 +65,21 @@ declare module app.domain.dto {
     export interface IMenuVendor {
         name: string;
         address: IMenuVendorAddress;
+        website: string;
         submitOrderTime: string;
+        logo: string;
     }
     
     export interface IMenuVendorAddress extends IAddress {
+        id: string;
+    }
+    
+    export interface IUserBadge {
+        badgeId: string;
+        timesEarned: number;
+    }
+    
+    export interface IUserOrderHistory {
         id: string;
         finalPrice: number;
         entry: IUserOrderHistoryEntry;
@@ -90,6 +104,7 @@ declare module app.domain.dto {
         firstName: string;
         lastName: string;
         picture: string;
+        culture: string;
     }
     
     export interface IPostFavoriteRequest {
@@ -109,9 +124,12 @@ declare module app.domain.dto {
     }
     
     export interface IGetUserInfoResponse {
+        id: string;
+        userName: string;
         balance: number;
         profile: IUserProfile;
-        badges: IBadge[];
+        badges: IUserBadge[];
         favorites: IMenuEntryFavorite[];
+        userToken: string;
     }
 }

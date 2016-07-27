@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lunchorder.Domain.Dtos
 {
@@ -16,21 +17,26 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The final price for a user order history, this represents the price the user actually pays
         /// </summary>
-        public int FinalPrice { get; set; }
+        public double FinalPrice { get; set; }
 
         /// <summary>
-        /// A representation of the entry that the user has ordered
+        /// The name of the user that has placed the entry
         /// </summary>
-        public UserOrderHistoryEntry Entry { get; set; }
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// The associated userid for the order
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// A representation of the entr(y)(ies) that the user has ordered
+        /// </summary>
+        public IEnumerable<UserOrderHistoryEntry> Entries { get; set; }
 
         /// <summary>
         /// The time the user has placed the order
         /// </summary>
         public DateTime OrderTime { get; set; }
-
-        /// <summary>
-        /// A set of rules that were applied to the order at that specific time
-        /// </summary>
-        public IEnumerable<UserOrderHistoryRule> Rules { get; set; }
     }
 }

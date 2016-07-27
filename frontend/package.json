@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp test && karma start karma.conf.js",
-    "testbuild": "gulp test && karma start karma.conf.js --single-run --no-auto-watch",
+    "testbuild": "gulp test && karma start karma.conf.js --single-run --no-auto-watch && gulp remap-istanbul-frontend",
     "postinstall": "typings install"
   },
   "repository": {
@@ -47,10 +47,12 @@
     "zone.js": "0.6.12"
   },
   "devDependencies": {
+    "codeclimate-test-reporter": "^0.3.3",
     "coveralls": "2.11.9",
     "del": "2.2.1",
     "es6-promise": "3.2.1",
     "es6-shim": "0.35.1",
+    "font-awesome": "^4.6.3",
     "fs": "0.0.2",
     "gulp": "3.9.1",
     "gulp-concat": "2.6.0",

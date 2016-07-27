@@ -26,6 +26,11 @@
         public string Phone { get; set; }
 
         /// <summary>
+        /// Fax number that is related to the address
+        /// </summary>
+        public string Fax { get; set; }
+
+        /// <summary>
         /// The email that is related to the address
         /// </summary>
         public string Email { get; set; }

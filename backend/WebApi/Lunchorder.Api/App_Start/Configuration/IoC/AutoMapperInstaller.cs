@@ -35,6 +35,9 @@ namespace Lunchorder.Api.Configuration.IoC
 
             container.Register(
                 Component.For<IMapper>().UsingFactoryMethod(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper(ctx.Resolve)));
+
+            var mapper = container.Resolve<IMapper>();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
     }
 }

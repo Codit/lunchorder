@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Lunchorder.Api.Infrastructure.Services;
 using Lunchorder.Common.Interfaces;
 using Microsoft.Azure.Documents;
 using Newtonsoft.Json.Linq;
@@ -11,10 +12,14 @@ namespace Lunchorder.Test.Integration.Helpers.Base {
 
     public class DocumentDbBase
     {
-        public DocumentDbBase(IDocumentStore documentStore)
+        private readonly SeedService _seedService;
+
+        public DocumentDbBase(IDocumentStore documentStore, SeedService seedService)
         {
             if (documentStore == null) throw new ArgumentNullException(nameof(documentStore));
+            if (seedService == null) throw new ArgumentNullException(nameof(seedService));
             DocumentStore = documentStore;
+            _seedService = seedService;
         }
 
         public IDocumentStore DocumentStore { get; set; }
@@ -26,6 +31,8 @@ namespace Lunchorder.Test.Integration.Helpers.Base {
             SeedStoredProcedures().Wait();
             CleanDatabase().Wait();
             SeedDocuments().Wait();
+            //seedService.SeedDocuments().Wait();
+            _seedService.SeedStoredProcedures().Wait();
         }
 
         public static string AssemblyDirectory

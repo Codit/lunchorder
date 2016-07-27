@@ -19,7 +19,8 @@ import { Menu } from './domain/dto/menu';
 					<img class="rotate" src="css/images/icon/map.svg" alt="Generic placeholder image">
 					<h3>Venue</h3>
 					<p class="lead">{{menu?.vendor?.name}} </p>
-					<p >Phone: {{menu?.vendor?.address?.phone}} </p>
+					<p>Phone: {{menu?.vendor?.address?.phone}} </p>
+					<p *ngIf="menu?.vendor?.address?.fax">Fax: {{menu?.vendor?.address?.fax}}</p>
 				</div>
 
 				<div class="col-sm-4 wow fadeInDown text-center">

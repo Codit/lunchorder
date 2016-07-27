@@ -7,6 +7,7 @@ using Castle.Windsor;
 using FluentValidation.WebApi;
 using Lunchorder.Api.Configuration.IoC;
 using Lunchorder.Api.Infrastructure.Filters;
+using Lunchorder.Api.Infrastructure.Services;
 using Lunchorder.Common.Extensions;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.ActiveDirectory;
@@ -34,11 +35,11 @@ namespace Lunchorder.Api
                 _container.Install(new WebInstaller(null, HttpConfiguration));
 
                 SwaggerConfig.Register(HttpConfiguration);
+                var seedService = _container.Resolve<SeedService>();
+                seedService.SeedDocuments().Wait();
+                seedService.SeedStoredProcedures().Wait();
             }
-
-            var mapper = _container.Resolve<IMapper>();
-            mapper.ConfigurationProvider.AssertConfigurationIsValid();
-
+            
             var oAuthBearerOptions = _container.Resolve<JwtBearerAuthenticationOptions>();
             var oAuthServerOptions = _container.Resolve<OAuthAuthorizationServerOptions>();
             var azureAdServerOptions = _container.Resolve<WindowsAzureActiveDirectoryBearerAuthenticationOptions>();

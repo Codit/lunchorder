@@ -12,7 +12,7 @@ namespace Lunchorder.Common.Interfaces
         IQueryable<T> GetItems<T>();
         IQueryable<T> GetItemsByExpression<T>(string sqlExpression);
         IQueryable<T> GetItems<T>(Expression<Func<T, bool>> predicate);
-        IQueryable<dynamic> GetItem<T>(string sqlExpression);
+        Task<T> GetItem<T>(string sqlExpression);
         Task UpsertDocument<T>(T document);
         Task DeleteDocuments(string documentLink);
         Task CreateStoredProcedure(StoredProcedure storedProcedure, bool checkIfExists);
@@ -21,12 +21,12 @@ namespace Lunchorder.Common.Interfaces
         Task CreateCollection(string collectionName, bool checkIfExists);
         Task CreateCollection(bool checkIfExists);
         Task<T> ExecuteStoredProcedure<T>(string storedProcedureName, params dynamic[] parameters);
-        Task UpsertDocument(string document);
-        Task UpsertDocumentIfNotExists(string Id, string document);
+        Task UpsertDocument(object document);
+        Task UpsertDocumentIfNotExists(string id, object document);
         Task<ResourceResponse<StoredProcedure>> GetStoredProcedure(string id);
         Task CreateIndex(IncludedPath index);
         Task SetIndexMode(IndexingMode mode);
         Document GetDocument(Expression<Func<Document, bool>> predicate);
-        Task<Document> ReplaceDocument(Document document);
+        Task<ResourceResponse<Document>> ReplaceDocument(object document);
     }
 }

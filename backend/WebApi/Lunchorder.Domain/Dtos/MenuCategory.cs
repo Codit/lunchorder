@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lunchorder.Domain.Dtos
 {
@@ -10,7 +11,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// An identifier for the menu category
         /// </summary>
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// The name of the menu category
@@ -21,5 +22,10 @@ namespace Lunchorder.Domain.Dtos
         /// The description of the menu category
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Possible subcategories
+        /// </summary>
+        public IEnumerable<MenuCategory> SubCategories { get; set; }
     }
 }

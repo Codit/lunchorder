@@ -1,0 +1,200 @@
+﻿{
+  "Type": "Menu",
+  "id": "3a464148-ec8e-49e7-a5dd-e905ff9b933b",
+  "Enabled": false,
+  "Deleted": false,
+  "Vendor": {
+    "Name": "'t kruimelken",
+    "Address": {
+      "Street": "H.J. Reystraat",
+      "StreetNumber": "1",
+      "City": "Ledeberg",
+      "Phone": "09/232.04.53",
+      "Fax": "09/232.04.54",
+      "Email": "info@tkruimelken.be"
+    },
+    "Website": "http://www.tkruimelken.be/",
+    "SubmitOrderTime": "09:00:00",
+    "Logo": ""
+  },
+  "Entries": [
+    {
+      "Id": "d71e360b-f349-4bcf-b6ea-3eceb63832c7",
+      "Name": "Jonge kaas",
+      "Description": null,
+      "CategoryId": "8c60254c-1044-40f7-8740-cd1c09de824d",
+      "Picture": "",
+      "Price": "3,30",
+      "Enabled": true
+    },
+    {
+      "Id": "5368da96-90df-49d8-aa78-39d9f4338eb5",
+      "Name": "Brie",
+      "Description": null,
+      "CategoryId": "8c60254c-1044-40f7-8740-cd1c09de824d",
+      "Picture": "",
+      "Price": "3,30",
+      "Enabled": true
+    },
+    {
+      "Id": "d4cdae9b-ed06-4ec0-92fe-5624a4d8c45e",
+      "Name": "Philadelphia",
+      "Description": null,
+      "CategoryId": "8c60254c-1044-40f7-8740-cd1c09de824d",
+      "Picture": "",
+      "Price": "3,30",
+      "Enabled": true
+    },
+    {
+      "Id": "b372f359-b4e4-437d-8303-cead6678287d",
+      "Name": "Boursin",
+      "Description": null,
+      "CategoryId": "8c60254c-1044-40f7-8740-cd1c09de824d",
+      "Picture": "",
+      "Price": "3,30",
+      "Enabled": true
+    },
+    {
+      "Id": "f0417dae-73b4-46b6-bc75-cd435013b8af",
+      "Name": "Mozarella",
+      "Description": null,
+      "CategoryId": "8c60254c-1044-40f7-8740-cd1c09de824d",
+      "Picture": "",
+      "Price": "3,30",
+      "Enabled": true
+    },
+    {
+      "Id": "2483e1ca-62fb-4160-a871-2b9659061238",
+      "Name": "Krabsalade",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "3,30",
+      "Enabled": true
+    },
+    {
+      "Id": "9906620c-3c67-4cb6-a223-20a3abf6be5e",
+      "Name": "Tonijnsalade",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "3,80",
+      "Enabled": true
+    },
+    {
+      "Id": "e328bfc4-55b4-4e95-ac9d-2a20d21d996a",
+      "Name": "Noordzeesalade",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "3,30",
+      "Enabled": true
+    },
+    {
+      "Id": "49f803f1-13a8-4502-b60d-4f815105927a",
+      "Name": "Zalmsalade",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "3,80",
+      "Enabled": true
+    },
+    {
+      "Id": "efb1de44-58fd-4aa6-95d3-895c2592384c",
+      "Name": "Garnaalsalade",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "4,30",
+      "Enabled": true
+    },
+    {
+      "Id": "b66b5c57-2e4a-4422-9221-cc44cbd4d9ed",
+      "Name": "haring-dille salade",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "3,80",
+      "Enabled": true
+    },
+    {
+      "Id": "4ea21005-8081-428f-a922-b1c880f3ef20",
+      "Name": "pikante tonijnsalade",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "3,80",
+      "Enabled": true
+    },
+    {
+      "Id": "d4d8eaa4-ec7d-42b7-92cf-9029b0b7768e",
+      "Name": "Gerookte zalm",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "4,30",
+      "Enabled": true
+    },
+    {
+      "Id": "236e2f12-6e34-40ec-8149-dad6596ce4e1",
+      "Name": "Scampi in de looksaus",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "4,30",
+      "Enabled": true
+    },
+    {
+      "Id": "df9ea7f8-bf19-456a-bb2a-4fc6c829f54e",
+      "Name": "Scampi-diabolique salade",
+      "Description": null,
+      "CategoryId": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+      "Picture": "",
+      "Price": "4,30",
+      "Enabled": true
+    }
+  ],
+  "Categories": [
+    {
+      "Id": "5576c479-c37c-41c3-9c67-a464c656e002",
+      "Name": "Broodjes",
+      "Description": "standaard met ei, tomaat, augurk, wortel, sla",
+      "SubCategories": [
+        {
+          "Id": "8c60254c-1044-40f7-8740-cd1c09de824d",
+          "Name": "Kazen",
+          "Description": null,
+          "SubCategories": null
+        },
+        {
+          "Id": "cbe0c450-7b24-42fc-85be-f9e201ffba98",
+          "Name": "Vis en schaaldieren",
+          "Description": null,
+          "SubCategories": null
+        }
+      ]
+    }
+  ],
+  "Rules": [
+    {
+      "Id": "de50edcb-5ade-4d89-85eb-3ccc49181987",
+      "CategoryIds": [
+        "5576c479-c37c-41c3-9c67-a464c656e002"
+      ],
+      "Description": "Bruin brood",
+      "PriceDelta": 0,
+      "Enabled": true
+    },
+    {
+      "Id": "7cb010e7-7b5f-4a9f-a1cb-07171ef22262",
+      "CategoryIds": [
+        "5576c479-c37c-41c3-9c67-a464c656e002"
+      ],
+      "Description": "Meergranen brood",
+      "PriceDelta": 0,
+      "Enabled": true
+    }
+  ],
+  "LastUpdated": "2016-07-25T12:46:31.4705006Z",
+  "Revision": 1
+}

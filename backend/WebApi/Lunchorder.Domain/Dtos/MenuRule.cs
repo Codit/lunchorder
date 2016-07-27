@@ -15,7 +15,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// A set of the associated categories
         /// </summary>
-        public IEnumerable<int> CategoryIds { get; set; }
+        public IEnumerable<string> CategoryIds { get; set; }
 
         /// <summary>
         /// The rule description

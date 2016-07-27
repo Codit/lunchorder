@@ -5,7 +5,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
     /// <summary>
     /// A rule that has been applied to an user order
     /// </summary>
-    public class UserOrderHistoryRule
+    public class UserOrderHistoryEntryRule
     {
         /// <summary>
         /// An identifier for an user order history rule
@@ -20,6 +20,6 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The positive or negative price difference of the user order history rule
         /// </summary>
-        public int PriceDelta { get; set; }
+        public double PriceDelta { get; set; }
     }
 }

@@ -1,0 +1,96 @@
+﻿{
+  "Id": "cfaaadbb-11a8-4318-b270-929a6cf582a1",
+  "Type":  "Badges",
+  "Badges": [
+    {
+      "Id": "5de5ecfd-6e4d-47e3-b129-96614e745ee5",
+      "Name": "Close Call (15 sec)",
+      "Icon": "close_call_15sec_200x200.png",
+      "Description": "Make an order 15 seconds before all orders are sent"
+    },
+    {
+      "Id": "21a61423-5815-442f-b213-ddc5814e5fd9",
+      "Name": "Close Call (30 sec)",
+      "Icon": "close_call_30sec_200x200.png",
+      "Description": "Make an order 30 seconds before all orders are sent"
+    },
+    {
+      "Id": "d9d6fd8a-d562-40ea-8014-34f70264f4bf",
+      "Name": "Close Call (45 sec)",
+      "Icon": "close_call_45sec_200x200.png",
+      "Description": "Make an order 45 seconds before all orders are sent"
+    },
+    {
+      "Id": "9560bbb4-1334-4544-89b1-c7a1fb9cc900",
+      "Name": "Close Call (60 sec)",
+      "Icon": "close_call_60sec_200x200.png",
+      "Description": "Make an order 60 seconds before all orders are sent"
+    },
+    {
+      "Id": "4bf730f1-8937-4f61-81ea-a695528fab3f",
+      "Name": "Collector",
+      "Icon": "badge_collector_10_200x200.png",
+      "Description": "Collect 10 badges and get one for free!"
+    },
+    {
+      "Id": "e290fd99-dadc-4490-88fc-bd8bd52909d6",
+      "Name": "Deep Pockets",
+      "Icon": "deep_pockets_200x200.png",
+      "Description": "Spend €75 in one month"
+    },
+    {
+      "Id": "91c5655e-488b-4b82-aff0-d64073b20618",
+      "Name": "Die Hard",
+      "Icon": "die_hard_200x200.png",
+      "Description": "Spend more than €3000 with your lunchorder account"
+    },
+    {
+      "Id": "ff8adf8c-2ce5-4bc2-afad-927338075631",
+      "Name": "Double Order",
+      "Icon": "double_order_200x200.png",
+      "Description": "Order exactly 2 items"
+    },
+    {
+      "Id": "17f1dbe9-9cd5-424d-a2de-35d41a78edc4",
+      "Name": "Enjoyer",
+      "Icon": "enjoyer_200x200.png",
+      "Description": "Spend more than €1500 with your lunchorder account"
+    },
+    {
+      "Id": "bfb3b5b2-3b43-4ab4-87b3-a42d5af1c663",
+      "Name": "First Order",
+      "Icon": "first_order_200x200.png",
+      "Description": "Place your first order using lunchorder"
+    },
+    {
+      "Id": "44b4ded3-22a7-431e-bdd8-7764c2560272",
+      "Name": "Have Faith",
+      "Icon": "have_faith_200x200.png",
+      "Description": "Have some faith in us and prepay €100"
+    },
+    {
+      "Id": "abe39563-0ea4-46c0-98de-0f094cccf7e7",
+      "Name": "Healthy",
+      "Icon": "healthy_200x200.png",
+      "Description": "You will live longer once you earn this badge"
+    },
+    {
+      "Id": "7a9ae2dd-7bc5-4384-afa3-36263b683038",
+      "Name": "Mobile",
+      "Icon": "mobile_200x200.png",
+      "Description": "Place an order using your phone"
+    },
+    {
+      "Id": "12dc79a4-16dd-4b36-980f-7c018ee36aa3",
+      "Name": "Pastaddict",
+      "Icon": "pastaddict_200x200.png",
+      "Description": "Place an order using your phone"
+    },
+    {
+      "Id": "12dc79a4-16dd-4b36-980f-7c018ee36aa3",
+      "Name": "Surprise",
+      "Icon": "surprise_200x200.png",
+      "Description": "You like surprises, don't you? Let us surprise you for one week!"
+    }
+  ]
+}

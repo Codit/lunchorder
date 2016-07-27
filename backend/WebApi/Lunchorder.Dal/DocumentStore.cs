@@ -6,9 +6,7 @@ using Lunchorder.Common.Interfaces;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace Lunchorder.Dal
 {
@@ -204,14 +202,14 @@ namespace Lunchorder.Dal
                 document);
         }
 
-        public async Task UpsertDocument(string document)
+        public async Task UpsertDocument(object document)
         {
-            ResourceResponse<Document> result = await DocumentDbClient.UpsertDocumentAsync(Collection.DocumentsLink, new JObject(document));
+            ResourceResponse<Document> result = await DocumentDbClient.UpsertDocumentAsync(Collection.DocumentsLink, JObject.FromObject(document));
         }
 
-        public async Task UpsertDocumentIfNotExists(string Id, string document)
+        public async Task UpsertDocumentIfNotExists(string id, object document)
         {
-            var item = GetItem<object>($"SELECT * FROM C WHERE C.id = '{Id}'");
+            var item = await GetItem<object>($"SELECT * FROM C WHERE C.id = '{id}'");
             if (item == null)
             {
                 await UpsertDocument(document);
@@ -223,15 +221,16 @@ namespace Lunchorder.Dal
             ResourceResponse<Document> result = await DocumentDbClient.DeleteDocumentAsync(documentLink);
         }
 
-        public IQueryable<dynamic> GetItem<T>(string sqlExpression)
+        public async Task<T> GetItem<T>(string sqlExpression)
         {
-            var result = DocumentDbClient.CreateDocumentQuery(Collection.DocumentsLink, sqlExpression);
-            return result;
+            var documentQuery = DocumentDbClient.CreateDocumentQuery(Collection.DocumentsLink, sqlExpression).AsDocumentQuery();
+            var response =  await documentQuery.ExecuteNextAsync<T>();
+            return response.FirstOrDefault();
         }
 
-        public async Task<Document> ReplaceDocument(Document document)
+        public async Task<ResourceResponse<Document>> ReplaceDocument(object document)
         {
-            Document updated = await DocumentDbClient.ReplaceDocumentAsync(document);
+            ResourceResponse<Document> updated = await DocumentDbClient.UpsertDocumentAsync(Collection.DocumentsLink, document);
             return updated;
         }
 

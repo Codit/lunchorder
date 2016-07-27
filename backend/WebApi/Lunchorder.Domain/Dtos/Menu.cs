@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Dtos
 {
@@ -11,6 +12,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The identifier for the menu
         /// </summary>
+        [JsonProperty("id")]
         public Guid Id { get; set; }
 
         /// <summary>
@@ -42,5 +44,15 @@ namespace Lunchorder.Domain.Dtos
         /// A set of rules that can be applied to one or more MenuCategories 
         /// </summary>
         public IEnumerable<MenuRule> Rules { get; set; }
+
+        /// <summary>
+        /// Last change of the menu
+        /// </summary>
+        public DateTime LastUpdated { get; set; }
+
+        /// <summary>
+        /// How many times has it been updated
+        /// </summary>
+        public int Revision { get; set; }
     }
 }

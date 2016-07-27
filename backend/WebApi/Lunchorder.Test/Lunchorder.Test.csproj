@@ -45,12 +45,20 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DocumentDB.AspNet.Identity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentDB.AspNet.Identity.1.0.9-beta\lib\net45\DocumentDB.AspNet.Identity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.Documents.Client, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -135,17 +143,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\ApiController\LunchorderControllerTest.cs" />
+    <Compile Include="Integration\ApiController\BadgeControllerTest.cs" />
+    <Compile Include="Integration\ApiController\MenuControllerTest.cs" />
+    <Compile Include="Integration\ApiController\AccountControllerTest.cs" />
+    <Compile Include="Integration\ApiController\OrderControllerTest.cs" />
     <Compile Include="Integration\AuthenticateUserTest.cs" />
     <Compile Include="Integration\Helpers\Base\AuthorizationControllerTestBase.cs" />
     <Compile Include="Integration\Helpers\Base\ControllerTestBase.cs" />
     <Compile Include="Integration\Helpers\Base\DocumentDbBase.cs" />
     <Compile Include="Integration\Helpers\Base\IoC\MockedApiControllerInstaller.cs" />
     <Compile Include="Integration\Helpers\Base\IoC\TestWebInstaller.cs" />
+    <Compile Include="Integration\Helpers\Base\ServiceBase.cs" />
+    <Compile Include="Integration\Helpers\Base\RepositoryBase.cs" />
     <Compile Include="Integration\Helpers\Base\SingletonEqualizer.cs" />
     <Compile Include="Integration\Helpers\Base\TestStartup.cs" />
     <Compile Include="Integration\Helpers\Base\TokenResponse.cs" />
     <Compile Include="Integration\Helpers\TestConstants.cs" />
+    <Compile Include="Integration\Repositories\DocumentDbRepositoryTest.cs" />
+    <Compile Include="Integration\Services\ApplicationUserServiceTest.cs" />
     <Compile Include="SampleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -160,6 +175,33 @@
     <None Include="app.Debug.config">
     </None>
     <None Include="app.Release.config">
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\menu4.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\menu3.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\menu2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\menu1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\badges.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\user3.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\user2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\vendorOrderHistory2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\vendorOrderHistory1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Integration\Helpers\Seed\Documents\user1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

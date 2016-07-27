@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -15,7 +16,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// A set of the associated categories
         /// </summary>
-        public IEnumerable<int> CategoryIds { get; set; }
+        public IEnumerable<Guid> CategoryIds { get; set; }
 
         /// <summary>
         /// The rule description

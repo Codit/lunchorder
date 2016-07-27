@@ -3,7 +3,7 @@
   "LastName": "User",
   "Language": null,
   "Culture": "en-US",
-  "Picture": "",
+  "Picture": "http://pic.tu.re",
   "id": "9761a644-c2f6-476d-978f-58accaa09d0a",
   "UserName": "tuser",
   "Email": "products@codit.eu",
@@ -16,7 +16,26 @@
   "LockoutEnd": "0001-01-01T01:00:00+01:00",
   "LockoutEnabled": true,
   "AccessFailedCount": 0,
+  "Balance": 50.50, 
+  "Badges": [
+    {
+      "BadgeId": "5de5ecfd-6e4d-47e3-b129-96614e745ee5",
+      "TimesEarned": 2
+    }
+  ],
+  "Favorites": [
+    { "MenuEntryId": "f2d6b026-0e57-45a9-9270-f8fa4590079c" },
+    { "MenuEntryId": "bd341859-1e68-4650-a8a5-31c409f91b3a" },
+    { "MenuEntryId": "63a04825-1489-46cb-83c5-8dfda58c27c0" }
+  ],
   "Logins": [ ],
-  "Claims": [ ],
-  "Roles": [ ]
+  "Claims": [
+    {
+      "ClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+      "ClaimValue": "products@codit.eu"
+    }
+
+  ],
+  "Roles": [ ],
+  "Last5Orders":  [ ] 
 }

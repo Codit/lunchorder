@@ -64,9 +64,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Cache.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Constants\DocumentDbType.cs" />
     <Compile Include="Dtos\Address.cs" />
     <Compile Include="Dtos\Badge.cs" />
+    <Compile Include="Dtos\LastOrder.cs" />
+    <Compile Include="Dtos\LastOrderEntry.cs" />
     <Compile Include="Dtos\Menu.cs" />
     <Compile Include="Dtos\MenuCategory.cs" />
     <Compile Include="Dtos\MenuEntry.cs" />
@@ -77,18 +81,26 @@
     <Compile Include="Dtos\MenuVendorAddress.cs" />
     <Compile Include="Dtos\Requests\PostFavoriteRequest.cs" />
     <Compile Include="Dtos\Requests\PostMenuRequest.cs" />
-    <Compile Include="Dtos\Requests\PostUserHistoryRequest.cs" />
+    <Compile Include="Dtos\Requests\PostOrderRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
+    <Compile Include="Dtos\Test.cs" />
+    <Compile Include="Dtos\UserBadge.cs" />
     <Compile Include="Dtos\UserOrderHistory.cs" />
     <Compile Include="Dtos\UserOrderHistoryEntry.cs" />
     <Compile Include="Dtos\UserOrderHistoryRule.cs" />
     <Compile Include="Dtos\UserProfile.cs" />
     <Compile Include="Entities\DocumentDb\Address.cs" />
+    <Compile Include="Entities\DocumentDb\Badge.cs" />
+    <Compile Include="Entities\DocumentDb\BadgeResponse.cs" />
     <Compile Include="Entities\DocumentDb\BalanceAudit.cs" />
     <Compile Include="Entities\DocumentDb\Buyer.cs" />
     <Compile Include="Entities\DocumentDb\BuyerAddress.cs" />
-    <Compile Include="Entities\DocumentDb\User.cs" />
+    <Compile Include="Entities\DocumentDb\LastOrder.cs" />
+    <Compile Include="Entities\DocumentDb\LastOrderEntry.cs" />
+    <Compile Include="Entities\DocumentDb\MenuEntryFavorite.cs" />
+    <Compile Include="Entities\DocumentDb\UserBadge.cs" />
+    <Compile Include="Entities\DocumentDb\UserBadgeStats.cs" />
     <Compile Include="Entities\DocumentDb\VendorHistoryEntryRule.cs" />
     <Compile Include="Entities\DocumentDb\Menu.cs" />
     <Compile Include="Entities\DocumentDb\MenuCategory.cs" />
@@ -99,8 +111,8 @@
     <Compile Include="Entities\DocumentDb\UserHistory.cs" />
     <Compile Include="Entities\DocumentDb\UserOrderHistory.cs" />
     <Compile Include="Entities\DocumentDb\UserOrderHistoryEntry.cs" />
-    <Compile Include="Entities\DocumentDb\UserOrderHistoryRule.cs" />
-    <Compile Include="Entities\DocumentDb\VendorHistoryEntry.cs" />
+    <Compile Include="Entities\DocumentDb\UserOrderHistoryEntryRule.cs" />
+    <Compile Include="Entities\DocumentDb\VendorOrderHistoryEntry.cs" />
     <Compile Include="Entities\DocumentDb\VendorOrderHistory.cs" />
     <Compile Include="Entities\Authentication\ApplicationUser.cs" />
     <Compile Include="Entities\Configuration\ApiKeyElement.cs" />
