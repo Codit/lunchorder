@@ -76,7 +76,7 @@ module.exports = function (paths, dist) {
             compilerOptions: {
                 "inlineSourceMap": false,
                 "inlineSources": false,
-                "sourceRoot": ""
+                "sourceRoot": "."
             }
         })
             .pipe(gulp.dest("."))
