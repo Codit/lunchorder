@@ -16,10 +16,10 @@ namespace Lunchorder.Test.Integration.Helpers.Base {
 
         public DocumentDbBase(IDocumentStore documentStore, SeedService seedService)
         {
-            _seedService = seedService;
             if (documentStore == null) throw new ArgumentNullException(nameof(documentStore));
             if (seedService == null) throw new ArgumentNullException(nameof(seedService));
             DocumentStore = documentStore;
+            _seedService = seedService;
         }
 
         public IDocumentStore DocumentStore { get; set; }

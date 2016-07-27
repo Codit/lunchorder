@@ -4,6 +4,23 @@ namespace Lunchorder.Test.Integration.Helpers
 {
     public class TestConstants
     {
+        public class VendorOrderHistory
+        {
+            public class VendorOrderHistory1
+            {
+                public const string Id = "d4ce508f-49cf-7d00-e04a-2f2b614cb35d";
+                public const string VendorId = "07f24005-cf66-47bd-9368-16007e1ed0a2";
+                public static DateTime OrderDate = DateTime.Parse("2016/07/26");
+            }
+
+            public class VendorOrderHistory2
+            {
+                public const string Id = "d4ce508f-49cf-7d00-e04a-2f2b614cb35d";
+                public const string VendorId = "76827ef6-c4fd-4e81-afcd-d8487dcf493c";
+                public static DateTime OrderDate = DateTime.Parse("2015/06/18");
+            }
+        }
+
         public class Menu
         {
             public class Menu1

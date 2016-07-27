@@ -5,7 +5,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
     /// <summary>
     /// A rule that has been applied to an user order
     /// </summary>
-    public class UserOrderHistoryRule
+    public class UserOrderHistoryEntryRule
     {
         /// <summary>
         /// An identifier for an user order history rule

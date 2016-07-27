@@ -88,29 +88,44 @@ namespace Lunchorder.Dal
             await _documentStore.ReplaceDocument(dbMenu);
         }
 
-        public async Task AddOrder(string userId, string vendorId, UserOrderHistory userOrderHistory)
+        public async Task AddOrder(string userId, string userName, string vendorId, string formattedOrderDate, UserOrderHistory userOrderHistory)
         {
             var docDbUserOrderHistory = _mapper.Map<UserOrderHistory, Domain.Entities.DocumentDb.UserOrderHistory>(userOrderHistory);
-            
+            docDbUserOrderHistory.Id = Guid.NewGuid();
             docDbUserOrderHistory.UserId = userId;
+            docDbUserOrderHistory.UserName = userName;
 
-            var vendorOrderHistory = new VendorOrderHistory { Id = Guid.NewGuid(), VendorId = Guid.Parse(vendorId)};
-            vendorOrderHistory.OrderDate = vendorOrderHistory.GenerateToday();
+            var vendorOrderHistory = new VendorOrderHistory
+            {
+                Id = Guid.NewGuid(),
+                VendorId = Guid.Parse(vendorId),
+                OrderDate = formattedOrderDate
+            };
+
+            var docDbVendorOrderHistoryEntries = _mapper.Map<IEnumerable<Domain.Entities.DocumentDb.UserOrderHistoryEntry>, IEnumerable<Domain.Entities.DocumentDb.VendorOrderHistoryEntry>>(docDbUserOrderHistory.Entries);
+
+            foreach (var entry in docDbVendorOrderHistoryEntries)
+            {
+                entry.UserId = Guid.Parse(userId);
+                entry.UserName = userName;
+            }
 
             // todo, this should be user local time
             // make sure that the vendor order history isn't created multiple times because of concurrency. We do this in a different query.
-            var vendorOrderId = await _documentStore.ExecuteStoredProcedure<Guid>("getOrCreateVendorOrderHistory", vendorOrderHistory);
+            var vendorOrderId = await _documentStore.ExecuteStoredProcedure<string>("getOrCreateVendorOrderHistory", vendorOrderHistory);
+
+            var lastOrder = _mapper.Map<Domain.Entities.DocumentDb.UserOrderHistory, Domain.Entities.DocumentDb.LastOrder>(docDbUserOrderHistory);
+            lastOrder.UserOrderHistoryId = docDbUserOrderHistory.Id;
 
             /* transaction for multiple operations in documentdb is done using stored procedure.
-             * let's call it here and leave it up to the sp */
-            //var success = await _documentStore.ExecuteStoredProcedure<bool>("addUserOrder", vendorOrderId, docDbUserOrderHistory);
-
-            // add order to order history
-
-
-            // subtract total price from user balance
-
-            // add order to current vendor order list
+             * let's call it here and leave it up to the sp
+             * 1. does a check on user balance 
+             * 2. adds order to user order history
+             * 3. adds order to vendor order
+             * 4. updates user last orders
+             * 5. updates user balance
+             */
+            var success = await _documentStore.ExecuteStoredProcedure<bool>("addUserOrder", vendorOrderId, docDbVendorOrderHistoryEntries, docDbUserOrderHistory, lastOrder);
         }
 
         public async Task<VendorOrderHistory> GetVendorOrder(string orderDate, string vendorId)
@@ -121,7 +136,7 @@ namespace Lunchorder.Dal
                     x.VendorId == Guid.Parse(vendorId)).AsDocumentQuery();
 
             var queryResponse = await vendorOrderHistoryQuery.ExecuteNextAsync<Domain.Entities.DocumentDb.VendorOrderHistory>();
-            var vendorOrderHistory = queryResponse.FirstOrDefault();
+            var vendorOrderHistory = queryResponse.SingleOrDefault();
             return vendorOrderHistory;
         }
 

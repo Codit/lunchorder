@@ -235,6 +235,7 @@
     <Compile Include="App_Start\Configuration\Mapper\MenuEntryFavoriteMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuVendorMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryEntryMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryEntryRuleMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryRuleMap.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />

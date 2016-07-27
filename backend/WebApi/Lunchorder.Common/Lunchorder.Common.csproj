@@ -95,6 +95,7 @@
     <Compile Include="ControllerServices\FavoriteControllerService.cs" />
     <Compile Include="ControllerServices\MenuControllerService.cs" />
     <Compile Include="ControllerServices\OrderControllerService.cs" />
+    <Compile Include="DateGenerator.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Extensions\AuthorizationOptions.cs" />
     <Compile Include="Interfaces\IAccountControllerService.cs" />

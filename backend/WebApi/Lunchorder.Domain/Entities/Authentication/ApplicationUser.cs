@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Lunchorder.Domain.Dtos;
@@ -17,7 +18,7 @@ namespace Lunchorder.Domain.Entities.Authentication
 
         public string Culture { get; set; }
 
-        public int Balance { get; set; }
+        public double Balance { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -27,6 +28,7 @@ namespace Lunchorder.Domain.Entities.Authentication
             return userIdentity;
         }
 
+        public IEnumerable<LastOrder> Last5Orders { get; set; }
         public IEnumerable<UserBadge> Badges { get; set; }
         public IEnumerable<MenuEntryFavorite> Favorites { get; set; }
     }

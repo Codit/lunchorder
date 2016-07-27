@@ -9,6 +9,6 @@ namespace Lunchorder.Common.Interfaces
     {
         Task<IEnumerable<UserOrderHistory>> GetHistory(string userId);
         Task Delete(Guid orderId);
-        Task Add(string userId, IEnumerable<MenuOrder> menuOrders);
+        Task Add(string userId, string userName, IEnumerable<MenuOrder> menuOrders);
     }
 }

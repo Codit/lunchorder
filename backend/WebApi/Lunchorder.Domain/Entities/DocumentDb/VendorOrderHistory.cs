@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lunchorder.Domain.Constants;
+using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -12,6 +13,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// An identifier for the order history at the vendor
         /// </summary>
+        [JsonProperty("id")]
         public Guid Id { get; set; }
 
         /// <summary>
@@ -27,7 +29,11 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// A set of entries that have been ordered at the vendor
         /// </summary>
-        public IEnumerable<VendorHistoryEntry> Entries { get; set; }
+        public IEnumerable<VendorOrderHistoryEntry> Entries
+        {
+            get { return _entries ?? (_entries = new List<VendorOrderHistoryEntry>()); }
+            set { _entries = value; }
+        }
 
         /// <summary>
         /// Determines if the order has been sent to the vendor
@@ -39,9 +45,6 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// </summary>
         public string Type = DocumentDbType.VendorOrderHistory;
 
-        public string GenerateToday()
-        {
-            return DateTime.UtcNow.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
-        }
+        private IEnumerable<VendorOrderHistoryEntry> _entries;
     }
 }

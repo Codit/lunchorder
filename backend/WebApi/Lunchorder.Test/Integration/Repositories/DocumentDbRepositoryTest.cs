@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lunchorder.Domain.Entities.DocumentDb;
+using Lunchorder.Common;
+using Lunchorder.Domain.Dtos;
 using Lunchorder.Test.Integration.Helpers;
 using Lunchorder.Test.Integration.Helpers.Base;
 using NUnit.Framework;
@@ -21,7 +22,148 @@ namespace Lunchorder.Test.Integration.Repositories
     public class DocumentDbRepositoryTest : RepositoryBase
     {
         [Test]
-        public async Task AddOrder_Should_Create_VendorOrderHistory()
+        public async Task AddOrder_Should_CreateNewEntries()
+        {
+            var userId = TestConstants.User1.Id;
+            var userName = TestConstants.User1.Username;
+
+            var vendorId = Guid.NewGuid().ToString();
+
+            var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
+            {
+                new UserOrderHistoryEntry
+                {
+                    Id = Guid.NewGuid(),
+                    MenuEntryId = Guid.NewGuid(),
+                    Price = 5,
+                    Rules = new List<UserOrderHistoryRule>
+                    {
+                        new UserOrderHistoryRule
+                        {
+                            Description = "No vegetables",
+                            Id = Guid.NewGuid(),
+                            PriceDelta = 0.35
+                        }
+                    },
+                    Name = "test item"
+                },
+                new UserOrderHistoryEntry
+                {
+                    Id = Guid.NewGuid(),
+                    MenuEntryId = Guid.NewGuid(),
+                    Price = 10,
+                    Rules = null,
+                    Name = "test item 2"
+                }
+            };
+
+            var orderDate = new DateGenerator().GenerateDateFormat(DateTime.UtcNow);
+
+            var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
+
+            // Add an order and it should create 2 entries
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory);
+            var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
+            Assert.NotNull(vendorOrderHistory.Entries);
+            var entryList = vendorOrderHistory.Entries.ToList();
+            Assert.AreEqual(2, entryList.Count);
+            var firstEntry = entryList[0];
+            Assert.AreEqual(userOrderHistoryEntries[0].Name, firstEntry.Name);
+            Assert.AreEqual(5.35d, firstEntry.FinalPrice);
+            var secondEntry = entryList[1];
+            Assert.AreEqual(userOrderHistoryEntries[1].Name, secondEntry.Name);
+            Assert.AreEqual(userOrderHistoryEntries[1].Price, secondEntry.FinalPrice);
+
+            var userInfo = await DatabaseRepository.GetUserInfo(userName);
+            Assert.NotNull(userInfo);
+            Assert.NotNull(userInfo.Last5Orders);
+            var last5OrdersList = userInfo.Last5Orders.ToList();
+            Assert.AreEqual(1, last5OrdersList.Count);
+            Assert.NotNull(last5OrdersList[0].LastOrderEntries);
+            Assert.AreEqual(userOrderHistory.OrderTime, last5OrdersList[0].OrderTime);
+            Assert.AreEqual(15.35, last5OrdersList[0].FinalPrice);
+            var lastOrderEntriesList = last5OrdersList[0].LastOrderEntries.ToList();
+            Assert.AreEqual(userOrderHistoryEntries.Count, lastOrderEntriesList.Count);
+            var firstLastOrderEntry = lastOrderEntriesList[0];
+            Assert.AreEqual(userOrderHistoryEntries[0].Name, firstLastOrderEntry.Name);
+            Assert.AreEqual(userOrderHistoryEntries[0].Price, firstLastOrderEntry.Price);
+            Assert.AreEqual(string.Join("\n" ,userOrderHistoryEntries[0].Rules.Select(x => x.Description)), firstLastOrderEntry.AppliedRules);
+            Assert.AreEqual(35.15, userInfo.Balance);
+
+        }
+
+        //[Test]
+        //public async Task AddOrder_Should_Fail_When_Existing_Order_For_User()
+        //{
+        //    var userId = Guid.NewGuid().ToString();
+        //    var vendorId = TestConstants.VendorOrderHistory.VendorOrderHistory1.VendorId;
+        //    var vendorOrderHistoryId = TestConstants.VendorOrderHistory.VendorOrderHistory1.Id;
+
+        //    var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
+        //    {
+        //        new UserOrderHistoryEntry
+        //        {
+        //            Id = Guid.NewGuid(),
+        //            MenuEntryId = Guid.NewGuid(),
+        //            Price = 5,
+        //            Rules = null,
+        //            Name = "test item"
+        //        }
+        //    };
+
+        //    var orderDate = new DateGenerator().GenerateDateFormat(TestConstants.VendorOrderHistory.VendorOrderHistory1.OrderDate);
+
+        //    var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
+
+        //    // There is an existing order in the database (seed)
+        //    var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
+        //    Assert.IsNotNull(vendorOrderHistory);
+
+        //    // Add an order and it should use the existing vendor order history
+        //    await DatabaseRepository.AddOrder(userId, vendorId, orderDate, userOrderHistory);
+        //    vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
+        //    Assert.NotNull(vendorOrderHistory);
+        //    Assert.AreEqual(vendorId, vendorOrderHistory.VendorId.ToString());
+        //    Assert.AreEqual(vendorOrderHistoryId, vendorOrderHistory.Id.ToString());
+        //}
+
+        [Test]
+        public async Task AddOrder_Should_UseExisting_VendorOrderHistory()
+        {
+            var userId = Guid.NewGuid().ToString();
+            var vendorId = TestConstants.VendorOrderHistory.VendorOrderHistory1.VendorId;
+            var vendorOrderHistoryId = TestConstants.VendorOrderHistory.VendorOrderHistory1.Id;
+
+            var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
+            {
+                new UserOrderHistoryEntry
+                {
+                    Id = Guid.NewGuid(),
+                    MenuEntryId = Guid.NewGuid(),
+                    Price = 5,
+                    Rules = null,
+                    Name = "test item"
+                }
+            };
+
+            var orderDate = new DateGenerator().GenerateDateFormat(TestConstants.VendorOrderHistory.VendorOrderHistory1.OrderDate);
+
+            var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
+
+            // There is an existing order in the database (seed)
+            var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
+            Assert.IsNotNull(vendorOrderHistory);
+
+            // Add an order and it should use the existing vendor order history
+            await DatabaseRepository.AddOrder(userId, "abc", vendorId, orderDate, userOrderHistory);
+            vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
+            Assert.NotNull(vendorOrderHistory);
+            Assert.AreEqual(vendorId, vendorOrderHistory.VendorId.ToString());
+            Assert.AreEqual(vendorOrderHistoryId, vendorOrderHistory.Id.ToString());
+        }
+
+        [Test]
+        public async Task AddOrder_Should_Create_A_New_VendorOrderHistory()
         {
             var userId = Guid.NewGuid().ToString();
             var vendorId = Guid.NewGuid().ToString();
@@ -37,12 +179,17 @@ namespace Lunchorder.Test.Integration.Repositories
                     Name = "test item"
                 }
             };
+            var orderDate = new DateGenerator().GenerateDateFormat(DateTime.UtcNow.AddDays(7));
 
             var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
 
-            await DatabaseRepository.AddOrder(userId, vendorId, userOrderHistory);
-            var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(new VendorOrderHistory().GenerateToday(), vendorId);
+            // There should be no vendor order history for next week
+            var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
+            Assert.IsNull(vendorOrderHistory);
 
+            // Add an order and there should be a new vendor order history
+            await DatabaseRepository.AddOrder(userId, "abc", vendorId, orderDate, userOrderHistory);
+            vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
             Assert.NotNull(vendorOrderHistory);
             Assert.AreEqual(vendorOrderHistory.VendorId.ToString(), vendorId);
         }

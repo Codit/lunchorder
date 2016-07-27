@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lunchorder.Domain.Constants;
 
 namespace Lunchorder.Domain.Dtos
 {
@@ -18,19 +17,17 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The final price for a user order history, this represents the price the user actually pays
         /// </summary>
-        public double FinalPrice {
-            get
-            {
-                var finalPrice = 0.0;
-                foreach (var entry in Entries)
-                {
-                    finalPrice += entry.Price;
-                    if (entry.Rules == null) continue;
-                    finalPrice += entry.Rules.Sum(rule => rule.PriceDelta);
-                }
-                return finalPrice;
-            }
-        }
+        public double FinalPrice { get; set; }
+
+        /// <summary>
+        /// The name of the user that has placed the entry
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// The associated userid for the order
+        /// </summary>
+        public string UserId { get; set; }
 
         /// <summary>
         /// A representation of the entr(y)(ies) that the user has ordered
@@ -41,10 +38,5 @@ namespace Lunchorder.Domain.Dtos
         /// The time the user has placed the order
         /// </summary>
         public DateTime OrderTime { get; set; }
-
-        /// <summary>
-        /// A set of rules that were applied to the order at that specific time
-        /// </summary>
-        public IEnumerable<UserOrderHistoryRule> Rules { get; set; }
     }
 }

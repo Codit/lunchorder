@@ -41,7 +41,7 @@ namespace Lunchorder.Common.ControllerServices
             return null;
         }
 
-        public async Task Add(string userId, IEnumerable<MenuOrder> menuOrders)
+        public async Task Add(string userId, string userName, IEnumerable<MenuOrder> menuOrders)
         {
             var vendorId = await GetVendorId();
             var menuOrderHistoryEntries = _mapper.Map<IEnumerable<MenuOrder>, IEnumerable<UserOrderHistoryEntry>>(menuOrders);
@@ -49,7 +49,7 @@ namespace Lunchorder.Common.ControllerServices
             // todo add userid to object in dbrepo after map to docdb entity
             var userOrderHistory = new UserOrderHistory { Id = Guid.NewGuid(), OrderTime = DateTime.UtcNow, Entries = menuOrderHistoryEntries };
             //var vendorOrderHistory = new VendorOrderHistory {  }
-            await _databaseRepository.AddOrder(userId, vendorId, userOrderHistory);
+            await _databaseRepository.AddOrder(userId, userName, vendorId, new DateGenerator().GenerateDateFormat(DateTime.UtcNow),  userOrderHistory);
 
         }
 

@@ -11,6 +11,7 @@ namespace Lunchorder.Domain.Dtos.Responses
         public UserProfile Profile { get; set; }
         public IEnumerable<UserBadge> Badges { get; set; }
         public IEnumerable<MenuEntryFavorite> Favorites { get; set; }
+        public IEnumerable<LastOrder> Last5Orders { get; set; }
 
         /// <summary>
         /// A new token for the user in case of user creation in our database.

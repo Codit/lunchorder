@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Dtos.Requests;
-using Lunchorder.Domain.Dtos.Responses;
 using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
 
@@ -46,7 +45,7 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> Post(PostOrderRequest postOrderRequest)
         {
-            await _orderControllerService.Add(User.Identity.GetUserId(), postOrderRequest.MenuOrders);
+            await _orderControllerService.Add(User.Identity.GetUserId(), User.Identity.GetUserName(), postOrderRequest.MenuOrders);
             return Ok();
         }
 

@@ -24,7 +24,7 @@
              });
                 if (!created) return;
             }
-            else context.getResponse().setBody(JSON.stringify(feed[0]));
+            else context.getResponse().setBody(feed[0].id);
         });
 
     if (!isAccepted) throw new Error('The query was not accepted by the server.');

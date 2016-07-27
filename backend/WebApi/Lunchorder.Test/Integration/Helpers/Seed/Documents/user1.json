@@ -16,6 +16,7 @@
   "LockoutEnd": "0001-01-01T01:00:00+01:00",
   "LockoutEnabled": true,
   "AccessFailedCount": 0,
+  "Balance": 50.50, 
   "Badges": [
     {
       "BadgeId": "5de5ecfd-6e4d-47e3-b129-96614e745ee5",
@@ -35,5 +36,6 @@
     }
 
   ],
-  "Roles": [ ]
+  "Roles": [ ],
+  "Last5Orders":  [ ] 
 }
