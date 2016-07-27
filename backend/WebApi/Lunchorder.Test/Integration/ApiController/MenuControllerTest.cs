@@ -18,7 +18,7 @@ namespace Lunchorder.Test.Integration.ApiController
         {
             MockedApiInstaller.MockedMenuControllerService.Setup(x => x.GetActiveMenu()).ReturnsAsync(new Menu());
             
-            var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}"));
@@ -33,7 +33,7 @@ namespace Lunchorder.Test.Integration.ApiController
         {
             MockedApiInstaller.MockedMenuControllerService.Setup(x => x.GetActiveMenu()).ReturnsAsync(new Menu());
 
-            var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}"));
@@ -48,7 +48,7 @@ namespace Lunchorder.Test.Integration.ApiController
         {
             MockedApiInstaller.MockedMenuControllerService.Setup(x => x.GetActiveMenu()).ReturnsAsync(new Menu());
 
-            var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}"));
@@ -64,7 +64,7 @@ namespace Lunchorder.Test.Integration.ApiController
             var menuId = "123456";
             MockedApiInstaller.MockedMenuControllerService.Setup(x => x.SetActive(menuId));
 
-            var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}/active/{menuId}"));
@@ -80,7 +80,7 @@ namespace Lunchorder.Test.Integration.ApiController
             var menuId = "123456";
             MockedApiInstaller.MockedMenuControllerService.Setup(x => x.Delete(menuId));
 
-            var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}"));

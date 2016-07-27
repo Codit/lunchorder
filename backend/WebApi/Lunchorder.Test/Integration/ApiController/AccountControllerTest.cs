@@ -16,15 +16,15 @@ namespace Lunchorder.Test.Integration.ApiController
         public async Task Get()
         {
             MockedApiInstaller.MockedAccountControllerService.Setup(
-                x => x.GetUserInfo(TestConstants.User1.Username, false))
+                x => x.GetUserInfo(TestConstants.User1.UserName, false))
                 .ReturnsAsync(new GetUserInfoResponse());
             
-            var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}"));
 
-            MockedApiInstaller.MockedAccountControllerService.Verify(x => x.GetUserInfo( TestConstants.User1.Username, false), Times.Once);
+            MockedApiInstaller.MockedAccountControllerService.Verify(x => x.GetUserInfo( TestConstants.User1.UserName, false), Times.Once);
             
             AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.OK);
         }

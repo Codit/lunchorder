@@ -77,7 +77,7 @@ namespace Lunchorder.Test.Integration.Helpers
         public class User1
         {
             public const string Id = "9761a644-c2f6-476d-978f-58accaa09d0a";
-            public const string Username = "tuser";
+            public const string UserName = "tuser";
             public const string Email = "products@codit.eu";
             public const string Password = "test-us3r";
 

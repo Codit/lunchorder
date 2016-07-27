@@ -113,7 +113,7 @@ namespace Lunchorder.Dal
 
             // todo, this should be user local time
             // make sure that the vendor order history isn't created multiple times because of concurrency. We do this in a different query.
-            var vendorOrderId = await _documentStore.ExecuteStoredProcedure<string>("getOrCreateVendorOrderHistory", vendorOrderHistory);
+            var vendorOrderId = await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.GetOrCreateVendorOrderHistory, vendorOrderHistory);
 
             var lastOrder = _mapper.Map<Domain.Entities.DocumentDb.UserOrderHistory, Domain.Entities.DocumentDb.LastOrder>(docDbUserOrderHistory);
             lastOrder.UserOrderHistoryId = docDbUserOrderHistory.Id;
@@ -129,7 +129,7 @@ namespace Lunchorder.Dal
              */
                 var success =
                     await
-                        _documentStore.ExecuteStoredProcedure<bool>("addUserOrder", vendorOrderId,
+                        _documentStore.ExecuteStoredProcedure<bool>(DocumentDbSp.AddUserOrder, vendorOrderId,
                             docDbVendorOrderHistoryEntries, docDbUserOrderHistory, lastOrder);
         }
 

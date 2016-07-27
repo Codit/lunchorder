@@ -64,7 +64,7 @@ namespace Lunchorder.Test.Integration.Repositories
         public async Task AddOrder_Should_CreateNewEntries()
         {
             var userId = TestConstants.User1.Id;
-            var userName = TestConstants.User1.Username;
+            var userName = TestConstants.User1.UserName;
 
             var vendorId = Guid.NewGuid().ToString();
 
@@ -657,7 +657,7 @@ namespace Lunchorder.Test.Integration.Repositories
         [Test]
         public async Task GetUserInfo()
         {
-            var userInfo = await DatabaseRepository.GetUserInfo(TestConstants.User1.Username);
+            var userInfo = await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName);
             Assert.IsNotNull(userInfo);
 
             Assert.IsNotNull(userInfo.Badges);

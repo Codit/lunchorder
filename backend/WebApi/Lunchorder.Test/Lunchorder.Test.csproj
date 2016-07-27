@@ -146,7 +146,7 @@
     <Compile Include="Integration\ApiController\BadgeControllerTest.cs" />
     <Compile Include="Integration\ApiController\MenuControllerTest.cs" />
     <Compile Include="Integration\ApiController\AccountControllerTest.cs" />
-    <Compile Include="Integration\ApiController\LunchorderControllerTest.cs" />
+    <Compile Include="Integration\ApiController\OrderControllerTest.cs" />
     <Compile Include="Integration\AuthenticateUserTest.cs" />
     <Compile Include="Integration\Helpers\Base\AuthorizationControllerTestBase.cs" />
     <Compile Include="Integration\Helpers\Base\ControllerTestBase.cs" />

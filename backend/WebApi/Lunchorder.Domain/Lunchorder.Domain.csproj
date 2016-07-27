@@ -100,6 +100,7 @@
     <Compile Include="Entities\DocumentDb\LastOrderEntry.cs" />
     <Compile Include="Entities\DocumentDb\MenuEntryFavorite.cs" />
     <Compile Include="Entities\DocumentDb\UserBadge.cs" />
+    <Compile Include="Entities\DocumentDb\UserBadgeStats.cs" />
     <Compile Include="Entities\DocumentDb\VendorHistoryEntryRule.cs" />
     <Compile Include="Entities\DocumentDb\Menu.cs" />
     <Compile Include="Entities\DocumentDb\MenuCategory.cs" />

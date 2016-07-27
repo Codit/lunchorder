@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Lunchorder.Domain.Dtos;
+﻿using System.Threading.Tasks;
 using Lunchorder.Test.Integration.Helpers;
 using Lunchorder.Test.Integration.Helpers.Base;
 using Moq;
@@ -16,9 +14,7 @@ namespace Lunchorder.Test.Integration.ApiController
         [Test]
         public async Task Get()
         {
-            MockedApiInstaller.MockedBadgeControllerService.Setup(x => x.Get()).ReturnsAsync(new List<Badge>());
-            
-            var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}"));

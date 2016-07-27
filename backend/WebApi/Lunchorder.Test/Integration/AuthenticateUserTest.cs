@@ -11,7 +11,7 @@ namespace Lunchorder.Test.Integration
         [Test]
         public async Task Login()
         {
-            var token = await AuthorizeUser(TestConstants.User1.Username, TestConstants.User1.Password);
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotEmpty(token.Token);
         }
 
