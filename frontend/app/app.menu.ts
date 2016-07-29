@@ -6,6 +6,7 @@ import { MenuService } from './services/menuService';
 import { Menu } from './domain/dto/menu';
 import { MenuCategoryRow } from './app.menu-category-row';
 import { MenuEntry } from './domain/dto/menuEntry';
+<<<<<<< HEAD
 import { StickCartDirective } from './directives/stickCartDirective';
 
 @Component({
@@ -34,6 +35,19 @@ import { StickCartDirective } from './directives/stickCartDirective';
   </div>
 </div></div>
 				</div>
+=======
+
+@Component({
+	selector: '[menu]',
+	directives: [MenuCategoryRow],
+	template: `<div class="container">
+			<div class="row">
+				<div class="col-xs-12 wow fadeInLeftBig" data-animation-delay="200">
+					<h3 class="section-heading">Lunch Menu</h3>
+					<div menu-category-row class="col-xs-12" *ngFor="let cat of menu?.categories" [category]="cat" [menuEntries]="menu?.entries"></div>
+				</div>
+			</div>
+>>>>>>> master
 		</div>`,
 })
 

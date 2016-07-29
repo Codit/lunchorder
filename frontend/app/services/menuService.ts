@@ -21,10 +21,7 @@ export class MenuService {
       .catch(this.handleError);
   }
 
-
   mapMenu = (res: Response): Menu => {
-
-    console.log(res);
     let body = res.json();
     var menu: Menu = automapper.map('{}', 'Menu', body);
 
@@ -46,17 +43,13 @@ export class MenuService {
   }
   
   recurseSubCategory = (menu: Menu, menuRule: MenuRule, category: MenuCategory) : void => {
-    console.log("recursive menu rule:" + menuRule.id);
-    console.log("recursive: " + category.id);
     if (category.subCategories) {
       for (let subCategory of category.subCategories) {
-        console.log("recursive subcategy: " + subCategory.id);
         var menuEntries = menu.entries.filter((menuEntry) => menuEntry.categoryId == subCategory.id);
         for (let menuEntry of menuEntries) {
           // todo this should be added to constructor on mapping
           if (!menuEntry.rules) { menuEntry.rules = new Array<MenuRule>(); }
           menuEntry.rules.push(menuRule);
-          console.log("menuEntry pushed");
         }
         this.recurseSubCategory(menu, menuRule, subCategory)
       }

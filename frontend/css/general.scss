@@ -331,58 +331,7 @@ color: #ECEBEB;
 }
 
 @media screen and (max-width: 400px) {
-	.morph-button-fixed,
-	.morph-button-fixed .morph-content {
-		width: 200px;
-		height: 80px;
-	}
-
-	.morph-button-fixed > button {
-		font-size: 75%;
-	}
-
-	.morph-button-sidebar > button {
-		font-size: 1.6em;
-	}
-
-	.morph-button-inflow .morph-content .morph-clone {
-		font-size: 0.9em;
-	}
-
-	.morph-button-modal-4,
-	.morph-button-modal-4 .morph-content {
-		width: 220px;
-		height: 120px;
-	}
-
-	.morph-button-modal-4 > button {
-		font-size: 100%;
-		line-height: 50px;
-	}
-
-	.morph-button-modal-4 > button span {
-		display: block;
-	}
-
-	.morph-button-modal-4 .morph-clone {
-		right: 83px;
-		bottom: 26px;
-	}
-
-	.morph-button-sidebar,
-	.morph-button-sidebar .morph-content {
-		width: 100% !important;
-		height: 60px !important;
-	}
-
-	.morph-button-sidebar {
-		bottom: 0px;
-		left: 0px;
-	}
-
-	.morph-button-sidebar.open .morph-content {
-		height: 100% !important;
-	}
+	
 }
 
 @media (max-width: 1199px) {

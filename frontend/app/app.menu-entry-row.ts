@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from './services/configService';
 import { MenuEntry } from './domain/dto/menuEntry';
+<<<<<<< HEAD
 import { MenuRule } from './domain/dto/menuRule';
+=======
+>>>>>>> master
 
 @Component({
 	selector: '[menu-entry-row]',
@@ -34,7 +37,7 @@ import { MenuRule } from './domain/dto/menuRule';
         <button class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" (click)="addOrder()">Add order to cart</button>
     </div>
 </div>`})
-	 
+
 export class MenuEntryRow implements OnInit {
 
 	constructor(private configService: ConfigService) { }
