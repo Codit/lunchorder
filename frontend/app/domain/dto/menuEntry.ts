@@ -1,3 +1,5 @@
+import { MenuRule } from './menuRule'
+
 export class MenuEntry implements app.domain.dto.IMenuEntry {
     id: string;
     name: string;
@@ -6,4 +8,5 @@ export class MenuEntry implements app.domain.dto.IMenuEntry {
     picture: string;
     price: string;
     enabled: boolean;
+    rules: MenuRule[];
 }

@@ -9,7 +9,7 @@ import { Menu } from './domain/dto/menu';
 	selector: '[information]',
 	template: `
 		<div class="container">
-			<div class="row tworow">
+			<div class="row">
 				<div class="col-sm-4  wow fadeInDown text-center">
 					<img class="rotate" src="css/images/icon/watch.svg" alt="Generic placeholder image">
 					<h3>On Time</h3>

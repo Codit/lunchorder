@@ -12,8 +12,6 @@ module.exports = function (paths, dist) {
         images: paths.root + 'css/images/**/*.{png,gif,jpg,jpeg,svg}',
         cssApp: paths.root + 'css/**/*.scss',
         cssBootstrap: paths.modules + '/bootstrap/dist/css/bootstrap.css',
-        cssOwlCarousel: paths.modules + '/owlcarousel-pre/owl-carousel/owl.carousel.css',
-        cssOwlCarouselTheme: paths.modules + '/owlcarousel-pre/owl-carousel/owl.theme.css',
         cssToastr: paths.modules + '/angular2-toaster/lib/toaster.css',
         cssFontAwesome: paths.modules + '/font-awesome/css/font-awesome.css',
         fontsApp: paths.root + 'css/fonts/**/*',
@@ -23,7 +21,6 @@ module.exports = function (paths, dist) {
         jsJquery: paths.modules + '/jquery/dist/jquery.js',
         jsBootstrap: paths.modules + '/bootstrap/dist/js/bootstrap.js',
         jsWow: paths.modules + '/wow/dist/wow.js',
-        jsOwlCarousel: paths.modules + '/owlcarousel-pre/owl-carousel/owl.carousel.js',
         jsSystemJs: paths.modules + '/systemjs/dist/system.src.js',
         systemJsConfig: paths.root + 'systemjs.config.js',
         automapperJs: paths.modules + '/automapper-ts/dist/automapper.js',
@@ -71,7 +68,7 @@ module.exports = function (paths, dist) {
 
     gulp.task("copy:css:vendor",
         function (cb) {
-            return gulp.src([input.cssOwlCarousel, input.cssOwlCarouselTheme, input.cssBootstrap, input.cssToastr, input.cssFontAwesome])
+            return gulp.src([input.cssBootstrap, input.cssToastr, input.cssFontAwesome])
                 .pipe(gulp.dest(dist.cssVendor));
         });
 
@@ -91,7 +88,7 @@ module.exports = function (paths, dist) {
 
     gulp.task("copy:js:vendor",
         function (cb) {
-            return gulp.src([input.jsJquery, input.jsBootstrap, input.jsWow, input.jsOwlCarousel, input.jsSystemJs, input.automapperJs, input.js])
+            return gulp.src([input.jsJquery, input.jsBootstrap, input.jsWow, input.jsSystemJs, input.automapperJs, input.js])
                 .pipe(gulp.dest(dist.jsVendor));
         });
 
