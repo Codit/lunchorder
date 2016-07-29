@@ -12,7 +12,7 @@ import { MenuEntryPipe } from './pipes/menuEntry.pipe';
 					<h4 *ngIf="categoryItem.subcategories">{{categoryItem.name}}</h4>
 					<h5 *ngIf="!categoryItem.subcategories">{{categoryItem.name}}</h5>	
 
-					<div menu-entry-row *ngFor="let menuEntry of menuEntries | menuEntryByCategoryId:categoryItem.id" [menuEntry]="menuEntry"></div>
+					<div menu-entry-row class="row" *ngFor="let menuEntry of menuEntries | menuEntryByCategoryId:categoryItem.id" [menuEntry]="menuEntry"></div>
 
 					<div menu-category-row class="col-xs-12 col-md-6" *ngFor="let cat of categoryItem.subCategories" [category]="cat" [menuEntries]="menuEntries"></div>
 				</div>`,

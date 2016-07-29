@@ -4,4 +4,5 @@ export class MenuRule implements app.domain.dto.IMenuRule {
     description: string;
     priceDelta: number;
     enabled: boolean;
+    isEffective: boolean;
 }

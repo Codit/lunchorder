@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { ConfigService } from './configService';
 import { Observable } from 'rxjs/Observable';
 import { Menu } from '../domain/dto/menu';
+import { MenuRule } from '../domain/dto/menuRule';
+import { MenuCategory } from '../domain/dto/menuCategory';
 import { HttpClient } from '../helpers/httpClient';
 
 @Injectable()
@@ -19,12 +21,46 @@ export class MenuService {
       .catch(this.handleError);
   }
 
-  private mapMenu(res: Response): Menu {
+
+  mapMenu = (res: Response): Menu => {
 
     console.log(res);
     let body = res.json();
     var menu: Menu = automapper.map('{}', 'Menu', body);
+
+    for (let menuRule of menu.rules) {
+      var categories = menu.categories.filter((category) => menuRule.categoryIds.find((ruleCategory) => ruleCategory == category.id) != null);
+      for (let category of categories) {
+        var menuEntries = menu.entries.filter((menuEntry) => menuEntry.categoryId == category.id);
+        for (let menuEntry of menuEntries) {
+          // todo this should be added to constructor on mapping
+          if (!menuEntry.rules) { menuEntry.rules = new Array<MenuRule>(); }
+          menuEntry.rules.push(menuRule);
+        }
+
+        this.recurseSubCategory(menu, menuRule, category);
+      }
+    }
+
     return menu;
+  }
+  
+  recurseSubCategory = (menu: Menu, menuRule: MenuRule, category: MenuCategory) : void => {
+    console.log("recursive menu rule:" + menuRule.id);
+    console.log("recursive: " + category.id);
+    if (category.subCategories) {
+      for (let subCategory of category.subCategories) {
+        console.log("recursive subcategy: " + subCategory.id);
+        var menuEntries = menu.entries.filter((menuEntry) => menuEntry.categoryId == subCategory.id);
+        for (let menuEntry of menuEntries) {
+          // todo this should be added to constructor on mapping
+          if (!menuEntry.rules) { menuEntry.rules = new Array<MenuRule>(); }
+          menuEntry.rules.push(menuRule);
+          console.log("menuEntry pushed");
+        }
+        this.recurseSubCategory(menu, menuRule, subCategory)
+      }
+    }
   }
 
   private handleError(error: any) {
