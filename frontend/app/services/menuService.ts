@@ -26,6 +26,20 @@ export class MenuService {
     menu = new Menu().deserialize(body);
     return menu;
   }
+  
+  recurseSubCategory = (menu: Menu, menuRule: MenuRule, category: MenuCategory) : void => {
+    if (category.subCategories) {
+      for (let subCategory of category.subCategories) {
+        var menuEntries = menu.entries.filter((menuEntry) => menuEntry.categoryId == subCategory.id);
+        for (let menuEntry of menuEntries) {
+          // todo this should be added to constructor on mapping
+          if (!menuEntry.rules) { menuEntry.rules = new Array<MenuRule>(); }
+          menuEntry.rules.push(menuRule);
+        }
+        this.recurseSubCategory(menu, menuRule, subCategory)
+      }
+    }
+  }
 
   private handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
