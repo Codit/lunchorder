@@ -35,12 +35,12 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The price of the menu entry without applying any possible rules
         /// </summary>
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// The final price for a user order history, this represents the price the user actually pays
         /// </summary>
-        public double FinalPrice
+        public decimal FinalPrice
         {
             get
             {

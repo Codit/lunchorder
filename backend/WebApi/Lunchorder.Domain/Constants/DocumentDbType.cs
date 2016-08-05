@@ -6,5 +6,7 @@
         public const string Menu = "Menu";
         public const string UserHistory = "UserHistory";
         public const string VendorOrderHistory = "VendorOrderHistory";
+        public const string UserBalanceAudit = "UserBalanceAudit";
+        public const string PlatformUserList = "PlatformUserList";
     }
 }

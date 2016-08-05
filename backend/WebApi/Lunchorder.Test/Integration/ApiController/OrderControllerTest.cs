@@ -22,7 +22,7 @@ namespace Lunchorder.Test.Integration.ApiController
             var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
-            var response = await PostAuthorizeAsync(new PostOrderRequest() { MenuOrders = menuOrders }, string.Format($"{_routePrefix}"));
+            var response = await PostAuthorizeAsync(new PostOrderRequest { MenuOrders = menuOrders }, string.Format($"{_routePrefix}"));
 
             MockedApiInstaller.MockedOrderControllerService.Verify(x => x.Add(TestConstants.User1.Id, TestConstants.User1.UserName, menuOrders), Times.Once);
 

@@ -31,6 +31,6 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The price for the order
         /// </summary>
-        public double Price;
+        public decimal Price;
     }
 }

@@ -20,6 +20,6 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The positive or negative price difference of the user order history rule
         /// </summary>
-        public double PriceDelta { get; set; }
+        public decimal PriceDelta { get; set; }
     }
 }

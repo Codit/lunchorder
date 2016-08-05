@@ -41,7 +41,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The price for the menu entry
         /// </summary>
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// Represents if the entry is in an enabled state

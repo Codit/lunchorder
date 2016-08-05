@@ -229,6 +229,10 @@
     <Compile Include="App_Start\Configuration\Mapper\LastOrderEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\LastOrderMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuCategoryMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuOrderMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\PlatformUserListMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\PlatformUserListItemMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\SimpleUserMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserBadgeMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuMap.cs" />
@@ -240,6 +244,9 @@
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryEntryRuleMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryRuleMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\VendorHistoryEntryRuleMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\VendorOrderHistoryEntryMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\VendorOrderHistoryMap.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />

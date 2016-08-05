@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdalService } from 'angular2-adal/core';
-import { ConfigService } from './services/configService';
+import { AccountService } from './services/accountService';
 import { BalanceService } from './services/balanceService';
 
 @Component({
@@ -8,17 +7,19 @@ import { BalanceService } from './services/balanceService';
 	template: `<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 text-center wrap_title ">
-					<h2>Balance</h2>
+					<h2>About you</h2>
 					<p class="lead" style="margin-top:0">Check your balance and other options.</p>
+					<p>Username: {{accountService.user.userName}}</p>
+					<p>Balance: {{accountService.user.balance | currency:'EUR':true:'1.0-2'}}</p>
 				</div>
 			</div>
 		</div>`})
 
 export class BalanceComponent implements OnInit {
 
-	constructor(private configService: ConfigService, private balanceService: BalanceService) { }
+	constructor(private balanceService: BalanceService, private accountService : AccountService) { }
 
 	ngOnInit() {
-
+		
 	}
 }

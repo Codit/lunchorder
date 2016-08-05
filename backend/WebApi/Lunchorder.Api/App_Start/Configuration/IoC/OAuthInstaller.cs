@@ -59,6 +59,9 @@ namespace Lunchorder.Api.Configuration.IoC
             container.Register(Component.For<IOAuthAuthorizationServerProvider>()
                 .ImplementedBy<CustomOAuthProvider>().LifestylePerWebRequest());
 
+            container.Register(Component.For<Func<UserManager<ApplicationUser>>>().Instance(() => container.Resolve<UserManager<ApplicationUser>>())
+                .LifestylePerWebRequest());
+
             container.Register(Component.For<UserManager<ApplicationUser>>()
                 .ImplementedBy<ApplicationUserManager>()
                 .UsingFactoryMethod(SetupApplicationManager)

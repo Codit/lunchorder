@@ -1,13 +1,24 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Dtos;
 
 namespace Lunchorder.Common.ControllerServices
 {
     public class BalanceControllerService : IBalanceControllerService
     {
-        public async Task<double> UpdateBalance(string userId, double amount)
+        private readonly IDatabaseRepository _databaseRepository;
+
+        public BalanceControllerService(IDatabaseRepository databaseRepository)
         {
-            return await Task.FromResult(amount);
+            if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
+            _databaseRepository = databaseRepository;
+        }
+
+        public async Task<decimal> UpdateBalance(string userId, decimal amount, SimpleUser originator)
+        {
+            var updatedAmount = await _databaseRepository.UpdateBalance(userId, amount, originator);
+            return updatedAmount;
         }
     }
 }

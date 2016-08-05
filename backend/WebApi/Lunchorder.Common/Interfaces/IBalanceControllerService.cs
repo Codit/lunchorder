@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using Lunchorder.Domain.Dtos;
 
 namespace Lunchorder.Common.Interfaces
 {
     public interface IBalanceControllerService
     {
-        Task<double> UpdateBalance(string userId, double amount);
+        Task<decimal> UpdateBalance(string userId, decimal amount, SimpleUser originator);
     }
 }

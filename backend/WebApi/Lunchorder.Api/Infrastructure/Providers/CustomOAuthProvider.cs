@@ -11,9 +11,9 @@ namespace Lunchorder.Api.Infrastructure.Providers
 {
     public class CustomOAuthProvider : OAuthAuthorizationServerProvider
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly Func<UserManager<ApplicationUser>> _userManager;
 
-        public CustomOAuthProvider(UserManager<ApplicationUser> userManager)
+        public CustomOAuthProvider(Func<UserManager<ApplicationUser>> userManager)
         {
             if (userManager == null) throw new ArgumentNullException(nameof(userManager));
             _userManager = userManager;
@@ -31,7 +31,8 @@ namespace Lunchorder.Api.Infrastructure.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-            ApplicationUser user = await _userManager.FindAsync(context.UserName, context.Password);
+            var localUserManager = _userManager();
+            ApplicationUser user = await localUserManager.FindAsync(context.UserName, context.Password);
             
             if (user == null)
             {
@@ -39,7 +40,7 @@ namespace Lunchorder.Api.Infrastructure.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(_userManager, "JWT");
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(localUserManager, "JWT");
             //oAuthIdentity.AddClaims(ExtendedClaimsProvider.GetClaims(user));
             //oAuthIdentity.AddClaims(RolesFromClaims.CreateRolesBasedOnClaims(oAuthIdentity));
 

@@ -10,6 +10,9 @@ namespace Lunchorder.Domain.Entities.Authentication
 {
     public class ApplicationUser : DocumentDB.AspNet.Identity.IdentityUser
     {
+        private IEnumerable<LastOrder> _last5Orders;
+        private IEnumerable<UserBadge> _badges;
+        private IEnumerable<MenuEntryFavorite> _favorites;
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -18,7 +21,7 @@ namespace Lunchorder.Domain.Entities.Authentication
 
         public string Culture { get; set; }
 
-        public double Balance { get; set; }
+        public decimal Balance { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -28,9 +31,24 @@ namespace Lunchorder.Domain.Entities.Authentication
             return userIdentity;
         }
 
-        public IEnumerable<LastOrder> Last5Orders { get; set; }
-        public IEnumerable<UserBadge> Badges { get; set; }
-        public UserBadgeStats UserBadgeStats { get; set; } 
-        public IEnumerable<MenuEntryFavorite> Favorites { get; set; }
+        public IEnumerable<LastOrder> Last5Orders
+        {
+            get { return _last5Orders ?? (_last5Orders = new List<LastOrder>()); }
+            set { _last5Orders = value; }
+        }
+
+        public IEnumerable<UserBadge> Badges
+        {
+            get { return _badges ?? (_badges = new List<UserBadge>()); }
+            set { _badges = value; }
+        }
+
+        public UserBadgeStats UserBadgeStats { get; set; }
+
+        public IEnumerable<MenuEntryFavorite> Favorites
+        {
+            get { return _favorites ?? (_favorites = new List<MenuEntryFavorite>()); }
+            set { _favorites = value; }
+        }
     }
 }

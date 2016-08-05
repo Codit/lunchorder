@@ -56,22 +56,33 @@ namespace Lunchorder.Test.Integration.Helpers
             public class Favorite2 { public const string MenuEntryId = "bd341859-1e68-4650-a8a5-31c409f91b3a"; }
             public class Favorite3 { public const string MenuEntryId = "63a04825-1489-46cb-83c5-8dfda58c27c0"; }
         }
-        
 
-            public class User3
+        public class User4
         {
-            public const string Id = "d185114e-e34c-4abd-8de6-020f814e8377";
-            public const string Username = "tuser3";
+            public const string Id = "1a987242-09ad-42f9-808c-ba995d533406";
+            public const string UserName = "padmin";
             public const string Email = "products@codit.eu";
             public const string Password = "test-us3r";
+        }
+
+        public class User3
+        {
+            public const string Id = "d185114e-e34c-4abd-8de6-020f814e8377";
+            public const string UserName = "tuser3";
+            public const string Email = "products@codit.eu";
+            public const string Password = "test-us3r";
+            public const decimal Balance = 1M;
         }
 
         public class User2
         {
             public const string Id = "f28763cf-569c-4043-a31e-e92842eba077";
-            public const string Username = "tuser2";
+            public const string UserName = "tuser2";
             public const string Email = "products@codit.eu";
             public const string Password = "test-us3r";
+
+            public const string FirstName = "Test2";
+            public const string LastName = "User2";
         }
 
         public class User1
@@ -80,11 +91,11 @@ namespace Lunchorder.Test.Integration.Helpers
             public const string UserName = "tuser";
             public const string Email = "products@codit.eu";
             public const string Password = "test-us3r";
+            public const string FirstName = "Test";
+            public const string LastName = "User";
 
             public class Profile
             {
-                public const string FirstName = "Test";
-                public const string LastName = "User";
                 public const string Picture = "http://pic.tu.re";
                 public const string Culture = "en-US";
             }

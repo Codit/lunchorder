@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\ApiController\BadgeControllerTest.cs" />
+    <Compile Include="Integration\ApiController\BalanceControllerTest.cs" />
     <Compile Include="Integration\ApiController\MenuControllerTest.cs" />
     <Compile Include="Integration\ApiController\AccountControllerTest.cs" />
     <Compile Include="Integration\ApiController\OrderControllerTest.cs" />
@@ -189,6 +190,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Integration\Helpers\Seed\Documents\badges.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\user4.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Integration\Helpers\Seed\Documents\user3.json">
