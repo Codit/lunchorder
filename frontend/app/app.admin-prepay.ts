@@ -25,11 +25,11 @@ import { PlatformUserListItem } from './domain/dto/platformUserListItem';
 		</div>`})
 
 export class AdminPrepayComponent implements OnInit {
-	constructor(private accountService: AccountService, private balanceService : BalanceService) { }
-userBalance: number;
-userBalanceError: string;
-users: PlatformUserListItem[];
-isBusy: boolean;
+	constructor(private accountService: AccountService, private balanceService: BalanceService) { }
+	userBalance: number;
+	userBalanceError: string;
+	users: PlatformUserListItem[];
+	isBusy: boolean;
 
 	ngOnInit() {
 		this.accountService.getAllUsers().subscribe(
@@ -47,12 +47,11 @@ isBusy: boolean;
 		this.balanceService.putBalance(selectedUser.userId, balanceAmount).subscribe(
 			newBalance => {
 				this.userBalance = newBalance
-				
+
 			},
 			error => this.userBalanceError = <any>error,
 			() => {
-			this.isBusy = false;
+				this.isBusy = false;
 			});
 	};
-	}
 }

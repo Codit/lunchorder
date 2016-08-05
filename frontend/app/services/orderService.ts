@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ConfigService } from './configService';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { MenuRule } from '../domain/dto/menuRule';
 import { MenuOrder } from '../domain/dto/menuOrder';
 import { HttpClient } from '../helpers/httpClient';

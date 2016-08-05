@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ConfigService } from './configService';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '../helpers/httpClient';
 import { GetUserInfoResponse } from '../domain/dto/getUserInfoResponse'
 import { GetAllUsersResponse } from '../domain/dto/getAllUsersResponse'
