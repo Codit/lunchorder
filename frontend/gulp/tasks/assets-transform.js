@@ -39,7 +39,7 @@ module.exports = function (paths, dist) {
     }
 
     // todo add uglify later
-    gulp.task("assets-transform-release", gulpSequence(['assets-copy-release'], ['css:app:compile:sass', 'transpile:ts:release'], 'bundle:systemJs', 'minify', 'concat'));
+    gulp.task("assets-transform-release", gulpSequence(['assets-copy-release'], ['css:app:compile:sass', 'transpile:ts:release'], 'version', 'bundle:systemJs', 'minify', 'concat'));
     gulp.task("assets-transform-debug", gulpSequence(['assets-copy-debug'], 'css:app:compile:sass', 'transpile:ts:debug'));
 
     gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);

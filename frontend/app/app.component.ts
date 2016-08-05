@@ -106,6 +106,9 @@ import { StickRxDirective } from './directives/stickDirective';
 							<li>reminds you in case you forget</li>
 							<li>hands out fancy badges</li>
 						</ul>
+						<div style=" float: right;">
+							<span style="font-size: 12px;">%%VERSION%%</span>
+						</div>
 						<iframe src="https://ghbtns.com/github-btn.html?user=coditeu&repo=lunchorder&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
 					</div>
 				</div>

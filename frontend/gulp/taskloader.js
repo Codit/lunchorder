@@ -17,6 +17,7 @@ var assetsInject = require('./tasks/assets-inject');
 var assetsTransform = require('./tasks/assets-transform');
 var csharpToTypescript = require('./tasks/csharp-to-typescript');
 var codeCoverage = require('./tasks/code-coverage');
+var version = require('./tasks/version');
 var zipPackage = require('./tasks/zip-package');
 csharpToTypescript();
 assetsClean(paths);
@@ -25,6 +26,7 @@ assetsInject(paths);
 assetsTransform(paths);
 zipPackage();
 codeCoverage();
+version(paths);
 
 gulp.task("debug", ['debug:inject-artifacts']);
 gulp.task("debug-watch", gulpSequence('debug:inject-artifacts', 'watch:ts'));
