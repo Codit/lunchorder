@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, HostListener} from '@angular/core';
-import {Observable} from 'rxjs/rx';
+import {Observable} from 'rxjs/Rx';
 
 import {WindowRef} from '../services/windowService';
 
@@ -19,7 +19,7 @@ export class StickCartDirective {
         var obs = Observable.fromEvent(window, 'scroll');
         this.stickyOffset = this._element.nativeElement.offsetTop - 125;
 
-        obs.subscribe((e) => this.handleScrollEvent(e));
+        obs.subscribe((e : any) => this.handleScrollEvent(e));
     }
 
     handleScrollEvent(e: any) {

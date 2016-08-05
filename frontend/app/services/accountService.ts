@@ -49,7 +49,6 @@ private _user:GetUserInfoResponse = new GetUserInfoResponse();
         this._user = user;
     }
 
-
   userInfoError: any;
 
   login() {

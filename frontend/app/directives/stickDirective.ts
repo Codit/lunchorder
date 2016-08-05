@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, HostListener} from '@angular/core';
-import {Observable} from 'rxjs/rx';
+import {Observable} from 'rxjs/Rx';
 
 import {WindowRef} from '../services/windowService';
 
