@@ -19,14 +19,68 @@ using UserOrderHistoryEntry = Lunchorder.Domain.Dtos.UserOrderHistoryEntry;
 
 namespace Lunchorder.Test.Integration.Repositories
 {
+
+
     [TestFixture]
     public class DocumentDbRepositoryTest : RepositoryBase
     {
+        // todo add test to check audit document creation
+        // todo add test to check autit document update
+
+        [Test]
+        public async Task AddToUserList()
+        {
+            await DatabaseRepository.AddToUserList(TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName, TestConstants.User1.LastName);
+            var users = await DatabaseRepository.GetUsers();
+            Assert.NotNull(users);
+            var usersList = users.ToList();
+            Assert.AreEqual(1, usersList.Count);
+            var firstUser = usersList.First();
+            AssertUsers(firstUser, TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName,
+                TestConstants.User1.LastName);
+
+            // also test update
+            await DatabaseRepository.AddToUserList(TestConstants.User2.Id, TestConstants.User2.UserName, TestConstants.User2.FirstName, TestConstants.User2.LastName);
+            users = await DatabaseRepository.GetUsers();
+            Assert.NotNull(users);
+            usersList = users.ToList();
+            Assert.AreEqual(2, usersList.Count);
+            firstUser = usersList.First();
+            AssertUsers(firstUser, TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName,
+                TestConstants.User1.LastName);
+            var secondUser = usersList[1];
+            AssertUsers(secondUser, TestConstants.User2.Id, TestConstants.User2.UserName, TestConstants.User2.FirstName,
+                TestConstants.User2.LastName);
+        }
+
+        private void AssertUsers(PlatformUserListItem user, string userId, string userName, string firstName, string lastName)
+        {
+            Assert.AreEqual(userId, user.UserId);
+            Assert.AreEqual(userName,  user.UserName);
+            Assert.AreEqual(firstName, user.FirstName);
+            Assert.AreEqual(lastName,  user.LastName);
+        }
+
+        [Test]
+        public async Task UpdateBalance()
+        {
+            var originator = new SimpleUser
+            {
+                Id = TestConstants.User4.Id,
+                UserName = TestConstants.User4.UserName
+            };
+
+            var amount = 100.01M;
+            var userId = TestConstants.User3.Id;
+            var updatedBalance = await DatabaseRepository.UpdateBalance(userId, amount, originator);
+            Assert.AreEqual(TestConstants.User3.Balance + amount, updatedBalance);
+        }
+
         [Test]
         public async Task AddOrder_Should_Fail_When_Insufficient_Balance()
         {
             var userId = TestConstants.User3.Id;
-            var userName = TestConstants.User3.Username;
+            var userName = TestConstants.User3.UserName;
 
             var vendorId = Guid.NewGuid().ToString();
 
@@ -43,7 +97,7 @@ namespace Lunchorder.Test.Integration.Repositories
                         {
                             Description = "No vegetables",
                             Id = Guid.NewGuid(),
-                            PriceDelta = 0.35
+                            PriceDelta = 0.35M
                         }
                     },
                     Name = "test item"
@@ -81,7 +135,7 @@ namespace Lunchorder.Test.Integration.Repositories
                         {
                             Description = "No vegetables",
                             Id = Guid.NewGuid(),
-                            PriceDelta = 0.35
+                            PriceDelta = 0.35M
                         }
                     },
                     Name = "test item"
@@ -103,6 +157,7 @@ namespace Lunchorder.Test.Integration.Repositories
             // Add an order and it should create 2 entries
             await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory);
             var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
+            Assert.AreNotEqual(new Guid().ToString(), vendorOrderHistory.VendorId);
             Assert.NotNull(vendorOrderHistory.Entries);
             var entryList = vendorOrderHistory.Entries.ToList();
             Assert.AreEqual(2, entryList.Count);
@@ -126,51 +181,16 @@ namespace Lunchorder.Test.Integration.Repositories
             var firstLastOrderEntry = lastOrderEntriesList[0];
             Assert.AreEqual(userOrderHistoryEntries[0].Name, firstLastOrderEntry.Name);
             Assert.AreEqual(userOrderHistoryEntries[0].Price, firstLastOrderEntry.Price);
-            Assert.AreEqual(string.Join("\n" ,userOrderHistoryEntries[0].Rules.Select(x => x.Description)), firstLastOrderEntry.AppliedRules);
+            Assert.AreEqual(string.Join("\n", userOrderHistoryEntries[0].Rules.Select(x => x.Description)), firstLastOrderEntry.AppliedRules);
             Assert.AreEqual(35.15, userInfo.Balance);
 
         }
-
-        //[Test]
-        //public async Task AddOrder_Should_Fail_When_Existing_Order_For_User()
-        //{
-        //    var userId = Guid.NewGuid().ToString();
-        //    var vendorId = TestConstants.VendorOrderHistory.VendorOrderHistory1.VendorId;
-        //    var vendorOrderHistoryId = TestConstants.VendorOrderHistory.VendorOrderHistory1.Id;
-
-        //    var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
-        //    {
-        //        new UserOrderHistoryEntry
-        //        {
-        //            Id = Guid.NewGuid(),
-        //            MenuEntryId = Guid.NewGuid(),
-        //            Price = 5,
-        //            Rules = null,
-        //            Name = "test item"
-        //        }
-        //    };
-
-        //    var orderDate = new DateGenerator().GenerateDateFormat(TestConstants.VendorOrderHistory.VendorOrderHistory1.OrderDate);
-
-        //    var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
-
-        //    // There is an existing order in the database (seed)
-        //    var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
-        //    Assert.IsNotNull(vendorOrderHistory);
-
-        //    // Add an order and it should use the existing vendor order history
-        //    await DatabaseRepository.AddOrder(userId, vendorId, orderDate, userOrderHistory);
-        //    vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
-        //    Assert.NotNull(vendorOrderHistory);
-        //    Assert.AreEqual(vendorId, vendorOrderHistory.VendorId.ToString());
-        //    Assert.AreEqual(vendorOrderHistoryId, vendorOrderHistory.Id.ToString());
-        //}
 
         [Test]
         public async Task AddOrder_Should_UseExisting_VendorOrderHistory()
         {
             var userId = TestConstants.User2.Id;
-            var userName = TestConstants.User2.Username;
+            var userName = TestConstants.User2.UserName;
             var vendorId = TestConstants.VendorOrderHistory.VendorOrderHistory1.VendorId;
             var vendorOrderHistoryId = TestConstants.VendorOrderHistory.VendorOrderHistory1.Id;
 
@@ -206,7 +226,7 @@ namespace Lunchorder.Test.Integration.Repositories
         public async Task AddOrder_Should_Create_A_New_VendorOrderHistory()
         {
             var userId = TestConstants.User2.Id;
-            var userName = TestConstants.User2.Username;
+            var userName = TestConstants.User2.UserName;
             var vendorId = Guid.NewGuid().ToString();
 
             var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
@@ -332,7 +352,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "d71e360b-f349-4bcf-b6ea-3eceb63832c7",
                     Picture = null,
                     Name = "Jonge kaas",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -341,7 +361,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "5368da96-90df-49d8-aa78-39d9f4338eb5",
                     Picture = null,
                     Name = "Brie",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -350,7 +370,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "d4cdae9b-ed06-4ec0-92fe-5624a4d8c45e",
                     Picture = null,
                     Name = "Philadelphia",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -359,7 +379,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "b372f359-b4e4-437d-8303-cead6678287d",
                     Picture = null,
                     Name = "Boursin",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -368,7 +388,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "f0417dae-73b4-46b6-bc75-cd435013b8af",
                     Picture = null,
                     Name = "Mozarella",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -377,7 +397,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "2483e1ca-62fb-4160-a871-2b9659061238",
                     Picture = null,
                     Name = "Krabsalade",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -386,7 +406,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "9906620c-3c67-4cb6-a223-20a3abf6be5e",
                     Picture = null,
                     Name = "Tonijnsalade",
-                    Price = "3,80"
+                    Price = 3.80M
                 },
                 new MenuEntry
                 {
@@ -395,7 +415,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "e328bfc4-55b4-4e95-ac9d-2a20d21d996a",
                     Picture = null,
                     Name = "Noordzeesalade",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -404,7 +424,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "49f803f1-13a8-4502-b60d-4f815105927a",
                     Picture = null,
                     Name = "Zalmsalade",
-                    Price = "3,80"
+                    Price = 3.80M
                 },
                 new MenuEntry
                 {
@@ -413,7 +433,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "efb1de44-58fd-4aa6-95d3-895c2592384c",
                     Picture = null,
                     Name = "Garnaalsalade",
-                    Price = "4,30"
+                    Price = 4.30M
                 },
                 new MenuEntry
                 {
@@ -422,7 +442,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "b66b5c57-2e4a-4422-9221-cc44cbd4d9ed",
                     Picture = null,
                     Name = "haring-dille salade",
-                    Price = "3,80"
+                    Price = 3.80M
                 },
                 new MenuEntry
                 {
@@ -431,7 +451,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "4ea21005-8081-428f-a922-b1c880f3ef20",
                     Picture = null,
                     Name = "pikante tonijnsalade",
-                    Price = "3,80"
+                    Price = 3.80M
                 },
                 new MenuEntry
                 {
@@ -440,7 +460,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "d4d8eaa4-ec7d-42b7-92cf-9029b0b7768e",
                     Picture = null,
                     Name = "Gerookte zalm",
-                    Price = "4,30"
+                    Price = 4.30M
                 },
                 new MenuEntry
                 {
@@ -449,7 +469,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "236e2f12-6e34-40ec-8149-dad6596ce4e1",
                     Picture = null,
                     Name = "Scampi in de looksaus",
-                    Price = "4,30"
+                    Price = 4.30M
                 },
                 new MenuEntry
                 {
@@ -458,7 +478,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "df9ea7f8-bf19-456a-bb2a-4fc6c829f54e",
                     Picture = null,
                     Name = "Scampi-diabolique salade",
-                    Price = "4,30"
+                    Price = 4.30M
                 },
                 new MenuEntry
                 {
@@ -467,7 +487,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "5dcb1472-33ae-419c-95f4-b4d3b6ffae31",
                     Picture = null,
                     Name = "Hesp",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -476,7 +496,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "c69e17e1-8578-436a-9048-c51bce5a06f4",
                     Picture = null,
                     Name = "Préparé",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -485,7 +505,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "be9980c4-a19f-47bf-97ad-ec98d6cddbce",
                     Picture = null,
                     Name = "Varkensgebraad",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -494,7 +514,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "9cd02feb-6c40-4dbe-97ec-ac501f789d86",
                     Picture = null,
                     Name = "Salami",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -503,7 +523,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "0d9fa498-aad5-493d-9431-83a4137f016c",
                     Picture = null,
                     Name = "Frikandon",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -512,7 +532,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "49cd466d-7477-439c-9446-48895dfc16ab",
                     Picture = null,
                     Name = "Kip salade",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -521,7 +541,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "f76281d8-0d62-4899-9bbb-2aee9db1bb17",
                     Picture = null,
                     Name = "Kip curry",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -530,7 +550,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "713ac2d0-3abc-4147-9e80-38465a819af5",
                     Picture = null,
                     Name = "Kip samourai salade",
-                    Price = "3,80"
+                    Price = 3.80M
                 },
                 new MenuEntry
                 {
@@ -539,7 +559,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "af75f6ce-c4df-46fd-a1bf-7f2791c75c25",
                     Picture = null,
                     Name = "Kip in pepersaus",
-                    Price = "3,80"
+                    Price = 3.80M
                 },
                 new MenuEntry
                 {
@@ -548,7 +568,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "deda0c26-eee1-4da7-8d12-ddc8c6725ab9",
                     Picture = null,
                     Name = "Ham-prei salade",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -557,7 +577,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "3f4349c1-6c65-43d3-9d57-7f18208c1b33",
                     Picture = null,
                     Name = "Breydelhamsalade",
-                    Price = "3,30"
+                    Price = 3.30M
                 },
                 new MenuEntry
                 {
@@ -566,7 +586,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "d1c14454-2405-4108-8c79-723dee975d81",
                     Picture = null,
                     Name = "Italiaanse ham",
-                    Price = "3,80"
+                    Price = 3.80M
                 },
                 new MenuEntry
                 {
@@ -575,7 +595,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Id = "24fe0f4e-6942-4391-b8b9-8045d5399698",
                     Picture = null,
                     Name = "Eiersalade",
-                    Price = "3,30"
+                    Price = 3.30M
                 }
             };
 
@@ -678,8 +698,8 @@ namespace Lunchorder.Test.Integration.Repositories
             Assert.AreEqual(TestConstants.Favorites.Favorite1.MenuEntryId, thirdUserFavorite.MenuEntryId.ToString());
 
             Assert.IsNotNull(userInfo.Profile);
-            Assert.AreEqual(TestConstants.User1.Profile.FirstName, userInfo.Profile.FirstName);
-            Assert.AreEqual(TestConstants.User1.Profile.LastName, userInfo.Profile.LastName);
+            Assert.AreEqual(TestConstants.User1.FirstName, userInfo.Profile.FirstName);
+            Assert.AreEqual(TestConstants.User1.LastName, userInfo.Profile.LastName);
             Assert.AreEqual(TestConstants.User1.Profile.Culture, userInfo.Profile.Culture);
             Assert.AreEqual(TestConstants.User1.Profile.Picture, userInfo.Profile.Picture);
         }

@@ -1,7 +1,3 @@
-/// <reference path="../node_modules/automapper-ts/dist/automapper-classes.d.ts" />
-/// <reference path="../node_modules/automapper-ts/dist/automapper-interfaces.d.ts" />
-/// <reference path="../node_modules/automapper-ts/dist/automapper-declaration.d.ts" />
-
 import 'zone';
 import 'reflect-metadata';
 import { bootstrap }    from '@angular/platform-browser-dynamic';
@@ -15,6 +11,7 @@ import { AuthRequestOptions } from './helpers/authRequestOptions';
 import { MenuService } from './services/menuService';
 import { BalanceService } from './services/balanceService';
 import { BadgeService } from './services/badgeService';
+import { OrderService } from './services/orderService';
 import {enableProdMode} from '@angular/core';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
@@ -26,7 +23,7 @@ if (window.location.href.indexOf('localhost') < 0) {
 bootstrap(AppComponent, [HTTP_PROVIDERS, 
   disableDeprecatedForms(),     // Disable old Forms API!
   provideForms(),                // Use new Forms API!
-{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, BadgeService, HttpClient, TokenHelper, 
+{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, BadgeService, OrderService, HttpClient, TokenHelper, 
 { provide: WindowRef, useClass: BrowserWindowRef }, { provide: WINDOW, useFactory: _window, deps: [] }
 
 ])

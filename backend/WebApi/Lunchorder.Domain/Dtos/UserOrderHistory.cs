@@ -17,7 +17,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The final price for a user order history, this represents the price the user actually pays
         /// </summary>
-        public double FinalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
 
         /// <summary>
         /// The name of the user that has placed the entry

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Dtos
 {
@@ -36,6 +34,6 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The total price of all entries of this order including rules
         /// </summary>
-        public double FinalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
     }
 }

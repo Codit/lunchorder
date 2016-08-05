@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ConfigService } from './configService';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Menu } from '../domain/dto/menu';
 import { MenuRule } from '../domain/dto/menuRule';
 import { MenuCategory } from '../domain/dto/menuCategory';
@@ -10,7 +10,6 @@ import { HttpClient } from '../helpers/httpClient';
 @Injectable()
 export class MenuService {
   constructor(private http: HttpClient, private configService: ConfigService) {
-    automapper.createMap('{}', 'Menu');
   }
 
   private menuApiUri = `${this.configService.apiPrefix}/menus`;
@@ -23,22 +22,8 @@ export class MenuService {
 
   mapMenu = (res: Response): Menu => {
     let body = res.json();
-    var menu: Menu = automapper.map('{}', 'Menu', body);
-
-    for (let menuRule of menu.rules) {
-      var categories = menu.categories.filter((category) => menuRule.categoryIds.find((ruleCategory) => ruleCategory == category.id) != null);
-      for (let category of categories) {
-        var menuEntries = menu.entries.filter((menuEntry) => menuEntry.categoryId == category.id);
-        for (let menuEntry of menuEntries) {
-          // todo this should be added to constructor on mapping
-          if (!menuEntry.rules) { menuEntry.rules = new Array<MenuRule>(); }
-          menuEntry.rules.push(menuRule);
-        }
-
-        this.recurseSubCategory(menu, menuRule, category);
-      }
-    }
-
+    var menu: Menu;
+    menu = new Menu().deserialize(body);
     return menu;
   }
   

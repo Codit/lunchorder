@@ -17,7 +17,7 @@ namespace Lunchorder.Api.Infrastructure.Services
             _userManager = userManager;
         }
 
-        public async Task<string> Create(string username, string email)
+        public async Task<ApplicationUser> Create(string username, string email)
         {
             var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = username, Email = email };
             //await _userManager.CreateIdentityAsync(user, "waad");
@@ -33,7 +33,7 @@ namespace Lunchorder.Api.Infrastructure.Services
                 throw new Exception(string.Join(";", result.Errors));
             }
 
-            return user.Id;
+            return user;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos.Responses;
 using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
@@ -36,17 +37,20 @@ namespace Lunchorder.Api.Controllers
             if (claimsIdentity == null)
                 return InternalServerError();
 
-            bool isAzureActiveDirectoryUser = false;
-            var hasIssClaim = claimsIdentity.FindFirst("iss");
-            if (hasIssClaim != null)
-            {
-                if (hasIssClaim.Value.Contains("sts.windows.net"))
-                {
-                    isAzureActiveDirectoryUser = true;
-                }
-            }
+            return Ok(await _accountControllerService.GetUserInfo(claimsIdentity));
+        }
 
-            return Ok(await _accountControllerService.GetUserInfo(User.Identity.GetUserName(), isAzureActiveDirectoryUser));
+        /// <summary>
+        /// Gets all the users of the platform
+        /// </summary>
+        /// <returns></returns>
+        [Route("users")]
+        [HttpGet]
+        [Authorize(Roles = Roles.PrepayAdmin)]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(GetAllUsersResponse))]
+        public async Task<IHttpActionResult> GetAllUsers()
+        {
+            return Ok(await _accountControllerService.GetAllUsers());
         }
     }
 }

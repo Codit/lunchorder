@@ -36,6 +36,6 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The total price of all entries of this order, includes rules
         /// </summary>
-        public double FinalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
     }
 }

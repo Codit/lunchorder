@@ -30,7 +30,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The final price for a user order history, this represents the price the user actually pays
         /// </summary>
-        public double FinalPrice {
+        public decimal FinalPrice {
             get
             {
                 return Entries.Sum(entry => entry.FinalPrice);

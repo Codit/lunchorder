@@ -26,7 +26,7 @@ import { Menu } from './domain/dto/menu';
 				<div class="col-sm-4 wow fadeInDown text-center">
 					<img class="rotate" src="css/images/icon/savings.svg" alt="Generic placeholder image">
 					<h3>Payment</h3>
-					<p class="lead">Payment is done upfront. Please consult your user profile to add funds to your account. </p>
+					<p class="lead">Payment is done upfront. Please consult the responsible to add funds to your account.</p>
 				</div>
 			</div>
 		</div>

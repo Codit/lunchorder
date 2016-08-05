@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from './services/configService';
 import { MenuEntry } from './domain/dto/menuEntry';
-<<<<<<< HEAD
 import { MenuRule } from './domain/dto/menuRule';
-=======
->>>>>>> master
+import { OrderService } from './services/orderService';
+import { MenuOrder } from './domain/dto/menuOrder';
 
 @Component({
 	selector: '[menu-entry-row]',
@@ -12,7 +11,7 @@ import { MenuRule } from './domain/dto/menuRule';
 	template: `<div class="col-xs-offset-1 col-xs-11">
 				<div class="menu-entry-row">
 					<span>{{menuEntry.name}}</span>
-					<button (click)="openModal()" class="btn btn-primary btn-xs pull-right" style="font-weight:bold;">&euro; {{menuEntry.price}}
+					<button (click)="openModal()" class="btn btn-primary btn-xs pull-right" style="font-weight:bold;">{{menuEntry.price | currency:'EUR':true:'1.0-2'}}
 					 <span class="btn-separator"></span>
 					 <i class="fa fa-plus"></i></button>
 			    </div>
@@ -23,30 +22,37 @@ import { MenuRule } from './domain/dto/menuRule';
 			   
 			   <div id="openModal" class="modalDialog active" *ngIf="isModalOpen">
     <div>	
-	<i (click)="closeModal()" title="Close" class="fa fa-times close"></i>
+			<i (click)="closeModal()" title="Close" class="fa fa-times close"></i>
         	<h3>Order {{menuEntry.name}}</h3>
-			<div *ngFor="let rule of menuEntry.rules">
-			<div>
-				<label><input type="checkbox" value="">{{rule.description}} (&euro; {{rule.priceDelta}},-)</label>
+
+			 <form #f="ngForm" class="ui form">
+			 	<div class="form-group">
+					<div *ngFor="let rule of menuEntry.rules">
+						<div class="field">
+							<label><input type="checkbox" value="rule" name="{{rule.id}}" [(ngModel)]="rule.isSelected">{{rule.description}} ({{rule.priceDelta | currency:'EUR':true:'1.0-2'}},-)</label>
+						</div>
+					</div>
+					 
+					<label for="inputsm">Remarks</label>
+					<input class="form-control input-sm" id="inputsm" name="freeText" type="text" [(ngModel)]="menuEntry.freeText">
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="inputsm">Remarks</label>
-				<input class="form-control input-sm" id="inputsm" type="text">
-			</div>
-        <button class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" (click)="addOrder()">Add order to cart</button>
+
+
+				<button type="button" class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" (click)="addOrder($event, f.value)">Add order to cart</button>
+				<button type="button" class="btn btn-sm pull-right" style="font-weight:bold; margin-right:20px;" (click)="closeModal()">Cancel order</button>
+			 </form>
     </div>
 </div>`})
 
 export class MenuEntryRow implements OnInit {
 
-	constructor(private configService: ConfigService) { }
+	constructor(private configService: ConfigService, private orderService: OrderService) { }
 	menuEntry: MenuEntry;
 	isModalOpen: boolean;
-	menuRules: MenuRule[];
 
 	ngOnInit() {
-		console.log(`-- menu entryyyy: ${this.menuEntry.name}`)
+		console.log(`-- menu entryyyy: ${this.menuEntry.name}`);
+		console.log(`-- menu rules: ${this.menuEntry.rules}`);
 	}
 
 	openModal() {
@@ -54,8 +60,24 @@ export class MenuEntryRow implements OnInit {
 		console.log("rules" + this.menuEntry.rules);
 	}
 
-	addOrder() {
+	addOrder(event : any, value : any) {
+
 		this.closeModal();
+
+		var menuOrder = new MenuOrder();
+		menuOrder.menuEntryId = this.menuEntry.id;
+		menuOrder.price = this.menuEntry.price;
+		menuOrder.freeText = value.freeText;
+		menuOrder.appliedMenuRules = new Array<MenuRule>();
+		menuOrder.name = this.menuEntry.name;
+		menuOrder.id = 1 + this.orderService.menuOrders.length;
+		for (let menuRule of this.menuEntry.rules) {
+		     if (value[menuRule.id]) {
+			  menuOrder.appliedMenuRules.push(menuRule);
+			  }
+		}
+
+		this.orderService.menuOrders.push(menuOrder);
 	}
 
 	closeModal() {

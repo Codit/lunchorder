@@ -4,17 +4,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using Lunchorder.Common;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
 using Lunchorder.Domain.Entities.DocumentDb;
-using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Linq;
 using Badge = Lunchorder.Domain.Dtos.Badge;
 using Menu = Lunchorder.Domain.Dtos.Menu;
+using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
 using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
+using VendorOrderHistory = Lunchorder.Domain.Entities.DocumentDb.VendorOrderHistory;
 
 namespace Lunchorder.Dal
 {
@@ -107,7 +107,7 @@ namespace Lunchorder.Dal
 
             foreach (var entry in docDbVendorOrderHistoryEntries)
             {
-                entry.UserId = Guid.Parse(userId);
+                entry.UserId = userId;
                 entry.UserName = userName;
             }
 
@@ -119,30 +119,84 @@ namespace Lunchorder.Dal
             lastOrder.UserOrderHistoryId = docDbUserOrderHistory.Id;
 
 
-                /* transaction for multiple operations in documentdb is done using stored procedure.
-             * let's call it here and leave it up to the sp
-             * 1. does a check on user balance 
-             * 2. adds order to user order history
-             * 3. adds order to vendor order
-             * 4. updates user last orders
-             * 5. updates user balance
-             */
-                var success =
-                    await
-                        _documentStore.ExecuteStoredProcedure<bool>(DocumentDbSp.AddUserOrder, vendorOrderId,
-                            docDbVendorOrderHistoryEntries, docDbUserOrderHistory, lastOrder);
+            /* transaction for multiple operations in documentdb is done using stored procedure.
+         * let's call it here and leave it up to the sp
+         * 1. does a check on user balance 
+         * 2. adds order to user order history
+         * 3. adds order to vendor order
+         * 4. updates user last orders
+         * 5. updates user balance
+         */
+            var success =
+                await
+                    _documentStore.ExecuteStoredProcedure<bool>(DocumentDbSp.AddUserOrder, vendorOrderId,
+                        docDbVendorOrderHistoryEntries, docDbUserOrderHistory, lastOrder);
         }
 
-        public async Task<VendorOrderHistory> GetVendorOrder(string orderDate, string vendorId)
+        public async Task<Domain.Dtos.VendorOrderHistory> GetVendorOrder(string orderDate, string vendorId)
         {
-           var vendorOrderHistoryQuery = _documentStore.GetItems<Domain.Entities.DocumentDb.VendorOrderHistory>(
-                x =>
-                    x.Type == DocumentDbType.VendorOrderHistory && x.OrderDate == orderDate &&
-                    x.VendorId == Guid.Parse(vendorId)).AsDocumentQuery();
+            var vendorOrderHistoryQuery = _documentStore.GetItems<Domain.Entities.DocumentDb.VendorOrderHistory>(
+                 x =>
+                     x.Type == DocumentDbType.VendorOrderHistory && x.OrderDate == orderDate &&
+                     x.VendorId == Guid.Parse(vendorId)).AsDocumentQuery();
 
             var queryResponse = await vendorOrderHistoryQuery.ExecuteNextAsync<Domain.Entities.DocumentDb.VendorOrderHistory>();
             var vendorOrderHistory = queryResponse.SingleOrDefault();
-            return vendorOrderHistory;
+            var vendorOrderHistoryDto = _mapper.Map<Domain.Entities.DocumentDb.VendorOrderHistory, Domain.Dtos.VendorOrderHistory>(vendorOrderHistory);
+
+            return vendorOrderHistoryDto;
+        }
+
+        public async Task<decimal> UpdateBalance(string userId, decimal amount, SimpleUser originatorDto)
+        {
+            var docDbOriginator = _mapper.Map<SimpleUser, Domain.Entities.DocumentDb.SimpleUser>(originatorDto);
+            var userBalanceAudit = new UserBalanceAudit
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = userId,
+                Audits =
+                    new List<UserBalanceAuditItem>
+                    {
+                        new UserBalanceAuditItem {Amount = amount, Date = DateTime.UtcNow, Originator = docDbOriginator}
+                    }
+            };
+            var updatedAmount = await _documentStore.ExecuteStoredProcedure<decimal>(DocumentDbSp.UpdateUserBalance, userBalanceAudit);
+            return updatedAmount;
+        }
+
+        public async Task AddToUserList(string userId, string userName, string firstName, string lastName)
+        {
+            var userList = new PlatformUserList
+            {
+                Id = Guid.NewGuid().ToString(),
+                Users = new List<PlatformUserListItem>
+                {
+                    new PlatformUserListItem
+                    {
+                        UserId = userId,
+                        UserName = userName,
+                        FirstName = firstName,
+                        LastName = lastName
+                    }
+                }
+            };
+
+            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.AddToUserList, userList);
+        }
+
+        public async Task<IEnumerable<Domain.Dtos.PlatformUserListItem>> GetUsers()
+        {
+            var usersQuery = _documentStore.GetItems<PlatformUserList>(x => x.Type == DocumentDbType.PlatformUserList).AsDocumentQuery();
+            var queryResponse = await usersQuery.ExecuteNextAsync<PlatformUserList>();
+            var users = queryResponse.FirstOrDefault();
+
+            if (users == null)
+            {
+                throw new Exception("User list could not be retrieved");
+            }
+
+            var userDtos = _mapper.Map<IEnumerable<PlatformUserListItem>, IEnumerable<Domain.Dtos.PlatformUserListItem>>(users.Users);
+            return userDtos;
         }
 
         private async Task<Domain.Entities.DocumentDb.Menu> GetMenuItem(Expression<Func<Domain.Entities.DocumentDb.Menu, bool>> predicate)

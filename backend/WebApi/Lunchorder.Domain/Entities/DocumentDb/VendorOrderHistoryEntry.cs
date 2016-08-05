@@ -28,7 +28,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The id of the user that has placed the entry
         /// </summary>
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// The name of the user that has placed the entry
@@ -38,7 +38,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The price that has been paid by the user to order this entry at the vendor
         /// </summary>
-        public double FinalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
 
         /// <summary>
         /// The associated user order history

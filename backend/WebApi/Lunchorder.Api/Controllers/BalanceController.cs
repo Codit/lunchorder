@@ -3,6 +3,10 @@ using System.Net;
 using Lunchorder.Common.Interfaces;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Lunchorder.Domain.Constants;
+using Lunchorder.Domain.Dtos;
+using Lunchorder.Domain.Dtos.Requests;
+using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Lunchorder.Api.Controllers
@@ -18,19 +22,18 @@ namespace Lunchorder.Api.Controllers
             _balanceControllerService = balanceControllerService;
         }
 
-        // todo, only access for administrator
         /// <summary>
         /// Updates the balance for a user
         /// </summary>
         /// <returns></returns>
-        [Authorize]
+        [Authorize(Roles = Roles.PrepayAdmin)]
         [HttpPut]
         [Route("")]
-        [SwaggerResponse(HttpStatusCode.Created, Type = typeof(double))]
-        public async Task<IHttpActionResult> Put(double amount)
+        [SwaggerResponse(HttpStatusCode.Created, Type = typeof(decimal))]
+        public async Task<IHttpActionResult> Put(PutBalanceRequest putBalanceRequest)
         {
-            // todo add user
-            var result = await _balanceControllerService.UpdateBalance("", amount);
+            var originator = new SimpleUser { Id = User.Identity.GetUserId(), UserName = User.Identity.GetUserName()};
+            var result = await _balanceControllerService.UpdateBalance(putBalanceRequest.UserId, putBalanceRequest.Amount, originator);
 
             // todo location uri
             return Created("", result);

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { ConfigService } from '../services/configService';
+import { TokenHelper } from './tokenHelper';
 
 @Injectable()
 export class HttpClient {
-    constructor(private http: Http, private configService: ConfigService) {
+    constructor(private http: Http, private tokenHelper: TokenHelper) {
     }
 
     createAuthorizationHeader(headers: Headers) {
-        headers.append('Authorization',`Bearer ${this.configService.authToken}`);
+        headers.append('Authorization',`Bearer ${this.tokenHelper.authToken}`);
     }
 
     get(url: string) {
@@ -23,6 +23,14 @@ export class HttpClient {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
         return this.http.post(url, data, {
+        headers: headers
+        });
+    }
+
+    put(url: string, data: any) {
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+        return this.http.put(url, data, {
         headers: headers
         });
     }

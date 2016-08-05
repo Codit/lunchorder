@@ -31,7 +31,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The price of the menu entry without applying any possible rules
         /// </summary>
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// A set of rules that were applied to the order at that specific time

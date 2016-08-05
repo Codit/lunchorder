@@ -15,6 +15,20 @@ declare module app.domain.dto {
         description: string;
     }
     
+    export interface ILastOrder {
+        id: string;
+        userOrderHistoryId: string;
+        orderTime: Date;
+        finalPrice: number;
+    }
+    
+    export interface ILastOrderEntry {
+        name: string;
+        appliedRules: string;
+        freeText: string;
+        price: number;
+    }
+    
     export interface IMenu {
         id: string;
         enabled: boolean;
@@ -39,7 +53,7 @@ declare module app.domain.dto {
         name: string;
         description: string;
         categoryId: string;
-        price: string;
+        price: number;
         enabled: boolean;
     }
     
@@ -49,6 +63,7 @@ declare module app.domain.dto {
     
     export interface IMenuOrder {
         menuEntryId: string;
+        name: string;
         freeText: string;
         appliedMenuRules: IMenuRule[];
         price: number;
@@ -63,6 +78,7 @@ declare module app.domain.dto {
     }
     
     export interface IMenuVendor {
+        id: string;
         name: string;
         address: IMenuVendorAddress;
         website: string;
@@ -71,6 +87,22 @@ declare module app.domain.dto {
     }
     
     export interface IMenuVendorAddress extends IAddress {
+        
+    }
+    
+    export interface IPlatformUserListItem {
+        userId: string;
+        userName: string;
+        firstName: string;
+        lastName: string;
+    }
+    
+    export interface ISimpleUser {
+        id: string;
+        userName: string;
+    }
+    
+    export interface ITest {
         id: string;
     }
     
@@ -82,16 +114,19 @@ declare module app.domain.dto {
     export interface IUserOrderHistory {
         id: string;
         finalPrice: number;
-        entry: IUserOrderHistoryEntry;
+        userName: string;
+        userId: string;
+        entries: IUserOrderHistoryEntry[];
         orderTime: Date;
-        rules: IUserOrderHistoryRule[];
     }
     
     export interface IUserOrderHistoryEntry {
         id: string;
+        menuEntryId: string;
         name: string;
         freeText: string;
         price: number;
+        rules: IUserOrderHistoryRule[];
     }
     
     export interface IUserOrderHistoryRule {
@@ -107,6 +142,30 @@ declare module app.domain.dto {
         culture: string;
     }
     
+    export interface IVendorHistoryEntryRule {
+        id: string;
+        description: string;
+        priceDelta: number;
+    }
+    
+    export interface IVendorOrderHistory {
+        id: string;
+        vendorId: string;
+        orderDate: string;
+        submitted: boolean;
+    }
+    
+    export interface IVendorOrderHistoryEntry {
+        id: string;
+        name: string;
+        menuEntryId: string;
+        userId: string;
+        userName: string;
+        finalPrice: number;
+        userOrderHistoryEntryId: string;
+        rules: IVendorHistoryEntryRule[];
+    }
+    
     export interface IPostFavoriteRequest {
         menuEntryId: string;
     }
@@ -115,12 +174,21 @@ declare module app.domain.dto {
         menu: IMenu;
     }
     
-    export interface IPostUserHistoryRequest {
+    export interface IPostOrderRequest {
         menuOrders: IMenuOrder[];
+    }
+    
+    export interface IPutBalanceRequest {
+        userId: string;
+        amount: number;
     }
     
     export interface IPutMenuRequest {
         menu: IMenu;
+    }
+    
+    export interface IGetAllUsersResponse {
+        users: IPlatformUserListItem[];
     }
     
     export interface IGetUserInfoResponse {
@@ -130,6 +198,8 @@ declare module app.domain.dto {
         profile: IUserProfile;
         badges: IUserBadge[];
         favorites: IMenuEntryFavorite[];
+        last5Orders: ILastOrder[];
+        roles: string[];
         userToken: string;
     }
 }

@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ConfigService } from './configService';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Badge } from '../domain/dto/badge';
 import { HttpClient } from '../helpers/httpClient';
 
 @Injectable()
 export class BadgeService {
-  constructor(private http: HttpClient, private configService: ConfigService) {
-    automapper.createMap('{}', 'Badge');
-  }
+  constructor(private http: HttpClient, private configService: ConfigService) {  }
 
   private badgeApiUri = `${this.configService.apiPrefix}/badges`;
 
@@ -22,8 +20,10 @@ export class BadgeService {
   private mapBadges(res: Response): Badge[] {
     console.log(res);
     let body = res.json();
-    var badge: Badge[] = automapper.map('{}', 'Badge', body);
-    return badge;
+
+    // todo, deserialize in domain object.
+    var badges: Badge[] = body;
+    return badges;
   }
 
   private handleError(error: any) {

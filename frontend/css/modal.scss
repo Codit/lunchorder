@@ -24,13 +24,53 @@
     background: #fff;
 }
 .close {
-        line-height: 25px;
+    line-height: 50px;
     position: absolute;
-    right: -12px;
+    right: 0px;
     text-align: center;
     top: 0px;
     width: 50px;
+    font-size: 19px;
 }
-.close:hover {
-    background: #00d9ff;
+
+.checkout {
+    i.basket { 
+        font-size: 18px;
+        line-height: 50px;
+    }
+
+    .item:hover {
+    background: #f1f1f1;
+    }
+    
+    .negative {
+        color: red;
+        font-weight: bold;
+    }
+
+    .positive {
+        color: green;
+    }
+
+     h4 {
+        text-transform: uppercase;
+        display: inline-block;
+    }
+
+    .right {
+        float: right;
+    }
+
+    span {
+        font-size: 16px;
+    }
+
+    span.description {
+        font-size: 12px;
+        display: block;
+    }
+
+    .clear {
+        clear:both;
+    }
 }

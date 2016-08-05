@@ -25,7 +25,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The positive or negative price difference
         /// </summary>
-        public int PriceDelta { get; set; }
+        public decimal PriceDelta { get; set; }
 
         /// <summary>
         /// Field that represents the enabled state

@@ -9,9 +9,9 @@ namespace Lunchorder.Domain.Entities.DocumentDb
     {
         // todo, this is just some brainstorming, needs detailed implementation.
         public int TotalOrders { get; set; }
-        public double TotalSpent { get; set; }
+        public decimal TotalSpent { get; set; }
         public DateTime LastOrderTime { get; set; }
-        public double LastPrepayed { get; set; }
+        public decimal LastPrepayed { get; set; }
         public int HealthyItems { get; set; }
         public int PastaItems { get; set; }
         public int SurpriseItems { get; set; }

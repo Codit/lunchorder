@@ -6,8 +6,9 @@ import { MenuService } from './services/menuService';
 import { Menu } from './domain/dto/menu';
 import { MenuCategoryRow } from './app.menu-category-row';
 import { MenuEntry } from './domain/dto/menuEntry';
-<<<<<<< HEAD
+import { MenuOrder } from './domain/dto/menuOrder';
 import { StickCartDirective } from './directives/stickCartDirective';
+import { OrderService } from './services/orderService';
 
 @Component({
 	selector: '[menu]',
@@ -19,51 +20,110 @@ import { StickCartDirective } from './directives/stickCartDirective';
 					<p class="lead" style="margin-top:0">Make an order using the following menu.</p>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" *ngIf="!menu">
+				<div *ngIf="isBusyMenu"><i class="fa fa-spinner spin"></i></div>
+				<div *ngIf="!isBusyMenu">There is currently no active menu</div>
+			</div>
+			<div class="row" *ngIf="menu?.entries">
 				<div class="col-xs-9 wow fadeInLeftBig" data-animation-delay="200">
 					<div menu-category-row class="col-xs-12" *ngFor="let cat of menu?.categories" [category]="cat" [menuEntries]="menu?.entries"></div>
 				</div>
-				<div stick-cart-rx id="cart" class="col-xs-3 wow fadeInRightBig" data-animation-delay="200">
+				<div style="cursor:pointer;" (click)="openCheckout()" stick-cart-rx id="cart" class="col-xs-3 wow swing" data-animation-delay="200">
 					<div style="width: 200px; height: 200px; background: #cecece; border-radius: 50%;">
 						<i class="fa fa-shopping-basket" style="font-size: 82px; vertical-align: middle; padding: 20px 55px;
 	-ms-transform: rotate(18deg); /* IE 9 */ -webkit-transform: rotate(18deg); /* Chrome, Safari, Opera */ transform: rotate(-18deg);">
-		<div class="badge badge-info" style="font-size: 20px; padding: 5px 10px; margin: -90px 0px 0px 67px; transform: rotate(18deg);">0</div>
+		<div class="badge badge-info" style="font-size: 20px; padding: 5px 10px; margin: -90px 0px 0px 67px; transform: rotate(18deg);">{{orderService.menuOrders.length}}</div>
 	</i>
 
   <div style="left: auto; text-align: center; color: #373d50; font-weight: bold; font-size: 32px; margin-top: -85px;">
-&euro; 5.00,-
+{{orderService.totalPrice() | currency:'EUR':true:'1.0-2' }},-
   </div>
 </div></div>
 				</div>
-=======
+				
+				<div class="modalDialog active checkout" *ngIf="isModalOpen">
+    <div>	
+			<i (click)="closeModal()" title="Close" class="fa fa-times close"></i>
+			<i class="fa fa-shopping-basket basket" title="Checkout"></i>
+        	
+			<div><h4>Your order</h4><h4 class="right">Price</h4></div>
 
-@Component({
-	selector: '[menu]',
-	directives: [MenuCategoryRow],
-	template: `<div class="container">
-			<div class="row">
-				<div class="col-xs-12 wow fadeInLeftBig" data-animation-delay="200">
-					<h3 class="section-heading">Lunch Menu</h3>
-					<div menu-category-row class="col-xs-12" *ngFor="let cat of menu?.categories" [category]="cat" [menuEntries]="menu?.entries"></div>
-				</div>
-			</div>
->>>>>>> master
-		</div>`,
+<div>
+					
+
+					<div *ngFor="let menuOrder of orderService.menuOrders" class="item">
+						<span class="right">{{menuOrder.price | currency:'EUR':true:'1.0-2' }} <i class="fa fa-trash-o" style="cursor:pointer" title="remove" (click)="removeOrder(menuOrder)"></i></span>
+						<span>{{menuOrder.name}}</span>
+						<div *ngFor="let rule of menuOrder.appliedMenuRules">
+							<span class="description">{{rule.description}}</span>
+						</div>
+						<span class="description" [hidden]="!menuOrder.freeText">{{menuOrder.freeText}}</span>
+					</div>
+					<div class="right">
+						Total: <span>{{orderService.totalPrice() | currency:'EUR':true:'1.0-2' }}</span>
+					</div>
+					<div class="clear right" [class.negative]="getBalance() < 0" [class.positive]="getBalance() >= 0">
+						Balance after purchase: <span>{{ getBalance() | currency:'EUR':true:'1.0-2' }}</span>
+					</div>
+
+					<div class="clear">
+						<button type="button" class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" [disabled]="isBusy || getBalance() < 0 || orderService.menuOrders.length <= 0" (click)="finalizeOrder()"><i class="fa fa-spinner fa-spin" *ngIf="isBusy"></i> Buy now</button>
+					</div>
+    </div>
+</div>`
 })
 
 export class MenuComponent implements OnInit {
 
-	constructor(private configService: ConfigService, private menuService: MenuService) { }
-
+	// todo move orderservice button to other component.
+	constructor(private configService: ConfigService, private menuService: MenuService, private orderService: OrderService, private accountService: AccountService) { }
+	isModalOpen: boolean;
 	menu: Menu;
 	// todo, inspect error object.
 	error: any;
-
+	isBusy: boolean;
+	isBusyMenu : boolean = true;
 	ngOnInit() {
+
 		this.menuService.getMenu().subscribe(
 			menu => {
 				this.menu = menu
+				this.isBusyMenu = false;
 			},
+			error => this.error = <any>error);
+	}
+
+	getBalance(): number {
+		return this.accountService.user.balance - this.orderService.totalPrice();
+	}
+
+	removeOrder(menuOrder: MenuOrder) {
+		debugger;
+		var matchIndex: number = -1;
+		for (var i = 0; i < this.orderService.menuOrders.length; i++) {
+			if (menuOrder.id === this.orderService.menuOrders[i].id) {
+				matchIndex = i;
+				break;
+			}
+		}
+
+		if (matchIndex >= 0) {
+			this.orderService.menuOrders.splice(matchIndex, 1);
+		}
+	}
+
+	openCheckout() {
+		this.isModalOpen = true;
+	}
+	closeModal() {
+		this.isModalOpen = false;
+	}
+
+	finalizeOrder() {
+		this.orderService.postMenuOrders().subscribe(menu => {
+			this.isBusy = true;
+			this.orderService.menuOrders = new Array<MenuOrder>();
+		},
 			error => this.error = <any>error);
 	}
 }
