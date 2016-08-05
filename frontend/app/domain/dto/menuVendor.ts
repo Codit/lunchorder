@@ -9,6 +9,7 @@ export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<Menu
     logo: string;
 
     deserialize(input : any) : MenuVendor {
+        if (!input) { return; }
         this.id = input.id;
         this.name = input.name;
         this.address = new MenuVendorAddress().deserialize(input.address);

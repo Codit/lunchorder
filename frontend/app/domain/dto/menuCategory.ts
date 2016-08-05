@@ -10,8 +10,10 @@ export class MenuCategory implements app.domain.dto.IMenuCategory, Serializable<
         this.description = input.description;
 
         this.subCategories = new Array<MenuCategory>();
-        for (var subCategory in input.subCategories) {
-            this.subCategories.push(new MenuCategory().deserialize(subCategory));
+        if (input.subCategories) {
+            for (var subCategory of input.subCategories) {
+                this.subCategories.push(new MenuCategory().deserialize(subCategory));
+            }
         }
 
         return this;

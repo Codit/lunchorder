@@ -20,8 +20,10 @@ export class MenuEntry implements app.domain.dto.IMenuEntry, Serializable<MenuEn
         this.enabled = input.enabled;
 
         this.rules = new Array<MenuRule>();
-        for (var rule in input.rules) {
-            this.rules.push(new MenuRule().deserialize(rule));
+        if (input.rules) {
+            for (var rule of input.rules) {
+                this.rules.push(new MenuRule().deserialize(rule));
+            }
         }
         return this;
     }

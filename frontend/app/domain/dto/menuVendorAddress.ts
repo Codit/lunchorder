@@ -10,6 +10,7 @@ export class MenuVendorAddress implements app.domain.dto.IMenuVendorAddress, Ser
     fax: string;
 
     deserialize(input: any) : MenuVendorAddress {
+        if (!input) return;
         this.street = input.street;
         this.streetNumber = input.streetNumber;
         this.city = input.city;

@@ -16,38 +16,44 @@ export class Menu implements app.domain.dto.IMenu, Serializable<Menu> {
 
         deserialize(input: any): Menu {
                 if (!input) return;
-                
+
                 this.id = input.id;
                 this.enabled = input.enabled;
                 this.deleted = input.deleted;
-                this.vendor = new MenuVendor().deserialize(input);
+                this.vendor = new MenuVendor().deserialize(input.vendor);
 
                 this.entries = new Array<MenuEntry>();
-                for (var entry in input.entries) {
-                        this.entries.push(new MenuEntry().deserialize(entry));
+                if (input.entries) {
+                        for (var entry of input.entries) {
+                                this.entries.push(new MenuEntry().deserialize(entry));
+                        }
                 }
 
                 this.categories = new Array<MenuCategory>();
-                for (var category in input.categories) {
-                        this.categories.push(new MenuCategory().deserialize(category));
+                if (input.categories) {
+                        for (var category of input.categories) {
+                                this.categories.push(new MenuCategory().deserialize(category));
+                        }
                 }
 
                 this.rules = new Array<MenuRule>();
-                for (var rule in input.rules) {
-                        this.rules.push(new MenuRule().deserialize(rule));
-                }
+                if (input.rules) {
+                        for (var rule of input.rules) {
+                                this.rules.push(new MenuRule().deserialize(rule));
+                        }
 
-                for (let menuRule of this.rules) {
-                        var categories = this.categories.filter((category) => menuRule.categoryIds.find((ruleCategory) => ruleCategory == category.id) != null);
-                        for (let category of categories) {
-                                var menuEntries = this.entries.filter((menuEntry) => menuEntry.categoryId == category.id);
-                                for (let menuEntry of menuEntries) {
-                                        // todo this should be added to constructor on mapping
-                                        if (!menuEntry.rules) { menuEntry.rules = new Array<MenuRule>(); }
-                                        menuEntry.rules.push(menuRule);
+                        for (let menuRule of this.rules) {
+                                var categories = this.categories.filter((category) => menuRule.categoryIds.find((ruleCategory) => ruleCategory == category.id) != null);
+                                for (let category of categories) {
+                                        var menuEntries = this.entries.filter((menuEntry) => menuEntry.categoryId == category.id);
+                                        for (let menuEntry of menuEntries) {
+                                                // todo this should be added to constructor on mapping
+                                                if (!menuEntry.rules) { menuEntry.rules = new Array<MenuRule>(); }
+                                                menuEntry.rules.push(menuRule);
+                                        }
+
+                                        this.recurseSubCategory(this, menuRule, category);
                                 }
-
-                                this.recurseSubCategory(this, menuRule, category);
                         }
                 }
 

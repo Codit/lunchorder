@@ -7,12 +7,15 @@ export class MenuRule implements app.domain.dto.IMenuRule, Serializable<MenuRule
     isEffective: boolean;
     isSelected: boolean;
 
-    deserialize(input: any) : MenuRule {
+    deserialize(input: any): MenuRule {
         this.id = input.id;
-        
+
         this.categoryIds = new Array<string>();
-        for (var categoryId in input.categoryIds) {
-            this.categoryIds.push(categoryId);
+
+        if (input.categoryIds) {
+            for (var categoryId of input.categoryIds) {
+                this.categoryIds.push(categoryId);
+            }
         }
         this.description = input.description;
         this.priceDelta = input.priceDelta;
@@ -21,5 +24,5 @@ export class MenuRule implements app.domain.dto.IMenuRule, Serializable<MenuRule
         this.isSelected = input.isSelected;
 
         return this;
-        }
+    }
 }
