@@ -85,6 +85,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -109,6 +110,7 @@
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Extensions\AuthorizationOptions.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
+    <Compile Include="HtmlHelper.cs" />
     <Compile Include="Interfaces\IAccountControllerService.cs" />
     <Compile Include="Interfaces\IBadgeControllerService.cs" />
     <Compile Include="Interfaces\IBalanceControllerService.cs" />

@@ -37,6 +37,19 @@ namespace Lunchorder.Api.Controllers
         }
 
         /// <summary>
+        /// Retrieves current open order for a vendor
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("vendors")]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Domain.Dtos.VendorOrderHistory>))]
+        public async Task<IHttpActionResult> GetVendorOrderHistoryForToday()
+        {
+            var history = await _orderControllerService.GetVendorHistory(DateTime.UtcNow);
+            return Ok(history);
+        }
+
+        /// <summary>
         /// Adds a new order for a user
         /// </summary>
         /// <returns></returns>

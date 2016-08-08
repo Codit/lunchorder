@@ -10,5 +10,6 @@ namespace Lunchorder.Common.Interfaces
         Task<IEnumerable<UserOrderHistory>> GetHistory(string userId);
         Task Delete(Guid orderId);
         Task Add(string userId, string userName, IEnumerable<MenuOrder> menuOrders);
+        Task<VendorOrderHistory> GetVendorHistory(DateTime utcNow);
     }
 }

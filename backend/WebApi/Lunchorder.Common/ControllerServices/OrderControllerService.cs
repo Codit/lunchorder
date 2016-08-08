@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using AutoMapper;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
@@ -34,7 +38,7 @@ namespace Lunchorder.Common.ControllerServices
             //var userOrderHistories = _fixture.Create<IEnumerable<Domain.Entities.DocumentDb.UserOrderHistory>>();
             //var userOrderHistoriesDto =_mapper.Map<IEnumerable<Domain.Entities.DocumentDb.UserOrderHistory>, IEnumerable<Domain.Dtos.UserOrderHistory>>(userOrderHistories);
             //return await Task.FromResult(userOrderHistoriesDto);
-            return null;
+            throw new NotImplementedException();
         }
 
         public Task Delete(Guid orderId)
@@ -51,6 +55,19 @@ namespace Lunchorder.Common.ControllerServices
 
             await _databaseRepository.AddOrder(userId, userName, vendorId, new DateGenerator().GenerateDateFormat(DateTime.UtcNow), userOrderHistory);
             _eventingService.SendMessage(new Message(ServicebusType.AddUserOrder, JsonConvert.SerializeObject(userOrderHistory)));
+        }
+
+        public async Task EmailVendorHistory(DateTime dateTime)
+        {
+            var vendorHistory = await GetVendorHistory(dateTime);
+            var html = HtmlHelper.CreateVendorHistory(vendorHistory);
+        }
+
+        public async Task<VendorOrderHistory> GetVendorHistory(DateTime dateTime)
+        {
+            var vendorId = await GetVendorId();
+            var vendorOrderHistory = await _databaseRepository.GetVendorOrder(new DateGenerator().GenerateDateFormat(dateTime), vendorId);
+            return vendorOrderHistory;
         }
 
         private async Task<string> GetVendorId()
