@@ -3,7 +3,7 @@ using System.Configuration;
 namespace Lunchorder.Domain.Entities.Configuration
 {
     /// <summary>
-    /// Authentication element in the custom mezurio configuration element
+    /// Authentication element in the custom lunchorder configuration element
     /// </summary>
     public class ConnectionsElement : ConfigurationElement
     {

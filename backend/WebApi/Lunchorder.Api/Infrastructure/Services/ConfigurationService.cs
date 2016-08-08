@@ -23,6 +23,19 @@ namespace Lunchorder.Api.Infrastructure.Services
             get { return (ConnectionsElement)this["connections"]; }
         }
 
+        [ConfigurationProperty("eventing")]
+        private EventingElement Eventing
+        {
+            get { return (EventingElement)this["eventing"]; }
+        }
+
+        public ServicebusInfo Servicebus => new ServicebusInfo
+        {
+            ConnectionString = Eventing.Servicebus.ConnectionString,
+            Enabled = Eventing.Servicebus.Enabled,
+            Topic = Eventing.Servicebus.Topic
+        };
+
         public DocumentDbInfo DocumentDb => new DocumentDbInfo
         {
             Endpoint = Connections.DocumentDb.Endpoint,

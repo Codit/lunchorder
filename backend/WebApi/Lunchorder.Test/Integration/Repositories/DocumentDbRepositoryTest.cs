@@ -1795,7 +1795,7 @@ namespace Lunchorder.Test.Integration.Repositories
             var menu = new Menu
             {
                 Id = Guid.NewGuid(),
-                Enabled = true,
+                Enabled = false,
                 Categories = menuCategories,
                 Entries = menuEntries,
                 Deleted = false,

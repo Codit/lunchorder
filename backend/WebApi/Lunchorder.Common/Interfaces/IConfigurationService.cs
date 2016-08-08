@@ -30,5 +30,7 @@ namespace Lunchorder.Common.Interfaces
         DocumentDbInfo DocumentDb { get; }
 
         DocumentDbInfo DocumentDbAuth { get; }
+
+        ServicebusInfo Servicebus { get; }
     }
 }

@@ -138,6 +138,10 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.ServiceBus.3.3.2\lib\net45-full\Microsoft.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -166,6 +170,8 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
       <Private>True</Private>
@@ -219,6 +225,7 @@
     <Compile Include="App_Start\Configuration\IoC\ConfigurationInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\ControllerServiceInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\DalInstaller.cs" />
+    <Compile Include="App_Start\Configuration\IoC\EventingInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\OAuthInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\ServiceInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WebInstaller.cs" />
@@ -263,6 +270,8 @@
     <Compile Include="Infrastructure\Providers\CustomJwtFormat.cs" />
     <Compile Include="Infrastructure\Providers\CustomOAuthProvider.cs" />
     <Compile Include="Infrastructure\Services\ConfigurationService.cs" />
+    <Compile Include="Infrastructure\Services\EventingService.cs" />
+    <Compile Include="Infrastructure\Services\ServicebusMessagingService.cs" />
     <Compile Include="Infrastructure\Services\SeedService.cs" />
     <Compile Include="Infrastructure\Services\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

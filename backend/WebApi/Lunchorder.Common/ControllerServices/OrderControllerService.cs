@@ -5,8 +5,8 @@ using AutoMapper;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos;
-using Lunchorder.Domain.Entities.DocumentDb;
-using Ploeh.AutoFixture;
+using Lunchorder.Domain.Entities.Eventing;
+using Newtonsoft.Json;
 using Menu = Lunchorder.Domain.Dtos.Menu;
 using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
 using UserOrderHistoryEntry = Lunchorder.Domain.Dtos.UserOrderHistoryEntry;
@@ -17,15 +17,16 @@ namespace Lunchorder.Common.ControllerServices
     {
         private readonly IDatabaseRepository _databaseRepository;
         private readonly IMapper _mapper;
-        private readonly Fixture _fixture;
+        private readonly IEventingService _eventingService;
 
-        public OrderControllerService(IDatabaseRepository databaseRepository, IMapper mapper)
+        public OrderControllerService(IDatabaseRepository databaseRepository, IMapper mapper, IEventingService eventingService)
         {
             if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
             if (mapper == null) throw new ArgumentNullException(nameof(mapper));
+            if (eventingService == null) throw new ArgumentNullException(nameof(eventingService));
             _databaseRepository = databaseRepository;
             _mapper = mapper;
-            _fixture = new Fixture();
+            _eventingService = eventingService;
         }
 
         public async Task<IEnumerable<UserOrderHistory>> GetHistory(string userId)
@@ -38,7 +39,7 @@ namespace Lunchorder.Common.ControllerServices
 
         public Task Delete(Guid orderId)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
         public async Task Add(string userId, string userName, IEnumerable<MenuOrder> menuOrders)
@@ -46,11 +47,10 @@ namespace Lunchorder.Common.ControllerServices
             var vendorId = await GetVendorId();
             var menuOrderHistoryEntries = _mapper.Map<IEnumerable<MenuOrder>, IEnumerable<UserOrderHistoryEntry>>(menuOrders);
 
-            // todo add userid to object in dbrepo after map to docdb entity
             var userOrderHistory = new UserOrderHistory { Id = Guid.NewGuid(), OrderTime = DateTime.UtcNow, Entries = menuOrderHistoryEntries };
-            //var vendorOrderHistory = new VendorOrderHistory {  }
-            await _databaseRepository.AddOrder(userId, userName, vendorId, new DateGenerator().GenerateDateFormat(DateTime.UtcNow),  userOrderHistory);
 
+            await _databaseRepository.AddOrder(userId, userName, vendorId, new DateGenerator().GenerateDateFormat(DateTime.UtcNow), userOrderHistory);
+            _eventingService.SendMessage(new Message(ServicebusType.AddUserOrder, JsonConvert.SerializeObject(userOrderHistory)));
         }
 
         private async Task<string> GetVendorId()
