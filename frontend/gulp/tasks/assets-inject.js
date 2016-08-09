@@ -50,9 +50,7 @@ module.exports = function (paths, dist) {
         var appCssSource = gulp.src([input.cssAppRelease], { read: false });
 
         return target.pipe(inject(series(vendorJsSource, appJsSource, vendorCssSource, appCssSource), { removeTags: true, ignorePath: 'dist/', addRootSlash: false }))
-            .pipe(gulp.dest(paths.webroot)).on("error", function () {
-                process.exit(1);
-            });;
+            .pipe(gulp.dest(paths.webroot));
     });
 
     gulp.task('insert:systemJS:debug', function () {

@@ -98,7 +98,10 @@ module.exports = function (paths, dist) {
                     "app/**"
                 ]
             })
-            .pipe(debug());
+            .pipe(debug())
+            .pipe(gulp.dest(".")).once("error", function () {
+                this.once("finish", () => process.exit(1));
+            });
     });
 
     gulp.task('transpile:ts:debug', function () {
@@ -107,7 +110,10 @@ module.exports = function (paths, dist) {
                 "sourceMap": true
             }
         })
-            .pipe(debug());
+            .pipe(debug())
+            .pipe(gulp.dest(".")).once("error", function () {
+                this.once("finish", () => process.exit(1));
+            });
     });
 
     gulp.task('minify:css', function () {
