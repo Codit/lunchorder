@@ -68,6 +68,7 @@ module.exports = function (paths, dist) {
             .catch(function (err) {
                 console.log('Build error');
                 console.log(err);
+                process.exit(1);
             });
     });
 
@@ -76,13 +77,11 @@ module.exports = function (paths, dist) {
             compilerOptions: {
                 "inlineSourceMap": false,
                 "inlineSources": false,
-                "sourceRoot": "frontend"
+                "sourceRoot": "frontend",
+                "noEmitOnError": true
             }
         })
-            .pipe(gulp.dest("."))
-            .once("error", function () {
-                this.once("finish", () => process.exit(1));
-            });
+            .pipe(gulp.dest("."));
     });
 
     gulp.task('watch:ts', ['transpile:ts:debug'], function () {
@@ -99,10 +98,7 @@ module.exports = function (paths, dist) {
                     "app/**"
                 ]
             })
-            .pipe(debug())
-            .pipe(gulp.dest(".")).once("error", function () {
-                this.once("finish", () => process.exit(1));
-            });
+            .pipe(debug());
     });
 
     gulp.task('transpile:ts:debug', function () {
@@ -111,10 +107,7 @@ module.exports = function (paths, dist) {
                 "sourceMap": true
             }
         })
-            .pipe(debug())
-            .pipe(gulp.dest(".")).once("error", function () {
-                this.once("finish", () => process.exit(1));
-            });
+            .pipe(debug());
     });
 
     gulp.task('minify:css', function () {
