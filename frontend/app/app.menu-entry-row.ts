@@ -11,7 +11,8 @@ import { MenuOrder } from './domain/dto/menuOrder';
 	template: `<div class="col-xs-offset-1 col-xs-11">
 				<div class="menu-entry-row">
 					<span>{{menuEntry.name}}</span>
-					<button (click)="openModal()" class="btn btn-primary btn-xs pull-right" style="font-weight:bold;">{{menuEntry.price | currency:'EUR':true:'1.0-2'}}
+					<button (click)="openModal()" class="btn btn-primary btn-xs pull-right" style="font-weight:bold;">
+					<span style="text-align: left;width: 25px; display: inline-block;">{{menuEntry.price | currency:'EUR':true:'1.0-2'}}</span>
 					 <span class="btn-separator"></span>
 					 <i class="fa fa-plus"></i></button>
 			    </div>
@@ -39,7 +40,7 @@ import { MenuOrder } from './domain/dto/menuOrder';
 
 
 				<button type="button" class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" (click)="addOrder($event, f.value)">Add order to cart</button>
-				<button type="button" class="btn btn-sm pull-right" style="font-weight:bold; margin-right:20px;" (click)="closeModal()">Cancel order</button>
+				<button type="button" class="btn btn-sm pull-right" style="font-weight:bold; margin-right:20px;" (click)="closeModal()">Cancel</button>
 			 </form>
     </div>
 </div>`})

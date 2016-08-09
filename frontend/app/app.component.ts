@@ -11,12 +11,14 @@ import { BadgesList } from './app.badges-list';
 import { Badge } from './domain/dto/badge';
 import { AdminPrepayComponent } from './app.admin-prepay';
 import { StickRxDirective } from './directives/stickDirective';
+import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 
 @Component({
 	selector: 'lunchorder-app',
 	// question: why do we need a provider here for a component that has its own descriptor?
-	providers: [BalanceService],
-	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent],
+	providers: [BalanceService, ToasterService],
+	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent, ToasterContainerComponent],
+	
 	template: `<!-- FullScreen -->
 	<div class="intro-header">
 		<div class="col-xs-12 text-center abcen1">
@@ -83,7 +85,7 @@ import { StickRxDirective } from './directives/stickDirective';
 		</div>
 	</div>
 </div>
-
+ <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -120,11 +122,13 @@ export class AppComponent implements OnInit {
 	userInfo: app.domain.dto.IGetUserInfoResponse;
 	userInfoError: any;
 	userBadges: Badge[] = new Array<Badge>();;
+	public toasterconfig : ToasterConfig = new ToasterConfig({
+		positionClass: 'toast-bottom-right'
+	});
 
 	constructor(private accountService: AccountService) { }
 
 	ngOnInit() {
-
 	}
 
 	public isAdminPrepay() {
@@ -136,7 +140,7 @@ export class AppComponent implements OnInit {
 
 	public login() {
 		debugger;
-		
+	
         this.accountService.login();
     }
 }

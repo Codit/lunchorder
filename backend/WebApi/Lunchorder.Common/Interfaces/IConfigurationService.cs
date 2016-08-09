@@ -32,5 +32,7 @@ namespace Lunchorder.Common.Interfaces
         DocumentDbInfo DocumentDbAuth { get; }
 
         ServicebusInfo Servicebus { get; }
+
+        EmailInfo Email { get; }
     }
 }

@@ -9,8 +9,14 @@ import { BalanceService } from './services/balanceService';
 				<div class="col-md-6 col-md-offset-3 text-center wrap_title ">
 					<h2>About you</h2>
 					<p class="lead" style="margin-top:0">Check your balance and other options.</p>
-					<p>Username: {{accountService.user.userName}}</p>
-					<p>Balance: {{accountService.user.balance | currency:'EUR':true:'1.0-2'}}</p>
+					<div class="row">
+						<div class="col-md-6">
+							<p><i class="fa fa-user" style="padding-right: 13px;padding-left: 7px;font-size: 24px;"></i>{{accountService.user.userName}}</p>
+						</div>
+						<div class="col-md-6">
+							<p><i class="fa fa-balance-scale" style="padding-right: 10px;font-size: 24px;"></i>{{accountService.user.balance | currency:'EUR':true:'1.0-2'}}</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>`})

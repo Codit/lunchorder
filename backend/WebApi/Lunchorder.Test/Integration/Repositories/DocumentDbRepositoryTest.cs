@@ -648,7 +648,7 @@ namespace Lunchorder.Test.Integration.Repositories
                 Logo = "",
                 Address = new MenuVendorAddress
                 {
-                    Email = "bite-me@telenet.be",
+                    Email = "jonas.vanderbiest@telenet.be",
                     City = string.Empty,
                     Phone = "09/324.68.94",
                     Fax = "09/279.85.43",

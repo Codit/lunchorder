@@ -9,6 +9,7 @@ import { MenuEntry } from './domain/dto/menuEntry';
 import { MenuOrder } from './domain/dto/menuOrder';
 import { StickCartDirective } from './directives/stickCartDirective';
 import { OrderService } from './services/orderService';
+import { ToasterService } from 'angular2-toaster/angular2-toaster';
 
 @Component({
 	selector: '[menu]',
@@ -26,9 +27,9 @@ import { OrderService } from './services/orderService';
 			</div>
 			<div class="row" *ngIf="menu?.entries">
 				<div class="col-xs-9 wow fadeInLeftBig" data-animation-delay="200">
-					<div menu-category-row class="col-xs-12" *ngFor="let cat of menu?.categories" [category]="cat" [menuEntries]="menu?.entries"></div>
+					<div menu-category-row class="col-xs-12 col-md-6" *ngFor="let cat of menu?.categories" [category]="cat" [menuEntries]="menu?.entries"></div>
 				</div>
-				<div style="cursor:pointer;" (click)="openCheckout()" stick-cart-rx id="cart" class="col-xs-3 wow swing" data-animation-delay="200">
+				<div style="cursor:pointer;" (click)="openCheckout()" stick-cart-rx id="cart" class="col-xs-3" data-animation-delay="200">
 					<div style="width: 200px; height: 200px; background: #cecece; border-radius: 50%;">
 						<i class="fa fa-shopping-basket" style="font-size: 82px; vertical-align: middle; padding: 20px 55px;
 	-ms-transform: rotate(18deg); /* IE 9 */ -webkit-transform: rotate(18deg); /* Chrome, Safari, Opera */ transform: rotate(-18deg);">
@@ -76,13 +77,13 @@ import { OrderService } from './services/orderService';
 export class MenuComponent implements OnInit {
 
 	// todo move orderservice button to other component.
-	constructor(private configService: ConfigService, private menuService: MenuService, private orderService: OrderService, private accountService: AccountService) { }
+	constructor(private configService: ConfigService, private menuService: MenuService, private orderService: OrderService, private accountService: AccountService, private toasterService: ToasterService) { }
 	isModalOpen: boolean;
 	menu: Menu;
 	// todo, inspect error object.
 	error: any;
 	isBusy: boolean;
-	isBusyMenu : boolean = true;
+	isBusyMenu: boolean = true;
 	ngOnInit() {
 
 		this.menuService.getMenu().subscribe(
@@ -123,7 +124,12 @@ export class MenuComponent implements OnInit {
 		this.orderService.postMenuOrders().subscribe(menu => {
 			this.isBusy = true;
 			this.orderService.menuOrders = new Array<MenuOrder>();
+			this.toasterService.pop('success', 'Success', 'Order submitted');
+			this.closeModal();
 		},
-			error => this.error = <any>error);
+			error => {
+				this.error = <any>error;
+				this.toasterService.pop('error', 'Failure', 'Something went wrong :(');
+			});
 	}
 }

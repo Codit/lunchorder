@@ -119,6 +119,7 @@
     <Compile Include="Interfaces\IDatabaseRepository.cs" />
     <Compile Include="Interfaces\IDocumentStore.cs" />
     <Compile Include="Interfaces\IEmailControllerService.cs" />
+    <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IEventingService.cs" />
     <Compile Include="Interfaces\IFavoriteControllerService.cs" />
     <Compile Include="Interfaces\IMenuControllerService.cs" />

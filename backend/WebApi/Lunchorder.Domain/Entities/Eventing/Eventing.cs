@@ -1,5 +1,8 @@
-﻿namespace Lunchorder.Domain.Entities.Eventing
+﻿using System;
+
+namespace Lunchorder.Domain.Entities.Eventing
 {
+    [Serializable]
     public class Message
     {
         public Message(string type, string jsonPayload)

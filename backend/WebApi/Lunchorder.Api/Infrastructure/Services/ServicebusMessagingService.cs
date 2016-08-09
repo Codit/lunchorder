@@ -36,7 +36,7 @@ namespace Lunchorder.Api.Infrastructure.Services
         public async Task SendMessageAsync(Domain.Entities.Eventing.Message message)
         {
             var client = TopicClient.CreateFromConnectionString(ConnectionString, TopicName);
-            await client.SendAsync(new BrokeredMessage());
+            await client.SendAsync(new BrokeredMessage(message));
         }
     }
 }

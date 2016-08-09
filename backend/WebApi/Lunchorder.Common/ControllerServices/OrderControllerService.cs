@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Threading.Tasks;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using AutoMapper;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
@@ -22,15 +18,18 @@ namespace Lunchorder.Common.ControllerServices
         private readonly IDatabaseRepository _databaseRepository;
         private readonly IMapper _mapper;
         private readonly IEventingService _eventingService;
+        private readonly IEmailService _emailService;
 
-        public OrderControllerService(IDatabaseRepository databaseRepository, IMapper mapper, IEventingService eventingService)
+        public OrderControllerService(IDatabaseRepository databaseRepository, IMapper mapper, IEventingService eventingService, IEmailService emailService)
         {
             if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
             if (mapper == null) throw new ArgumentNullException(nameof(mapper));
             if (eventingService == null) throw new ArgumentNullException(nameof(eventingService));
+            if (emailService == null) throw new ArgumentNullException(nameof(emailService));
             _databaseRepository = databaseRepository;
             _mapper = mapper;
             _eventingService = eventingService;
+            _emailService = emailService;
         }
 
         public async Task<IEnumerable<UserOrderHistory>> GetHistory(string userId)
@@ -57,11 +56,24 @@ namespace Lunchorder.Common.ControllerServices
             _eventingService.SendMessage(new Message(ServicebusType.AddUserOrder, JsonConvert.SerializeObject(userOrderHistory)));
         }
 
-        public async Task EmailVendorHistory(DateTime dateTime)
+        public async Task<string> GetEmailVendorHistory(DateTime dateTime)
         {
             var vendorHistory = await GetVendorHistory(dateTime);
             var html = HtmlHelper.CreateVendorHistory(vendorHistory);
+            return html;
         }
+
+        public async Task SendEmailVendorHistory(DateTime dateTime)
+        {
+            // todo, check if already sent for this date
+
+            var menu = await GetMenu();
+            var htmlOutput = await GetEmailVendorHistory(dateTime);
+            await _emailService.SendHtmlEmail($"Order for {dateTime.ToString("D")}", menu.Vendor.Address.Email, htmlOutput);
+
+            // todo, set vendor history sent to true
+        }
+
 
         public async Task<VendorOrderHistory> GetVendorHistory(DateTime dateTime)
         {
@@ -72,18 +84,23 @@ namespace Lunchorder.Common.ControllerServices
 
         private async Task<string> GetVendorId()
         {
-            string vendorId;
+            var menu = await GetMenu();
+            return menu.Vendor.Id;
+        }
+
+        private async Task<Menu> GetMenu()
+        {
+            Menu menu;
             var cacheMenu = MemoryCacher.GetValue(Cache.Menu) as Menu;
             if (cacheMenu != null)
             {
-                vendorId = cacheMenu.Vendor.Id;
+                menu = cacheMenu;
             }
             else
             {
-                var menu = await _databaseRepository.GetEnabledMenu();
-                vendorId = menu.Vendor.Id;
+                menu = await _databaseRepository.GetEnabledMenu();
             }
-            return vendorId;
+            return menu;
         }
     }
 }

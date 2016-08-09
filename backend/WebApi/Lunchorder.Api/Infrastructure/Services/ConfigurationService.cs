@@ -29,6 +29,18 @@ namespace Lunchorder.Api.Infrastructure.Services
             get { return (EventingElement)this["eventing"]; }
         }
 
+        [ConfigurationProperty("email")]
+        private EmailElement EmailSetting
+        {
+            get { return (EmailElement)this["email"]; }
+        }
+
+        public EmailInfo Email => new EmailInfo
+        {
+            ApiKey = EmailSetting.Sendgrid.ApiKey,
+            From = EmailSetting.Sendgrid.From
+        };
+
         public ServicebusInfo Servicebus => new ServicebusInfo
         {
             ConnectionString = Eventing.Servicebus.ConnectionString,
