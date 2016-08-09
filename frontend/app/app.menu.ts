@@ -29,7 +29,7 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 				<div class="col-xs-9 wow fadeInLeftBig" data-animation-delay="200">
 					<div menu-category-row class="col-xs-12 col-md-6" *ngFor="let cat of menu?.categories" [category]="cat" [menuEntries]="menu?.entries"></div>
 				</div>
-				<div style="cursor:pointer;" (click)="openCheckout()" stick-cart-rx id="cart" class="col-xs-3" data-animation-delay="200">
+				<div style="cursor:pointer;" (click)="openCheckout()" stick-cart-rx id="cart" class="col-xs-12 col-md-3" data-animation-delay="200">
 					<div style="width: 200px; height: 200px; background: #cecece; border-radius: 50%;">
 						<i class="fa fa-shopping-basket" style="font-size: 82px; vertical-align: middle; padding: 20px 55px;
 	-ms-transform: rotate(18deg); /* IE 9 */ -webkit-transform: rotate(18deg); /* Chrome, Safari, Opera */ transform: rotate(-18deg);">
