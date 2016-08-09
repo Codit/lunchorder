@@ -143,6 +143,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\HtmlHelperTest.cs" />
     <Compile Include="Integration\ApiController\BadgeControllerTest.cs" />
     <Compile Include="Integration\ApiController\BalanceControllerTest.cs" />
     <Compile Include="Integration\ApiController\MenuControllerTest.cs" />

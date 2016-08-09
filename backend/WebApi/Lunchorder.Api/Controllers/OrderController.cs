@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos.Requests;
 using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
@@ -34,6 +35,47 @@ namespace Lunchorder.Api.Controllers
             // todo extract user id
             var history = await _orderControllerService.GetHistory("");
             return Ok(history);
+        }
+
+        /// <summary>
+        /// Retrieves current open orders for a vendor
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("vendors")]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Domain.Dtos.VendorOrderHistory>))]
+        public async Task<IHttpActionResult> GetVendorOrderHistoryForToday()
+        {
+            var history = await _orderControllerService.GetVendorHistory(DateTime.UtcNow);
+            return Ok(history);
+        }
+
+        /// <summary>
+        /// Retrieves todays order in email format
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("vendors/emails")]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(string))]
+        public async Task<IHttpActionResult> GetVendorEmailFormat()
+        {
+            var history = await _orderControllerService.GetEmailVendorHistory(DateTime.UtcNow);
+            return Ok(history);
+        }
+
+        /// <summary>
+        /// Send todays order in email format to vendor
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize(Roles = Roles.PrepayAdmin)]
+        [Route("vendors/emails")]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(bool))]
+        public async Task<IHttpActionResult> SendVendorEmailFormat()
+        {
+            // todo add apikey for security.
+            await _orderControllerService.SendEmailVendorHistory(DateTime.UtcNow);
+            return Ok();
         }
 
         /// <summary>

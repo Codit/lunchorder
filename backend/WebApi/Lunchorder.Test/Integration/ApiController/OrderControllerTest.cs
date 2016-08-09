@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lunchorder.Domain.Dtos;
@@ -27,6 +28,32 @@ namespace Lunchorder.Test.Integration.ApiController
             MockedApiInstaller.MockedOrderControllerService.Verify(x => x.Add(TestConstants.User1.Id, TestConstants.User1.UserName, menuOrders), Times.Once);
 
             AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.OK);
+        }
+
+        [Test]
+        public async Task SendVendorEmailFormat()
+        {
+            var token = await AuthorizeUser(TestConstants.User4.UserName, TestConstants.User4.Password);
+            Assert.IsNotNullOrEmpty(token.Token);
+
+            var response = await PostAuthorizeAsync(new { }, $"{_routePrefix}/vendors/emails");
+
+            MockedApiInstaller.MockedOrderControllerService.Verify(x => x.SendEmailVendorHistory(It.IsAny<DateTime>()), Times.Once);
+
+            AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.OK);
+        }
+
+        [Test]
+        public async Task SendVendorEmailFormat_Unauthorized()
+        {
+            var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
+            Assert.IsNotNullOrEmpty(token.Token);
+
+            var response = await PostAuthorizeAsync(new { }, $"{_routePrefix}/vendors/emails");
+
+            MockedApiInstaller.MockedOrderControllerService.Verify(x => x.SendEmailVendorHistory(It.IsAny<DateTime>()), Times.Never);
+
+            AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.Unauthorized);
         }
     }
 }

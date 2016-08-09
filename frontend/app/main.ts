@@ -1,3 +1,5 @@
+/// <reference path="../node_modules/angular2-toaster/angular2-toaster.d.ts" />
+
 import 'zone';
 import 'reflect-metadata';
 import { bootstrap }    from '@angular/platform-browser-dynamic';
@@ -16,6 +18,7 @@ import {enableProdMode} from '@angular/core';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
 import { WindowRef, BrowserWindowRef, WINDOW } from './services/windowService';
+import { ToasterService } from 'angular2-toaster/angular2-toaster';
 
 if (window.location.href.indexOf('localhost') < 0) {
     enableProdMode();
@@ -23,7 +26,7 @@ if (window.location.href.indexOf('localhost') < 0) {
 bootstrap(AppComponent, [HTTP_PROVIDERS, 
   disableDeprecatedForms(),     // Disable old Forms API!
   provideForms(),                // Use new Forms API!
-{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, BadgeService, OrderService, HttpClient, TokenHelper, 
+{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, ToasterService, BadgeService, OrderService, HttpClient, TokenHelper, 
 { provide: WindowRef, useClass: BrowserWindowRef }, { provide: WINDOW, useFactory: _window, deps: [] }
 
 ])

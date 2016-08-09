@@ -14,32 +14,42 @@ export class StickCartDirective {
     }
 
     isSet: boolean;
-    stickyOffset: number; 
     subscribeForScrollEvent() {
         var obs = Observable.fromEvent(window, 'scroll');
-        this.stickyOffset = this._element.nativeElement.offsetTop - 125;
 
-        obs.subscribe((e : any) => this.handleScrollEvent(e));
+        obs.subscribe((e: any) => this.handleScrollEvent(e));
     }
 
     handleScrollEvent(e: any) {
-        var scroll = this._window.nativeWindow.pageYOffset;
-        var rowHeight = this._element.nativeElement.parentElement.clientHeight -250;
-        var margin = this.stickyOffset - scroll;
+        var parentElement = this._element.nativeElement.parentElement;
+        // the distance of the current element relative to the top of the offsetParent node.
+        var elementScrollHeight = parentElement.offsetTop;
 
-        if (scroll >= this.stickyOffset && Math.abs(margin) < rowHeight) { 
+        // scrolled from the upper left corner of the window, vertically
+        var userScrolledHeight = this._window.nativeWindow.pageYOffset;
+
+        // the inner height of an element in pixels, including padding but not the horizontal scrollbar height, border, or margin.
+        var elementHeight = parentElement.clientHeight;
+
+        var margin = elementScrollHeight - userScrolledHeight;
+
+        var isOverscrolled = userScrolledHeight - (elementScrollHeight + elementHeight - 250) > 0;
+        var isInTargetArea = (userScrolledHeight - elementScrollHeight) > 0;
+
+        if (!isOverscrolled && isInTargetArea){// && Math.abs(margin) < elementHeight) {
             this.isSet = false;
             this._element.nativeElement.classList.add('fixed');
             // todo replace with original top from subscribe
             this._element.nativeElement.style["marginTop"] = "80px";
-     }
+        }
 
-        else { this._element.nativeElement.classList.remove('fixed');
-                
-                if (margin < 0 && !this.isSet) {
-                    this.isSet = true;
-                    this._element.nativeElement.style["marginTop"] = Math.abs(margin) + "px";
-                }
+        else {
+            this._element.nativeElement.classList.remove('fixed');
+
+            if (margin < 0 && !this.isSet) {
+                this.isSet = true;
+                this._element.nativeElement.style["marginTop"] = Math.abs(margin) + "px";
+            }
         }
     }
 }

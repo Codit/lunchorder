@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Lunchorder.Common.Interfaces;
@@ -21,12 +22,15 @@ namespace Lunchorder.Api.Configuration.IoC
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
+
             container.Install(new ApiControllerInstaller());
             container.Install(new ControllerServiceInstaller());
             container.Install(new ConfigurationInstaller());
             container.Install(new AutoMapperInstaller());
             container.Install(new DalInstaller());
             container.Install(new ServiceInstaller());
+            container.Install(new EventingInstaller());
             container.Install(new OAuthInstaller(_dataProtectionProvider));
 
             foreach (var i in container.ResolveAll<IRequiresInitialization>())

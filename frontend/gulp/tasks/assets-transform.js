@@ -39,7 +39,7 @@ module.exports = function (paths, dist) {
     }
 
     // todo add uglify later
-    gulp.task("assets-transform-release", gulpSequence(['assets-copy-release'], ['css:app:compile:sass', 'transpile:ts:release'], 'bundle:systemJs', 'minify', 'concat'));
+    gulp.task("assets-transform-release", gulpSequence(['assets-copy-release'], ['css:app:compile:sass', 'transpile:ts:release'], 'version', 'bundle:systemJs', 'minify', 'concat'));
     gulp.task("assets-transform-debug", gulpSequence(['assets-copy-debug'], 'css:app:compile:sass', 'transpile:ts:debug'));
 
     gulp.task('minify', ['minify:images', 'minify:css', 'minify:js']);
@@ -68,6 +68,7 @@ module.exports = function (paths, dist) {
             .catch(function (err) {
                 console.log('Build error');
                 console.log(err);
+                process.exit(1);
             });
     });
 
@@ -76,13 +77,11 @@ module.exports = function (paths, dist) {
             compilerOptions: {
                 "inlineSourceMap": false,
                 "inlineSources": false,
-                "sourceRoot": "frontend"
+                "sourceRoot": "frontend",
+                "noEmitOnError": true
             }
         })
-            .pipe(gulp.dest("."))
-            .once("error", function () {
-                this.once("finish", () => process.exit(1));
-            });
+            .pipe(gulp.dest("."));
     });
 
     gulp.task('watch:ts', ['transpile:ts:debug'], function () {

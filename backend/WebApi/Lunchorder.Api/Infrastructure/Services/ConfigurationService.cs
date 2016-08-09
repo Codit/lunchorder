@@ -23,6 +23,31 @@ namespace Lunchorder.Api.Infrastructure.Services
             get { return (ConnectionsElement)this["connections"]; }
         }
 
+        [ConfigurationProperty("eventing")]
+        private EventingElement Eventing
+        {
+            get { return (EventingElement)this["eventing"]; }
+        }
+
+        [ConfigurationProperty("email")]
+        private EmailElement EmailSetting
+        {
+            get { return (EmailElement)this["email"]; }
+        }
+
+        public EmailInfo Email => new EmailInfo
+        {
+            ApiKey = EmailSetting.Sendgrid.ApiKey,
+            From = EmailSetting.Sendgrid.From
+        };
+
+        public ServicebusInfo Servicebus => new ServicebusInfo
+        {
+            ConnectionString = Eventing.Servicebus.ConnectionString,
+            Enabled = Eventing.Servicebus.Enabled,
+            Topic = Eventing.Servicebus.Topic
+        };
+
         public DocumentDbInfo DocumentDb => new DocumentDbInfo
         {
             Endpoint = Connections.DocumentDb.Endpoint,

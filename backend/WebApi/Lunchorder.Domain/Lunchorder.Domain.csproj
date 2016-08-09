@@ -69,6 +69,7 @@
     <Compile Include="Constants\DocumentDbSp.cs" />
     <Compile Include="Constants\DocumentDbType.cs" />
     <Compile Include="Constants\Roles.cs" />
+    <Compile Include="Constants\ServicebusType.cs" />
     <Compile Include="Dtos\Address.cs" />
     <Compile Include="Dtos\Badge.cs" />
     <Compile Include="Dtos\LastOrder.cs" />
@@ -100,6 +101,12 @@
     <Compile Include="Dtos\VendorHistoryEntryRule.cs" />
     <Compile Include="Dtos\VendorOrderHistory.cs" />
     <Compile Include="Dtos\VendorOrderHistoryEntry.cs" />
+    <Compile Include="Entities\Configuration\EmailElement.cs" />
+    <Compile Include="Entities\Configuration\EmailInfo.cs" />
+    <Compile Include="Entities\Configuration\EventingElement.cs" />
+    <Compile Include="Entities\Configuration\SendgridElement.cs" />
+    <Compile Include="Entities\Configuration\ServicebusElement.cs" />
+    <Compile Include="Entities\Configuration\ServicebusInfo.cs" />
     <Compile Include="Entities\DocumentDb\Address.cs" />
     <Compile Include="Entities\DocumentDb\Badge.cs" />
     <Compile Include="Entities\DocumentDb\BadgeResponse.cs" />
@@ -142,6 +149,7 @@
     <Compile Include="Entities\Configuration\DocumentDbConnectionElement.cs" />
     <Compile Include="Entities\Configuration\DocumentDbInfo.cs" />
     <Compile Include="Entities\Configuration\LocalAuthentication.cs" />
+    <Compile Include="Entities\Eventing\Eventing.cs" />
     <Compile Include="Exceptions\BusinessException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
