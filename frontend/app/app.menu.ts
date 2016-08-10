@@ -47,13 +47,13 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 			<i (click)="closeModal()" title="Close" class="fa fa-times close"></i>
 			<i class="fa fa-shopping-basket basket" title="Checkout"></i>
         	
-			<div><h4>Your order</h4><h4 class="right">Price</h4></div>
+			<div><h4>Your order </h4><h4 class="right">Price <i class="fa fa-trash-o" style="cursor:pointer" title="remove all items" (click)="removeOrders(orderService.menuOrders)"></i></h4></div>
 
 <div>
 					
 
 					<div *ngFor="let menuOrder of orderService.menuOrders" class="item">
-						<span class="right">{{menuOrder.price | currency:'EUR':true:'1.2-2' }} <i class="fa fa-trash-o" style="cursor:pointer" title="remove" (click)="removeOrder(menuOrder)"></i></span>
+						<span class="right">{{menuOrder.price | currency:'EUR':true:'1.2-2' }} <i class="fa fa-trash-o" style="cursor:pointer" title="remove item" (click)="removeOrder(menuOrder)"></i></span>
 						<span>{{menuOrder.name}}</span>
 						<div *ngFor="let rule of menuOrder.appliedMenuRules">
 							<span class="description">{{rule.description}}</span>
@@ -96,6 +96,10 @@ export class MenuComponent implements OnInit {
 
 	getBalance(): number {
 		return this.accountService.user.balance - this.orderService.totalPrice();
+	}
+
+	removeOrders(menuOrder: MenuOrder) {
+		this.orderService.menuOrders = new Array<MenuOrder>();
 	}
 
 	removeOrder(menuOrder: MenuOrder) {
