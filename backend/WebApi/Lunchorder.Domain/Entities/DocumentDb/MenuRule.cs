@@ -26,7 +26,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The positive or negative price difference
         /// </summary>
-        public int PriceDelta { get; set; }
+        public double PriceDelta { get; set; }
 
         /// <summary>
         /// Field that represents the enabled state

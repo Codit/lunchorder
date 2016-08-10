@@ -37,7 +37,7 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 	</i>
 
   <div style="left: auto; text-align: center; color: #373d50; font-weight: bold; font-size: 32px; margin-top: -85px;">
-{{orderService.totalPrice() | currency:'EUR':true:'1.0-2' }},-
+{{orderService.totalPrice() | currency:'EUR':true:'1.2-2' }},-
   </div>
 </div></div>
 				</div>
@@ -53,7 +53,7 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 					
 
 					<div *ngFor="let menuOrder of orderService.menuOrders" class="item">
-						<span class="right">{{menuOrder.price | currency:'EUR':true:'1.0-2' }} <i class="fa fa-trash-o" style="cursor:pointer" title="remove" (click)="removeOrder(menuOrder)"></i></span>
+						<span class="right">{{menuOrder.price | currency:'EUR':true:'1.2-2' }} <i class="fa fa-trash-o" style="cursor:pointer" title="remove" (click)="removeOrder(menuOrder)"></i></span>
 						<span>{{menuOrder.name}}</span>
 						<div *ngFor="let rule of menuOrder.appliedMenuRules">
 							<span class="description">{{rule.description}}</span>
@@ -61,10 +61,10 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 						<span class="description" [hidden]="!menuOrder.freeText">{{menuOrder.freeText}}</span>
 					</div>
 					<div class="right">
-						Total: <span>{{orderService.totalPrice() | currency:'EUR':true:'1.0-2' }}</span>
+						Total: <span>{{orderService.totalPrice() | currency:'EUR':true:'1.2-2' }}</span>
 					</div>
 					<div class="clear right" [class.negative]="getBalance() < 0" [class.positive]="getBalance() >= 0">
-						Balance after purchase: <span>{{ getBalance() | currency:'EUR':true:'1.0-2' }}</span>
+						Balance after purchase: <span>{{ getBalance() | currency:'EUR':true:'1.2-2' }}</span>
 					</div>
 
 					<div class="clear">

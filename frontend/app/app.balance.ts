@@ -14,7 +14,7 @@ import { BalanceService } from './services/balanceService';
 							<p><i class="fa fa-user" style="padding-right: 13px;padding-left: 7px;font-size: 24px;"></i>{{accountService.user.userName}}</p>
 						</div>
 						<div class="col-md-6">
-							<p><i class="fa fa-balance-scale" style="padding-right: 10px;font-size: 24px;"></i>{{accountService.user.balance | currency:'EUR':true:'1.0-2'}}</p>
+							<p><i class="fa fa-balance-scale" style="padding-right: 10px;font-size: 24px;"></i>{{accountService.user.balance | currency:'EUR':true:'1.2-2'}}</p>
 						</div>
 					</div>
 				</div>
