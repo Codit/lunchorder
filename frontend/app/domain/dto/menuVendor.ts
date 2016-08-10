@@ -1,4 +1,5 @@
 import { MenuVendorAddress } from './menuVendorAddress'
+import { MenuVendorClosingDateRange } from './menuVendorClosingDateRange';
 
 export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<MenuVendor> {
     id: string;
@@ -7,8 +8,22 @@ export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<Menu
     website: string;
     submitOrderTime: string;
     logo: string;
+    closingDateRanges: MenuVendorClosingDateRange[];
 
-    deserialize(input : any) : MenuVendor {
+    isClosingDate(): boolean {
+        var today = new Date();
+        for (var closingDateRange of this.closingDateRanges) {
+            var fromDate = new Date(closingDateRange.from);
+            var untillDate = new Date(closingDateRange.untill);
+
+            if (today >= fromDate && today <= untillDate){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    deserialize(input: any): MenuVendor {
         if (!input) { return; }
         this.id = input.id;
         this.name = input.name;
@@ -16,7 +31,14 @@ export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<Menu
         this.website = input.website;
         this.submitOrderTime = input.submitOrderTime;
         this.logo = input.logo;
-        
+
+        this.closingDateRanges = new Array<MenuVendorClosingDateRange>();
+        if (input.closingDateRanges) {
+            for (var closingDateRange of input.closingDateRanges) {
+                this.closingDateRanges.push(closingDateRange);
+            }
+        }
+
         return this;
     }
 }

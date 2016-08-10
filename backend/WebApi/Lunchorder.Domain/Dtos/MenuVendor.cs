@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Lunchorder.Domain.Dtos
 {
     /// <summary>
@@ -34,5 +36,10 @@ namespace Lunchorder.Domain.Dtos
         /// Logo of the vendor
         /// </summary>
         public string Logo { get; set; }
+
+        /// <summary>
+        /// Enumerable of closing dates of this vendor
+        /// </summary>
+        public IEnumerable<MenuVendorClosingDateRange> ClosingDateRanges { get; set; }
     }
 }
