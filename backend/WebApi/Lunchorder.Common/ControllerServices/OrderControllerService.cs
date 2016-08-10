@@ -6,6 +6,7 @@ using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Entities.Eventing;
+using Lunchorder.Domain.Exceptions;
 using Newtonsoft.Json;
 using Menu = Lunchorder.Domain.Dtos.Menu;
 using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
@@ -47,13 +48,37 @@ namespace Lunchorder.Common.ControllerServices
 
         public async Task Add(string userId, string userName, IEnumerable<MenuOrder> menuOrders)
         {
-            var vendorId = await GetVendorId();
-            var menuOrderHistoryEntries = _mapper.Map<IEnumerable<MenuOrder>, IEnumerable<UserOrderHistoryEntry>>(menuOrders);
+            var menu = await GetMenu();
 
-            var userOrderHistory = new UserOrderHistory { Id = Guid.NewGuid(), OrderTime = DateTime.UtcNow, Entries = menuOrderHistoryEntries };
+            if (!string.IsNullOrEmpty(menu.Vendor.SubmitOrderTime))
+            {
+                DateTime parsedOrderDateTime;
+                if (DateTime.TryParse(menu.Vendor.SubmitOrderTime, out parsedOrderDateTime))
+                {
+                    if (TimeSpan.Compare(parsedOrderDateTime.TimeOfDay, DateTime.UtcNow.TimeOfDay) <= 0)
+                    {
+                        throw new BusinessException($"Sorry, you were too late to submit your order for today");
+                    }
+                }
+            }
+            else
+            {
+                var menuOrderHistoryEntries =
+                    _mapper.Map<IEnumerable<MenuOrder>, IEnumerable<UserOrderHistoryEntry>>(menuOrders);
 
-            await _databaseRepository.AddOrder(userId, userName, vendorId, new DateGenerator().GenerateDateFormat(DateTime.UtcNow), userOrderHistory);
-            _eventingService.SendMessage(new Message(ServicebusType.AddUserOrder, JsonConvert.SerializeObject(userOrderHistory)));
+                var userOrderHistory = new UserOrderHistory
+                {
+                    Id = Guid.NewGuid(),
+                    OrderTime = DateTime.UtcNow,
+                    Entries = menuOrderHistoryEntries
+                };
+
+                await
+                    _databaseRepository.AddOrder(userId, userName, menu.Vendor.Id,
+                        new DateGenerator().GenerateDateFormat(DateTime.UtcNow), userOrderHistory);
+                _eventingService.SendMessage(new Message(ServicebusType.AddUserOrder,
+                    JsonConvert.SerializeObject(userOrderHistory)));
+            }
         }
 
         public async Task<string> GetEmailVendorHistory(DateTime dateTime)

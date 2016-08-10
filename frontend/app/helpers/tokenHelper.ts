@@ -26,7 +26,6 @@ export class TokenHelper {
 			var params = url.split('#')[1].split('&')
 
 			for (var i = 0; i < params.length; i++) {
-				console.log('temp: ' + params[i]);
 				var temp = params[i].split('=');
 				var key = temp[0];
 				var value = temp[1];

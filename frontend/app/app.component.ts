@@ -139,8 +139,6 @@ export class AppComponent implements OnInit {
 	}
 
 	public login() {
-		debugger;
-	
         this.accountService.login();
     }
 }

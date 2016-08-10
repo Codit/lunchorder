@@ -52,13 +52,10 @@ export class MenuEntryRow implements OnInit {
 	isModalOpen: boolean;
 
 	ngOnInit() {
-		console.log(`-- menu entryyyy: ${this.menuEntry.name}`);
-		console.log(`-- menu rules: ${this.menuEntry.rules}`);
 	}
 
 	openModal() {
 		this.isModalOpen = true;
-		console.log("rules" + this.menuEntry.rules);
 	}
 
 	addOrder(event : any, value : any) {

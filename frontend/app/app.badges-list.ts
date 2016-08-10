@@ -23,7 +23,6 @@ export class BadgesList implements OnInit {
 	ngOnInit() {
 		this.badgeService.getBadges().subscribe(
 			badges => { 
-				console.log(`badges received: ${badges}`);
 				this.badges = badges;
 				// todo map badges with current user badges
 			},

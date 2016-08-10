@@ -51,7 +51,7 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [Route("")]
         [HttpPut]
-        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Domain.Dtos.Menu))]
         public async Task<IHttpActionResult> Put(PutMenuRequest putMenuRequest)
         {
             await _menuControllerService.Update(putMenuRequest.Menu);
@@ -65,7 +65,7 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [Route("active/{menuId}")]
         [HttpPost]
-        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Domain.Dtos.Menu))]
         public async Task<IHttpActionResult> SetActive(string menuId)
         {
             // todo, only authorize admin

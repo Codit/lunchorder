@@ -21,6 +21,5 @@ export class BadgeRow implements OnInit {
 	badgeItem : Badge;
 
 	ngOnInit() {
-		console.log(`badge: ${this.badgeItem.name}`)
 	}
 }

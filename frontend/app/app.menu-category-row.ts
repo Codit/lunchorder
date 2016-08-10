@@ -29,6 +29,5 @@ export class MenuCategoryRow implements OnInit {
 	menuEntries: MenuEntry[];
 
 	ngOnInit() {
-		debugger;
 	}
 }

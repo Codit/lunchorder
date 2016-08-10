@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Lunchorder.Common.Extensions;
 using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
 using Microsoft.AspNet.Identity;
 
@@ -72,6 +73,12 @@ namespace Lunchorder.Common.ControllerServices
         {
             var users = await _databaseRepository.GetUsers();
             return new GetAllUsersResponse() { Users = users };
+        }
+
+        public async Task<IEnumerable<LastOrder>> GetLast5Orders(ClaimsIdentity claimsIdentity)
+        {
+            var userInfo = await _databaseRepository.GetUserInfo(claimsIdentity.GetUserName());
+            return userInfo.Last5Orders;
         }
     }
 }

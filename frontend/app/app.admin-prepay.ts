@@ -51,7 +51,6 @@ export class AdminPrepayComponent implements OnInit {
 		this.isBusy = true;
 		this.userBalanceError = "";
 
-		debugger;
 		this.balanceService.putBalance(selectedUser.userId, balanceAmount).subscribe(
 			newBalance => {
 				this.toasterService.pop('success', 'Success', `Balance updated to ${newBalance}`);

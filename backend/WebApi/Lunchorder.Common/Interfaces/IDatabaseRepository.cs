@@ -8,7 +8,7 @@ namespace Lunchorder.Common.Interfaces
 {
     public interface IDatabaseRepository
     {
-        Task<GetUserInfoResponse> GetUserInfo(string userId);
+        Task<GetUserInfoResponse> GetUserInfo(string userName);
         Task<IEnumerable<Badge>> GetBadges();
         Task AddMenu(Menu menu);
         Task<Menu> GetEnabledMenu();

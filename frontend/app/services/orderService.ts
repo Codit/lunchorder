@@ -18,7 +18,6 @@ export class OrderService {
   totalPrice() : number {
     var price = 0;
     for (let menu of this.menuOrders) {
-      debugger;
       price += menu.price;
       for (let rule of menu.appliedMenuRules)
       {
@@ -39,6 +38,9 @@ export class OrderService {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
+    if (error._body){
+      return Observable.throw(error._body);
+    }
+    return Observable.throw("Something went wrong, please contact your administrator");
   }
 }
