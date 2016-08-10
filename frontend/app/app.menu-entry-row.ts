@@ -12,7 +12,7 @@ import { MenuOrder } from './domain/dto/menuOrder';
 				<div class="menu-entry-row">
 					<span>{{menuEntry.name}}</span>
 					<button (click)="openModal()" class="btn btn-primary btn-xs pull-right" style="font-weight:bold;">
-					<span style="text-align: left;width: 25px; display: inline-block;">{{menuEntry.price | currency:'EUR':true:'1.0-2'}}</span>
+					<span style="text-align: left;width: 25px; display: inline-block;">{{menuEntry.price | currency:'EUR':true:'1.2-2'}}</span>
 					 <span class="btn-separator"></span>
 					 <i class="fa fa-plus"></i></button>
 			    </div>
@@ -24,13 +24,13 @@ import { MenuOrder } from './domain/dto/menuOrder';
 			   <div id="openModal" class="modalDialog active" *ngIf="isModalOpen">
     <div>	
 			<i (click)="closeModal()" title="Close" class="fa fa-times close"></i>
-        	<h3>Order {{menuEntry.name}}</h3>
+        	<h3>Order {{menuEntry.name}} ({{menuEntry.price | currency:'EUR':true:'1.2-2'}})</h3>
 
 			 <form #f="ngForm" class="ui form">
 			 	<div class="form-group">
 					<div *ngFor="let rule of menuEntry.rules">
 						<div class="field">
-							<label><input type="checkbox" value="rule" name="{{rule.id}}" [(ngModel)]="rule.isSelected">{{rule.description}} ({{rule.priceDelta | currency:'EUR':true:'1.0-2'}},-)</label>
+							<label><input type="checkbox" value="rule" name="{{rule.id}}" [(ngModel)]="rule.isSelected">{{rule.description}} ({{rule.priceDelta | currency:'EUR':true:'1.2-2'}},-)</label>
 						</div>
 					</div>
 					 

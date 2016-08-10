@@ -36,15 +36,11 @@ namespace Lunchorder.Common.ControllerServices
                     isAzureActiveDirectoryUser = true;
                 }
             }
-
-
+            
             var userName = claimsIdentity.GetUserName();
-
-
+            
             var userInfo = await _databaseRepository.GetUserInfo(userName);
-
-
-
+            
             // if the user is unknown, we store it in our own database.
             if (userInfo == null && isAzureActiveDirectoryUser)
             {
