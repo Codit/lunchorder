@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
+using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
 using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
@@ -38,6 +40,24 @@ namespace Lunchorder.Api.Controllers
                 return InternalServerError();
 
             return Ok(await _accountControllerService.GetUserInfo(claimsIdentity));
+        }
+
+        /// <summary>
+        /// Gets the last 5 orders for a user
+        /// </summary>
+        /// <returns></returns>
+        [Route("last5Orders")]
+        [HttpGet]
+        [Authorize]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<LastOrder>))]
+        public async Task<IHttpActionResult> GetLast5Orders()
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+
+            if (claimsIdentity == null)
+                return InternalServerError();
+
+            return Ok(await _accountControllerService.GetLast5Orders(claimsIdentity));
         }
 
         /// <summary>

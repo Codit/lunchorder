@@ -18,7 +18,6 @@ export class BadgeService {
   }
 
   private mapBadges(res: Response): Badge[] {
-    console.log(res);
     let body = res.json();
 
     // todo, deserialize in domain object.

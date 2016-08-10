@@ -11,7 +11,6 @@ export class PlatformUserListItem implements app.domain.dto.IPlatformUserListIte
     }
 
      deserialize(input : any) : PlatformUserListItem {
-         debugger;
         this.userId = input.userId;
         this.userName = input.userName;
         this.firstName = input.firstName;

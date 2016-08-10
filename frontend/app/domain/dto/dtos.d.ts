@@ -19,6 +19,7 @@ declare module app.domain.dto {
         id: string;
         userOrderHistoryId: string;
         orderTime: Date;
+        lastOrderEntries: ILastOrderEntry[];
         finalPrice: number;
     }
     

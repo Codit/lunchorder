@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Lunchorder.Common;
@@ -655,7 +656,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Street = string.Empty,
                     StreetNumber = string.Empty
                 },
-                SubmitOrderTime = new TimeSpan(9, 30, 0).ToString()
+                SubmitOrderTime = new DateTime(0, 0, 0, 7, 30, 0).ToString(CultureInfo.InvariantCulture)
             };
 
             var categoryBroodjesId = "83af0051-c407-4936-a8f6-e1e292b992ed";
@@ -1477,8 +1478,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Enabled = true,
                     Id = "512e6e00-9d0c-499e-ac0d-0015e4fec42d",
                     Picture = null,
-                    Name = "",
-                    Description = "Pasta kip - kaassaus",
+                    Name = "Pasta kip - kaassaus",
                     Price = 4.50M
                 },
                 new MenuEntry

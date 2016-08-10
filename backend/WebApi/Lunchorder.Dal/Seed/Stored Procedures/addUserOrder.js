@@ -29,7 +29,7 @@
     function updateUserOrders(userDocument) {
         // we only keep track of the last 10 orders for a user
         if (userDocument.Last5Orders && userDocument.Last5Orders.length >= 5) {
-            userDocument.shift();
+            userDocument.Last5Orders.shift();
         }
 
         // insert at beginning

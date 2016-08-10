@@ -7,12 +7,12 @@ import { GetUserInfoResponse } from '../domain/dto/getUserInfoResponse'
 import { GetAllUsersResponse } from '../domain/dto/getAllUsersResponse'
 import { AdalService } from 'angular2-adal/core';
 import { TokenHelper } from '../helpers/tokenHelper';
+import { LastOrder } from '../domain/dto/lastOrder'
 
 @Injectable()
 export class AccountService {
   constructor(private http: HttpClient, private configService: ConfigService, private adalService: AdalService, private tokenHelper: TokenHelper) {
     this.adalService.init(this.configService.adalConfig);
-    console.log('ctor accountservice');
     this.adalService.handleWindowCallback();
     if (this.adalService) {
       if (this.adalService.userInfo.isAuthenticated) {
@@ -60,6 +60,12 @@ private _user:GetUserInfoResponse = new GetUserInfoResponse();
       .map(this.extractData)
       .catch(this.handleError);
   }
+
+  getLast5Orders(): Observable<LastOrder[]> {
+    return this.http.get(`${this.accountApiUrl}/last5Orders`)
+      .map(this.extractLastOrders)
+      .catch(this.handleError);
+  }
   
   getAllUsers(): Observable<GetAllUsersResponse> {
     return this.http.get(`${this.accountApiUrl}/users`)
@@ -67,14 +73,23 @@ private _user:GetUserInfoResponse = new GetUserInfoResponse();
       .catch(this.handleError);
   }
 
+private extractLastOrders(res: Response) {
+    let body = res.json();
+
+    var last5Orders = new Array<LastOrder>();
+    for (var lastOrder of body) {
+            last5Orders.push(new LastOrder().deserialize(lastOrder));
+    }
+
+    return last5Orders;
+  }
+
 private extractUsers(res: Response) {
-    console.log(res);
     let body = res.json();
     return new GetAllUsersResponse().deserialize(body);
   }
 
   private extractData(res: Response) {
-    console.log(res);
     let body = res.json();
     this.user = new GetUserInfoResponse().deserialize(body);
     return body || {};

@@ -13,7 +13,7 @@ import { Menu } from './domain/dto/menu';
 				<div class="col-sm-4  wow fadeInDown text-center">
 					<img class="rotate" src="css/images/icon/watch.svg" alt="Generic placeholder image">
 					<h3>On Time</h3>
-					<p class="lead">Orders are sent to the venue @ {{menu?.vendor?.submitOrderTime}}. Late orders are your own responsibility and should be made by giving them a call. </p>
+					<p class="lead">Orders are sent to the venue @ {{menu?.vendor?.submitOrderTime | date: 'shortTime' }}. Late orders are your own responsibility and should be made by giving them a call. </p>
 				</div>
 				<div class="col-sm-4 wow fadeInDown text-center">
 					<img class="rotate" src="css/images/icon/map.svg" alt="Generic placeholder image">

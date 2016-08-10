@@ -37,7 +37,13 @@ input[type="checkbox"] {
     margin: 12px;
 }
 
-
+table.history {
+	.detail {
+		clear: both;
+    	display: block;
+    	font-size: 12px;
+	}
+}
 
 
 .menu-entry-row:hover {

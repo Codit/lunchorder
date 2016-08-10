@@ -99,7 +99,6 @@ export class MenuComponent implements OnInit {
 	}
 
 	removeOrder(menuOrder: MenuOrder) {
-		debugger;
 		var matchIndex: number = -1;
 		for (var i = 0; i < this.orderService.menuOrders.length; i++) {
 			if (menuOrder.id === this.orderService.menuOrders[i].id) {
@@ -116,20 +115,33 @@ export class MenuComponent implements OnInit {
 	openCheckout() {
 		this.isModalOpen = true;
 	}
+
 	closeModal() {
 		this.isModalOpen = false;
 	}
 
 	finalizeOrder() {
+		this.isBusy = true;
+
 		this.orderService.postMenuOrders().subscribe(menu => {
-			this.isBusy = true;
-			this.orderService.menuOrders = new Array<MenuOrder>();
 			this.toasterService.pop('success', 'Success', 'Order submitted');
+			console.log("current balance: " + this.accountService.user.balance);
+			console.log("total price: " + this.orderService.totalPrice())
+			this.accountService.user.balance -= this.orderService.totalPrice();
+			console.log("differnt balance: " + this.accountService.user.balance);
+			this.orderService.menuOrders = new Array<MenuOrder>();
 			this.closeModal();
+
+			this.accountService.getLast5Orders().subscribe(lastOrders => {
+				this.accountService.user.last5Orders = lastOrders;
+			});
 		},
 			error => {
 				this.error = <any>error;
-				this.toasterService.pop('error', 'Failure', 'Something went wrong :(');
+				this.toasterService.pop('error', 'Failure', error);
+				this.isBusy = false;
+			}, () => {
+				this.isBusy = false;
 			});
 	}
 }

@@ -1,6 +1,6 @@
 {
   "name": "lunchorder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "front-end package for lunchorder web application",
   "main": "index.js",

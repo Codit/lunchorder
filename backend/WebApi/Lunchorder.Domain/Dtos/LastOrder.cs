@@ -8,8 +8,6 @@ namespace Lunchorder.Domain.Dtos
     /// </summary>
     public class LastOrder
     {
-        private IEnumerable<LastOrderEntry> _lastOrderEntries;
-
         public string Id { get; set; }
 
         /// <summary>
@@ -25,11 +23,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// The items associated with the order
         /// </summary>
-        public IEnumerable<LastOrderEntry> LastOrderEntries
-        {
-            get { return _lastOrderEntries ?? (_lastOrderEntries = new List<LastOrderEntry>()); }
-            set { _lastOrderEntries = value; }
-        }
+        public IEnumerable<LastOrderEntry> LastOrderEntries { get; set; }
 
         /// <summary>
         /// The total price of all entries of this order including rules

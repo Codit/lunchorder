@@ -32,7 +32,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// The ultimate time limit that an order should be submitted to the vendor
         /// </summary>
-        public TimeSpan SubmitOrderTime { get; set; }
+        public DateTime SubmitOrderTime { get; set; }
 
         /// <summary>
         /// Logo of the vendor
