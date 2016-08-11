@@ -61,24 +61,22 @@ namespace Lunchorder.Common.ControllerServices
                     }
                 }
             }
-            else
+
+            var menuOrderHistoryEntries =
+                _mapper.Map<IEnumerable<MenuOrder>, IEnumerable<UserOrderHistoryEntry>>(menuOrders);
+
+            var userOrderHistory = new UserOrderHistory
             {
-                var menuOrderHistoryEntries =
-                    _mapper.Map<IEnumerable<MenuOrder>, IEnumerable<UserOrderHistoryEntry>>(menuOrders);
+                Id = Guid.NewGuid(),
+                OrderTime = DateTime.UtcNow,
+                Entries = menuOrderHistoryEntries
+            };
 
-                var userOrderHistory = new UserOrderHistory
-                {
-                    Id = Guid.NewGuid(),
-                    OrderTime = DateTime.UtcNow,
-                    Entries = menuOrderHistoryEntries
-                };
-
-                await
-                    _databaseRepository.AddOrder(userId, userName, menu.Vendor.Id,
-                        new DateGenerator().GenerateDateFormat(DateTime.UtcNow), userOrderHistory);
-                _eventingService.SendMessage(new Message(ServicebusType.AddUserOrder,
-                    JsonConvert.SerializeObject(userOrderHistory)));
-            }
+            await
+                _databaseRepository.AddOrder(userId, userName, menu.Vendor.Id,
+                    new DateGenerator().GenerateDateFormat(DateTime.UtcNow), userOrderHistory);
+            _eventingService.SendMessage(new Message(ServicebusType.AddUserOrder,
+                JsonConvert.SerializeObject(userOrderHistory)));
         }
 
         public async Task<string> GetEmailVendorHistory(DateTime dateTime)

@@ -23,8 +23,8 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 			</div>
 			<div class="row" *ngIf="!menu || isClosed">
 				<div *ngIf="isBusyMenu"><i class="fa fa-spinner spin"></i></div>
-				<div *ngIf="!isBusyMenu && !menu && !isClosed">There is currently no active menu</div>
-				<div *ngIf="isClosed">Sorry, the vendor is closed today.</div>
+				<div *ngIf="!isBusyMenu && !menu && !isClosed" class="alert alert-warning">There is currently no active menu</div>
+				<div *ngIf="isClosed" class="alert alert-warning">Sorry, the vendor is closed today.</div>
 			</div>
 			<div class="row" *ngIf="menu?.entries && !isClosed">
 				<div class="col-xs-9 wow fadeInLeftBig" data-animation-delay="200">
@@ -82,15 +82,17 @@ export class MenuComponent implements OnInit {
 	error: any;
 	isBusy: boolean;
 	isBusyMenu: boolean = true;
+	isClosed: boolean = false;
+
 	ngOnInit() {
 		var dayOfWeek = new Date().getDay();
-		var isClosed = (dayOfWeek == 6) || (dayOfWeek == 0);
+		this.isClosed = (dayOfWeek == 6) || (dayOfWeek == 0);
 
-		if (!isClosed) {
+		if (!this.isClosed) {
 			this.menuService.getMenu().subscribe(
 				menu => {
 					if (menu.vendor.isClosingDate()) {
-						isClosed = true;
+						this.isClosed = true;
 					}
 					else {
 						this.menu = menu
