@@ -85,10 +85,21 @@ declare module app.domain.dto {
         website: string;
         submitOrderTime: string;
         logo: string;
+        closingDateRanges: IMenuVendorClosingDateRange[];
     }
     
+    export interface IMenuVendorClosingDateRange {
+        from: string;
+        untill: string;
+    }
+
     export interface IMenuVendorAddress extends IAddress {
         
+    }
+    
+    export interface IPlatformUserList {
+        id: string;
+        users: IPlatformUserListItem[];
     }
     
     export interface IPlatformUserListItem {

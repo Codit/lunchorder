@@ -21,11 +21,12 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 					<p class="lead" style="margin-top:0">Make an order using the following menu.</p>
 				</div>
 			</div>
-			<div class="row" *ngIf="!menu">
+			<div class="row" *ngIf="!menu || isClosed">
 				<div *ngIf="isBusyMenu"><i class="fa fa-spinner spin"></i></div>
-				<div *ngIf="!isBusyMenu">There is currently no active menu</div>
+				<div *ngIf="!isBusyMenu && !menu && !isClosed" class="alert alert-warning">There is currently no active menu</div>
+				<div *ngIf="isClosed" class="alert alert-warning">Sorry, the vendor is closed today.</div>
 			</div>
-			<div class="row" *ngIf="menu?.entries">
+			<div class="row" *ngIf="menu?.entries && !isClosed">
 				<div class="col-xs-9 wow fadeInLeftBig" data-animation-delay="200">
 					<div menu-category-row class="col-xs-12 col-md-6" *ngFor="let cat of menu?.categories" [category]="cat" [menuEntries]="menu?.entries"></div>
 				</div>
@@ -47,13 +48,10 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 			<i (click)="closeModal()" title="Close" class="fa fa-times close"></i>
 			<i class="fa fa-shopping-basket basket" title="Checkout"></i>
         	
-			<div><h4>Your order</h4><h4 class="right">Price</h4></div>
-
+			<div><h4>Your order </h4><h4 class="right">Price <i class="fa fa-trash-o" style="cursor:pointer" title="remove all items" (click)="removeOrders(orderService.menuOrders)"></i></h4></div>
 <div>
-					
-
 					<div *ngFor="let menuOrder of orderService.menuOrders" class="item">
-						<span class="right">{{menuOrder.price | currency:'EUR':true:'1.2-2' }} <i class="fa fa-trash-o" style="cursor:pointer" title="remove" (click)="removeOrder(menuOrder)"></i></span>
+						<span class="right">{{menuOrder.price | currency:'EUR':true:'1.2-2' }} <i class="fa fa-trash-o" style="cursor:pointer" title="remove item" (click)="removeOrder(menuOrder)"></i></span>
 						<span>{{menuOrder.name}}</span>
 						<div *ngFor="let rule of menuOrder.appliedMenuRules">
 							<span class="description">{{rule.description}}</span>
@@ -84,18 +82,33 @@ export class MenuComponent implements OnInit {
 	error: any;
 	isBusy: boolean;
 	isBusyMenu: boolean = true;
-	ngOnInit() {
+	isClosed: boolean = false;
 
-		this.menuService.getMenu().subscribe(
-			menu => {
-				this.menu = menu
-				this.isBusyMenu = false;
-			},
-			error => this.error = <any>error);
+	ngOnInit() {
+		var dayOfWeek = new Date().getDay();
+		this.isClosed = (dayOfWeek == 6) || (dayOfWeek == 0);
+
+		if (!this.isClosed) {
+			this.menuService.getMenu().subscribe(
+				menu => {
+					if (menu.vendor.isClosingDate()) {
+						this.isClosed = true;
+					}
+					else {
+						this.menu = menu
+					}
+					this.isBusyMenu = false;
+				},
+				error => this.error = <any>error);
+		}
 	}
 
 	getBalance(): number {
 		return this.accountService.user.balance - this.orderService.totalPrice();
+	}
+
+	removeOrders(menuOrder: MenuOrder) {
+		this.orderService.menuOrders = new Array<MenuOrder>();
 	}
 
 	removeOrder(menuOrder: MenuOrder) {

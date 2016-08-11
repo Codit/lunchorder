@@ -82,6 +82,7 @@
     <Compile Include="Dtos\MenuRule.cs" />
     <Compile Include="Dtos\MenuVendor.cs" />
     <Compile Include="Dtos\MenuVendorAddress.cs" />
+    <Compile Include="Dtos\MenuVendorClosingDateRange.cs" />
     <Compile Include="Dtos\PlatformUserList.cs" />
     <Compile Include="Dtos\PlatformUserListItem.cs" />
     <Compile Include="Dtos\Requests\PostFavoriteRequest.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Entities\DocumentDb\LastOrder.cs" />
     <Compile Include="Entities\DocumentDb\LastOrderEntry.cs" />
     <Compile Include="Entities\DocumentDb\MenuEntryFavorite.cs" />
+    <Compile Include="Entities\DocumentDb\MenuVendorClosingDateRange.cs" />
     <Compile Include="Entities\DocumentDb\PlatformUserList.cs" />
     <Compile Include="Entities\DocumentDb\PlatformUserListItem.cs" />
     <Compile Include="Entities\DocumentDb\SimpleUser.cs" />

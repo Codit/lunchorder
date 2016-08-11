@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
@@ -38,5 +39,10 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// Logo of the vendor
         /// </summary>
         public string Logo { get; set; }
+
+        /// <summary>
+        /// Enumerable of closing dates of this vendor
+        /// </summary>
+        public IEnumerable<MenuVendorClosingDateRange> ClosingDateRanges { get; set; }
     }
 }

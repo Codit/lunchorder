@@ -246,6 +246,7 @@
     <Compile Include="App_Start\Configuration\Mapper\LastOrderMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuCategoryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuOrderMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\MenuVendorClosingDateMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\PlatformUserListMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\PlatformUserListItemMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\SimpleUserMap.cs" />
