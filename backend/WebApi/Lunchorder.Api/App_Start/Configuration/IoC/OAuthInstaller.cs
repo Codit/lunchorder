@@ -57,15 +57,15 @@ namespace Lunchorder.Api.Configuration.IoC
                     .LifestyleSingleton());
 
             container.Register(Component.For<IOAuthAuthorizationServerProvider>()
-                .ImplementedBy<CustomOAuthProvider>().LifestylePerWebRequest());
+                .ImplementedBy<CustomOAuthProvider>().LifeStyle.HybridPerWebRequestTransient());
 
             container.Register(Component.For<Func<UserManager<ApplicationUser>>>().Instance(() => container.Resolve<UserManager<ApplicationUser>>())
-                .LifestylePerWebRequest());
+                .LifeStyle.HybridPerWebRequestTransient());
 
             container.Register(Component.For<UserManager<ApplicationUser>>()
                 .ImplementedBy<ApplicationUserManager>()
                 .UsingFactoryMethod(SetupApplicationManager)
-                .LifestylePerWebRequest());
+                .LifeStyle.HybridPerWebRequestTransient());
         }
 
         private WindowsAzureActiveDirectoryBearerAuthenticationOptions CreateAzureAdOptions(IKernel container)

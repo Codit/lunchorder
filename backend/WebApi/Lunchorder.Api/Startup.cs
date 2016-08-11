@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using AutoMapper;
 using Castle.Windsor;
+using FluentScheduler;
 using FluentValidation.WebApi;
 using Lunchorder.Api.Configuration.IoC;
 using Lunchorder.Api.Infrastructure.Filters;
@@ -49,8 +49,12 @@ namespace Lunchorder.Api
                 AzureAdServerOptions = azureAdServerOptions
             };
 
+            JobManager.JobFactory = new WindsorJobFactory(_container);
+            JobManager.Initialize(new JobRegistry(_container));
+
             ConfigureAuth(app, authorizationOptions);
             ConfigureWebApi();
+
 
             app.MapSignalR();
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);

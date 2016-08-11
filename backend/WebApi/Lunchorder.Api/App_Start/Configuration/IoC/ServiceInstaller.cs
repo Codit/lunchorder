@@ -15,12 +15,18 @@ namespace Lunchorder.Api.Configuration.IoC
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IUserService>().ImplementedBy<ApplicationUserService>()
-                .LifestylePerWebRequest());
+                .LifeStyle.HybridPerWebRequestTransient());
 
             container.Register(Component.For<IEmailService>().ImplementedBy<SendGridMailService>()
-                .LifestylePerWebRequest());
+                .LifeStyle.HybridPerWebRequestTransient());
 
-            container.Register(Component.For<SeedService>().LifestylePerWebRequest());
+            container.Register(Component.For<ICacheService>().ImplementedBy<MemoryCacheService>()
+                .LifeStyle.HybridPerWebRequestTransient());
+
+            container.Register(Component.For<SeedService>().LifeStyle.HybridPerWebRequestTransient());
+
+            container.Register(Component.For<ILogger>().UsingFactoryMethod((m, v, i) =>
+                    new NLogLogger(i.Handler.ComponentModel.Implementation)));
         }
     }
 }

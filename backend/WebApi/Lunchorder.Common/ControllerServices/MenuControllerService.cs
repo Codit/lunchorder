@@ -10,12 +10,14 @@ namespace Lunchorder.Common.ControllerServices
     public class MenuControllerService : IMenuControllerService
     {
         private readonly IDatabaseRepository _databaseRepository;
+        private readonly ILogger _logger;
         private readonly Fixture _fixture;
 
-        public MenuControllerService(IDatabaseRepository databaseRepository)
+        public MenuControllerService(IDatabaseRepository databaseRepository, ILogger logger)
         {
             if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
             _databaseRepository = databaseRepository;
+            _logger = logger;
             _fixture = new Fixture();
         }
 

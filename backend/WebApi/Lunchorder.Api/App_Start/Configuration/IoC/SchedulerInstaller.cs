@@ -1,11 +1,11 @@
-﻿using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Lunchorder.Api.Controllers;
+using FluentScheduler;
 
 namespace Lunchorder.Api.Configuration.IoC
 {
-    public class ApiControllerInstaller : IWindsorInstaller
+    public class SchedulerInstaller : IWindsorInstaller
     {
         /// <summary>
         /// Performs the installation in the <see cref="T:Castle.Windsor.IWindsorContainer"/>.
@@ -15,8 +15,9 @@ namespace Lunchorder.Api.Configuration.IoC
         {
             container.Register(
                 Classes.FromThisAssembly()
-                    .BasedOn<BaseApiController>()
-                    .Configure(x => x.Named(x.Implementation.FullName).LifeStyle.HybridPerWebRequestTransient())
+                    .BasedOn<IJob>()
+                    .LifestyleSingleton()
+                    .Configure(x => x.Named(x.Implementation.FullName))
                 );
         }
     }

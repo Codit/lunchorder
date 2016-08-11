@@ -8,7 +8,6 @@ using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Entities.Eventing;
 using Lunchorder.Domain.Exceptions;
 using Newtonsoft.Json;
-using Menu = Lunchorder.Domain.Dtos.Menu;
 using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
 using UserOrderHistoryEntry = Lunchorder.Domain.Dtos.UserOrderHistoryEntry;
 
@@ -16,21 +15,26 @@ namespace Lunchorder.Common.ControllerServices
 {
     public class OrderControllerService : IOrderControllerService
     {
+        private readonly IConfigurationService _configurationService;
         private readonly IDatabaseRepository _databaseRepository;
         private readonly IMapper _mapper;
         private readonly IEventingService _eventingService;
         private readonly IEmailService _emailService;
+        private readonly ICacheService _cacheService;
 
-        public OrderControllerService(IDatabaseRepository databaseRepository, IMapper mapper, IEventingService eventingService, IEmailService emailService)
+        public OrderControllerService(IConfigurationService configurationService, IDatabaseRepository databaseRepository, IMapper mapper, IEventingService eventingService, IEmailService emailService, ICacheService cacheService)
         {
             if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
             if (mapper == null) throw new ArgumentNullException(nameof(mapper));
             if (eventingService == null) throw new ArgumentNullException(nameof(eventingService));
             if (emailService == null) throw new ArgumentNullException(nameof(emailService));
+            if (cacheService == null) throw new ArgumentNullException(nameof(cacheService));
+            _configurationService = configurationService;
             _databaseRepository = databaseRepository;
             _mapper = mapper;
             _eventingService = eventingService;
             _emailService = emailService;
+            _cacheService = cacheService;
         }
 
         public async Task<IEnumerable<UserOrderHistory>> GetHistory(string userId)
@@ -48,7 +52,7 @@ namespace Lunchorder.Common.ControllerServices
 
         public async Task Add(string userId, string userName, IEnumerable<MenuOrder> menuOrders)
         {
-            var menu = await GetMenu();
+            var menu = await _cacheService.GetMenu();
 
             if (!string.IsNullOrEmpty(menu.Vendor.SubmitOrderTime))
             {
@@ -82,7 +86,7 @@ namespace Lunchorder.Common.ControllerServices
         public async Task<string> GetEmailVendorHistory(DateTime dateTime)
         {
             var vendorHistory = await GetVendorHistory(dateTime);
-            var html = HtmlHelper.CreateVendorHistory(vendorHistory);
+            var html = HtmlHelper.CreateVendorHistory(_configurationService, vendorHistory);
             return html;
         }
 
@@ -90,8 +94,9 @@ namespace Lunchorder.Common.ControllerServices
         {
             // todo, check if already sent for this date
 
-            var menu = await GetMenu();
-            var htmlOutput = await GetEmailVendorHistory(dateTime);
+            var menu = await _cacheService.GetMenu();
+            var vendorHistory = await GetVendorHistory(dateTime);
+            var htmlOutput = HtmlHelper.CreateVendorHistory(_configurationService, vendorHistory);
             await _emailService.SendHtmlEmail($"Order for {dateTime.ToString("D")}", menu.Vendor.Address.Email, htmlOutput);
 
             // todo, set vendor history sent to true
@@ -107,23 +112,8 @@ namespace Lunchorder.Common.ControllerServices
 
         private async Task<string> GetVendorId()
         {
-            var menu = await GetMenu();
+            var menu = await _cacheService.GetMenu();
             return menu.Vendor.Id;
-        }
-
-        private async Task<Menu> GetMenu()
-        {
-            Menu menu;
-            var cacheMenu = MemoryCacher.GetValue(Cache.Menu) as Menu;
-            if (cacheMenu != null)
-            {
-                menu = cacheMenu;
-            }
-            else
-            {
-                menu = await _databaseRepository.GetEnabledMenu();
-            }
-            return menu;
         }
     }
 }
