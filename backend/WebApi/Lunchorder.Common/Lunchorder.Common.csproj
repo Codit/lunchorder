@@ -45,6 +45,10 @@
       <HintPath>..\packages\DocumentDB.AspNet.Identity.1.0.9-beta\lib\net45\DocumentDB.AspNet.Identity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.5.0.0\lib\net40\FluentScheduler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -114,6 +118,7 @@
     <Compile Include="Interfaces\IAccountControllerService.cs" />
     <Compile Include="Interfaces\IBadgeControllerService.cs" />
     <Compile Include="Interfaces\IBalanceControllerService.cs" />
+    <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\IChecklistControllerService.cs" />
     <Compile Include="Interfaces\IConfigurationService.cs" />
     <Compile Include="Interfaces\IDatabaseRepository.cs" />
@@ -122,6 +127,7 @@
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IEventingService.cs" />
     <Compile Include="Interfaces\IFavoriteControllerService.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IMenuControllerService.cs" />
     <Compile Include="Interfaces\IMessagingService.cs" />
     <Compile Include="Interfaces\IOrderControllerService.cs" />

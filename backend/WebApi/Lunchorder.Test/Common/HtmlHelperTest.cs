@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lunchorder.Api.Infrastructure.Services;
 using Lunchorder.Common;
 using Lunchorder.Domain.Dtos;
 using NUnit.Framework;
@@ -15,6 +16,7 @@ namespace Lunchorder.Test.Common
         [Test]
         public void GenerateHtml()
         {
+            var configurationService = new ConfigurationService();
             var vendorOrderHistoryEntries = new List<VendorOrderHistoryEntry>()
             {
                 new VendorOrderHistoryEntry
@@ -33,7 +35,7 @@ namespace Lunchorder.Test.Common
             var vendorOrderHistory = new VendorOrderHistory { Entries = vendorOrderHistoryEntries };
             
             vendorOrderHistory.Entries = vendorOrderHistoryEntries;
-            var result  = HtmlHelper.CreateVendorHistory(vendorOrderHistory);
+            var result  = HtmlHelper.CreateVendorHistory(configurationService, vendorOrderHistory);
             Assert.IsNotNullOrEmpty(result);
         }
     }

@@ -21,5 +21,6 @@ namespace Lunchorder.Common.Interfaces
         Task<decimal> UpdateBalance(string userId, decimal amount, SimpleUser originator);
         Task AddToUserList(string userId, string userName, string firstName, string lastName);
         Task<IEnumerable<PlatformUserListItem>> GetUsers();
+        Task MarkVendorOrderAsComplete(string vendorOrderHistoryId);
     }
 }

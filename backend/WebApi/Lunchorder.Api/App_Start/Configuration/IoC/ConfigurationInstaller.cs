@@ -22,7 +22,7 @@ namespace Lunchorder.Api.Configuration.IoC
                 Component.For<IConfigurationService>()
                     .UsingFactoryMethod(() =>
                         (ConfigurationService) ConfigurationManager.GetSection("lunchorder"))
-                    .LifestylePerWebRequest());
+                    .LifeStyle.HybridPerWebRequestTransient());
         }
     }
 }

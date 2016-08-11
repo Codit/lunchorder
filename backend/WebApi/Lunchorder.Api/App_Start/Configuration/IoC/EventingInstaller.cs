@@ -14,13 +14,13 @@ namespace Lunchorder.Api.Configuration.IoC
         /// <param name="container">The container.</param><param name="store">The configuration store.</param>
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IEventingService>().ImplementedBy<EventingService>().LifestylePerWebRequest());
+            container.Register(Component.For<IEventingService>().ImplementedBy<EventingService>().LifeStyle.HybridPerWebRequestTransient());
 
             IConfigurationService configurationService = container.Resolve<IConfigurationService>();
 
             if (configurationService.Servicebus.Enabled)
             {
-                container.Register(Component.For<IMessagingService>().ImplementedBy<ServicebusMessagingService>().LifestylePerWebRequest());
+                container.Register(Component.For<IMessagingService>().ImplementedBy<ServicebusMessagingService>().LifeStyle.HybridPerWebRequestTransient());
             }
         }
     }

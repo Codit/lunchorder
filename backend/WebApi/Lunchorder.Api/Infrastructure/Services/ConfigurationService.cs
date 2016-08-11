@@ -23,6 +23,12 @@ namespace Lunchorder.Api.Infrastructure.Services
             get { return (ConnectionsElement)this["connections"]; }
         }
 
+        [ConfigurationProperty("application")]
+        private ApplicationElement ApplicationSetting
+        {
+            get { return (ApplicationElement)this["application"]; }
+        }
+
         [ConfigurationProperty("eventing")]
         private EventingElement Eventing
         {
@@ -38,7 +44,34 @@ namespace Lunchorder.Api.Infrastructure.Services
         public EmailInfo Email => new EmailInfo
         {
             ApiKey = EmailSetting.Sendgrid.ApiKey,
-            From = EmailSetting.Sendgrid.From
+            From = EmailSetting.Sendgrid.From,
+            Bcc = ParseBcc()
+        };
+
+        private IEnumerable<string> ParseBcc()
+        {
+            IEnumerable<string> bccAddresses = null;
+            var bcc = EmailSetting.Sendgrid.Bcc;
+            if (!string.IsNullOrEmpty(bcc))
+            {
+                bccAddresses = bcc.Split(';').AsEnumerable();
+            }
+            return bccAddresses;
+        }
+
+
+        public CompanyInfo Company => new CompanyInfo
+        {
+            Name = ApplicationSetting.Company.Name,
+            Phone = ApplicationSetting.Company.Phone,
+            Website = ApplicationSetting.Company.Website,
+            Address = new CompanyAddressInfo
+            {
+                Street = ApplicationSetting.Company.Address.Street,
+                Number = ApplicationSetting.Company.Address.Number,
+                PostalCode = ApplicationSetting.Company.Address.PostalCode,
+                City = ApplicationSetting.Company.Address.City
+            }
         };
 
         public ServicebusInfo Servicebus => new ServicebusInfo

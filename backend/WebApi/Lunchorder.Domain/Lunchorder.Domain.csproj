@@ -102,6 +102,10 @@
     <Compile Include="Dtos\VendorHistoryEntryRule.cs" />
     <Compile Include="Dtos\VendorOrderHistory.cs" />
     <Compile Include="Dtos\VendorOrderHistoryEntry.cs" />
+    <Compile Include="Entities\Configuration\ApplicationElement.cs" />
+    <Compile Include="Entities\Configuration\CompanyAddressElement.cs" />
+    <Compile Include="Entities\Configuration\CompanyAddressInfo.cs" />
+    <Compile Include="Entities\Configuration\CompanyInfo.cs" />
     <Compile Include="Entities\Configuration\EmailElement.cs" />
     <Compile Include="Entities\Configuration\EmailInfo.cs" />
     <Compile Include="Entities\Configuration\EventingElement.cs" />

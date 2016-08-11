@@ -199,6 +199,11 @@ namespace Lunchorder.Dal
             return userDtos;
         }
 
+        public async Task MarkVendorOrderAsComplete(string vendorOrderHistoryId)
+        {
+            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.MarkAsSubmitted, vendorOrderHistoryId);
+        }
+
         private async Task<Domain.Entities.DocumentDb.Menu> GetMenuItem(Expression<Func<Domain.Entities.DocumentDb.Menu, bool>> predicate)
         {
             var menuQuery = _documentStore.GetItems(predicate).AsDocumentQuery();

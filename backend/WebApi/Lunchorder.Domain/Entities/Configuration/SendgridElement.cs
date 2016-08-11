@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 
 namespace Lunchorder.Domain.Entities.Configuration
 {
@@ -27,6 +29,16 @@ namespace Lunchorder.Domain.Entities.Configuration
             set
             {
                 base["from"] = value;
+            }
+        }
+
+        [ConfigurationProperty("bcc", IsRequired = true)]
+        public string Bcc
+        {
+            get { return base["bcc"].ToString(); }
+            set
+            {
+                base["bcc"] = value;
             }
         }
     }

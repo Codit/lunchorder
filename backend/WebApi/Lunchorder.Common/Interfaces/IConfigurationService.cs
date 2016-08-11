@@ -34,5 +34,7 @@ namespace Lunchorder.Common.Interfaces
         ServicebusInfo Servicebus { get; }
 
         EmailInfo Email { get; }
+
+        CompanyInfo Company { get; }
     }
 }
