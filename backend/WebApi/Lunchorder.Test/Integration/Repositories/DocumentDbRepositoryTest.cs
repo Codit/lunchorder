@@ -1485,7 +1485,7 @@ namespace Lunchorder.Test.Integration.Repositories
                 },
                 new MenuEntry
                 {
-                    CategoryId = categoryBroodjesId,
+                    CategoryId = categoryWarmePasta2,
                     Enabled = true,
                     Id = "eedfc981-a619-4aaa-bd0d-3d6079acf067",
                     Picture = null,
