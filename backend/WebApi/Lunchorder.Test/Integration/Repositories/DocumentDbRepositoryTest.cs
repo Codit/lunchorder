@@ -110,7 +110,7 @@ namespace Lunchorder.Test.Integration.Repositories
             var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
 
             // Add an order and it should create 2 entries
-            Assert.Throws<DocumentClientException>(async () => await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory));
+            Assert.Throws<DocumentClientException>(async () => await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory, TestConstants.User3.FullName));
 
             // todo thank you document db that we cannot parse the exception as it's invalid json... too much work for now
         }
@@ -156,7 +156,7 @@ namespace Lunchorder.Test.Integration.Repositories
             var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
 
             // Add an order and it should create 2 entries
-            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory);
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory, TestConstants.User1.FullName);
             var vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
             Assert.AreNotEqual(new Guid().ToString(), vendorOrderHistory.VendorId);
             Assert.NotNull(vendorOrderHistory.Entries);
@@ -216,11 +216,11 @@ namespace Lunchorder.Test.Integration.Repositories
             Assert.IsNotNull(vendorOrderHistory);
 
             // Add an order and it should use the existing vendor order history
-            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory);
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, null, TestConstants.User2.FullName);
             vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
             Assert.NotNull(vendorOrderHistory);
-            Assert.AreEqual(vendorId, vendorOrderHistory.VendorId.ToString());
-            Assert.AreEqual(vendorOrderHistoryId, vendorOrderHistory.Id.ToString());
+            Assert.AreEqual(vendorId, vendorOrderHistory.VendorId);
+            Assert.AreEqual(vendorOrderHistoryId, vendorOrderHistory.Id);
         }
 
         [Test]
@@ -250,7 +250,7 @@ namespace Lunchorder.Test.Integration.Repositories
             Assert.IsNull(vendorOrderHistory);
 
             // Add an order and there should be a new vendor order history
-            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory);
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory, TestConstants.User2.FullName);
             vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
             Assert.NotNull(vendorOrderHistory);
             Assert.AreEqual(vendorOrderHistory.VendorId.ToString(), vendorId);

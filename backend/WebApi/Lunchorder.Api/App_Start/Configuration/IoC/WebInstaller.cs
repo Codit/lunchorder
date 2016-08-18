@@ -4,6 +4,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Lunchorder.Api.Infrastructure.Filters;
 using Lunchorder.Common.Interfaces;
 using Microsoft.Owin.Security.DataProtection;
 
@@ -33,6 +34,9 @@ namespace Lunchorder.Api.Configuration.IoC
             container.Install(new EventingInstaller());
             container.Install(new SchedulerInstaller());
             container.Install(new OAuthInstaller(_dataProtectionProvider));
+
+            var configurationService = container.Resolve<IConfigurationService>();
+            _httpconfiguration.Filters.Add(new ApiKeyActionFilter(configurationService));
 
             foreach (var i in container.ResolveAll<IRequiresInitialization>())
             {

@@ -50,7 +50,7 @@ namespace Lunchorder.Common.ControllerServices
             throw new NotImplementedException();
         }
 
-        public async Task Add(string userId, string userName, IEnumerable<MenuOrder> menuOrders)
+        public async Task Add(string userId, string userName, string fullName, IEnumerable<MenuOrder> menuOrders)
         {
             var menu = await _cacheService.GetMenu();
 
@@ -78,7 +78,7 @@ namespace Lunchorder.Common.ControllerServices
 
             await
                 _databaseRepository.AddOrder(userId, userName, menu.Vendor.Id,
-                    new DateGenerator().GenerateDateFormat(DateTime.UtcNow), userOrderHistory);
+                    new DateGenerator().GenerateDateFormat(DateTime.UtcNow), userOrderHistory, fullName);
             _eventingService.SendMessage(new Message(ServicebusType.AddUserOrder,
                 JsonConvert.SerializeObject(userOrderHistory)));
         }

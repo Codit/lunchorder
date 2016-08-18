@@ -36,5 +36,7 @@ namespace Lunchorder.Common.Interfaces
         EmailInfo Email { get; }
 
         CompanyInfo Company { get; }
+
+        List<JobElement> Jobs { get; }
     }
 }

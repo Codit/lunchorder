@@ -69,9 +69,13 @@ namespace Lunchorder.Test.Integration.Helpers
         {
             public const string Id = "d185114e-e34c-4abd-8de6-020f814e8377";
             public const string UserName = "tuser3";
+            public const string FirstName = "Test3";
+            public const string LastName = "User3";
             public const string Email = "products@codit.eu";
             public const string Password = "test-us3r";
             public const decimal Balance = 1M;
+
+            public static string FullName { get { return $"{FirstName} {LastName}"; } }
         }
 
         public class User2
@@ -83,6 +87,8 @@ namespace Lunchorder.Test.Integration.Helpers
 
             public const string FirstName = "Test2";
             public const string LastName = "User2";
+
+            public static string FullName { get { return $"{FirstName} {LastName}"; } }
         }
 
         public class User1
@@ -99,6 +105,8 @@ namespace Lunchorder.Test.Integration.Helpers
                 public const string Picture = "http://pic.tu.re";
                 public const string Culture = "en-US";
             }
+
+            public static string FullName { get { return $"{FirstName} {LastName}"; } }
         }
 
         public class IncorrectUser1

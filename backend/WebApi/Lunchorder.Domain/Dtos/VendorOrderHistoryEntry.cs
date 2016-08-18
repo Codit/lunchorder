@@ -7,6 +7,8 @@ namespace Lunchorder.Domain.Dtos
     /// </summary>
     public class VendorOrderHistoryEntry
     {
+        private string _fullName;
+
         /// <summary>
         /// An identifier for the vendor entry history
         /// </summary>
@@ -31,6 +33,15 @@ namespace Lunchorder.Domain.Dtos
         /// The name of the user that has placed the entry
         /// </summary>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// The full name of the user that has placed the entry
+        /// </summary>
+        public string FullName
+        {
+            get { return string.IsNullOrEmpty(_fullName) ?  UserName : _fullName; }
+            set { _fullName = value; }
+        }
 
         /// <summary>
         /// The price that has been paid by the user to order this entry at the vendor

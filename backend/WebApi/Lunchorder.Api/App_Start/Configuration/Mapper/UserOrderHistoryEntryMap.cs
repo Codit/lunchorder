@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using Castle.Core.Internal;
 
 namespace Lunchorder.Api.Configuration.Mapper
 {
@@ -16,6 +15,7 @@ namespace Lunchorder.Api.Configuration.Mapper
             CreateMap<Domain.Entities.DocumentDb.UserOrderHistoryEntry, Domain.Entities.DocumentDb.VendorOrderHistoryEntry>()
                 .ForMember(dest => dest.UserId, source => source.Ignore())
                 .ForMember(dest => dest.UserName, source => source.Ignore())
+                .ForMember(dest => dest.FullName, source => source.Ignore())
                 .ForMember(dest => dest.Id, source => source.UseValue(Guid.NewGuid()))
                 .ForMember(dest => dest.UserOrderHistoryEntryId, source => source.MapFrom(y => y.Id));
 

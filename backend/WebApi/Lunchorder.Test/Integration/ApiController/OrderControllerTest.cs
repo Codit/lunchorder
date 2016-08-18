@@ -25,7 +25,7 @@ namespace Lunchorder.Test.Integration.ApiController
 
             var response = await PostAuthorizeAsync(new PostOrderRequest { MenuOrders = menuOrders }, string.Format($"{_routePrefix}"));
 
-            MockedApiInstaller.MockedOrderControllerService.Verify(x => x.Add(TestConstants.User1.Id, TestConstants.User1.UserName, menuOrders), Times.Once);
+            MockedApiInstaller.MockedOrderControllerService.Verify(x => x.Add(TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FullName, menuOrders), Times.Once);
 
             AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.OK);
         }

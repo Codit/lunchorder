@@ -68,6 +68,7 @@
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\DocumentDbSp.cs" />
     <Compile Include="Constants\DocumentDbType.cs" />
+    <Compile Include="Constants\HeaderConstants.cs" />
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="Constants\ServicebusType.cs" />
     <Compile Include="Dtos\Address.cs" />
@@ -109,6 +110,8 @@
     <Compile Include="Entities\Configuration\EmailElement.cs" />
     <Compile Include="Entities\Configuration\EmailInfo.cs" />
     <Compile Include="Entities\Configuration\EventingElement.cs" />
+    <Compile Include="Entities\Configuration\JobElement.cs" />
+    <Compile Include="Entities\Configuration\JobsElementCollection.cs" />
     <Compile Include="Entities\Configuration\SendgridElement.cs" />
     <Compile Include="Entities\Configuration\ServicebusElement.cs" />
     <Compile Include="Entities\Configuration\ServicebusInfo.cs" />

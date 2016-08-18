@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using IoT.Portal.Api.Common.Interfaces;
-using IoT.Portal.Api.Domain.Constants;
+using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Constants;
 
-namespace IoT.Portal.Api.Infrastructure.Filters
+namespace Lunchorder.Api.Infrastructure.Filters
 {
     /// <summary>
     /// Marker attribute in order to enable IoC, .Net uses the <see cref="ApiKeyActionFilter"/> after compilation
@@ -30,7 +30,7 @@ namespace IoT.Portal.Api.Infrastructure.Filters
         /// <exception cref="ArgumentNullException"></exception>
         public ApiKeyActionFilter(IConfigurationService configurationService)
         {
-            if (configurationService == null) throw new ArgumentNullException("configurationService");
+            if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
             _configurationService = configurationService;
         }
 
@@ -41,7 +41,7 @@ namespace IoT.Portal.Api.Infrastructure.Filters
                 var request = actionContext.Request;
 
                 IEnumerable<string> apiKeyHeaderValues;
-                if (request.Headers.TryGetValues(RequestHeaderConstants.ApiKeyHeader, out apiKeyHeaderValues))
+                if (request.Headers.TryGetValues(HeaderConstants.ApiKeyHeader, out apiKeyHeaderValues))
                 {
                     var apiKeyHeaderValue = apiKeyHeaderValues.First();
                     var keyLookup = _configurationService.ApiKeys.FirstOrDefault(x => x.Value == apiKeyHeaderValue);

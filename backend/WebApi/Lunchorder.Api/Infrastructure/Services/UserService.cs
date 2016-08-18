@@ -17,10 +17,9 @@ namespace Lunchorder.Api.Infrastructure.Services
             _userManager = userManager;
         }
 
-        public async Task<ApplicationUser> Create(string username, string email)
+        public async Task<ApplicationUser> Create(string username, string email, string firstName, string lastName)
         {
-            var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = username, Email = email };
-            //await _userManager.CreateIdentityAsync(user, "waad");
+            var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = username, Email = email, FirstName = firstName, LastName = lastName };
             IdentityResult result = await _userManager().CreateAsync(user);
 
             // todo better error handling
