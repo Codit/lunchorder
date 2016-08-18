@@ -89,13 +89,13 @@ namespace Lunchorder.Dal
             await _documentStore.ReplaceDocument(dbMenu);
         }
 
-        public async Task AddOrder(string userId, string userName, string vendorId, string formattedOrderDate, UserOrderHistory userOrderHistory)
+        public async Task AddOrder(string userId, string userName, string vendorId, string formattedOrderDate, UserOrderHistory userOrderHistory, string fullName)
         {
             var docDbUserOrderHistory = _mapper.Map<UserOrderHistory, Domain.Entities.DocumentDb.UserOrderHistory>(userOrderHistory);
             docDbUserOrderHistory.Id = Guid.NewGuid();
             docDbUserOrderHistory.UserId = userId;
             docDbUserOrderHistory.UserName = userName;
-
+            
             var vendorOrderHistory = new VendorOrderHistory
             {
                 Id = Guid.NewGuid(),
@@ -109,6 +109,7 @@ namespace Lunchorder.Dal
             {
                 entry.UserId = userId;
                 entry.UserName = userName;
+                entry.FullName = fullName;
             }
 
             // todo, this should be user local time

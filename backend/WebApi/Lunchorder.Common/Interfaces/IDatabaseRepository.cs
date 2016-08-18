@@ -16,7 +16,7 @@ namespace Lunchorder.Common.Interfaces
         Task<Menu> UpdateMenu(Menu menu);
         Task SetActiveMenu(string menuId);
         Task DeleteMenu(string menuId);
-        Task AddOrder(string userId, string userName, string vendorId, string formattedOrderDate, UserOrderHistory menuOrders);
+        Task AddOrder(string userId, string userName, string vendorId, string formattedOrderDate, UserOrderHistory menuOrders, string fullName);
         Task<VendorOrderHistory> GetVendorOrder(string orderDate, string vendorId);
         Task<decimal> UpdateBalance(string userId, decimal amount, SimpleUser originator);
         Task AddToUserList(string userId, string userName, string firstName, string lastName);

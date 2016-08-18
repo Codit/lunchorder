@@ -7,7 +7,7 @@ export class PlatformUserListItem implements app.domain.dto.IPlatformUserListIte
     getName() {
         if (!this.firstName || !this.lastName)
             return this.userName;
-        return `{this.firstName} {this.lastName}`
+        return `${this.firstName} ${this.lastName}`
     }
 
      deserialize(input : any) : PlatformUserListItem {

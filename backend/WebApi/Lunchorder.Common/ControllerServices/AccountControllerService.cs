@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using Lunchorder.Common.Extensions;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
+using Lunchorder.Domain.Entities.Authentication;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace Lunchorder.Common.ControllerServices
 {
@@ -45,7 +52,10 @@ namespace Lunchorder.Common.ControllerServices
             // if the user is unknown, we store it in our own database.
             if (userInfo == null && isAzureActiveDirectoryUser)
             {
-                var user = await _userService.Create(userName, userName);
+                var firstName = claimsIdentity.Claims.Where(x => x.Type == System.IdentityModel.Claims.ClaimTypes.GivenName).Select(x => x.Value).FirstOrDefault();
+                var lastName = claimsIdentity.Claims.Where(x => x.Type == System.IdentityModel.Claims.ClaimTypes.Surname).Select(x => x.Value).FirstOrDefault();
+
+                var user = await _userService.Create(userName, userName, firstName, lastName);
                 await _databaseRepository.AddToUserList(user.Id, user.UserName, user.FirstName, user.LastName);
                 userInfo = await _databaseRepository.GetUserInfo(userName);
             }
@@ -60,6 +70,8 @@ namespace Lunchorder.Common.ControllerServices
                    new List<Claim>
                    {
                     new Claim(ClaimTypes.Name, userInfo.UserName),
+                    new Claim(ClaimTypes.GivenName, userInfo.Profile.FirstName),
+                    new Claim(ClaimTypes.Surname, userInfo.Profile.LastName),
                     new Claim(ClaimTypes.NameIdentifier, userInfo.Id.ToString())
                    });
             localClaimsIdentity.AddClaims(roleClaims);
@@ -72,7 +84,8 @@ namespace Lunchorder.Common.ControllerServices
         public async Task<GetAllUsersResponse> GetAllUsers()
         {
             var users = await _databaseRepository.GetUsers();
-            return new GetAllUsersResponse() { Users = users };
+            users = users.OrderBy(x => x.FirstName).ThenBy(x => x.LastName);
+            return new GetAllUsersResponse { Users = users };
         }
 
         public async Task<IEnumerable<LastOrder>> GetLast5Orders(ClaimsIdentity claimsIdentity)

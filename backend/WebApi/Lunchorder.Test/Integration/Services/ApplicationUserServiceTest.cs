@@ -13,7 +13,9 @@ namespace Lunchorder.Test.Integration.Services
         {
             var username = "username 123456";
             var email = "user@name.123456";
-            var dbUserId = await ApplicationUserService.Create(username, email);
+            var firstName = "first";
+            var lastName = "name";
+            var dbUserId = await ApplicationUserService.Create(username, email, firstName, lastName);
             Assert.AreNotEqual(new Guid().ToString(), dbUserId);
         }
     }

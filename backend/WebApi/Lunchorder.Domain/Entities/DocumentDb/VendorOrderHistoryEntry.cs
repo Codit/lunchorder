@@ -36,6 +36,11 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         public string UserName { get; set; }
 
         /// <summary>
+        /// The full name of the user that has placed the entry
+        /// </summary>
+        public string FullName { get; set; }
+
+        /// <summary>
         /// The price that has been paid by the user to order this entry at the vendor
         /// </summary>
         public decimal FinalPrice { get; set; }

@@ -32,6 +32,7 @@ namespace Lunchorder.Common
                     {
                         text-align: left;
                         padding: 10px;
+                        border:1px solid black;
                     }
 
                     span {
@@ -73,7 +74,7 @@ namespace Lunchorder.Common
                     HtmlGenericControl tableControl = new HtmlGenericControl("table");
 
                     HtmlGenericControl tableHeadControl = new HtmlGenericControl("thead");
-                    HtmlGenericControl tableHeadTitleUser = new HtmlGenericControl("th") { InnerText = "Username" };
+                    HtmlGenericControl tableHeadTitleUser = new HtmlGenericControl("th") { InnerText = "User" };
                     HtmlGenericControl tableHeadTitleOrder = new HtmlGenericControl("th") { InnerText = "Order" };
                     HtmlGenericControl tableHeadTitlePrice = new HtmlGenericControl("th") { InnerText = "Price" };
 
@@ -86,7 +87,7 @@ namespace Lunchorder.Common
                     foreach (var entry in vendorOrderHistory.Entries)
                     {
                         var tableRow = new HtmlGenericControl("tr");
-                        var tableColumnUsername = new HtmlGenericControl("td") { InnerText = entry.UserName };
+                        var tableColumnUsername = new HtmlGenericControl("td") { InnerText = entry.FullName };
 
                         var tableColumnOrder = new HtmlGenericControl("td") { InnerText = entry.Name };
 

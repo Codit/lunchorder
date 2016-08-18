@@ -41,6 +41,17 @@ namespace Lunchorder.Api.Infrastructure.Services
             get { return (EmailElement)this["email"]; }
         }
 
+        [ConfigurationProperty("jobs")]
+        public JobsElementCollection JobsElementCollection
+        {
+            get { return base["jobs"] as JobsElementCollection; }
+        }
+
+        public List<JobElement> Jobs
+        {
+            get { return JobsElementCollection.ToList(); }
+        }
+
         public EmailInfo Email => new EmailInfo
         {
             ApiKey = EmailSetting.Sendgrid.ApiKey,
@@ -117,6 +128,8 @@ namespace Lunchorder.Api.Infrastructure.Services
             AudienceId = Authentication.Azure.Audience,
             AllowInsecureHttps = Authentication.AllowInsecureHttp,
             Tenant = Authentication.Azure.Tenant,
+            BaseGraphApiUrl = Authentication.Azure.BaseGraphApiUrl,
+            GraphApiVersion = Authentication.Azure.GraphApiVersion
         };
 
         public LocalAuthentication LocalAuthentication => new LocalAuthentication { AudienceId = Authentication.Local.Audience, AllowInsecureHttps = Authentication.AllowInsecureHttp, AudienceSecret = Authentication.Local.AudienceSecret, Issuer = Authentication.Local.Issuer };

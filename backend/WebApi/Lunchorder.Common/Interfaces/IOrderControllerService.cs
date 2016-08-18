@@ -9,7 +9,7 @@ namespace Lunchorder.Common.Interfaces
     {
         Task<IEnumerable<UserOrderHistory>> GetHistory(string userId);
         Task Delete(Guid orderId);
-        Task Add(string userId, string userName, IEnumerable<MenuOrder> menuOrders);
+        Task Add(string userId, string userName, string fullName, IEnumerable<MenuOrder> menuOrders);
         Task<VendorOrderHistory> GetVendorHistory(DateTime utcNow);
         Task<string> GetEmailVendorHistory(DateTime dateTime);
         Task SendEmailVendorHistory(DateTime dateTime);

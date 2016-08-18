@@ -28,7 +28,7 @@ namespace Lunchorder.Api.Infrastructure.Jobs
 
         public void Execute()
         {
-            _logger.Info($"Vendor email schedule triggered at {DateTime.UtcNow}");
+            _logger.Info($"Vendor email schedule triggered at {DateTime.UtcNow} UTC");
             var now = DateTime.UtcNow;
             var dayOfWeek = now.DayOfWeek;
 
@@ -52,7 +52,7 @@ namespace Lunchorder.Api.Infrastructure.Jobs
                 vendorOrderHistory.Wait();
 
                 // only submit if not submitted before
-                if (!vendorOrderHistory.Result.Submitted)
+                if (vendorOrderHistory.Result != null && !vendorOrderHistory.Result.Submitted)
                 {
                     var htmlOutput = HtmlHelper.CreateVendorHistory(_configurationService, vendorOrderHistory.Result);
 

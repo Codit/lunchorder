@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
-using Lunchorder.Domain.Constants;
+using Lunchorder.Api.Infrastructure.Filters;
 using Lunchorder.Domain.Dtos.Requests;
 using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Lunchorder.Api.Controllers
 {
-    [Authorize]
     [RoutePrefix("orders")]
     public class OrderController : BaseApiController
     {
@@ -29,6 +30,7 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("")]
+        [Authorize]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Domain.Dtos.UserOrderHistory>))]
         public async Task<IHttpActionResult> Get()
         {
@@ -43,6 +45,7 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("vendors")]
+        [Authorize]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Domain.Dtos.VendorOrderHistory>))]
         public async Task<IHttpActionResult> GetVendorOrderHistoryForToday()
         {
@@ -56,6 +59,7 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("vendors/emails")]
+        [Authorize]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(string))]
         public async Task<IHttpActionResult> GetVendorEmailFormat()
         {
@@ -68,7 +72,7 @@ namespace Lunchorder.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = Roles.PrepayAdmin)]
+        [ApiKeyActionFilterAttribute]
         [Route("vendors/emails")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(bool))]
         public async Task<IHttpActionResult> SendVendorEmailFormat()
@@ -84,10 +88,25 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("")]
+        [Authorize]
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> Post(PostOrderRequest postOrderRequest)
         {
-            await _orderControllerService.Add(User.Identity.GetUserId(), User.Identity.GetUserName(), postOrderRequest.MenuOrders);
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+
+            if (claimsIdentity == null)
+                return InternalServerError();
+
+            var firstName = claimsIdentity.Claims.Where(x => x.Type == System.IdentityModel.Claims.ClaimTypes.GivenName).Select(x => x.Value).FirstOrDefault();
+            var lastName = claimsIdentity.Claims.Where(x => x.Type == System.IdentityModel.Claims.ClaimTypes.Surname).Select(x => x.Value).FirstOrDefault();
+
+            var fullName = String.Empty;
+            if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
+            {
+                fullName = $"{firstName} {lastName}";
+            }
+
+            await _orderControllerService.Add(User.Identity.GetUserId(), User.Identity.GetUserName(), fullName, postOrderRequest.MenuOrders);
             return Ok();
         }
 
@@ -97,6 +116,7 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("")]
+        [Authorize]
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> Delete(Guid orderId)
         {
