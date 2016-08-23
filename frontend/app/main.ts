@@ -9,6 +9,7 @@ import { HTTP_PROVIDERS, BaseRequestOptions, RequestOptions } from '@angular/htt
 import { AppComponent } from './app.component';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';
+import { ErrorHandlerService } from './services/errorHandlerService';
 import { AuthRequestOptions } from './helpers/authRequestOptions';
 import { MenuService } from './services/menuService';
 import { BalanceService } from './services/balanceService';
@@ -23,14 +24,14 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 if (window.location.href.indexOf('localhost') < 0) {
     enableProdMode();
 }
-bootstrap(AppComponent, [HTTP_PROVIDERS, 
-  disableDeprecatedForms(),     // Disable old Forms API!
-  provideForms(),                // Use new Forms API!
-{provide: RequestOptions, useClass: AuthRequestOptions}, AdalService, ConfigService, AccountService, MenuService, BalanceService, ToasterService, BadgeService, OrderService, HttpClient, TokenHelper, 
-{ provide: WindowRef, useClass: BrowserWindowRef }, { provide: WINDOW, useFactory: _window, deps: [] }
+bootstrap(AppComponent, [HTTP_PROVIDERS,
+    disableDeprecatedForms(),     // Disable old Forms API!
+    provideForms(),                // Use new Forms API!
+    { provide: RequestOptions, useClass: AuthRequestOptions }, AdalService, ConfigService, AccountService, MenuService, BalanceService, ErrorHandlerService, ToasterService, BadgeService, OrderService, HttpClient, TokenHelper,
+    { provide: WindowRef, useClass: BrowserWindowRef }, { provide: WINDOW, useFactory: _window, deps: [] }
 
 ])
-.catch((err: any) => console.error(err));
+    .catch((err: any) => console.error(err));
 
 function _window(): any {
     return window;

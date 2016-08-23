@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Lunchorder.Domain.Dtos.Responses
 {
@@ -18,5 +20,14 @@ namespace Lunchorder.Domain.Dtos.Responses
         /// A new token for the user in case of user creation in our database.
         /// </summary>
         public string UserToken { get; set; }
+
+        public string ToJson()
+        {
+            //Return json
+            return JsonConvert.SerializeObject(this, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
+        }
     }
 }
