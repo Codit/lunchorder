@@ -9,6 +9,8 @@ import { BalanceComponent } from './app.balance';
 import { ReminderComponent } from './app.reminder';
 import { BadgesList } from './app.badges-list';
 import { Badge } from './domain/dto/badge';
+import { ErrorDescriptor } from './domain/dto/errorDescriptor';
+import { LoginForm } from './domain/dto/loginForm';
 import { AdminPrepayComponent } from './app.admin-prepay';
 import { StickRxDirective } from './directives/stickDirective';
 import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
@@ -18,17 +20,37 @@ import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2
 	// question: why do we need a provider here for a component that has its own descriptor?
 	providers: [BalanceService, ToasterService],
 	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent, ToasterContainerComponent],
-	
+
 	template: `<!-- FullScreen -->
 	<div class="intro-header">
 		<div class="col-xs-12 text-center abcen1">
 			<h1 class="h1_home wow fadeIn" data-wow-delay="0.4s">Lunch Order</h1>
 			<h3 class="h3_home wow fadeIn" data-wow-delay="0.6s">Order lunch at your enterprise with ease</h3>
-			<ul class="list-inline intro-social-buttons">
-				<li><button class="btn btn-lg mybutton_cyano wow fadeIn" data-wow-delay="0.8s" (click)="login()"><span class="network-name">Login using Company Account</span></button>
-				</li>
-			</ul>
-		</div>
+			<div class="row">
+				<div class="col-md-3" style="float: none; margin: 0 auto; padding-top: 15px;">
+					<button *ngIf="configService.authConfig.activeDirectoryEnabled" class="btn btn-lg mybutton_cyano wow fadeIn" style="width: 100%;" data-wow-delay="0.8s" (click)="login()"><span class="network-name">Login using Company Account</span></button>
+					<div *ngIf="configService.authConfig.usernamePasswordEnabled">
+						<div *ngIf="configService.demoConfig.isDemo">
+							<p style="color: #f10000;font-weight: bold;">Admin user: {{configService.demoConfig.demoAdmin}}, pass: {{configService.demoConfig.demoAdminPass}}</p>
+							<p style="color: #f10000;font-weight: bold;">App user: {{configService.demoConfig.demoUser}}, pass: {{configService.demoConfig.demoUserPass}}</p>
+						</div>
+						<hr style="margin: 15px 0;" *ngIf="configService.authConfig.activeDirectoryEnabled">
+						<form  #userPassLogin="ngForm" class="ui form">
+						<div class="form-group  has-feedback has-feedback-left">
+								<input type="text" class="form-control" id="inputUserName" placeholder="User name" name="userName" [(ngModel)]="loginForm.userName" required>
+								<i class="glyphicon glyphicon-user form-control-feedback" style="color: #bfbfbf;"></i>
+							</div>
+							<div class="form-group has-feedback has-feedback-left">
+								<input type="password" class="form-control" id="inputPassword" placeholder="Password"  name="password"  [(ngModel)]="loginForm.password" required>
+								<i class="glyphicon glyphicon-lock form-control-feedback" style="color: #bfbfbf;"></i>
+							</div>
+							
+							<button type="submit" class="btn btn-primary" style="width: 100%;"  (click)="loginUserPass($event, userPassLogin.value)">Login</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		<!-- /.container -->
 		<div class="col-xs-12 text-center abcen wow fadeIn">
 			<div class="button_down ">
@@ -37,7 +59,7 @@ import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2
 		</div>
 	</div>
   
-<div [hidden]="!accountService.isAuthenticated">
+<div [hidden]="!isAuthenticated">
 	<!-- NavBar-->
 	<nav class="navbar-default" role="navigation" stick-rx>
 		<div class="container">
@@ -122,18 +144,41 @@ export class AppComponent implements OnInit {
 	userInfo: app.domain.dto.IGetUserInfoResponse;
 	userInfoError: any;
 	userBadges: Badge[] = new Array<Badge>();;
-	public toasterconfig : ToasterConfig = new ToasterConfig({
+	public toasterconfig: ToasterConfig = new ToasterConfig({
 		positionClass: 'toast-bottom-right'
 	});
+	loginForm: LoginForm;
 
-	constructor(private accountService: AccountService) { }
+	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService) { }
 
 	ngOnInit() {
+		this.loginForm = new LoginForm();
+
+		this.accountService.isAuthenticated$.subscribe((value) => {
+			console.log("isAuth changed to: " + value);
+			this.isAuthenticated = value;
+			debugger;
+		})
+	}
+
+	isAuthenticated : boolean = false;
+
+	loginUserPass($event: any, form: any) {
+		this.accountService.loginUserPassword(this.loginForm).subscribe(
+			response => {
+				console.log(response);
+			},
+			error => {
+				var errorDescriptor = error as ErrorDescriptor;
+				this.toasterService.pop('error', errorDescriptor.title, errorDescriptor.description);
+			}
+		);
+
 	}
 
 	public isAdminPrepay() {
 		if (this.accountService.user && this.accountService.user.roles) {
-		return this.accountService.user.roles.find(x => x == "prepay-admin");
+			return this.accountService.user.roles.find(x => x == "prepay-admin");
 		}
 		return null;
 	}

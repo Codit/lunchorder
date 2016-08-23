@@ -88,6 +88,8 @@ export class MenuComponent implements OnInit {
 		var dayOfWeek = new Date().getDay();
 		this.isClosed = (dayOfWeek == 6) || (dayOfWeek == 0);
 
+		if(this.isClosed) { this.isBusyMenu = false; }
+
 		if (!this.isClosed) {
 			this.menuService.getMenu().subscribe(
 				menu => {
