@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,11 +67,14 @@ namespace Lunchorder.Api.Infrastructure.Services
     public class SendGridMailService : IEmailService
     {
         private readonly IConfigurationService _configurationService;
+        private readonly ILogger _logger;
 
-        public SendGridMailService(IConfigurationService configurationService)
+        public SendGridMailService(IConfigurationService configurationService, ILogger logger)
         {
             if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
+            if (logger == null) throw new ArgumentNullException(nameof(logger));
             _configurationService = configurationService;
+            _logger = logger;
         }
 
         public async Task SendHtmlEmail(string subject, string toEmail, string content)
@@ -83,7 +87,26 @@ namespace Lunchorder.Api.Infrastructure.Services
             Content mailContent = new Content("text/html", content);
             Mail mail = new Mail(from, subject, to, mailContent);
 
+            var personalization = new Personalization();
+            personalization.AddTo(to);
+
+            if (_configurationService.Email.Bcc != null && _configurationService.Email.Bcc.Any())
+            {
+
+                foreach (var bcc in _configurationService.Email.Bcc)
+                {
+                    personalization.AddBcc(new Email(bcc));
+                }
+                mail.AddPersonalization(personalization);
+            }
+
             dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());
+
+            if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
+            {
+                var responseMsg = response.Body.ReadAsStringAsync().Result;
+                _logger.Error($"Unable to send email: {responseMsg}");
+            }
         }
     }
 }
