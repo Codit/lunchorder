@@ -25,6 +25,11 @@ namespace Lunchorder.Domain.Dtos
         public string MenuEntryId { get; set; }
 
         /// <summary>
+        /// Field where the user can add instructions for the vendor about this order
+        /// </summary>
+        public string FreeText { get; set; }
+
+        /// <summary>
         /// The id of the user that has placed the entry
         /// </summary>
         public string UserId { get; set; }
@@ -39,7 +44,7 @@ namespace Lunchorder.Domain.Dtos
         /// </summary>
         public string FullName
         {
-            get { return string.IsNullOrEmpty(_fullName) ?  UserName : _fullName; }
+            get { return string.IsNullOrEmpty(_fullName) ? UserName : _fullName; }
             set { _fullName = value; }
         }
 

@@ -36,6 +36,11 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         public string UserName { get; set; }
 
         /// <summary>
+        /// Field where the user can add instructions for the vendor about this order
+        /// </summary>
+        public string FreeText { get; set; }
+
+        /// <summary>
         /// The full name of the user that has placed the entry
         /// </summary>
         public string FullName { get; set; }

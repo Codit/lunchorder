@@ -89,7 +89,13 @@ namespace Lunchorder.Common
                         var tableRow = new HtmlGenericControl("tr");
                         var tableColumnUsername = new HtmlGenericControl("td") { InnerText = entry.FullName };
 
-                        var tableColumnOrder = new HtmlGenericControl("td") { InnerText = entry.Name };
+                        var entryText = entry.Name;
+                        if (!string.IsNullOrEmpty(entry.FreeText))
+                        {
+                            entryText = $"{entry.Name} ({entry.FreeText})";
+                        }
+
+                        var tableColumnOrder = new HtmlGenericControl("td") { InnerText = entryText };
 
                         foreach (var rule in entry.Rules)
                         {
