@@ -33,7 +33,7 @@
     "adal-angular": "1.0.10",
     "angular2-adal": "0.1.4",
     "angular2-moment": "0.8.1",
-    "angular2-toaster": "^0.3.6-rc.4",
+    "angular2-toaster": "0.3.6-rc.4",
     "bootstrap": "3.3.6",
     "core-js": "2.4.0",
     "crypto": "0.0.3",
