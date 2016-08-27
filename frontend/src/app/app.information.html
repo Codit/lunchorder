@@ -1,0 +1,22 @@
+<div class="container">
+			<div class="row">
+				<div class="col-sm-4  wow fadeInDown text-center">
+					<img class="rotate" src="../assets/css/img/icon/watch.svg" alt="Generic placeholder image">
+					<h3>On Time</h3>
+					<p class="lead">Orders are sent to the venue @ {{menu?.vendor?.submitOrderTime | date: 'shortTime' }}. Late orders are your own responsibility and should be made by giving them a call. </p>
+				</div>
+				<div class="col-sm-4 wow fadeInDown text-center">
+					<img class="rotate" src="../assets/css/img/icon/map.svg" alt="Generic placeholder image">
+					<h3>Venue</h3>
+					<p class="lead">{{menu?.vendor?.name}} </p>
+					<p>Phone: {{menu?.vendor?.address?.phone}} </p>
+					<p *ngIf="menu?.vendor?.address?.fax">Fax: {{menu?.vendor?.address?.fax}}</p>
+				</div>
+
+				<div class="col-sm-4 wow fadeInDown text-center">
+					<img class="rotate" src="../assets/css/img/icon/savings.svg" alt="Generic placeholder image">
+					<h3>Payment</h3>
+					<p class="lead">Payment is done upfront. Please consult the responsible to add funds to your account.</p>
+				</div>
+			</div>
+		</div>

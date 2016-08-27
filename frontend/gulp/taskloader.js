@@ -19,6 +19,7 @@ var csharpToTypescript = require('./tasks/csharp-to-typescript');
 var codeCoverage = require('./tasks/code-coverage');
 var version = require('./tasks/version');
 var zipPackage = require('./tasks/zip-package');
+var webpack = require('./tasks/webpack');
 csharpToTypescript();
 assetsClean(paths);
 assetsCopy(paths);
@@ -27,6 +28,7 @@ assetsTransform(paths);
 zipPackage();
 codeCoverage();
 version(paths);
+webpack(paths);
 
 gulp.task("debug", ['debug:inject-artifacts']);
 gulp.task("debug-watch", gulpSequence('debug:inject-artifacts', 'watch:ts'));

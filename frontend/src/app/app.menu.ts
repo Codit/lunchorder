@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AdalService } from 'angular2-adal/core';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';
 import { MenuService } from './services/menuService';

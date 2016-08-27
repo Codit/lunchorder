@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AdalService } from 'angular2-adal/core';
 import { ConfigService } from './services/configService';
 import { Badge } from './domain/dto/badge';
 

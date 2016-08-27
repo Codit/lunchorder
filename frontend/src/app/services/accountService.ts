@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '../helpers/httpClient';
 import { GetUserInfoResponse } from '../domain/dto/getUserInfoResponse'
 import { GetAllUsersResponse } from '../domain/dto/getAllUsersResponse'
-import { AdalService } from 'angular2-adal/core';
 import { TokenHelper } from '../helpers/tokenHelper';
 import { LastOrder } from '../domain/dto/lastOrder'
 import { LoginForm } from '../domain/dto/loginForm'
@@ -15,16 +14,18 @@ import { Subject }    from 'rxjs/Subject';
 @Injectable()
 export class AccountService {
   constructor(private http: Http, private httpClient: HttpClient, private configService: ConfigService, 
-  private adalService: AdalService, private tokenHelper: TokenHelper, private errorHandlerService: ErrorHandlerService) {
+  private tokenHelper: TokenHelper, private errorHandlerService: ErrorHandlerService) {
      this._isAuthenticated$ = <Subject<boolean>>new Subject();
      this._isAuthenticated$.next(false);
 
-    this.adalService.init(this.configService.adalConfig);
-    this.adalService.handleWindowCallback();
-    if (this.adalService) {
-      if (this.adalService.userInfo.isAuthenticated) {
-        this.tokenHelper.getToken();
+    // todo enable adal
+    // this.adalService.init(this.configService.adalConfig);
+    // this.adalService.handleWindowCallback();
+    // if (this.adalService) {
+    //   if (this.adalService.userInfo.isAuthenticated) {
+    var token = this.tokenHelper.getToken();
 
+    if (token) {
         this.getUserProfile().subscribe(
           userInfo => {
             this.user = userInfo;
@@ -34,7 +35,6 @@ export class AccountService {
             }
           },
           error => this.userInfoError = <any>error);
-      }
     }
   }
 
@@ -88,7 +88,10 @@ get isAuthenticated$() : Observable<boolean>  {
   }
 
   login() {
-    this.adalService.login();
+    var currentUrl = window.location.href; 
+    window.location.href = `https://login.microsoftonline.com/codit.onmicrosoft.com/oauth2/authorize?response_type=id_token&client_id=${this.configService.adalConfig.clientId}&redirect_uri=${currentUrl}&state=2c65c24a-de79-4682-8ea8-f94d78498a0d&client-request-id=38d6d4fc-9d2e-4144-bd8a-6da39d6d1dae&nonce=3433282f-7018-4047-ba8a-99cd42910133&x-client-SKU=Js&x-client-Ver=1.0.10`
+    // todo redirect to waad
+    // this.adalService.login();
   }
 
   getUserProfile(): Observable<GetUserInfoResponse> {
