@@ -18,6 +18,7 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 				<div class="col-md-6 col-md-offset-3 text-center wrap_title ">
 					<h2>Lunch Menu</h2>
 					<p class="lead" style="margin-top:0">Make an order using the following menu.</p>
+					<input type=”text” #menuFilterInput (keyup)='0' placeholder="enter text to filter" />
 				</div>
 			</div>
 			<div class="row" *ngIf="!menu || isClosed">
@@ -27,7 +28,7 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 			</div>
 			<div class="row" *ngIf="menu?.entries && !isClosed">
 				<div class="col-xs-9 wow fadeInLeftBig" data-animation-delay="200">
-					<div menu-category-row class="col-xs-12 col-md-6" *ngFor="let cat of menu?.categories" [category]="cat" [menuEntries]="menu?.entries"></div>
+					<div menu-category-row class="col-xs-12 col-md-6" *ngFor="let cat of menu?.categories" [category]="cat" [menuFilterInputValue]="menuFilterInput.value" [menuEntries]="menu?.entries"></div>
 				</div>
 				<div style="cursor:pointer;" (click)="openCheckout()" stick-cart-rx id="cart" class="col-xs-12 col-md-3" data-animation-delay="200">
 					<div style="width: 200px; height: 200px; background: #cecece; border-radius: 50%;">
@@ -85,7 +86,7 @@ export class MenuComponent implements OnInit {
 
 	ngOnInit() {
 		var dayOfWeek = new Date().getDay();
-		this.isClosed = (dayOfWeek == 6) || (dayOfWeek == 0);
+		this.isClosed = false;//(dayOfWeek == 6) || (dayOfWeek == 0);
 
 		if(this.isClosed) { this.isBusyMenu = false; }
 
