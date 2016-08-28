@@ -32,11 +32,13 @@ export class AccountService {
             if (userInfo.userToken) {
               this._isAuthenticated$.next(true);
               this.tokenHelper.authToken = userInfo.userToken;
+            history.pushState("", document.title, window.location.pathname);
             }
           },
           error => this.userInfoError = <any>error);
     }
   }
+  
 
 get isAuthenticated$() : Observable<boolean>  {
     return this._isAuthenticated$.asObservable();
@@ -89,9 +91,9 @@ get isAuthenticated$() : Observable<boolean>  {
 
   login() {
     var currentUrl = window.location.href; 
-    window.location.href = `https://login.microsoftonline.com/codit.onmicrosoft.com/oauth2/authorize?response_type=id_token&client_id=${this.configService.adalConfig.clientId}&redirect_uri=${currentUrl}&state=2c65c24a-de79-4682-8ea8-f94d78498a0d&client-request-id=38d6d4fc-9d2e-4144-bd8a-6da39d6d1dae&nonce=3433282f-7018-4047-ba8a-99cd42910133&x-client-SKU=Js&x-client-Ver=1.0.10`
-    // todo redirect to waad
-    // this.adalService.login();
+    var stateId = Math.random().toString(36).substring(7);
+    var nonce = Math.random().toString(36).substring(7);
+    window.location.href = `https://login.microsoftonline.com/codit.onmicrosoft.com/oauth2/authorize?response_type=id_token&client_id=${this.configService.adalConfig.clientId}&redirect_uri=${currentUrl}&state=${stateId}&nonce=${nonce}`
   }
 
   getUserProfile(): Observable<GetUserInfoResponse> {

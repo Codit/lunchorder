@@ -11,7 +11,7 @@ export class BalanceService {
 
    private balanceApiUri = `${this.configService.apiPrefix}/balances`;
 
-   putBalance(userId: string, amount: number): Observable<any> {
+   putBalance(userId: string, amount: string): Observable<any> {
     return this.http.put(`${this.balanceApiUri}`, { userId: userId, amount: amount })
     .map(this.mapBalance)
       .catch(this.handleError);

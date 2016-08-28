@@ -1,41 +1,46 @@
 <!-- FullScreen -->
-	<div class="intro-header">
-		<div class="col-xs-12 text-center abcen1">
-			<h1 class="h1_home wow fadeIn" data-wow-delay="0.4s">Lunch Order</h1>
-			<h3 class="h3_home wow fadeIn" data-wow-delay="0.6s">Order lunch at your enterprise with ease</h3>
-			<div class="row">
-				<div class="col-md-3" style="float: none; margin: 0 auto; padding-top: 15px;">
-					<button *ngIf="configService.authConfig.activeDirectoryEnabled" class="btn btn-lg mybutton_cyano wow fadeIn" style="width: 100%;" data-wow-delay="0.8s" (click)="login()"><span class="network-name">Login using Company Account</span></button>
+<div class="intro-header">
+	<div class="col-xs-12 text-center abcen1">
+		<h1 class="h1_home wow fadeIn" data-wow-delay="0.4s">Lunch Order</h1>
+		<h3 class="h3_home wow fadeIn" data-wow-delay="0.6s">Order lunch at your enterprise with ease</h3>
+		<div class="row">
+			<div class="col-md-3" style="float: none; margin: 0 auto; padding-top: 15px;">
+				<div [hidden]="isAuthenticated">
+					<button *ngIf="configService.authConfig.activeDirectoryEnabled" class="btn btn-lg mybutton_cyano wow fadeIn" style="width: 100%;"
+						data-wow-delay="0.8s" (click)="login()"><span class="network-name">Login using Company Account</span></button>
 					<div *ngIf="configService.authConfig.usernamePasswordEnabled">
 						<div *ngIf="configService.demoConfig.isDemo">
 							<p style="color: #f10000;font-weight: bold;">Admin user: {{configService.demoConfig.demoAdmin}}, pass: {{configService.demoConfig.demoAdminPass}}</p>
 							<p style="color: #f10000;font-weight: bold;">App user: {{configService.demoConfig.demoUser}}, pass: {{configService.demoConfig.demoUserPass}}</p>
 						</div>
 						<hr style="margin: 15px 0;" *ngIf="configService.authConfig.activeDirectoryEnabled">
-						<form  #userPassLogin="ngForm" class="ui form">
-						<div class="form-group  has-feedback has-feedback-left">
-								<input type="text" class="form-control" id="inputUserName" placeholder="User name" name="userName" [(ngModel)]="loginForm.userName" required>
+						<form #userPassLogin="ngForm" class="ui form">
+							<div class="form-group  has-feedback has-feedback-left">
+								<input type="text" class="form-control" id="inputUserName" placeholder="User name" name="userName" [(ngModel)]="loginForm.userName"
+									required>
 								<i class="glyphicon glyphicon-user form-control-feedback" style="color: #bfbfbf;"></i>
 							</div>
 							<div class="form-group has-feedback has-feedback-left">
-								<input type="password" class="form-control" id="inputPassword" placeholder="Password"  name="password"  [(ngModel)]="loginForm.password" required>
+								<input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" [(ngModel)]="loginForm.password"
+									required>
 								<i class="glyphicon glyphicon-lock form-control-feedback" style="color: #bfbfbf;"></i>
 							</div>
-							
-							<button type="submit" class="btn btn-primary" style="width: 100%;"  (click)="loginUserPass($event, userPassLogin.value)">Login</button>
-							</form>
-						</div>
+
+							<button type="submit" class="btn btn-primary" style="width: 100%;" (click)="loginUserPass($event, userPassLogin.value)">Login</button>
+						</form>
 					</div>
 				</div>
 			</div>
-		<!-- /.container -->
-		<div class="col-xs-12 text-center abcen wow fadeIn">
-			<div class="button_down ">
-				<a class="imgcircle wow bounceInUp" data-wow-duration="1.5s" href="#order"> <img class="img_scroll" src="../assets/css/img/icon/circle.png" alt=""> </a>
-			</div>
 		</div>
 	</div>
-  
+	<!-- /.container -->
+	<div class="col-xs-12 text-center abcen wow fadeIn">
+		<div class="button_down ">
+			<a class="imgcircle wow bounceInUp" data-wow-duration="1.5s" href="#order"> <img class="img_scroll" src="../assets/css/img/icon/circle.png" alt=""> </a>
+		</div>
+	</div>
+</div>
+
 <div [hidden]="!isAuthenticated">
 	<!-- NavBar-->
 	<nav class="navbar-default" role="navigation" stick-rx>
@@ -71,7 +76,7 @@
 
 	<!-- <div reminder  class="content-section-c "></div>-->
 
-    <!-- <div badges-list [badgesList]="userBadges" id="badges" class="content-section-a"></div>--> 
+	<!-- <div badges-list [badgesList]="userBadges" id="badges" class="content-section-a"></div>-->
 
 	<div id="downloadlink" class="banner">
 		<div class="container">
@@ -84,35 +89,42 @@
 		</div>
 	</div>
 </div>
- <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7">
-					<h3 class="footer-title">About</h3>
-					<p>This project started as an R&amp;D project for <a href="https://angular.io/" target="_blank">Angular2</a>. It has been open sourced by <a href="http://www.codit.eu/" target="_blank">Codit</a> on github so feel free to contribute or request features.</p>
-					<p>Lunchorder is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the web application. But you always need to state that Codit is the original author of this web application.</p>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<h3 class="footer-title">About</h3>
+				<p>This project started as an R&amp;D project for <a href="https://angular.io/" target="_blank">Angular2</a>. It has been
+					open sourced by <a href="http://www.codit.eu/" target="_blank">Codit</a> on github so feel free to contribute or request
+					features.</p>
+				<p>Lunchorder is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute,
+					sublicense, and/or sell copies of the web application. But you always need to state that Codit is the original author
+					of this web application.</p>
 
-					<p><a class="imgcircle wow bounceInUp" data-wow-duration="1.5s" href="http://www.codit.eu"> <img class="pull-right" src="../assets/css/img/logo/logo_codit_100px.png" alt="Codit.eu"> </a></p>
-				</div>
-				<!-- /col-xs-7 -->
+				<p>
+					<a class="imgcircle wow bounceInUp" data-wow-duration="1.5s" href="http://www.codit.eu"> <img class="pull-right" src="../assets/css/img/logo/logo_codit_100px.png" alt="Codit.eu"> </a>
+				</p>
+			</div>
+			<!-- /col-xs-7 -->
 
-				<div class="col-md-5">
-					<div class="footer-banner">
-						<h3 class="footer-title">Lunch Order</h3>
-						<ul>
-							<li>sends out orders on time</li>
-							<li>users pay in advance</li>
-							<li>lets you order from anywhere</li>
-							<li>reminds you in case you forget</li>
-							<li>hands out fancy badges</li>
-						</ul>
-						<div style=" float: right;">
-							<span style="font-size: 12px;">%%VERSION%%</span>
-						</div>
-						<iframe src="https://ghbtns.com/github-btn.html?user=coditeu&repo=lunchorder&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+			<div class="col-md-5">
+				<div class="footer-banner">
+					<h3 class="footer-title">Lunch Order</h3>
+					<ul>
+						<li>sends out orders on time</li>
+						<li>users pay in advance</li>
+						<li>lets you order from anywhere</li>
+						<li>reminds you in case you forget</li>
+						<li>hands out fancy badges</li>
+					</ul>
+					<div style=" float: right;">
+						<span style="font-size: 12px;">%%VERSION%%</span>
 					</div>
+					<iframe src="https://ghbtns.com/github-btn.html?user=coditeu&repo=lunchorder&type=star&count=true" frameborder="0" scrolling="0"
+						width="170px" height="20px"></iframe>
 				</div>
 			</div>
 		</div>
-		</footer>
+	</div>
+</footer>

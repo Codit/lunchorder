@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
 
 		this.accountService.isAuthenticated$.subscribe((value) => {
 			this.isAuthenticated = value;
+			location.hash = "#" + 'order';
 			debugger;
 		})
 	}

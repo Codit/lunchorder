@@ -47,13 +47,13 @@ import { BalanceService } from './services/balanceService';
 
 export class BalanceComponent implements OnInit {
 
-	constructor(private balanceService: BalanceService, private accountService : AccountService) { }
+	constructor(private balanceService: BalanceService, private accountService: AccountService) { }
 
 	ngOnInit() {
 		
 	}
-	
-    getName() : string {
+
+    getName(): string {
         if (this.accountService.user.profile && this.accountService.user.profile.firstName && this.accountService.user.profile.lastName)
             return `${this.accountService.user.profile.firstName} ${this.accountService.user.profile.lastName}`
         return this.accountService.user.userName;

@@ -18,6 +18,7 @@ import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
 import { WindowRef, BrowserWindowRef, WINDOW } from './services/windowService';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
+import { ReactiveFormsModule } from '@angular/forms';
 
 require('../assets/css/animate.scss');
 require('../assets/css/custom.scss');
@@ -29,7 +30,8 @@ require('../assets/css/style.scss');
     imports: [
         BrowserModule,
         HttpModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         AppComponent
