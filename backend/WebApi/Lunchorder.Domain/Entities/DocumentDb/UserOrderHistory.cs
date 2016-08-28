@@ -33,7 +33,8 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         public decimal FinalPrice {
             get
             {
-                return Entries.Sum(entry => entry.FinalPrice);
+                var totalFinalPrice =  Entries.Sum(entry => entry.FinalPrice);
+                return Math.Round(totalFinalPrice, 2);
             }
         }
 

@@ -20,7 +20,7 @@
 
     function updateUserBalance(userDocument) {
         userDocument.Balance = userDocument.Balance - docDbUserOrderHistory.FinalPrice;
-
+        userDocument.Balance = userDocument.toFixed(2);
         if (userDocument.Balance < 0) {
             throw "Not enough money in your wallet";
         }
