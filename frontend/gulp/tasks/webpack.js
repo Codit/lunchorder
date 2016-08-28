@@ -3,38 +3,20 @@
     "use strict";
 
     var gulp = require("gulp"),
-        rimraf = require("rimraf"),
-        concat = require("gulp-concat"),
-        cssmin = require("gulp-cssmin"),
-        uglify = require("gulp-uglify"),
-        tsproject = require("tsproject"),
+        riraf = require("rimraf"),
         debug = require("gulp-debug"),
-        pocoGen = require('gulp-typescript-cs-poco'),
-        sass = require('gulp-sass'),
-        inject = require('gulp-inject'),
-        ignore = require('gulp-ignore'),
-        del = require('del'),
-        vinylPaths = require('vinyl-paths'),
         gulpSequence = require('gulp-sequence'),
-        series = require('stream-series'),
-        imagemin = require('gulp-imagemin'),
-        zip = require('gulp-zip'),
-        path = require('path'),
-        fs = require('fs'),
-        gnf = require('gulp-npm-files'),
-        configtransform = require('gulp-config-transform'),
-
         gutil = require("gulp-util"),
         webpack = require("webpack"),
-    webpackDebugConfig = require('../../config/webpack.dev.js'),
-    webpackProdConfig = require('../../config/webpack.prod.js'),
-            WebpackDevServer = require("webpack-dev-server");
+        webpackDebugConfig = require('../../config/webpack.dev.js'),
+        webpackProdConfig = require('../../config/webpack.prod.js'),
+        WebpackDevServer = require("webpack-dev-server");
 
-    gulp.task('webpack-dev', ['copy:ts:params'],
-        function(callback) {
+    gulp.task('webpack-dev', ['copy:ts:params', "copy:webConfig"],
+        function (callback) {
             // run webpack
-            webpack(webpackDebugConfig, function(err, stats) {
-                if(err) throw new gutil.PluginError("webpack", err);
+            webpack(webpackDebugConfig, function (err, stats) {
+                if (err) throw new gutil.PluginError("webpack", err);
                 gutil.log("[webpack]", stats.toString({
                     // output options
                 }));
@@ -42,22 +24,22 @@
             })
         });
 
-    gulp.task('webpack-prod', ['copy:ts:params'],
+    gulp.task('webpack-prod', ['copy:ts:params', "copy:webConfig"],
         function (callback) {
             // run webpack
             webpack(webpackProdConfig,
-                function(err, stats) {
+                function (err, stats) {
                     if (err) throw new gutil.PluginError("webpack", err);
                     gutil.log("[webpack]",
                         stats.toString({
                             // output options
-                
+
                         }));
                     callback();
                 });
         });
 
-    gulp.task("webpack-dev-server",  ['copy:ts:params'], function (callback) {
+    gulp.task("webpack-dev-server", ['copy:ts:params'], function (callback) {
         // Start a webpack-dev-server
         var myConfig = Object.create(webpackDebugConfig);
         var compiler = webpack(myConfig);
