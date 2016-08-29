@@ -29,7 +29,7 @@ webpack(paths);
 gulp.task("debug", gulpSequence('clean:dist', ['webpack-dev']));
 gulp.task("debug-watch", gulpSequence('clean:dist',['webpack-dev-server']));
 gulp.task("release", gulpSequence('clean:dist',['webpack-prod']));
-gulp.task("test", gulpSequence('clean:dist',['']));
+gulp.task("test", gulpSequence('clean:dist',['copy:ts:params']));
 
 gulp.task("debug-package", gulpSequence('debug', 'zip-debug'));
 gulp.task("release-package", gulpSequence('release', 'zip-release'));

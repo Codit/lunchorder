@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start karma.conf.js",
-    "testbuild": "karma start karma.conf.js --single-run --no-auto-watch",
+    "testbuild": "gulp copy:ts:params && karma start karma.conf.js --single-run --no-auto-watch",
     "postinstall": "typings install"
   },
   "repository": {
@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "angular2-template-loader": "^0.4.0",
+    "awesome-typescript-loader": "^2.1.1",
     "bootstrap-loader": "^1.2.0-beta.1",
     "bootstrap-sass": "^3.3.7",
     "codeclimate-test-reporter": "^0.3.3",

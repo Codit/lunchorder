@@ -13,18 +13,18 @@ export class ConfigService {
 
     public get authConfig() : any {
         return {
-            activeDirectoryEnabled: ____activeDirectoryEnabled____,
-            usernamePasswordEnabled: ____usernamePasswordEnabled____
+            activeDirectoryEnabled: '____activeDirectoryEnabled____',
+            usernamePasswordEnabled: '____usernamePasswordEnabled____'
         }
     }
 
     public get demoConfig() : any {
             return {
-                isDemo: ____isDemo____,
-                demoAdmin: ____demoAdmin____,
-                demoAdminPass: ____demoAdminPass____,
-                demoUser: ____demoUser____,
-                demoUserPass: ____demoUserPass____
+                isDemo: '____isDemo____',
+                demoAdmin: '____demoAdmin____',
+                demoAdminPass: '____demoAdminPass____',
+                demoUser: '____demoUser____',
+                demoUserPass: '____demoUserPass____'
             }
         }
 
