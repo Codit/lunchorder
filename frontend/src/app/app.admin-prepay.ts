@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BalanceService } from './services/balanceService';
 import { AccountService } from './services/accountService';
 import { PlatformUserListItem } from './domain/dto/platformUserListItem';
-import { PrepayBalanceForm } from './domain/forms/prepayBalanceForm';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/common';

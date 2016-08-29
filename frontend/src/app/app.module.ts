@@ -20,12 +20,6 @@ import { WindowRef, BrowserWindowRef, WINDOW } from './services/windowService';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { ReactiveFormsModule } from '@angular/forms';
 
-require('../assets/css/animate.scss');
-require('../assets/css/custom.scss');
-require('../assets/css/general.scss');
-require('../assets/css/modal.scss');
-require('../assets/css/style.scss');
-
 @NgModule({
     imports: [
         BrowserModule,
