@@ -16,6 +16,6 @@ concat = require('gulp-concat');
             .pipe(debug())
             .pipe(concat('dtos.ts'))
                 .pipe(pocoGen(pocoGenOptions))
-                    .pipe(gulp.dest('app/domain/dto'));
+                    .pipe(gulp.dest('src/app/domain/dto'));
     });
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
+using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -12,11 +14,14 @@ namespace Lunchorder.Api.Infrastructure.Providers
     public class CustomOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly Func<UserManager<ApplicationUser>> _userManager;
+        private static IMapper _mapper;
 
-        public CustomOAuthProvider(Func<UserManager<ApplicationUser>> userManager)
+        public CustomOAuthProvider(Func<UserManager<ApplicationUser>> userManager, IMapper mapper)
         {
             if (userManager == null) throw new ArgumentNullException(nameof(userManager));
+            if (mapper == null) throw new ArgumentNullException(nameof(mapper));
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -36,7 +41,7 @@ namespace Lunchorder.Api.Infrastructure.Providers
             
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("Login failed", "The user name or password is incorrect.");
                 return;
             }
 
@@ -68,12 +73,11 @@ namespace Lunchorder.Api.Infrastructure.Providers
         /// <returns></returns>
         public static AuthenticationProperties CreateProperties(ApplicationUser user)
         {
+            var getUserInfoResponse = _mapper.Map<ApplicationUser, GetUserInfoResponse>(user);
+
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "username", user.UserName },
-                { "firstname", user.FirstName },
-                { "lastname", user.LastName },
-                { "email", user.Email },
+                { "payload",  getUserInfoResponse.ToJson() }
             };
             return new AuthenticationProperties(data);
         }
