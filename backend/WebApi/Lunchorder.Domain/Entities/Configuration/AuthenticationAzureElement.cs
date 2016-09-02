@@ -38,37 +38,5 @@ namespace Lunchorder.Domain.Entities.Configuration
                 base["audience"] = value;
             }
         }
-
-        /// <summary>
-        /// The value of the azure ad graph url
-        /// </summary>
-        [ConfigurationProperty("baseGraphApiUrl", IsKey = true, IsRequired = true)]
-        public string BaseGraphApiUrl
-        {
-            get
-            {
-                return base["baseGraphApiUrl"] as string;
-            }
-            set
-            {
-                base["baseGraphApiUrl"] = value;
-            }
-        }
-
-        /// <summary>
-        /// The value of the azure ad graph version
-        /// </summary>
-        [ConfigurationProperty("graphApiVersion", IsKey = true, IsRequired = true)]
-        public string GraphApiVersion
-        {
-            get
-            {
-                return base["graphApiVersion"] as string;
-            }
-            set
-            {
-                base["graphApiVersion"] = value;
-            }
-        }
     }
 }

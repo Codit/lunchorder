@@ -128,8 +128,6 @@ namespace Lunchorder.Api.Infrastructure.Services
             AudienceId = Authentication.Azure.Audience,
             AllowInsecureHttps = Authentication.AllowInsecureHttp,
             Tenant = Authentication.Azure.Tenant,
-            BaseGraphApiUrl = Authentication.Azure.BaseGraphApiUrl,
-            GraphApiVersion = Authentication.Azure.GraphApiVersion
         };
 
         public LocalAuthentication LocalAuthentication => new LocalAuthentication { AudienceId = Authentication.Local.Audience, AllowInsecureHttps = Authentication.AllowInsecureHttp, AudienceSecret = Authentication.Local.AudienceSecret, Issuer = Authentication.Local.Issuer };

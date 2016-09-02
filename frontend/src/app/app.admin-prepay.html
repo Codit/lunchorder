@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center wrap_title ">
+            <h2>Manage prepays</h2>
+            <p class="lead" style="margin-top:0">Add or subtract funds for users.</p>
+            <form novalidate (ngSubmit)="addBalance()" #prepayForm="ngForm">
+
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-3">
+                        <div class="input-group">
+                            <select class="form-control" [(ngModel)]="selectedUser" required name="selectedUser" (ngModelChange)="onUserChange($event)">
+								<option *ngFor="let user of users" [ngValue]="user" >{{user.getName()}}</option>
+							</select>
+                            <span class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" [(ngModel)]="balanceAmount" name="balanceAmount" required (keyup)="replaceComma()">
+                            <span class="input-group-addon">
+                        <i class="fa fa-eur"></i>
+                    </span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-md-offset-3" style="margin-top: 15px;">
+                        <button type="button" type="submit" class="btn btn-primary btn-sm pull-right" style="font-weight:bold; width: 100%;" [disabled]="isBusy || !prepayForm.valid">					
+							<i class="fa fa-spinner fa-spin" *ngIf="isBusy"></i> Add balance for user</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div *ngIf="history"><span>Current user balance: {{ history?.balance }}</span></div>
+                <table class="table history table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Given by</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let audit of history?.audits">
+                            <td>
+                                <div style="text-align: left;">{{audit.date | date: 'medium'}}</div>
+                            </td>
+                            <td>
+                                <div style="text-align: left;">{{ audit.originatorName }}</div>
+                            </td>
+                            <td>
+                                <div style="text-align: left;">{{ audit.amount }}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

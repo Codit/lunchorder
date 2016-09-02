@@ -9,10 +9,7 @@ import { BadgeRow } from './app.badge-row';
 	selector: '[badges-list]',
 	directives: [BadgeRow],
 	 inputs: ['badges: badgesList'], 
-	template: `
-	<div class="container">
-		<badge-row *ngFor="let b of badges" [badge]="b"></badge-row> 
-	</div>`})
+	templateUrl: 'app.badges-list.html'})
 
 export class BadgesList implements OnInit {
 

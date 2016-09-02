@@ -113,6 +113,7 @@
     <Compile Include="DateGenerator.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Extensions\AuthorizationOptions.cs" />
+    <Compile Include="Extensions\ClaimExtensions.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="HtmlHelper.cs" />
     <Compile Include="Interfaces\IAccountControllerService.cs" />

@@ -105,6 +105,10 @@
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Owin.1.2.2\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Azure.ActiveDirectory.GraphClient, Version=2.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.ActiveDirectory.GraphClient.2.1.0\lib\portable-net4+sl5+win+wpa+wp8\Microsoft.Azure.ActiveDirectory.GraphClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Azure.Documents.Client, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.7.0\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
       <Private>True</Private>
@@ -291,6 +295,8 @@
     <Compile Include="App_Start\Configuration\Mapper\MenuVendorAddressMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuEntryFavoriteMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuVendorMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\UserBalanceAuditItemMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\UserBalanceAuditMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryEntryRuleMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserOrderHistoryMap.cs" />
@@ -309,6 +315,7 @@
     <Compile Include="Controllers\BalanceController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Infrastructure\Filters\ApiKeyActionFilter.cs" />
     <Compile Include="Infrastructure\Filters\ExceptionHandlingFilter.cs" />

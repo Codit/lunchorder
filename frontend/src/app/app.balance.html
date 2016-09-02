@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center wrap_title ">
+            <h2>About you</h2>
+            <p class="lead" style="margin-top:0">Check your balance and last 5 orders.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="pull-left image">
+                        <img alt="User Image" class="img-circle shadow userImage sample" src="../assets/css/img/icon/icon-user.png" />
+                        <label class="myLabel" style="display:block;font-size: 12px;margin-top: -15px;width: 100px;cursor: pointer;">
+                            <!--<input type="file" [ng-file-select]="options" style="visibility: hidden;" accept="image/gif, image/jpeg, image/png" (onUpload)="handleUpload($event)">
+                        <span>Upload</span>-->
+                    </label>
+                    </div>
+                    <p style="text-align: left; font-size: 28px;">{{getName()}}</p>
+                </div>
+                <div class="col-md-6">
+                    <p style="text-align: left; font-size: 28px;float:right;"><i class="fa fa-balance-scale" style="padding-right: 10px;font-size: 24px;"></i>{{accountService.user.balance
+                        | currency:'EUR':true:'1.2-2'}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table history table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let lastOrder of accountService.user.last5Orders">
+                            <td><div style="text-align: left;">{{lastOrder.orderTime | date: 'medium'}}</div></td>
+                            <td>
+
+                                <div style="text-align: left;" *ngFor="let entry of lastOrder.lastOrderEntries">
+                                    <span>{{ entry.name }} ({{entry.price | currency:'EUR':true:'1.2-2' }})</span>
+                                    <span class="detail">{{ entry.appliedRules }}</span>
+                                </div>
+                            </td>
+                            <td><div style="text-align: left;">{{ lastOrder.finalPrice | currency:'EUR':true:'1.2-2' }}</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

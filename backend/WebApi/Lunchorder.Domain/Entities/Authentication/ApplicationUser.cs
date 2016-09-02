@@ -11,6 +11,7 @@ namespace Lunchorder.Domain.Entities.Authentication
     public class ApplicationUser : DocumentDB.AspNet.Identity.IdentityUser
     {
         private IEnumerable<LastOrder> _last5Orders;
+        private IEnumerable<UserBalanceAuditItem> _last5BalanceAuditItems;
         private IEnumerable<UserBadge> _badges;
         private IEnumerable<MenuEntryFavorite> _favorites;
         public string FirstName { get; set; }
@@ -35,6 +36,12 @@ namespace Lunchorder.Domain.Entities.Authentication
         {
             get { return _last5Orders ?? (_last5Orders = new List<LastOrder>()); }
             set { _last5Orders = value; }
+        }
+
+        public IEnumerable<UserBalanceAuditItem> Last5BalanceAuditItems
+        {
+            get { return _last5BalanceAuditItems ?? (_last5BalanceAuditItems = new List<UserBalanceAuditItem>()); }
+            set { _last5BalanceAuditItems = value; }
         }
 
         public IEnumerable<UserBadge> Badges

@@ -33,44 +33,43 @@
     font-size: 19px;
 }
 
-.checkout {
-    i.basket { 
+   .checkout i.basket { 
         font-size: 18px;
         line-height: 50px;
     }
 
-    .item:hover {
+   .checkout .item:hover {
     background: #f1f1f1;
     }
     
-    .negative {
+   .checkout .negative {
         color: red;
         font-weight: bold;
     }
 
-    .positive {
+   .checkout .positive {
         color: green;
     }
 
-     h4 {
+    .checkout h4 {
         text-transform: uppercase;
         display: inline-block;
     }
 
-    .right {
+   .checkout .right {
         float: right;
     }
 
-    span {
+   .checkout span {
         font-size: 16px;
     }
 
-    span.description {
+   .checkout span.description {
         font-size: 12px;
         display: block;
     }
 
-    .clear {
+   .checkout .clear {
         clear:both;
     }
-}
+

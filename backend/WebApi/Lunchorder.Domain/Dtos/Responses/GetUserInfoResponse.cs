@@ -14,6 +14,7 @@ namespace Lunchorder.Domain.Dtos.Responses
         public IEnumerable<UserBadge> Badges { get; set; }
         public IEnumerable<MenuEntryFavorite> Favorites { get; set; }
         public IEnumerable<LastOrder> Last5Orders { get; set; }
+        public IEnumerable<UserBalanceAuditItem> Last5BalanceAuditItems { get; set; }
         public IEnumerable<string> Roles { get; set; }
 
         /// <summary>

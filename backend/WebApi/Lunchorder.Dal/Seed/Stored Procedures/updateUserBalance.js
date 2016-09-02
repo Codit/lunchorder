@@ -4,24 +4,25 @@
     var collection = context.getCollection();
 
     getUser(function (userDocument) {
+        updateUserBalanceHistory(userDocument);
         updateBalance(userDocument);
         updateBalanceAudit();
     });
 
     function updateBalanceAudit() {
         // retrieve current user
-        var getUserQuery = 'SELECT * FROM root r where r.UserId = "' + userBalanceAudit.UserId + '" and r.Type = "' + userBalanceAudit.Type + '"';
+        var getUserBalanceQuery = 'SELECT * FROM root r where r.UserId = "' + userBalanceAudit.UserId + '" and r.Type = "' + userBalanceAudit.Type + '"';
 
         var isAccepted = collection.queryDocuments(
         collection.getSelfLink(),
-        getUserQuery,
+        getUserBalanceQuery,
         function (err, feed, options) {
             if (err) throw err;
             if (!feed || !feed.length) {
                 // no document found, add one
                 var created = collection.createDocument(collection.getSelfLink(),
                     userBalanceAudit,
-                    function(err, documentCreated) {
+                    function (err, documentCreated) {
                         if (err) {
                             throw new Error('Error' + err.message);
                         }
@@ -33,9 +34,9 @@
 
                 var accept = collection.replaceDocument(feed[0]._self, feed[0],
                 function (err, docReplaced) {
-                if (err) throw "Unable to update user balance";
+                    if (err) throw "Unable to update user balance";
 
-            });
+                });
 
                 if (!accept) throw "Unable to update user balance, abort";
             }
@@ -46,9 +47,23 @@
         }
     }
 
+    function updateUserBalanceHistory(userDocument) {
+        // we only keep track of the last 5 balance audits for a user
+        if (!userDocument.Last5BalanceAuditItems) {
+            userDocument.Last5BalanceAuditItems = [];
+        }
+
+        if (userDocument.Last5BalanceAuditItems.length >= 5) {
+            userDocument.Last5BalanceAuditItems.shift();
+        } else {
+            // insert at beginning
+            userDocument.Last5BalanceAuditItems.unshift(userBalanceAudit);
+        }
+    };
+
     function updateBalance(userDocument) {
         userDocument.Balance = userDocument.Balance + userBalanceAudit.Audits[0].Amount;
-        
+
         var accept = collection.replaceDocument(userDocument._self, userDocument,
             function (err, docReplaced) {
                 if (err) throw "Unable to update user balance";

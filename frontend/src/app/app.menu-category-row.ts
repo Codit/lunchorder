@@ -10,18 +10,7 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
 	selector: '[menu-category-row]',
 	directives: [MenuCategoryRow, MenuEntryRow],
 	inputs: ['categoryItem: category', 'menuEntries', 'menuFilterInputValue'],
-	template: `<div>
-					<div *ngIf="categoryItem.subcategories">	
-						<h4>{{categoryItem.name}}</h4>
-					</div>
-					<div *ngIf="!categoryItem.subcategories">
-						<h5 *ngIf="!categoryItem.subcategories">{{categoryItem.name}}</h5>
-					</div>	
-					<p [hidden]="!categoryItem.description" class="cat-desc">{{categoryItem.description}}</p>
-
-					<div menu-entry-row class="row" *ngFor="let menuEntry of menuEntries | menuEntryByCategoryId:categoryItem.id | menuFilter:menuFilterInputValue" [menuEntry]="menuEntry"></div>
-					<div menu-category-row class="col-xs-12 col-md-6" *ngFor="let cat of categoryItem.subCategories" [category]="cat" [menuEntries]="menuEntries"></div>
-				</div>`,
+	templateUrl: 'app.menu-category-row.html',
 				pipes: [MenuEntryPipe, MenuFilterPipe]})
 	
 export class MenuCategoryRow implements OnInit {

@@ -11,6 +11,13 @@ export class BalanceService {
 
    private balanceApiUri = `${this.configService.apiPrefix}/balances`;
 
+  getHistory(userId: string): Observable<any> {
+    return this.http.getWithQuery(`${this.balanceApiUri}/histories`, `userId=${userId}`)
+    .map(this.mapBalance)
+      .catch(this.handleError);
+  }
+
+
    putBalance(userId: string, amount: string): Observable<any> {
     return this.http.put(`${this.balanceApiUri}`, { userId: userId, amount: amount })
     .map(this.mapBalance)
