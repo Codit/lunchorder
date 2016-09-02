@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Api.Infrastructure.Filters;
+using Lunchorder.Common.Extensions;
 using Lunchorder.Domain.Dtos.Requests;
 using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
@@ -97,15 +98,8 @@ namespace Lunchorder.Api.Controllers
             if (claimsIdentity == null)
                 return InternalServerError();
 
-            var firstName = claimsIdentity.Claims.Where(x => x.Type == System.IdentityModel.Claims.ClaimTypes.GivenName).Select(x => x.Value).FirstOrDefault();
-            var lastName = claimsIdentity.Claims.Where(x => x.Type == System.IdentityModel.Claims.ClaimTypes.Surname).Select(x => x.Value).FirstOrDefault();
-
-            var fullName = String.Empty;
-            if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
-            {
-                fullName = $"{firstName} {lastName}";
-            }
-
+            var fullName = claimsIdentity.GetFullNameFromClaims();
+            
             await _orderControllerService.Add(User.Identity.GetUserId(), User.Identity.GetUserName(), fullName, postOrderRequest.MenuOrders);
             return Ok();
         }

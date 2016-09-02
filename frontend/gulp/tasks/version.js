@@ -6,9 +6,11 @@ module.exports = function (paths) {
 
     gulp.task('version', function () {
         console.log(version);
-        var filePath = paths.webroot + "/app/app.component.js";
+        var filePath = paths.webroot + "/app.*.js";
+        console.log(filePath);
         return gulp.src(filePath)
+            .pipe(debug())
             .pipe(replace('%%VERSION%%', version))
-            .pipe(gulp.dest(paths.webroot+"/app"));
+            .pipe(gulp.dest(paths.webroot));
     });
 }

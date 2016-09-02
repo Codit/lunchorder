@@ -12,6 +12,7 @@ import { Badge } from './domain/dto/badge';
 import { ErrorDescriptor } from './domain/dto/errorDescriptor';
 import { LoginForm } from './domain/dto/loginForm';
 import { AdminPrepayComponent } from './app.admin-prepay';
+import { FooterComponent } from './app.footer';
 import { StickRxDirective } from './directives/stickDirective';
 import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 
@@ -19,7 +20,7 @@ import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2
 	selector: 'lunchorder-app',
 	// question: why do we need a provider here for a component that has its own descriptor?
 	providers: [BalanceService, ToasterService],
-	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent, ToasterContainerComponent],
+	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent, ToasterContainerComponent, FooterComponent],
 
 	templateUrl: 'app.component.html'})
 

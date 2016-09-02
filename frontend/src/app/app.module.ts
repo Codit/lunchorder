@@ -17,15 +17,16 @@ import { OrderService } from './services/orderService';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
 import { WindowRef, BrowserWindowRef, WINDOW } from './services/windowService';
-import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
 
 @NgModule({
     imports: [
         BrowserModule,
         HttpModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ToasterModule
     ],
     declarations: [
         AppComponent

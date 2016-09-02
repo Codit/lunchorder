@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lunchorder.Domain.Dtos;
@@ -22,5 +21,6 @@ namespace Lunchorder.Common.Interfaces
         Task AddToUserList(string userId, string userName, string firstName, string lastName);
         Task<IEnumerable<PlatformUserListItem>> GetUsers();
         Task MarkVendorOrderAsComplete(string vendorOrderHistoryId);
+        Task<UserBalanceAudit> GetUserBalanceAndHistory(string userId);
     }
 }

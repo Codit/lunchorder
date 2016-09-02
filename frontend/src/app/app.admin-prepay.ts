@@ -9,34 +9,7 @@ import { Validators } from '@angular/common';
 @Component({
 	selector: '[admin-prepay]',
 	directives: [REACTIVE_FORM_DIRECTIVES],
-	template: `<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-md-offset-3 text-center wrap_title ">
-					<h2>Manage prepays</h2>
-					<p class="lead" style="margin-top:0">Add funds to user accounts.</p>
-						<form novalidate (ngSubmit)="addBalance()" #prepayForm="ngForm">
-					
-					<div class="row">
-						<div class="col-md-6">
-							<i class="fa fa-user"></i>
-							<select [(ngModel)]="selectedUser" required name="selectedUser">
-								<option *ngFor="let user of users" [ngValue]="user">{{user.getName()}}</option>
-							</select>
-						</div>
-						<div class="col-md-6">
-							<div class="field">
-								<i class="fa fa-eur"></i>
-								<label><input type="text" [(ngModel)]="balanceAmount" name="balanceAmount" required (keyup)="replaceComma()"></label>
-							</div>
-							<button type="button" type="submit" class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" [disabled]="isBusy || !prepayForm.valid">					
-							<i class="fa fa-spinner fa-spin" *ngIf="isBusy"></i> Add balance for user</button>
-						</div>
-					</div>
-							</form>
-					
-				</div>
-			</div>
-		</div>`})
+	templateUrl: 'app.admin-prepay.html'})
 
 export class AdminPrepayComponent implements OnInit {
 	constructor(private accountService: AccountService, private balanceService: BalanceService, private toasterService: ToasterService) {
@@ -44,9 +17,11 @@ export class AdminPrepayComponent implements OnInit {
 	userBalanceError: string;
 	users: PlatformUserListItem[];
 	isBusy: boolean;
+	isBusyHistory: boolean = false;
 	user: PlatformUserListItem;
 	balanceAmount: string;
 	selectedUser: PlatformUserListItem;
+	history: any; // todo change to typed.
 
 	ngOnInit() {
 		this.accountService.getAllUsers().subscribe(
@@ -55,6 +30,20 @@ export class AdminPrepayComponent implements OnInit {
 			});
 	}
 
+	onUserChange(formUser : PlatformUserListItem) {
+		this.history = null;
+		this.isBusyHistory = true;
+		this.balanceService.getHistory(formUser.userId).subscribe(
+			history => {
+				this.history = history;
+				this.isBusyHistory = false;
+			},
+			error => {
+				this.userBalanceError = <any>error,
+					this.toasterService.pop('error', 'Failure', 'Something went wrong');
+				this.isBusyHistory = false;
+			});
+	}
 	replaceComma() {
 		if (this.balanceAmount) {
 			var hasComma = this.balanceAmount.indexOf(',') > 0;
@@ -75,6 +64,7 @@ export class AdminPrepayComponent implements OnInit {
 				this.user = null;
 				this.balanceAmount = null;
 				this.isBusy = false;
+				this.onUserChange(this.selectedUser);
 			},
 			error => {
 				this.userBalanceError = <any>error,

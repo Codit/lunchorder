@@ -66,11 +66,11 @@
 		</div>
 	</nav>
 
-	<div information id="information" class="content-section-b" style="border-top: 0"></div>
-
-	<div menu id="order" class="content-section-a"></div>
+	<div information id="information" class="content-section-a" style="border-top: 0"></div>
 
 	<div balance id="balance" class="content-section-b"></div>
+
+	<div menu id="order" class="content-section-a"></div>
 
 	<div admin-prepay *ngIf="isAdminPrepay()" id="adminPrepay" class="content-section-b"></div>
 
@@ -90,41 +90,5 @@
 	</div>
 </div>
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
-<footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-7">
-				<h3 class="footer-title">About</h3>
-				<p>This project started as an R&amp;D project for <a href="https://angular.io/" target="_blank">Angular2</a>. It has been
-					open sourced by <a href="http://www.codit.eu/" target="_blank">Codit</a> on github so feel free to contribute or request
-					features.</p>
-				<p>Lunchorder is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute,
-					sublicense, and/or sell copies of the web application. But you always need to state that Codit is the original author
-					of this web application.</p>
-
-				<p>
-					<a class="imgcircle wow bounceInUp" data-wow-duration="1.5s" href="http://www.codit.eu"> <img class="pull-right" src="../assets/css/img/logo/logo_codit_100px.png" alt="Codit.eu"> </a>
-				</p>
-			</div>
-			<!-- /col-xs-7 -->
-
-			<div class="col-md-5">
-				<div class="footer-banner">
-					<h3 class="footer-title">Lunch Order</h3>
-					<ul>
-						<li>sends out orders on time</li>
-						<li>users pay in advance</li>
-						<li>lets you order from anywhere</li>
-						<li>reminds you in case you forget</li>
-						<li>hands out fancy badges</li>
-					</ul>
-					<div style=" float: right;">
-						<span style="font-size: 12px;">%%VERSION%%</span>
-					</div>
-					<iframe src="https://ghbtns.com/github-btn.html?user=coditeu&repo=lunchorder&type=star&count=true" frameborder="0" scrolling="0"
-						width="170px" height="20px"></iframe>
-				</div>
-			</div>
-		</div>
-	</div>
+<footer footer>
 </footer>

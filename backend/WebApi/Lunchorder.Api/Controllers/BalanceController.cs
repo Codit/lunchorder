@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net;
+using System.Security.Claims;
 using Lunchorder.Common.Interfaces;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Lunchorder.Common.Extensions;
 using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Requests;
@@ -32,11 +34,31 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.Created, Type = typeof(decimal))]
         public async Task<IHttpActionResult> Put(PutBalanceRequest putBalanceRequest)
         {
-            var originator = new SimpleUser { Id = User.Identity.GetUserId(), UserName = User.Identity.GetUserName()};
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+
+            if (claimsIdentity == null)
+                return InternalServerError();
+
+            var fullName = claimsIdentity.GetFullNameFromClaims();
+            var originator = new SimpleUser { Id = User.Identity.GetUserId(), UserName = User.Identity.GetUserName(), FullName = fullName };
             var result = await _balanceControllerService.UpdateBalance(putBalanceRequest.UserId, putBalanceRequest.Amount, originator);
 
             // todo location uri
             return Created("", result);
+        }
+
+        /// <summary>
+        /// Updates the balance for a user
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = Roles.PrepayAdmin)]
+        [HttpGet]
+        [Route("histories")]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(UserBalanceAudit))]
+        public async Task<IHttpActionResult> GetUserBalanceHistory(string userId)
+        {
+            var result = await _balanceControllerService.GetUserBalanceHistory(userId);
+            return Ok(result);
         }
     }
 }

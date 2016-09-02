@@ -95,7 +95,7 @@ namespace Lunchorder.Dal
             docDbUserOrderHistory.Id = Guid.NewGuid();
             docDbUserOrderHistory.UserId = userId;
             docDbUserOrderHistory.UserName = userName;
-            
+
             var vendorOrderHistory = new VendorOrderHistory
             {
                 Id = Guid.NewGuid(),
@@ -203,6 +203,30 @@ namespace Lunchorder.Dal
         public async Task MarkVendorOrderAsComplete(string vendorOrderHistoryId)
         {
             await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.MarkAsSubmitted, vendorOrderHistoryId);
+        }
+
+        public async Task<Domain.Dtos.UserBalanceAudit> GetUserBalanceAndHistory(string userId)
+        {
+            var balanceHistoryQuery = _documentStore.GetItems<UserBalanceAudit>(x => x.Type == DocumentDbType.UserBalanceAudit && x.UserId == userId).AsDocumentQuery();
+            var balanceHistoryQueryResponse = await balanceHistoryQuery.ExecuteNextAsync<UserBalanceAudit>();
+            var balanceHistory = balanceHistoryQueryResponse.FirstOrDefault();
+            var balanceHistoryDto = new Domain.Dtos.UserBalanceAudit();
+
+            if (balanceHistory == null) return balanceHistoryDto;
+
+            balanceHistory.Audits = balanceHistory.Audits.OrderByDescending(x => x.Date).ToList();
+            balanceHistoryDto = _mapper.Map<UserBalanceAudit, Domain.Dtos.UserBalanceAudit>(balanceHistory);
+
+            var userQuery = _documentStore.GetItems<ApplicationUser>(x => x.Id == userId).AsDocumentQuery();
+            var userQueryResponse = await userQuery.ExecuteNextAsync<ApplicationUser>();
+            var user = userQueryResponse.FirstOrDefault();
+
+            if (user != null)
+            {
+                balanceHistoryDto.Balance = user.Balance;
+            }
+
+            return balanceHistoryDto;
         }
 
         private async Task<Domain.Entities.DocumentDb.Menu> GetMenuItem(Expression<Func<Domain.Entities.DocumentDb.Menu, bool>> predicate)

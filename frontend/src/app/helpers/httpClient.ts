@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { TokenHelper } from './tokenHelper';
+import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class HttpClient {
@@ -16,6 +17,15 @@ export class HttpClient {
         this.createAuthorizationHeader(headers);
         return this.http.get(url, {
         headers: headers
+        });
+    }
+
+    getWithQuery(url: string, querystring : any) {
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+        return this.http.get(url, {
+            search: new URLSearchParams(querystring),
+            headers: headers
         });
     }
 

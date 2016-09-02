@@ -24,7 +24,9 @@
             })
         });
 
-    gulp.task('webpack-prod', ['copy:ts:params', "copy:webConfig"],
+    gulp.task('webpack-prod', gulpSequence(['copy:ts:params', 'copy:webConfig'], 'bundle-webpack-prod', 'version'));
+
+    gulp.task('bundle-webpack-prod',
         function (callback) {
             // run webpack
             webpack(webpackProdConfig,

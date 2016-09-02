@@ -20,5 +20,11 @@ namespace Lunchorder.Common.ControllerServices
             var updatedAmount = await _databaseRepository.UpdateBalance(userId, amount, originator);
             return updatedAmount;
         }
+
+        public async Task<UserBalanceAudit> GetUserBalanceHistory(string userId)
+        {
+            var balanceHistory = await _databaseRepository.GetUserBalanceAndHistory(userId);
+            return balanceHistory;
+        }
     }
 }

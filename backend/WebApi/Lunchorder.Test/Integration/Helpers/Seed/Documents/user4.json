@@ -37,5 +37,6 @@
 
   ],
   "Roles": [ "prepay-admin" ],
-  "Last5Orders": [ ]
+  "Last5Orders": [ ],
+  "Last5BalanceAuditItems": [ ]
 }

@@ -20,14 +20,14 @@
 
     function updateUserBalance(userDocument) {
         userDocument.Balance = userDocument.Balance - docDbUserOrderHistory.FinalPrice;
-        userDocument.Balance = userDocument.toFixed(2);
+        
         if (userDocument.Balance < 0) {
             throw "Not enough money in your wallet";
         }
     }
 
     function updateUserOrders(userDocument) {
-        // we only keep track of the last 10 orders for a user
+        // we only keep track of the last 5 orders for a user
         if (userDocument.Last5Orders && userDocument.Last5Orders.length >= 5) {
             userDocument.Last5Orders.shift();
         }

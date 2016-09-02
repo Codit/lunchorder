@@ -8,42 +8,7 @@ import { MenuOrder } from './domain/dto/menuOrder';
 @Component({
 	selector: '[menu-entry-row]',
 	inputs: ['menuEntry'],
-	template: `<div class="col-xs-offset-1 col-xs-11">
-				<div class="menu-entry-row">
-					<span>{{menuEntry.name}}</span>
-					<button (click)="openModal()" class="btn btn-primary btn-xs pull-right" style="font-weight:bold;">
-					<span style="text-align: left;width: 25px; display: inline-block;">{{menuEntry.price | currency:'EUR':true:'1.2-2'}}</span>
-					 <span class="btn-separator"></span>
-					 <i class="fa fa-plus"></i></button>
-			    </div>
-			   </div>
-			   <div *ngIf="menuEntry.description" class="col-xs-offset-1 col-xs-10">
-				<span style="font-size: 12px;display: inline-block;">{{menuEntry.description}}</span>									
-			   </div>
-			   
-			   <div id="openModal" class="modalDialog active" *ngIf="isModalOpen">
-    <div>	
-			<i (click)="closeModal()" title="Close" class="fa fa-times close"></i>
-        	<h3>Order {{menuEntry.name}} ({{menuEntry.price | currency:'EUR':true:'1.2-2'}})</h3>
-
-			 <form #f="ngForm" class="ui form">
-			 	<div class="form-group">
-					<div *ngFor="let rule of menuEntry.rules">
-						<div class="field">
-							<label><input type="checkbox" value="rule" name="{{rule.id}}" [(ngModel)]="rule.isSelected">{{rule.description}} ({{rule.priceDelta | currency:'EUR':true:'1.2-2'}},-)</label>
-						</div>
-					</div>
-					 
-					<label for="inputsm">Remarks</label>
-					<input class="form-control input-sm" id="inputsm" name="freeText" type="text" [(ngModel)]="menuEntry.freeText">
-				</div>
-
-
-				<button type="button" class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" (click)="addOrder($event, f.value)">Add order to cart</button>
-				<button type="button" class="btn btn-sm pull-right" style="font-weight:bold; margin-right:20px;" (click)="closeModal()">Cancel</button>
-			 </form>
-    </div>
-</div>`})
+	templateUrl: 'app.menu-entry-row.html'})
 
 export class MenuEntryRow implements OnInit {
 
