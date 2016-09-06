@@ -21,7 +21,7 @@ namespace Lunchorder.Test.Integration
             var token = await AuthorizeUser(TestConstants.IncorrectUser1.Username, TestConstants.IncorrectUser1.Password);
             Assert.IsNotEmpty(token.Error);
 
-            Assert.AreEqual("invalid_grant", token.Error);
+            Assert.AreEqual("Login failed", token.Error);
             Assert.AreEqual("The user name or password is incorrect.", token.ErrorDescription);
         }
     }

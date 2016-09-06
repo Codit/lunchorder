@@ -16,7 +16,7 @@ namespace Lunchorder.Test.Integration.ApiController
         [Test]
         public async Task Put()
         {
-            var originator = new SimpleUser {Id = TestConstants.User4.Id, UserName = TestConstants.User4.UserName};
+            var originator = new SimpleUser { Id = TestConstants.User4.Id, UserName = TestConstants.User4.UserName };
             var amount = 4.4M;
             MockedApiInstaller.MockedBalanceControllerService.Setup(
                x => x.UpdateBalance(TestConstants.User1.Id, amount, originator))
@@ -27,7 +27,7 @@ namespace Lunchorder.Test.Integration.ApiController
 
             var response = await PutAuthorizeAsync(new PutBalanceRequest { UserId = TestConstants.User1.Id, Amount = amount }, string.Format($"{_routePrefix}"));
 
-            MockedApiInstaller.MockedBalanceControllerService.Verify(x => x.UpdateBalance(TestConstants.User1.Id, amount, originator), Times.Once);
+            MockedApiInstaller.MockedBalanceControllerService.Verify(x => x.UpdateBalance(TestConstants.User1.Id, amount, It.Is<SimpleUser>(y => y.Id == originator.Id && y.UserName == originator.UserName)), Times.Once);
 
             AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.Created);
         }

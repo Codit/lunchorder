@@ -216,7 +216,7 @@ namespace Lunchorder.Test.Integration.Repositories
             Assert.IsNotNull(vendorOrderHistory);
 
             // Add an order and it should use the existing vendor order history
-            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, null, TestConstants.User2.FullName);
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory, TestConstants.User2.FullName);
             vendorOrderHistory = await DatabaseRepository.GetVendorOrder(orderDate, vendorId);
             Assert.NotNull(vendorOrderHistory);
             Assert.AreEqual(vendorId, vendorOrderHistory.VendorId);
@@ -656,7 +656,7 @@ namespace Lunchorder.Test.Integration.Repositories
                     Street = string.Empty,
                     StreetNumber = string.Empty
                 },
-                SubmitOrderTime = new DateTime(0, 0, 0, 7, 30, 0).ToString(CultureInfo.InvariantCulture),
+                SubmitOrderTime = new DateTime(1977, 1, 1, 7, 30, 0).ToString(CultureInfo.InvariantCulture),
                 // todo, add some closing date ranges.
                 //ClosingDateRanges = new List<>
             };

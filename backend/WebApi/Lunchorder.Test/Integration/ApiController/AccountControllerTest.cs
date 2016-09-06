@@ -25,7 +25,8 @@ namespace Lunchorder.Test.Integration.ApiController
 
             var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}"));
 
-            MockedApiInstaller.MockedAccountControllerService.Verify(x => x.GetUserInfo(new ClaimsIdentity()), Times.Once);
+            // when using username / password authentication, we do not do an extra request for userinfo, instead we map the applicationuser directly
+            MockedApiInstaller.MockedAccountControllerService.Verify(x => x.GetUserInfo(new ClaimsIdentity()), Times.Never);
             
             AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.OK);
         }

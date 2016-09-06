@@ -62,16 +62,32 @@ namespace Lunchorder.Test.Integration.ApiController
         public async Task SetActive()
         {
             var menuId = "123456";
+            MockedApiInstaller.MockedMenuControllerService.Setup(x => x.SetActive(menuId)).Returns(Task.FromResult(""));
+
+            var token = await AuthorizeUser(TestConstants.User4.UserName, TestConstants.User4.Password);
+            Assert.IsNotNullOrEmpty(token.Token);
+
+            var response = await PostAuthorizeAsync(new { }, string.Format($"{_routePrefix}/active/{menuId}"));
+
+            MockedApiInstaller.MockedMenuControllerService.Verify(x => x.SetActive(menuId), Times.Once);
+
+            AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.OK);
+        }
+
+        [Test]
+        public async Task SetActive_Unauthorized()
+        {
+            var menuId = "123456";
             MockedApiInstaller.MockedMenuControllerService.Setup(x => x.SetActive(menuId));
 
             var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
-            var response = await GetAuthorizeAsync(string.Format($"{_routePrefix}/active/{menuId}"));
+            var response = await PostAuthorizeAsync(string.Empty, string.Format($"{_routePrefix}/active/{menuId}"));
 
-            MockedApiInstaller.MockedMenuControllerService.Verify(x => x.SetActive(menuId), Times.Once);
+            MockedApiInstaller.MockedMenuControllerService.Verify(x => x.SetActive(menuId), Times.Never);
 
-            AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.OK);
+            AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.Unauthorized);
         }
 
         [Test]
