@@ -92,6 +92,11 @@ namespace Lunchorder.Test.Integration.Helpers.Base
             return await PostUnauthorizedAsync(model, headers, appRouteUri);
         }
 
+        protected virtual async Task<HttpResponseMessage> PostAuthorizeAsync<TModel>(TModel model, string portalRouteUri, Dictionary<string, string> headers)
+        {
+            return await PostAuthorizedAsync(model, portalRouteUri, headers);
+        }
+
         protected virtual async Task<HttpResponseMessage> PostAuthorizeAsync<TModel>(TModel model, string portalRouteUri)
         {
             return await PostAuthorizedAsync(model, portalRouteUri);

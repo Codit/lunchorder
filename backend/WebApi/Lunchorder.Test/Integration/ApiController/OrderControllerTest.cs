@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Requests;
 using Lunchorder.Test.Integration.Helpers;
@@ -18,6 +20,8 @@ namespace Lunchorder.Test.Integration.ApiController
         [Test]
         public async Task Post()
         {
+            MockedApiInstaller.MockedOrderControllerService.Setup(x => x.Add(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<MenuOrder>>())).Returns(Task.FromResult(""));
+
             var menuOrders = new List<MenuOrder>();
 
             var token = await AuthorizeUser(TestConstants.User1.UserName, TestConstants.User1.Password);
@@ -25,7 +29,8 @@ namespace Lunchorder.Test.Integration.ApiController
 
             var response = await PostAuthorizeAsync(new PostOrderRequest { MenuOrders = menuOrders }, string.Format($"{_routePrefix}"));
 
-            MockedApiInstaller.MockedOrderControllerService.Verify(x => x.Add(TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FullName, menuOrders), Times.Once);
+            MockedApiInstaller.MockedOrderControllerService.Verify(x => x.Add(TestConstants.User1.Id, TestConstants.User1.UserName, It.IsAny<string>(),
+                It.IsAny<IEnumerable<MenuOrder>>()), Times.Once);
 
             AssertAndLogInvalidModelState(response, System.Net.HttpStatusCode.OK);
         }
@@ -36,7 +41,8 @@ namespace Lunchorder.Test.Integration.ApiController
             var token = await AuthorizeUser(TestConstants.User4.UserName, TestConstants.User4.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
-            var response = await PostAuthorizeAsync(new { }, $"{_routePrefix}/vendors/emails");
+            var apiKeyHeader = new Dictionary<string, string> {{HeaderConstants.ApiKeyHeader, "123456789"}};
+            var response = await PostAuthorizeAsync(new { }, $"{_routePrefix}/vendors/emails", apiKeyHeader);
 
             MockedApiInstaller.MockedOrderControllerService.Verify(x => x.SendEmailVendorHistory(It.IsAny<DateTime>()), Times.Once);
 

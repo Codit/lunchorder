@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos.Requests;
 using Swashbuckle.Swagger.Annotations;
 
@@ -65,10 +66,10 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [Route("active/{menuId}")]
         [HttpPost]
+        [Authorize(Roles = Roles.PrepayAdmin)]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Domain.Dtos.Menu))]
         public async Task<IHttpActionResult> SetActive(string menuId)
         {
-            // todo, only authorize admin
             await _menuControllerService.SetActive(menuId);
             return Ok();
         }

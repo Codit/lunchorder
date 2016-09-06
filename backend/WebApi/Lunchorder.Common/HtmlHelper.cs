@@ -97,10 +97,13 @@ namespace Lunchorder.Common
 
                         var tableColumnOrder = new HtmlGenericControl("td") { InnerText = entryText };
 
-                        foreach (var rule in entry.Rules)
+                        if (entry.Rules != null)
                         {
-                            var tableColumnOrderRule = new HtmlGenericControl("p") { InnerText = rule.Description };
-                            tableColumnOrder.Controls.Add(tableColumnOrderRule);
+                            foreach (var rule in entry.Rules)
+                            {
+                                var tableColumnOrderRule = new HtmlGenericControl("p") { InnerText = rule.Description };
+                                tableColumnOrder.Controls.Add(tableColumnOrderRule);
+                            }
                         }
 
                         var tableColumnPrice = new HtmlGenericControl("td")

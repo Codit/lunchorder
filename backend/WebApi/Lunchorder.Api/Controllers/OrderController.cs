@@ -78,7 +78,6 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(bool))]
         public async Task<IHttpActionResult> SendVendorEmailFormat()
         {
-            // todo add apikey for security.
             await _orderControllerService.SendEmailVendorHistory(DateTime.UtcNow);
             return Ok();
         }

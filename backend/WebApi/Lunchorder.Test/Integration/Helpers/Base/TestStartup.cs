@@ -1,5 +1,7 @@
 ﻿using Castle.Windsor;
 using Lunchorder.Api.Configuration.IoC;
+using Lunchorder.Api.Infrastructure.Filters;
+using Lunchorder.Common.Interfaces;
 using Lunchorder.Test.Integration.Helpers.Base.IoC;
 using Owin;
 using Startup = Lunchorder.Api.Startup;
@@ -26,6 +28,9 @@ namespace Lunchorder.Test.Integration.Helpers.Base
                 .Install(new DalInstaller())
                 .Install(new ServiceInstaller())
                 .Install(new TestWebInstaller(null, startup.HttpConfiguration));
+
+            var configurationService = Container.Resolve<IConfigurationService>();
+            startup.HttpConfiguration.Filters.Add(new ApiKeyActionFilter(configurationService));
 
             startup.InjectTestContainer(() => Container);
             startup.Configuration(app);
