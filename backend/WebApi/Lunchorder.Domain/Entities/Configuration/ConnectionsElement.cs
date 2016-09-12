@@ -8,7 +8,7 @@ namespace Lunchorder.Domain.Entities.Configuration
     public class ConnectionsElement : ConfigurationElement
     {
         /// <summary>
-        /// The collection of ApiKeys
+        /// The connection to document db
         /// </summary>
         [ConfigurationProperty("documentDb")]
         public DocumentDbConnectionElement DocumentDb
@@ -17,12 +17,12 @@ namespace Lunchorder.Domain.Entities.Configuration
         }
 
         /// <summary>
-        /// The collection of ApiKeys
+        /// The connection to azure storage
         /// </summary>
-        [ConfigurationProperty("documentDbAuth")]
-        public DocumentDbConnectionElement DocumentDbAuth
+        [ConfigurationProperty("azureStorage")]
+        public AzureStorageConnectionElement AzureStorage
         {
-            get { return base["documentDbAuth"] as DocumentDbConnectionElement; }
+            get { return base["azureStorage"] as AzureStorageConnectionElement; }
         }
     }
 }

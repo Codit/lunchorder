@@ -100,12 +100,10 @@ namespace Lunchorder.Api.Infrastructure.Services
             Collection = Connections.DocumentDb.Collection
         };
 
-        public DocumentDbInfo DocumentDbAuth => new DocumentDbInfo
+        public AzureStorageInfo AzureStorage => new AzureStorageInfo
         {
-            Endpoint = Connections.DocumentDb.Endpoint,
-            AuthKey = Connections.DocumentDb.AuthKey,
-            Database = Connections.DocumentDb.Database,
-            Collection = Connections.DocumentDb.Collection
+            ConnectionString = Connections.AzureStorage.ConnectionString,
+            ImageContainerName = Connections.AzureStorage.ImageContainerName
         };
 
         public List<ApiKeyElement> ApiKeys

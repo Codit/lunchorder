@@ -17,11 +17,47 @@ namespace Lunchorder.Api.Infrastructure.Services
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Creates a new user without a password
+        /// </summary>
+        /// <param name="username">New username</param>
+        /// <param name="email">Email of the user</param>
+        /// <param name="firstName">First name of the user</param>
+        /// <param name="lastName">Last name of the user</param>
+        /// <returns></returns>
         public async Task<ApplicationUser> Create(string username, string email, string firstName, string lastName)
         {
             var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = username, Email = email, FirstName = firstName, LastName = lastName };
             IdentityResult result = await _userManager().CreateAsync(user);
 
+            HandleError(result);
+
+            return user;
+        }
+
+        /// <summary>
+        /// Creates a new user with a password
+        /// </summary>
+        /// <param name="username">New username</param>
+        /// <param name="email">Email of the user</param>
+        /// <param name="firstName">First name of the user</param>
+        /// <param name="lastName">Last name of the user</param>
+        /// <param name="password">Password of the user</param>
+        /// <returns></returns>
+        public async Task<ApplicationUser> Create(string username, string email, string firstName, string lastName, string password)
+        {
+            
+            
+            var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), Balance = new Random().Next(100), UserName = username, Email = email, FirstName = firstName, LastName = lastName };
+            IdentityResult result = await _userManager().CreateAsync(user, password);
+
+            HandleError(result);
+
+            return user;
+        }
+
+        private void HandleError(IdentityResult result)
+        {
             // todo better error handling
             if (result == null)
             {
@@ -31,8 +67,6 @@ namespace Lunchorder.Api.Infrastructure.Services
             {
                 throw new Exception(string.Join(";", result.Errors));
             }
-
-            return user;
         }
     }
 }
