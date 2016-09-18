@@ -20,13 +20,34 @@ using UserOrderHistoryEntry = Lunchorder.Domain.Dtos.UserOrderHistoryEntry;
 
 namespace Lunchorder.Test.Integration.Repositories
 {
-
-
     [TestFixture]
     public class DocumentDbRepositoryTest : RepositoryBase
     {
         // todo add test to check audit document creation
         // todo add test to check autit document update
+
+        [Test]
+        public async Task UpgradeUserHistory()
+        {
+            var user = await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName);
+            Assert.AreEqual(0, user.Last5BalanceAuditItems.Count());
+            await DatabaseRepository.UpgradeUserHistory();
+            user = await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName);
+            Assert.AreEqual(5, user.Last5BalanceAuditItems.Count());
+            var user2 = await DatabaseRepository.GetUserInfo(TestConstants.User2.UserName);
+            Assert.AreEqual(0, user2.Last5BalanceAuditItems.Count());
+        }
+
+        [Test]
+        public async Task UpdateUserImage()
+        {
+            var newPicture = "http://some.pic.tu.re";
+            var user = await DatabaseRepository.GetUserInfo(TestConstants.User3.UserName);
+            Assert.AreEqual(TestConstants.User3.Picture, user.Profile.Picture);
+            await DatabaseRepository.UpdateUserPicture(TestConstants.User3.Id, newPicture);
+            user = await DatabaseRepository.GetUserInfo(TestConstants.User3.UserName);
+            Assert.AreEqual(newPicture, user.Profile.Picture);
+        }
 
         [Test]
         public async Task AddToUserList()

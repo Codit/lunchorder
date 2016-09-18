@@ -7,7 +7,7 @@ namespace Lunchorder.Api.Configuration.Mapper
         protected override void Configure()
         {
             CreateMap<Domain.Entities.DocumentDb.UserBalanceAuditItem, Domain.Dtos.UserBalanceAuditItem>()
-                .ForMember(x => x.OriginatorName, dest => dest.MapFrom(x => x.Originator.UserName));
+                .ForMember(x => x.OriginatorName, dest => dest.MapFrom(x => x.Originator.FullName));
         }
     }
 }

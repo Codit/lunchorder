@@ -27,7 +27,7 @@ version(paths);
 webpack(paths);
 
 gulp.task("debug", gulpSequence('clean:dist', ['webpack-dev']));
-gulp.task("debug-watch", gulpSequence('clean:dist',['webpack-dev-server']));
+gulp.task("debug-watch", gulpSequence('webpack-dev-server'));
 gulp.task("release", gulpSequence('clean:dist',['webpack-prod']));
 gulp.task("test", gulpSequence('clean:dist',['copy:ts:params']));
 

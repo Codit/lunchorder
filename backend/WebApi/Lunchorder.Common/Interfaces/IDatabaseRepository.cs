@@ -22,5 +22,7 @@ namespace Lunchorder.Common.Interfaces
         Task<IEnumerable<PlatformUserListItem>> GetUsers();
         Task MarkVendorOrderAsComplete(string vendorOrderHistoryId);
         Task<UserBalanceAudit> GetUserBalanceAndHistory(string userId);
+        Task UpdateUserPicture(string userId, string pictureUrl);
+        Task UpgradeUserHistory();
     }
 }

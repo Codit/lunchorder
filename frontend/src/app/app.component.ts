@@ -5,7 +5,7 @@ import { AccountService } from './services/accountService';
 import { BalanceService } from './services/balanceService';
 import { InformationComponent } from './app.information';
 import { MenuComponent } from './app.menu';
-import { BalanceComponent } from './app.balance';
+import { AboutYouComponent } from './app.about-you';
 import { ReminderComponent } from './app.reminder';
 import { BadgesList } from './app.badges-list';
 import { Badge } from './domain/dto/badge';
@@ -20,7 +20,7 @@ import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2
 	selector: 'lunchorder-app',
 	// question: why do we need a provider here for a component that has its own descriptor?
 	providers: [BalanceService, ToasterService],
-	directives: [InformationComponent, MenuComponent, BalanceComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent, ToasterContainerComponent, FooterComponent],
+	directives: [InformationComponent, MenuComponent, AboutYouComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent, ToasterContainerComponent, FooterComponent],
 
 	templateUrl: 'app.component.html'})
 
@@ -40,7 +40,6 @@ export class AppComponent implements OnInit {
 
 		this.accountService.isAuthenticated$.subscribe((value) => {
 			this.isAuthenticated = value;
-			location.hash = "#" + 'order';
 			debugger;
 		})
 	}

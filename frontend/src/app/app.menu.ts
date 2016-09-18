@@ -31,8 +31,7 @@ export class MenuComponent implements OnInit {
 	ngOnInit() {
 		var dayOfWeek = new Date().getDay();
 
-		// todo, always open for demo
-		this.isClosed = (dayOfWeek == 6) || (dayOfWeek == 0);
+		this.isClosed = ((dayOfWeek == 6) || (dayOfWeek == 0)) && !this.configService.allowWeekendOrders;
 
 		if(this.isClosed) { this.isBusyMenu = false; }
 

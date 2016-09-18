@@ -30,9 +30,9 @@ export class AccountService {
           userInfo => {
             this.user = userInfo;
             if (userInfo.userToken) {
-              this._isAuthenticated$.next(true);
               this.tokenHelper.authToken = userInfo.userToken;
             history.pushState("", document.title, window.location.pathname);
+              this._isAuthenticated$.next(true);
             }
           },
           error => this.userInfoError = <any>error);

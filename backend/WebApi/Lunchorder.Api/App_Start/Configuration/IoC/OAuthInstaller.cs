@@ -107,7 +107,7 @@ namespace Lunchorder.Api.Configuration.IoC
         private ApplicationUserManager SetupApplicationManager(IKernel container)
         {
             var configurationService = container.Resolve<IConfigurationService>();
-            var docDb = configurationService.DocumentDbAuth;
+            var docDb = configurationService.DocumentDb;
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(new Uri(docDb.Endpoint), docDb.AuthKey,
                 docDb.Database, docDb.Collection));
 

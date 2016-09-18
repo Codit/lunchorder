@@ -1,0 +1,30 @@
+﻿{
+  "id": "4a64f156-f022-4e0e-9719-4ff45abbaeb4",
+  "Type": "PlatformUserList",
+  "Users": [
+    {
+      "UserId": "9761a644-c2f6-476d-978f-58accaa09d0a",
+      "UserName": "tuser",
+      "FirstName": "Test",
+      "LastName": "User"
+    },
+    {
+      "UserId": "f28763cf-569c-4043-a31e-e92842eba077",
+      "UserName": "tuser2",
+      "FirstName": "Test2",
+      "LastName": "User2"
+    },
+    {
+      "UserId": "d185114e-e34c-4abd-8de6-020f814e8377",
+      "UserName": "tuser3",
+      "FirstName": "Test3",
+      "LastName": "User3"
+    },
+    {
+      "UserId": "1a987242-09ad-42f9-808c-ba995d533406",
+      "UserName": "padmin",
+      "FirstName": "Prepay",
+      "LastName": "Admin1"
+    }
+  ]
+}

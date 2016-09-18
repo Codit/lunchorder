@@ -73,6 +73,7 @@ namespace Lunchorder.Test.Integration.Helpers
             public const string LastName = "User3";
             public const string Email = "products@codit.eu";
             public const string Password = "test-us3r";
+            public const string Picture = "http://pic.tu.re";
             public const decimal Balance = 1M;
 
             public static string FullName { get { return $"{FirstName} {LastName}"; } }
