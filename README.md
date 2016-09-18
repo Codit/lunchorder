@@ -30,7 +30,29 @@ Back-End:
 - [ASP.NET Web Api]
 - [DocumentDb]
 
-Demo: not yet available.
+## Demo:
+https://www.lunchorder.be/ 
+
+_Admin users_
+
+username: demo_admin, password: demo_admin
+
+username: demo_admin1, password: demo_admin1
+
+...
+
+username: demo_admin10, password: demo_admin10
+
+_Normal users_
+
+username: demo_user, password: demo_user
+
+username: demo_user1, password: demo_user1
+
+...
+
+username: demo_user10, password: demo_user10
+
 
 ## License information
 Lunchorder is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the web application. But you always need to state that Codit is the original author of this web application.
