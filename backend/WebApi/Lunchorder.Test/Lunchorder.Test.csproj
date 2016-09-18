@@ -193,6 +193,12 @@
     <None Include="Integration\Helpers\Seed\Documents\badges.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Integration\Helpers\Seed\Documents\plaftormUserList.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Integration\Helpers\Seed\Documents\userBalanceAudit1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Integration\Helpers\Seed\Documents\user4.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

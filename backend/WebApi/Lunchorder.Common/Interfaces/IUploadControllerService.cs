@@ -6,6 +6,7 @@ namespace Lunchorder.Common.Interfaces
 {
     public interface IUploadControllerService
     {
-        Task<string> UploadImage(Collection<HttpContent> contents);
+        Task<string> UploadImage(Collection<HttpContent> providerContents);
+        Task UpdateUserImage(string getUserId, string url);
     }
 }

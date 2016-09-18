@@ -25,6 +25,7 @@ namespace Lunchorder.Api.Configuration.IoC
             container.Register(Component.For<IMenuControllerService>().ImplementedBy<MenuControllerService>());
             container.Register(Component.For<IOrderControllerService>().ImplementedBy<OrderControllerService>());
             container.Register(Component.For<IChecklistControllerService>().ImplementedBy<ChecklistControllerService>());
+            container.Register(Component.For<IUploadControllerService>().ImplementedBy<UploadControllerService>());
         }
     }
 }

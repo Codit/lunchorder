@@ -56,6 +56,14 @@ namespace Lunchorder.Api.Infrastructure.Services
             return user;
         }
 
+        public async Task UpdateUserPicture(string userId, string url)
+        {
+            var userManager = _userManager();
+            var user = await userManager.FindByIdAsync(userId);
+            user.Picture = url;
+            await userManager.UpdateAsync(user);
+        }
+
         private void HandleError(IdentityResult result)
         {
             // todo better error handling

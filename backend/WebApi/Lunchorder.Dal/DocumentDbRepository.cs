@@ -229,6 +229,16 @@ namespace Lunchorder.Dal
             return balanceHistoryDto;
         }
 
+        public async Task UpdateUserPicture(string userId, string pictureUrl)
+        {
+            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.UpdateUserPicture, userId, pictureUrl);
+        }
+
+        public async Task UpgradeUserHistory()
+        {
+            await _documentStore.ExecuteStoredProcedure<string>("upgradeUserHistory");
+        }
+
         private async Task<Domain.Entities.DocumentDb.Menu> GetMenuItem(Expression<Func<Domain.Entities.DocumentDb.Menu, bool>> predicate)
         {
             var menuQuery = _documentStore.GetItems(predicate).AsDocumentQuery();

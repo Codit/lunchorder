@@ -14,12 +14,15 @@ namespace Lunchorder.Common.ControllerServices
     public class UploadControllerService : IUploadControllerService
     {
         private readonly IConfigurationService _configurationService;
+        private readonly IDatabaseRepository _databaseRepository;
         private readonly CloudBlobClient _blobClient;
 
-        public UploadControllerService(IConfigurationService configurationService)
+        public UploadControllerService(IConfigurationService configurationService, IDatabaseRepository databaseRepository)
         {
             _configurationService = configurationService;
+            _databaseRepository = databaseRepository;
             if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
+            if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(configurationService.AzureStorage.ConnectionString);
             _blobClient = storageAccount.CreateCloudBlobClient();
@@ -78,6 +81,11 @@ namespace Lunchorder.Common.ControllerServices
             return url.ToString();
         }
 
+        public async Task UpdateUserImage(string userId, string pictureUrl)
+        {
+            await _databaseRepository.UpdateUserPicture(userId, pictureUrl);
+        }
+
         /// <summary>
         /// Uploads a blob to an azure storage blob container
         /// </summary>
@@ -90,6 +98,11 @@ namespace Lunchorder.Common.ControllerServices
         private async Task<Uri> UploadBlobAsync(Stream fileStream, string fileName, string fileType, string containerName)
         {
             CloudBlobContainer container = _blobClient.GetContainerReference(containerName);
+            var created = await container.CreateIfNotExistsAsync();
+            if (created) { 
+                container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+            }
+
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
             blockBlob.Properties.ContentType = fileType;
             await blockBlob.UploadFromStreamAsync(fileStream);

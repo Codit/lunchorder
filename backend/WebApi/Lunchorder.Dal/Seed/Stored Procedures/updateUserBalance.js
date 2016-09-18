@@ -54,11 +54,11 @@
         }
 
         if (userDocument.Last5BalanceAuditItems.length >= 5) {
-            userDocument.Last5BalanceAuditItems.shift();
-        } else {
-            // insert at beginning
-            userDocument.Last5BalanceAuditItems.unshift(userBalanceAudit);
+            userDocument.Last5BalanceAuditItems.pop();
         }
+        // insert at beginning
+        userDocument.Last5BalanceAuditItems.unshift(userBalanceAudit.Audits[0]);
+
     };
 
     function updateBalance(userDocument) {

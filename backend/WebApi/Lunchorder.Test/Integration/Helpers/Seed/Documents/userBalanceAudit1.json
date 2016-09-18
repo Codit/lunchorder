@@ -1,0 +1,55 @@
+﻿{
+  "id": "630767de-3c20-4ff2-adab-be59f56e4a6e",
+  "UserId": "9761a644-c2f6-476d-978f-58accaa09d0a",
+  "Type": "UserBalanceAudit",
+  "Audits": [
+    {
+      "Date": "2016-08-18T12:47:30.2291616Z",
+      "Originator": {
+        "Id": "1a987242-09ad-42f9-808c-ba995d533406",
+        "UserName": "padmin"
+      },
+      "Amount": 50
+    },
+    {
+      "Date": "2016-08-21T20:18:02.4360732Z",
+      "Originator": {
+        "Id": "1a987242-09ad-42f9-808c-ba995d533406",
+        "UserName": "padmin"
+      },
+      "Amount": 50
+    },
+    {
+      "Date": "2016-08-26T15:11:19.6767321Z",
+      "Originator": {
+        "Id": "1a987242-09ad-42f9-808c-ba995d533406",
+        "UserName": "padmin"
+      },
+      "Amount": 5
+    },
+    {
+      "Date": "2016-08-27T19:32:49.9065783Z",
+      "Originator": {
+        "Id": "1a987242-09ad-42f9-808c-ba995d533406",
+        "UserName": "padmin"
+      },
+      "Amount": 20
+    },
+    {
+      "Date": "2016-08-27T19:57:12.1556772Z",
+      "Originator": {
+        "Id": "1a987242-09ad-42f9-808c-ba995d533406",
+        "UserName": "padmin"
+      },
+      "Amount": 10
+    },
+    {
+      "Date": "2016-08-28T16:14:11.45863416",
+      "Originator": {
+        "Id": "1a987242-09ad-42f9-808c-ba995d533406",
+        "UserName": "padmin"
+      },
+      "Amount": 1
+    }
+  ]
+}

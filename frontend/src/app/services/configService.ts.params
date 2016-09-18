@@ -28,5 +28,6 @@ export class ConfigService {
             }
         }
 
+    public allowWeekendOrders : boolean = ____allowWeekendOrders____;
     public apiPrefix : string = 'api';
 }
