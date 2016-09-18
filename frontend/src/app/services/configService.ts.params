@@ -28,7 +28,7 @@ export class ConfigService {
             }
         }
 
-    public get allowWeekendOrders() : boolean {
+    public get allowWeekendOrders() : string {
         return '____allowWeekendOrders____';
     }
     
