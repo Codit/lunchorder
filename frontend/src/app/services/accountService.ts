@@ -90,10 +90,10 @@ get isAuthenticated$() : Observable<boolean>  {
   }
 
   login() {
-    var currentUrl = window.location.href; 
+    var currentUrl = document.location.protocol + "//" + document.location.host;
     var stateId = Math.random().toString(36).substring(7);
     var nonce = Math.random().toString(36).substring(7);
-    window.location.href = `https://login.microsoftonline.com/codit.onmicrosoft.com/oauth2/authorize?response_type=id_token&client_id=${this.configService.adalConfig.clientId}&redirect_uri=${currentUrl}&state=${stateId}&nonce=${nonce}`
+    window.location.href = `https://login.microsoftonline.com/${this.configService.adalConfig.tenant}/oauth2/authorize?response_type=id_token&client_id=${this.configService.adalConfig.clientId}&redirect_uri=${currentUrl}&state=${stateId}&nonce=${nonce}`
   }
 
   getUserProfile(): Observable<GetUserInfoResponse> {
