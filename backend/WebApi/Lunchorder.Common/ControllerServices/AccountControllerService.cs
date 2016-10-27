@@ -17,6 +17,26 @@ using Newtonsoft.Json;
 
 namespace Lunchorder.Common.ControllerServices
 {
+    public class PushControllerService : IPushControllerService
+    {
+        private readonly IDatabaseRepository _databaseRepository;
+        private readonly IUserService _userService;
+        private readonly IConfigurationService _configurationService;
+
+        public PushControllerService(IDatabaseRepository databaseRepository, IConfigurationService configurationService)
+        {
+            if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
+            if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
+            _databaseRepository = databaseRepository;
+            _configurationService = configurationService;
+        }
+
+        public async Task Register(string token, ClaimsIdentity claimsIdentity)
+        {
+            await _databaseRepository.StorePushToken(token, claimsIdentity.GetUserId());
+        }
+    }
+
     public class AccountControllerService : IAccountControllerService
     {
         private readonly IDatabaseRepository _databaseRepository;

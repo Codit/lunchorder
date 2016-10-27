@@ -1,7 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
+using Lunchorder.Domain.Entities.DocumentDb;
+using Badge = Lunchorder.Domain.Dtos.Badge;
+using Menu = Lunchorder.Domain.Dtos.Menu;
+using PlatformUserListItem = Lunchorder.Domain.Dtos.PlatformUserListItem;
+using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
+using UserBalanceAudit = Lunchorder.Domain.Dtos.UserBalanceAudit;
+using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
+using VendorOrderHistory = Lunchorder.Domain.Dtos.VendorOrderHistory;
 
 namespace Lunchorder.Common.Interfaces
 {
@@ -24,5 +31,7 @@ namespace Lunchorder.Common.Interfaces
         Task<UserBalanceAudit> GetUserBalanceAndHistory(string userId);
         Task UpdateUserPicture(string userId, string pictureUrl);
         Task UpgradeUserHistory();
+        Task StorePushToken(string token, string getUserId);
+        Task<IEnumerable<PushTokenItem>> GetPushTokens();
     }
 }

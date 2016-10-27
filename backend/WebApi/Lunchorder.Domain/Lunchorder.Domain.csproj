@@ -130,6 +130,8 @@
     <Compile Include="Entities\DocumentDb\MenuVendorClosingDateRange.cs" />
     <Compile Include="Entities\DocumentDb\PlatformUserList.cs" />
     <Compile Include="Entities\DocumentDb\PlatformUserListItem.cs" />
+    <Compile Include="Entities\DocumentDb\PushTokenItem.cs" />
+    <Compile Include="Entities\DocumentDb\PushTokenList.cs" />
     <Compile Include="Entities\DocumentDb\SimpleUser.cs" />
     <Compile Include="Entities\DocumentDb\UserBadge.cs" />
     <Compile Include="Entities\DocumentDb\UserBadgeStats.cs" />

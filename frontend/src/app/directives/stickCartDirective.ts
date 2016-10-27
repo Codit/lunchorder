@@ -1,14 +1,12 @@
 import {Directive, ElementRef, Input, HostListener} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
-import {WindowRef} from '../services/windowService';
-
 @Directive({
     selector: '[stick-cart-rx]'
 })
 export class StickCartDirective {
 
-    constructor(private _element: ElementRef, private _window: WindowRef) {
+    constructor(private _element: ElementRef, private window: Window) {
 
         this.subscribeForScrollEvent();
     }
@@ -26,7 +24,7 @@ export class StickCartDirective {
         var elementScrollHeight = parentElement.offsetTop;
 
         // scrolled from the upper left corner of the window, vertically
-        var userScrolledHeight = this._window.nativeWindow.pageYOffset;
+        var userScrolledHeight = this.window.pageYOffset;
 
         // the inner height of an element in pixels, including padding but not the horizontal scrollbar height, border, or margin.
         var elementHeight = parentElement.clientHeight;

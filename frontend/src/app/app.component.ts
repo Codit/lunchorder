@@ -1,5 +1,6 @@
+/// <reference path="../../../typings/globals/service_worker_api/index.d.ts" />
+
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES, RouteConfig, RouterOutlet} from '@angular/router-deprecated';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';
 import { BalanceService } from './services/balanceService';
@@ -14,15 +15,12 @@ import { LoginForm } from './domain/dto/loginForm';
 import { AdminPrepayComponent } from './app.admin-prepay';
 import { FooterComponent } from './app.footer';
 import { StickRxDirective } from './directives/stickDirective';
-import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
+import { ToasterConfig, ToasterService } from 'angular2-toaster/angular2-toaster';
 
 @Component({
 	selector: 'lunchorder-app',
-	// question: why do we need a provider here for a component that has its own descriptor?
-	providers: [BalanceService, ToasterService],
-	directives: [InformationComponent, MenuComponent, AboutYouComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent, ToasterContainerComponent, FooterComponent],
-
-	templateUrl: 'app.component.html'})
+	templateUrl: 'app.component.html'
+})
 
 export class AppComponent implements OnInit {
 	userInfo: app.domain.dto.IGetUserInfoResponse;
@@ -33,7 +31,7 @@ export class AppComponent implements OnInit {
 	});
 	loginForm: LoginForm;
 
-	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService) { }
+	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService, private serviceWorkerService: ServiceWorkerService) { }
 
 	ngOnInit() {
 		this.loginForm = new LoginForm();
@@ -41,10 +39,10 @@ export class AppComponent implements OnInit {
 		this.accountService.isAuthenticated$.subscribe((value) => {
 			this.isAuthenticated = value;
 			debugger;
-		})
+		});
 	}
 
-	isAuthenticated : boolean = false;
+	isAuthenticated: boolean = false;
 
 	loginUserPass($event: any, form: any) {
 		this.accountService.loginUserPassword(this.loginForm).subscribe(
@@ -67,6 +65,6 @@ export class AppComponent implements OnInit {
 	}
 
 	public login() {
-        this.accountService.login();
-    }
+		this.accountService.login();
+	}
 }

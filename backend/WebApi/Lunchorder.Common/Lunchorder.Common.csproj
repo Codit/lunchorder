@@ -157,6 +157,7 @@
     <Compile Include="Interfaces\IMenuControllerService.cs" />
     <Compile Include="Interfaces\IMessagingService.cs" />
     <Compile Include="Interfaces\IOrderControllerService.cs" />
+    <Compile Include="Interfaces\IPushControllerService.cs" />
     <Compile Include="Interfaces\IRequireInitialization.cs" />
     <Compile Include="Interfaces\IUploadControllerService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from './services/accountService';
 import { BalanceService } from './services/balanceService';
 import { ConfigService } from './services/configService';
-import { UPLOAD_DIRECTIVES } from 'ng2-uploader/ng2-uploader';
 import { TokenHelper } from './helpers/tokenHelper';
 
 @Component({
   selector: '[about-you]',
-  templateUrl: 'app.about-you.html',
-  directives: [UPLOAD_DIRECTIVES]
+  templateUrl: 'app.about-you.html'
 })
 
 export class AboutYouComponent implements OnInit {

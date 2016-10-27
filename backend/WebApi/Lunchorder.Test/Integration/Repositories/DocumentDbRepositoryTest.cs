@@ -27,6 +27,34 @@ namespace Lunchorder.Test.Integration.Repositories
         // todo add test to check autit document update
 
         [Test]
+        public async Task InsertUniquePushToken()
+        {
+            var token = "token123";
+            var userId = TestConstants.User3.Id;
+
+            await DatabaseRepository.StorePushToken(token, userId);
+            var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
+            Assert.AreEqual(3, pushTokens.Count());
+
+            var pushToken = pushTokens.SingleOrDefault(x => x.Token == token && x.UserId == userId);
+            Assert.NotNull(pushToken);
+        }
+
+        [Test]
+        public async Task UpdatePushToken()
+        {
+            var token = "token123456";
+            var userId = TestConstants.User1.Id;
+
+            await DatabaseRepository.StorePushToken(token, userId);
+            var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
+
+            Assert.AreEqual(3, pushTokens.Count());
+            var pushToken = pushTokens.SingleOrDefault(x => x.Token == token && x.UserId == userId);
+            Assert.NotNull(pushToken);
+        }
+
+        [Test]
         public async Task UpgradeUserHistory()
         {
             var user = await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName);

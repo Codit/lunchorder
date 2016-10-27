@@ -6,13 +6,11 @@ import { Menu } from './domain/dto/menu';
 import { MenuCategoryRow } from './app.menu-category-row';
 import { MenuEntry } from './domain/dto/menuEntry';
 import { MenuOrder } from './domain/dto/menuOrder';
-import { StickCartDirective } from './directives/stickCartDirective';
 import { OrderService } from './services/orderService';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 
 @Component({
 	selector: '[menu]',
-	directives: [MenuCategoryRow, StickCartDirective],
 	templateUrl: 'app.menu.html'
 })
 

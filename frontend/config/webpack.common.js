@@ -2,6 +2,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -47,6 +48,10 @@ module.exports = {
     },
 
     plugins: [
+        new CopyWebpackPlugin([
+            // {output}/file.txt
+            { from: 'src/service-worker.js'},
+            { from: 'src/manifest.json'}]),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
         }),

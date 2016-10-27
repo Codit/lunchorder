@@ -7,9 +7,9 @@ import { BadgeRow } from './app.badge-row';
 
 @Component({
 	selector: '[badges-list]',
-	directives: [BadgeRow],
-	 inputs: ['badges: badgesList'], 
-	templateUrl: 'app.badges-list.html'})
+	inputs: ['badges: badgesList'],
+	templateUrl: 'app.badges-list.html'
+})
 
 export class BadgesList implements OnInit {
 
@@ -19,7 +19,7 @@ export class BadgesList implements OnInit {
 
 	ngOnInit() {
 		this.badgeService.getBadges().subscribe(
-			badges => { 
+			badges => {
 				this.badges = badges;
 				// todo map badges with current user badges
 			},
