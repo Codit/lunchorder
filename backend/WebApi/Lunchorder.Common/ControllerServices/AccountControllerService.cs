@@ -33,7 +33,7 @@ namespace Lunchorder.Common.ControllerServices
 
         public async Task Register(string token, ClaimsIdentity claimsIdentity)
         {
-            await _databaseRepository.StorePushToken(token, claimsIdentity.GetUserId());
+            await _databaseRepository.SavePushToken(token, claimsIdentity.GetUserId());
         }
     }
 

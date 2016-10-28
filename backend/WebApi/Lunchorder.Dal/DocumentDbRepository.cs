@@ -239,7 +239,7 @@ namespace Lunchorder.Dal
             await _documentStore.ExecuteStoredProcedure<string>("upgradeUserHistory");
         }
 
-        public async Task StorePushToken(string token, string userId)
+        public async Task SavePushToken(string token, string userId)
         {
             var pushTokenDocument = new PushTokenList
             {
@@ -256,6 +256,11 @@ namespace Lunchorder.Dal
             };
 
             await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.StorePushToken, pushTokenDocument);
+        }
+
+        public async Task DeletePushTokenForUsers(IEnumerable<string> userIds)
+        {
+            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.DeletePushToken, DocumentDbType.PushTokenList, userIds);
         }
 
         public async Task<IEnumerable<PushTokenItem>> GetPushTokens()

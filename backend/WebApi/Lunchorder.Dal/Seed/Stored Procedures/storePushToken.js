@@ -2,7 +2,9 @@
     var context = getContext();
     var collection = context.getCollection();
 
-    getUserToken(function (dbPushTokenDocument, needsUpdate) {
+    getPushTokenForUser(function (dbPushTokenDocument, needsUpdate) {
+        
+
         if (needsUpdate) {
             updatePushToken(dbPushTokenDocument);
         }
@@ -10,7 +12,7 @@
     });
 
     function updateDbDocument(dbPushTokenDocument) {
-        var accept = collection.replaceDocument(document._self, dbPushTokenDocument,
+        var accept = collection.replaceDocument(dbPushTokenDocument._self, dbPushTokenDocument,
         function (err, docReplaced) {
             if (err) throw "Unable to update push token document";
 
@@ -20,11 +22,7 @@
     }
 
     function updatePushToken(dbPushTokenDocument) {
-        if (dbPushTokenDocument.PushTokens) {
-            throw "Push token document found but empty";
-        }
-
-        // remove existing 'old' record
+        // remove existing 'old' record (if exists)
         for (var i = 0; i >= dbPushTokenDocument.PushTokens.length; i++) {
             if (dbPushTokenDocument.PushTokens[i].UserId === pushTokenDocument.PushTokens[0].UserId) {
                 dbPushTokenDocument.PushTokens.splice(i, 1);
@@ -36,7 +34,7 @@
         dbPushTokenDocument.PushTokens.push(pushTokenDocument.PushTokens[0]);
     }
 
-    function getUserToken(cb) {
+    function getPushTokenForUser(cb) {
         var getPushTokenDocQuery = 'SELECT * FROM root r where r.Type = "' + pushTokenDocument.Type + '"';
 
         var isAccepted = collection.queryDocuments(
@@ -50,15 +48,19 @@
               pushTokenDocument,
               function (err, documentCreated) {
                   if (err) { throw new Error('Error' + err.message); }
-                  cb(documentCreated[0], false);
+                  if (!documentCreated) {
+                          throw "EMPTY";
+                  }
+                  cb(documentCreated, false);
               });
 
                 if (!accepted) {
                     throw new Error('The create push token list query was not accepted by the server.');
                 }
             }
-
-            cb(feed[0], true);
+            else {
+                cb(feed[0], true);
+            }
         });
 
         if (!isAccepted) {

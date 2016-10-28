@@ -26,13 +26,14 @@ namespace Lunchorder.Test.Integration.Repositories
         // todo add test to check audit document creation
         // todo add test to check autit document update
 
+         
         [Test]
         public async Task InsertUniquePushToken()
         {
             var token = "token123";
             var userId = TestConstants.User3.Id;
 
-            await DatabaseRepository.StorePushToken(token, userId);
+            await DatabaseRepository.SavePushToken(token, userId);
             var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
             Assert.AreEqual(3, pushTokens.Count());
 
@@ -46,12 +47,24 @@ namespace Lunchorder.Test.Integration.Repositories
             var token = "token123456";
             var userId = TestConstants.User1.Id;
 
-            await DatabaseRepository.StorePushToken(token, userId);
+            await DatabaseRepository.SavePushToken(token, userId);
             var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
 
             Assert.AreEqual(3, pushTokens.Count());
             var pushToken = pushTokens.SingleOrDefault(x => x.Token == token && x.UserId == userId);
             Assert.NotNull(pushToken);
+        }
+
+        [Test]
+        public async Task DeletePushToken()
+        {
+            var userIds = new List<string> {TestConstants.User1.Id};
+
+            await DatabaseRepository.DeletePushTokenForUsers(userIds);
+            var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
+
+            var pushToken = pushTokens.SingleOrDefault(x => x.UserId == userIds[0]);
+            Assert.Null(pushToken);
         }
 
         [Test]

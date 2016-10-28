@@ -9,5 +9,6 @@
         public const string MarkAsSubmitted = "markAsSubmitted";
         public const string UpdateUserPicture = "updateUserPicture";
         public const string StorePushToken = "storePushToken";
+        public const string DeletePushToken = "deletePushToken";
     }
 }

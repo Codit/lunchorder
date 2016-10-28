@@ -52,6 +52,8 @@ namespace Lunchorder.Domain.Entities.Authentication
 
         public UserBadgeStats UserBadgeStats { get; set; }
 
+        public IEnumerable<Reminder> Reminders { get; set; }
+
         public IEnumerable<MenuEntryFavorite> Favorites
         {
             get { return _favorites ?? (_favorites = new List<MenuEntryFavorite>()); }
