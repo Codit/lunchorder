@@ -8,12 +8,12 @@ import { AccountService } from './accountService';
 @Injectable()
 export class ServiceworkerService {
     constructor(private http: Http, private httpClient: HttpClient, private configService: ConfigService, private accountService: AccountService) {
-        this.init();
-
         this.accountService.isAuthenticated$.subscribe((isAuthenticated) => {
-            if (isAuthenticated && this.serviceWorkerDetail.endpoint) {
-                // send endpoint to api here.
-                this.httpClient.post(`${this.pushesApiUrl}/register?token=${this.serviceWorkerDetail.endpoint}`, null).subscribe();
+            if (isAuthenticated && this.serviceWorkerDetail && this.serviceWorkerDetail.endpoint) {
+                // update token if different.
+                if (this.accountService.user.pushToken !== this.serviceWorkerDetail.endpoint) {
+                    this.httpClient.post(`${this.pushesApiUrl}/register?token=${this.serviceWorkerDetail.endpoint}`, null).subscribe();
+                }
             }
         });
     }
@@ -26,17 +26,16 @@ export class ServiceworkerService {
             console.log('Service Worker is supported');
             navigator.serviceWorker.register('service-worker.js').then(function () {
                 return navigator.serviceWorker.ready;
-            }).then(function (reg) {
+            }).then((reg : any) => {
                 console.log('Service Worker is ready :^)', reg);
 
                 reg.pushManager.subscribe({
                     userVisibleOnly: true
-                }).then(function (sub) {
+                }).then((sub : any) => {
                     debugger;
                     this.serviceWorkerDetail = new ServiceWorkerDetail();
                     this.serviceWorkerDetail.endpoint = sub.endpoint;
                     console.log('endpoint:', sub.endpoint);
-
                 });
             }).catch(function (error) {
                 console.log('Service Worker error :^(', error);

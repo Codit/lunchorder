@@ -12,6 +12,6 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// End date of the closing time (includes this date)
         /// </summary>
-        public DateTime Untill { get; set; }
+        public DateTime Until { get; set; }
     }
 }

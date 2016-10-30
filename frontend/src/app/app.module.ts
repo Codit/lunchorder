@@ -71,6 +71,7 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         OrderService,
         ToasterService,
         TokenHelper,
+        ServiceworkerService,
         StickCartDirective,
         {provide: Window, useValue: window}
     ],

@@ -10,6 +10,6 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// End date of the closing time (includes this date)
         /// </summary>
-        public string Untill { get; set; }
+        public string Until { get; set; }
     }
 }

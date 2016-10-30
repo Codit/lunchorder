@@ -41,7 +41,7 @@ namespace Lunchorder.Api.Infrastructure.Jobs
                 // only execute if not closed
                 foreach (var closedDate in menu.Result.Vendor.ClosingDateRanges)
                 {
-                    if (DateTime.Compare(now, DateTime.Parse(closedDate.From)) > 1 && DateTime.Compare(now, DateTime.Parse(closedDate.Untill)) < 1)
+                    if (DateTime.Compare(now, DateTime.Parse(closedDate.From)) > 1 && DateTime.Compare(now, DateTime.Parse(closedDate.Until)) < 1)
                     {
                         return;
                     }

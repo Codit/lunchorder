@@ -1,4 +1,9 @@
 declare module app.domain.dto {
+    export interface IMenuVendorClosingDateRange {
+        until: string;
+        from: string;
+    }
+
     export interface IAddress {
         street: string;
         streetNumber: string;
@@ -88,14 +93,7 @@ declare module app.domain.dto {
         closingDateRanges: IMenuVendorClosingDateRange[];
     }
     
-    export interface IMenuVendorClosingDateRange {
-        from: string;
-        untill: string;
-    }
-
-    export interface IMenuVendorAddress extends IAddress {
-        
-    }
+    export interface IMenuVendorAddress extends IAddress { }
     
     export interface IPlatformUserList {
         id: string;
@@ -121,6 +119,19 @@ declare module app.domain.dto {
     export interface IUserBadge {
         badgeId: string;
         timesEarned: number;
+    }
+    
+    export interface IUserBalanceAudit {
+        id: string;
+        userId: string;
+        balance: number;
+        audits: IUserBalanceAuditItem[];
+    }
+    
+    export interface IUserBalanceAuditItem {
+        date: Date;
+        originatorName: string;
+        amount: number;
     }
     
     export interface IUserOrderHistory {
@@ -171,6 +182,7 @@ declare module app.domain.dto {
         id: string;
         name: string;
         menuEntryId: string;
+        freeText: string;
         userId: string;
         userName: string;
         finalPrice: number;
@@ -211,7 +223,9 @@ declare module app.domain.dto {
         badges: IUserBadge[];
         favorites: IMenuEntryFavorite[];
         last5Orders: ILastOrder[];
+        last5BalanceAuditItems: IUserBalanceAuditItem[];
         roles: string[];
+        pushToken: string;
         userToken: string;
     }
 }

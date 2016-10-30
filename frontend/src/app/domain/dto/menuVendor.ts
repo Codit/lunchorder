@@ -14,9 +14,9 @@ export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<Menu
         var today = new Date();
         for (var closingDateRange of this.closingDateRanges) {
             var fromDate = new Date(closingDateRange.from);
-            var untillDate = new Date(closingDateRange.untill);
+            var untilDate = new Date(closingDateRange.until);
 
-            if (today >= fromDate && today <= untillDate){
+            if (today >= fromDate && today <= untilDate){
                 return true;
             }
         }

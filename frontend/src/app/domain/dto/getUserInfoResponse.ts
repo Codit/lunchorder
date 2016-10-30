@@ -2,6 +2,7 @@ import { UserProfile } from './userProfile';
 import { UserBadge } from './userBadge';
 import { MenuEntryFavorite } from './menuEntryFavorite';
 import { LastOrder } from './lastOrder';
+import { UserBalanceAuditItem } from './userBalanceAuditItem';
 
 export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse, Serializable<GetUserInfoResponse> {
     constructor() { }
@@ -15,6 +16,8 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
     userToken: string;
     last5Orders: LastOrder[];
     roles: string[];
+    pushToken: string;
+    last5BalanceAuditItems: UserBalanceAuditItem[];
 
     deserialize(input: any): GetUserInfoResponse {
         this.id = input.id;
@@ -22,7 +25,7 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
         this.balance = input.balance;
         this.profile = new UserProfile().deserialize(input.profile);
         this.badges = new Array<UserBadge>();
-
+        
         if (input.badges) {
             for (var badge of input.badges) {
                 this.badges.push(new UserBadge().deserialize(badge));
@@ -41,7 +44,16 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
                 this.last5Orders.push(new LastOrder().deserialize(last5Order));
             }
         }
+
+        this.last5BalanceAuditItems = new Array<UserBalanceAuditItem>();
+        if (input.last5BalanceAuditItems) {
+            for (var balanceAudit of input.last5BalanceAuditItems) {
+                this.last5BalanceAuditItems.push(new UserBalanceAuditItem().deserialize(balanceAudit));
+            }
+        }
+
         this.roles = input.roles;
+        this.pushToken = input.pushToken;
 
         return this;
     }

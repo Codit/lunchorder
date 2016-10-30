@@ -16,6 +16,7 @@ import { AdminPrepayComponent } from './app.admin-prepay';
 import { FooterComponent } from './app.footer';
 import { StickRxDirective } from './directives/stickDirective';
 import { ToasterConfig, ToasterService } from 'angular2-toaster/angular2-toaster';
+import { ServiceworkerService } from './services/serviceworkerService';
 
 @Component({
 	selector: 'lunchorder-app',
@@ -31,7 +32,9 @@ export class AppComponent implements OnInit {
 	});
 	loginForm: LoginForm;
 
-	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService, private serviceWorkerService: ServiceWorkerService) { }
+	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService, private serviceworkerService: ServiceworkerService) { 
+		serviceworkerService.init();
+	}
 
 	ngOnInit() {
 		this.loginForm = new LoginForm();
