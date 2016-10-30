@@ -132,6 +132,8 @@
     <Compile Include="Entities\DocumentDb\PlatformUserListItem.cs" />
     <Compile Include="Entities\DocumentDb\PushTokenItem.cs" />
     <Compile Include="Entities\DocumentDb\PushTokenList.cs" />
+    <Compile Include="Entities\DocumentDb\Reminder.cs" />
+    <Compile Include="Entities\DocumentDb\ReminderType.cs" />
     <Compile Include="Entities\DocumentDb\SimpleUser.cs" />
     <Compile Include="Entities\DocumentDb\UserBadge.cs" />
     <Compile Include="Entities\DocumentDb\UserBadgeStats.cs" />

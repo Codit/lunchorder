@@ -26,7 +26,7 @@ namespace Lunchorder.Test.Integration.Repositories
         // todo add test to check audit document creation
         // todo add test to check autit document update
 
-         
+
         [Test]
         public async Task InsertUniquePushToken()
         {
@@ -35,10 +35,13 @@ namespace Lunchorder.Test.Integration.Repositories
 
             await DatabaseRepository.SavePushToken(token, userId);
             var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
-            Assert.AreEqual(3, pushTokens.Count());
+            Assert.AreEqual(3, pushTokens.Count);
 
             var pushToken = pushTokens.SingleOrDefault(x => x.Token == token && x.UserId == userId);
             Assert.NotNull(pushToken);
+
+            var userInfo = await DatabaseRepository.GetUserInfo(TestConstants.User3.UserName);
+            Assert.AreEqual(token, userInfo.PushToken);
         }
 
         [Test]
@@ -55,16 +58,24 @@ namespace Lunchorder.Test.Integration.Repositories
             Assert.NotNull(pushToken);
         }
 
+        /// <summary>
+        /// Seed data contains push token for user1 in userObject, should be deleted
+        /// Seed data contains push token for user1 in push tokens document, should be deleted
+        /// </summary>
+        /// <returns></returns>
         [Test]
         public async Task DeletePushToken()
         {
-            var userIds = new List<string> {TestConstants.User1.Id};
+            var userIds = new List<string> { TestConstants.User1.Id };
 
             await DatabaseRepository.DeletePushTokenForUsers(userIds);
             var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
 
             var pushToken = pushTokens.SingleOrDefault(x => x.UserId == userIds[0]);
             Assert.Null(pushToken);
+
+            var userInfo = await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName);
+            Assert.IsEmpty(userInfo.PushToken);
         }
 
         [Test]
@@ -119,9 +130,9 @@ namespace Lunchorder.Test.Integration.Repositories
         private void AssertUsers(PlatformUserListItem user, string userId, string userName, string firstName, string lastName)
         {
             Assert.AreEqual(userId, user.UserId);
-            Assert.AreEqual(userName,  user.UserName);
+            Assert.AreEqual(userName, user.UserName);
             Assert.AreEqual(firstName, user.FirstName);
-            Assert.AreEqual(lastName,  user.LastName);
+            Assert.AreEqual(lastName, user.LastName);
         }
 
         [Test]

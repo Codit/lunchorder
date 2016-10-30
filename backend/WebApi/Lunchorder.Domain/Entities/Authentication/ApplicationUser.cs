@@ -54,6 +54,11 @@ namespace Lunchorder.Domain.Entities.Authentication
 
         public IEnumerable<Reminder> Reminders { get; set; }
 
+        /// <summary>
+        /// Token for push notifications
+        /// </summary>
+        public string PushToken { get; set; }
+
         public IEnumerable<MenuEntryFavorite> Favorites
         {
             get { return _favorites ?? (_favorites = new List<MenuEntryFavorite>()); }
