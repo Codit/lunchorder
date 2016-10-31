@@ -7,6 +7,7 @@ require('./assets/css/custom.scss');
 require('./assets/css/general.scss');
 require('./assets/css/modal.scss');
 require('./assets/css/style.scss');
+require('./assets/css/toggleButton.scss');
 
 if (process.env.ENV === 'production') {
     enableProdMode();

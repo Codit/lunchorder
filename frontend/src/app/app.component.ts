@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/globals/service_worker_api/index.d.ts" />
-
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';

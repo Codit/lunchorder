@@ -86,6 +86,7 @@
     <Compile Include="Dtos\MenuVendorClosingDateRange.cs" />
     <Compile Include="Dtos\PlatformUserList.cs" />
     <Compile Include="Dtos\PlatformUserListItem.cs" />
+    <Compile Include="Dtos\Reminder.cs" />
     <Compile Include="Dtos\Requests\PostFavoriteRequest.cs" />
     <Compile Include="Dtos\Requests\PostMenuRequest.cs" />
     <Compile Include="Dtos\Requests\PostOrderRequest.cs" />

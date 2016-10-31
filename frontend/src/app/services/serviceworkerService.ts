@@ -8,6 +8,8 @@ import { AccountService } from './accountService';
 @Injectable()
 export class ServiceworkerService {
     constructor(private http: Http, private httpClient: HttpClient, private configService: ConfigService, private accountService: AccountService) {
+        this.serviceWorkerDetail = new ServiceWorkerDetail();
+        
         this.accountService.isAuthenticated$.subscribe((isAuthenticated) => {
             if (isAuthenticated && this.serviceWorkerDetail && this.serviceWorkerDetail.endpoint) {
                 // update token if different.

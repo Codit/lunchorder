@@ -1,9 +1,4 @@
 declare module app.domain.dto {
-    export interface IMenuVendorClosingDateRange {
-        until: string;
-        from: string;
-    }
-
     export interface IAddress {
         street: string;
         streetNumber: string;
@@ -92,8 +87,11 @@ declare module app.domain.dto {
         logo: string;
         closingDateRanges: IMenuVendorClosingDateRange[];
     }
-    
-    export interface IMenuVendorAddress extends IAddress { }
+    export interface IMenuVendorAddress extends IAddress{}
+    export interface IMenuVendorClosingDateRange {
+        from: string;
+        until: string;
+    }
     
     export interface IPlatformUserList {
         id: string;
@@ -105,6 +103,11 @@ declare module app.domain.dto {
         userName: string;
         firstName: string;
         lastName: string;
+    }
+    
+    export interface IReminder {
+        type: string;
+        minutes: number;
     }
     
     export interface ISimpleUser {
@@ -225,6 +228,7 @@ declare module app.domain.dto {
         last5Orders: ILastOrder[];
         last5BalanceAuditItems: IUserBalanceAuditItem[];
         roles: string[];
+        reminders: IReminder[];
         pushToken: string;
         userToken: string;
     }
