@@ -5,7 +5,7 @@ namespace Lunchorder.Domain.Dtos
     /// </summary>
     public class Reminder
     {
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// Number of minutes before a final order that the reminder should execute

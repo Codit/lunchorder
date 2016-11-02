@@ -5,6 +5,26 @@ using Lunchorder.Common.Interfaces;
 
 namespace Lunchorder.Api.Infrastructure.Jobs
 {
+    public class SendReminderJob : IJob
+    {
+        private readonly IJobService _jobService;
+        private readonly ILogger _logger;
+
+        public SendReminderJob(IJobService jobService, ILogger logger)
+        {
+            if (jobService == null) throw new ArgumentNullException(nameof(jobService));
+            if (logger == null) throw new ArgumentNullException(nameof(logger));
+            _jobService = jobService;
+            _logger = logger;
+        }
+
+        public void Execute()
+        {
+            _logger.Info($"Reminder schedule triggered at {DateTime.UtcNow} UTC");
+            _jobService.RemindUsers();
+        }
+    }
+
     public class VendorOrderMailJob : IJob
     {
         private readonly IEmailService _emailService;

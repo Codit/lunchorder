@@ -90,6 +90,7 @@
     <Compile Include="Dtos\Requests\PostFavoriteRequest.cs" />
     <Compile Include="Dtos\Requests\PostMenuRequest.cs" />
     <Compile Include="Dtos\Requests\PostOrderRequest.cs" />
+    <Compile Include="Dtos\Requests\PostReminderRequest.cs" />
     <Compile Include="Dtos\Requests\PutBalanceRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
     <Compile Include="Dtos\Responses\GetAllUsersResponse.cs" />
@@ -117,9 +118,13 @@
     <Compile Include="Entities\Configuration\EventingElement.cs" />
     <Compile Include="Entities\Configuration\JobElement.cs" />
     <Compile Include="Entities\Configuration\JobsElementCollection.cs" />
+    <Compile Include="Entities\Configuration\PushProvidersElement.cs" />
+    <Compile Include="Entities\Configuration\PushProviderFirebaseInfo.cs" />
+    <Compile Include="Entities\Configuration\PushProviderInfo.cs" />
     <Compile Include="Entities\Configuration\SendgridElement.cs" />
     <Compile Include="Entities\Configuration\ServicebusElement.cs" />
     <Compile Include="Entities\Configuration\ServicebusInfo.cs" />
+    <Compile Include="Entities\DocumentDb\ActionType.cs" />
     <Compile Include="Entities\DocumentDb\Address.cs" />
     <Compile Include="Entities\DocumentDb\Badge.cs" />
     <Compile Include="Entities\DocumentDb\BadgeResponse.cs" />

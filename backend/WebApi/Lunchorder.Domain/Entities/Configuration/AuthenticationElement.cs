@@ -4,9 +4,9 @@ using System.Configuration;
 namespace Lunchorder.Domain.Entities.Configuration
 {
     /// <summary>
-        /// Authentication element in the custom mezurio configuration element
-        /// </summary>
-        public class AuthenticationElement : ConfigurationElement
+    /// Authentication element in the custom mezurio configuration element
+    /// </summary>
+    public class AuthenticationElement : ConfigurationElement
     {
         /// <summary>
         /// The value of the ApiKey

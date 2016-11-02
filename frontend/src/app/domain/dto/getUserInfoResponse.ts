@@ -21,13 +21,23 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
     last5BalanceAuditItems: UserBalanceAuditItem[];
     reminders: Reminder[];
 
+    getNotificationReminder() : Reminder {
+        if (this.reminders) {
+            // todo, enum type?
+            var match = this.reminders.filter(x => x.type === 0);
+            if (match && match.length == 1) {
+                return match[0];
+            }
+        }
+    }
+
     deserialize(input: any): GetUserInfoResponse {
         this.id = input.id;
         this.userName = input.userName;
         this.balance = input.balance;
         this.profile = new UserProfile().deserialize(input.profile);
         this.badges = new Array<UserBadge>();
-        
+
         if (input.badges) {
             for (var badge of input.badges) {
                 this.badges.push(new UserBadge().deserialize(badge));

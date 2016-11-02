@@ -23,6 +23,9 @@
       "TimesEarned": 2
     }
   ],
+  "Reminders": [
+    { "Minutes":  30, "Type":  0 }
+  ],
   "Favorites": [
     { "MenuEntryId": "f2d6b026-0e57-45a9-9270-f8fa4590079c" },
     { "MenuEntryId": "bd341859-1e68-4650-a8a5-31c409f91b3a" },

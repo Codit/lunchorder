@@ -284,6 +284,7 @@
     <Compile Include="App_Start\Configuration\Mapper\MenuVendorClosingDateMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\PlatformUserListMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\PlatformUserListItemMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\ReminderMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\SimpleUserMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserBadgeMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuEntryMap.cs" />
@@ -312,7 +313,7 @@
     <Compile Include="Controllers\BalanceController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\PushController.cs" />
+    <Compile Include="Controllers\ReminderController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Infrastructure\Filters\ApiKeyActionFilter.cs" />

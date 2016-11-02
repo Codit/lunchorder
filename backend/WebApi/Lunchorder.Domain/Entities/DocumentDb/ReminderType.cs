@@ -5,7 +5,7 @@
     /// </summary>
     public enum ReminderType
     {
-        Push,
-        Email 
+        DesktopNotification = 0,
+        Email = 1 
     }
 }

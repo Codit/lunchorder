@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lunchorder.Common;
 using Lunchorder.Domain.Dtos;
+using Lunchorder.Domain.Entities.DocumentDb;
 using Lunchorder.Test.Integration.Helpers;
 using Lunchorder.Test.Integration.Helpers.Base;
 using Microsoft.Azure.Documents;
@@ -15,6 +16,8 @@ using MenuEntry = Lunchorder.Domain.Dtos.MenuEntry;
 using MenuRule = Lunchorder.Domain.Dtos.MenuRule;
 using MenuVendor = Lunchorder.Domain.Dtos.MenuVendor;
 using MenuVendorAddress = Lunchorder.Domain.Dtos.MenuVendorAddress;
+using PlatformUserListItem = Lunchorder.Domain.Dtos.PlatformUserListItem;
+using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
 using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
 using UserOrderHistoryEntry = Lunchorder.Domain.Dtos.UserOrderHistoryEntry;
 
@@ -25,7 +28,53 @@ namespace Lunchorder.Test.Integration.Repositories
     {
         // todo add test to check audit document creation
         // todo add test to check autit document update
+        [Test]
+        public async Task SetNewReminder()
+        {
+            var userId = TestConstants.User1.Id;
+            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.AddOrUpdate, Minutes = 15, Type = Domain.Entities.DocumentDb.ReminderType.DesktopNotification };
+            await DatabaseRepository.SetReminder(reminder, userId);
+            var userInfo = (await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName));
+            Assert.NotNull(userInfo.Reminders);
+            var reminders = userInfo.Reminders.ToList();
+            Assert.AreEqual(1, reminders.Count);
+            Assert.AreEqual((int)reminder.Type, reminders[0].Type);
+            Assert.AreEqual(reminder.Minutes, reminders[0].Minutes);
+        }
 
+        /// <summary>
+        /// User 2 has a desktop reminder of 15minutes. See if we can change it to 30
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OverwriteExistingReminder()
+        {
+            var userId = TestConstants.User2.Id;
+            
+            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.AddOrUpdate, Minutes = 15, Type = Domain.Entities.DocumentDb.ReminderType.DesktopNotification };
+            await DatabaseRepository.SetReminder(reminder, userId);
+
+            var userInfo = (await DatabaseRepository.GetUserInfo(TestConstants.User2.UserName));
+            Assert.NotNull(userInfo.Reminders);
+            var reminders = userInfo.Reminders.ToList();
+            Assert.AreEqual(1, reminders.Count);
+            Assert.AreEqual((int)reminder.Type, reminders[0].Type);
+            Assert.AreEqual(reminder.Minutes, reminders[0].Minutes);
+        }
+
+        [Test]
+        public async Task DeleteExistingReminder()
+        {
+            var userId = TestConstants.User3.Id;
+
+            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.Delete, Type = ReminderType.DesktopNotification };
+            await DatabaseRepository.SetReminder(reminder, userId);
+
+            var userInfo = (await DatabaseRepository.GetUserInfo(TestConstants.User3.UserName));
+            Assert.NotNull(userInfo.Reminders);
+            var reminders = userInfo.Reminders.ToList();
+            Assert.AreEqual(0, reminders.Count);
+        }
 
         [Test]
         public async Task InsertUniquePushToken()

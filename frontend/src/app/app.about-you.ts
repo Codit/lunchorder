@@ -5,7 +5,8 @@ import { ConfigService } from './services/configService';
 import { TokenHelper } from './helpers/tokenHelper';
 import { ServiceworkerService } from './services/serviceworkerService';
 import { RemindOption } from './domain/dto/remindOption';
-declare var $: any;
+import { ReminderService } from './services/reminderService';
+import { Reminder } from './domain/dto/reminder';
 
 @Component({
   selector: '[about-you]',
@@ -15,26 +16,26 @@ declare var $: any;
 export class AboutYouComponent implements OnInit {
 
   constructor(private balanceService: BalanceService, private accountService: AccountService, private configService: ConfigService, private tokenHelper: TokenHelper,
-    private serviceworkerService: ServiceworkerService) {
+    private serviceworkerService: ServiceworkerService, private reminderService: ReminderService) {
     this.remindOptions = new Array<RemindOption>();
     this.remindOptions.push(new RemindOption("15 minutes", 15));
     this.remindOptions.push(new RemindOption("30 minutes", 30));
     this.remindOptions.push(new RemindOption("1 hour", 60));
     this.remindOptions.push(new RemindOption("1 hour 30 minutes", 90));
     this.remindOptions.push(new RemindOption("2 hours", 120));
+
+    this.setExistingNotification();
   }
 
-hasNotificationConfigured : boolean;
-selectedNotificationOption :RemindOption;
-  setExistingNotification() : void {
-    if (this.accountService.user.reminders) {
-      var match = this.accountService.user.reminders.filter(x => x.type === 'Notification');
-      if (match && match.length == 1) {
-        this.hasNotificationConfigured = true;
-        var remindOption = this.remindOptions.filter(x => x.minutes == match[0].minutes);
-        if (remindOption && remindOption.length == 1) {
-          this.selectedNotificationOption = remindOption[0];
-        }
+  hasNotificationConfigured: boolean;
+  selectedNotificationOption: RemindOption;
+  setExistingNotification(): void {
+    var notificationReminder = this.accountService.user.getNotificationReminder();
+    if (notificationReminder) {
+      this.hasNotificationConfigured = true;
+      var remindOption = this.remindOptions.filter(x => x.minutes == notificationReminder.minutes);
+      if (remindOption && remindOption.length == 1) {
+        this.selectedNotificationOption = remindOption[0];
       }
     }
   }
@@ -54,7 +55,7 @@ selectedNotificationOption :RemindOption;
   }
 
   remindOptions: Array<RemindOption>;
-  private isModal: boolean;
+  private isReminderModal: boolean;
   private uploadsApiUri = `${this.configService.apiPrefix}/uploads`;
   private isBusyModal: boolean;
   isServiceworkerEnabled(): boolean {
@@ -63,11 +64,26 @@ selectedNotificationOption :RemindOption;
 
   save() {
     this.isBusyModal = true;
-    this.toggleModal();
+    this.toggleReminderModal();
+    if (this.hasNotificationConfigured) {
+      var reminder = new Reminder(0, this.selectedNotificationOption.minutes);
+      this.reminderService.saveReminder(reminder).subscribe(() => {
+
+        // set in user object.
+
+      });
+    }
+    else {
+      this.reminderService.deleteReminder(0).subscribe(() => {
+
+        // set in user object.
+
+      });;
+     }
   }
 
-  toggleModal() {
-    this.isModal = !this.isModal;
+  toggleReminderModal() {
+    this.isReminderModal = !this.isReminderModal;
   }
   uploadFile: any;
   options: Object = {

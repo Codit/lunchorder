@@ -97,13 +97,13 @@
 			<p>We only notify you when you did not order for that day.</p>
 			<div>
 				<h4 style="width: 100%">Desktop notifications <label class="switch switch-green pull-right">
-      <input type="checkbox" class="switch-input" [attr.checked]="hasNotificationConfigured()">
+      <input type="checkbox" class="switch-input"  [checked]="hasNotificationConfigured" (change)="hasNotificationConfigured = $event.target.checked">
       <span class="switch-label" style="font-size: 10px;" data-on="On" data-off="Off"></span>
       <span class="switch-handle"></span>
     </label></h4>
 				<p [hidden]="isServiceworkerEnabled()">You do not have notifications enabled in your browser or your browser does not support this, click here to read more
 					about this feature.</p>
-				<div *ngIf="isServiceworkerEnabled()">
+				<div *ngIf="isServiceworkerEnabled() && hasNotificationConfigured">
 					Notify me
 					<select [ngModel]="selectedNotificationOption" class="form-control" style="margin-left: 10px;margin-right:10px;display: inline;width: auto;">
     <option *ngFor="let item of remindOptions">{{item.text}}</option>
@@ -115,6 +115,7 @@
 				<p>Every day at ...</p>
 			</div>-->
 			<div class="clear">
+				<button type="button" class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" (click)="toggleReminderModal()"> Cancel</button>
 				<button type="button" class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" (click)="saveReminder()"><i class="fa fa-spinner fa-spin" *ngIf="isBusyReminderModal"></i> Save</button>
 			</div>
 		</div>

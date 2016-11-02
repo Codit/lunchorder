@@ -23,6 +23,9 @@ namespace Lunchorder.Api.Configuration.IoC
             container.Register(Component.For<ICacheService>().ImplementedBy<MemoryCacheService>()
                 .LifeStyle.HybridPerWebRequestTransient());
 
+            container.Register(Component.For<IJobService>().ImplementedBy<IJobService>()
+                .LifeStyle.HybridPerWebRequestTransient());
+
             container.Register(Component.For<SeedService>().LifeStyle.HybridPerWebRequestTransient());
 
             container.Register(Component.For<ILogger>().UsingFactoryMethod((m, v, i) =>

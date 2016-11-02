@@ -106,7 +106,7 @@ declare module app.domain.dto {
     }
     
     export interface IReminder {
-        type: string;
+        type: number;
         minutes: number;
     }
     

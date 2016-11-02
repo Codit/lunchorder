@@ -163,6 +163,7 @@
     <Compile Include="Integration\Helpers\TestConstants.cs" />
     <Compile Include="Integration\Repositories\DocumentDbRepositoryTest.cs" />
     <Compile Include="Integration\Services\ApplicationUserServiceTest.cs" />
+    <Compile Include="Integration\Services\JobServiceTest.cs" />
     <Compile Include="SampleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

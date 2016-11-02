@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
 {
@@ -13,5 +13,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// Number of minutes before a final order that the reminder should execute
         /// </summary>
         public int Minutes { get; set; }
+
+        public string Action { get; set; }
     }
 }

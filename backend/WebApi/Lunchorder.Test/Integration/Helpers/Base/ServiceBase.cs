@@ -30,8 +30,10 @@ namespace Lunchorder.Test.Integration.Helpers.Base
             documentDbBase.Init();
 
             ApplicationUserService = _container.Resolve<IUserService>();
+            CacheService = _container.Resolve<ICacheService>();
         }
 
         public IUserService ApplicationUserService { get; set; }
+        public ICacheService CacheService { get; set; }
     }
 }

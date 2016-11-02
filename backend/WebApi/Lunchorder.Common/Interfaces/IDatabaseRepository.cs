@@ -34,5 +34,6 @@ namespace Lunchorder.Common.Interfaces
         Task SavePushToken(string token, string getUserId);
         Task DeletePushTokenForUsers(IEnumerable<string> userIds);
         Task<IEnumerable<PushTokenItem>> GetPushTokens();
+        Task SetReminder(Reminder dbReminder, string getUserId);
     }
 }

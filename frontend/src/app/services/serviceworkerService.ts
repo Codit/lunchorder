@@ -14,14 +14,14 @@ export class ServiceworkerService {
             if (isAuthenticated && this.serviceWorkerDetail && this.serviceWorkerDetail.endpoint) {
                 // update token if different.
                 if (this.accountService.user.pushToken !== this.serviceWorkerDetail.endpoint) {
-                    this.httpClient.post(`${this.pushesApiUrl}/register?token=${this.serviceWorkerDetail.endpoint}`, null).subscribe();
+                    this.httpClient.post(`${this.remindersApiUrl}/register?token=${this.serviceWorkerDetail.endpoint}`, null).subscribe();
                 }
             }
         });
     }
 
     serviceWorkerDetail: ServiceWorkerDetail;
-    private pushesApiUrl = `${this.configService.apiPrefix}/pushes`;
+    private remindersApiUrl = `${this.configService.apiPrefix}/reminders`;
 
     init() {
         if ('serviceWorker' in navigator) {

@@ -277,6 +277,11 @@ namespace Lunchorder.Dal
             return pushTokensList.PushTokens;
         }
 
+        public async Task SetReminder(Reminder dbReminder, string userId)
+        {
+            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.UpdateReminder, dbReminder, userId);
+        }
+
         private async Task<Domain.Entities.DocumentDb.Menu> GetMenuItem(Expression<Func<Domain.Entities.DocumentDb.Menu, bool>> predicate)
         {
             var menuQuery = _documentStore.GetItems(predicate).AsDocumentQuery();
