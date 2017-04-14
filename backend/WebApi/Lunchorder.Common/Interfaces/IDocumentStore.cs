@@ -18,8 +18,8 @@ namespace Lunchorder.Common.Interfaces
         Task CreateStoredProcedure(StoredProcedure storedProcedure, bool checkIfExists);
         Task CreateStoredProcedure(StoredProcedure storedProcedure, bool checkIfExists, bool overwrite);
         Task CreateDatabase();
-        Task CreateCollection(string collectionName, bool checkIfExists);
-        Task CreateCollection(bool checkIfExists);
+        //Task CreateCollection(string collectionName, bool checkIfExists);
+        //Task CreateCollection(bool checkIfExists);
         Task<T> ExecuteStoredProcedure<T>(string storedProcedureName, params dynamic[] parameters);
         Task UpsertDocument(object document);
         Task UpsertDocumentIfNotExists(string id, object document);

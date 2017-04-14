@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
 using Lunchorder.Domain.Entities.DocumentDb;
 using Microsoft.Azure.Documents.Linq;
+using todo;
 using Badge = Lunchorder.Domain.Dtos.Badge;
 using Menu = Lunchorder.Domain.Dtos.Menu;
 using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
@@ -61,6 +63,8 @@ namespace Lunchorder.Dal
 
         public async Task<Menu> GetEnabledMenu()
         {
+            //var menu2= await DocumentDBRepository2<Domain.Entities.DocumentDb.Menu>.GetItemsAsync(
+                //x => x.Type == DocumentDbType.Menu && x.Enabled && !x.Deleted);
             var menu = await GetMenuItem(x => x.Type == DocumentDbType.Menu && x.Enabled && !x.Deleted);
             return _mapper.Map<Domain.Entities.DocumentDb.Menu, Menu>(menu);
         }

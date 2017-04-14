@@ -3,13 +3,14 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using DocumentDB.AspNet.Identity;
+using ElCamino.AspNet.Identity.DocumentDB;
 using Lunchorder.Api.Infrastructure;
 using Lunchorder.Api.Infrastructure.Providers;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Entities.Authentication;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.ActiveDirectory;
@@ -108,8 +109,10 @@ namespace Lunchorder.Api.Configuration.IoC
         {
             var configurationService = container.Resolve<IConfigurationService>();
             var docDb = configurationService.DocumentDb;
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(new Uri(docDb.Endpoint), docDb.AuthKey,
-                docDb.Database, docDb.Collection));
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(
+                new IdentityCloudContext<ApplicationUser>(docDb.Endpoint, docDb.AuthKey,
+                    docDb.Database,
+                    new ConnectionPolicy {ConnectionMode = ConnectionMode.Direct, ConnectionProtocol = Protocol.Https}, "lunchorder-dev", "lunchorder-dev")));
 
             var dataProtectionProvider = container.Resolve<IdentityFactoryOptions<ApplicationUserManager>>();
 

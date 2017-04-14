@@ -153,11 +153,12 @@ namespace Lunchorder.Test.Integration.Repositories
         [Test]
         public async Task AddToUserList()
         {
+            var originalUserList = (await DatabaseRepository.GetUsers()).ToList();
             await DatabaseRepository.AddToUserList(TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName, TestConstants.User1.LastName);
             var users = await DatabaseRepository.GetUsers();
             Assert.NotNull(users);
             var usersList = users.ToList();
-            Assert.AreEqual(1, usersList.Count);
+            Assert.AreEqual(originalUserList.Count + 1, usersList.Count);
             var firstUser = usersList.First();
             AssertUsers(firstUser, TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName,
                 TestConstants.User1.LastName);
@@ -167,7 +168,7 @@ namespace Lunchorder.Test.Integration.Repositories
             users = await DatabaseRepository.GetUsers();
             Assert.NotNull(users);
             usersList = users.ToList();
-            Assert.AreEqual(2, usersList.Count);
+            Assert.AreEqual(originalUserList.Count + 2, usersList.Count);
             firstUser = usersList.First();
             AssertUsers(firstUser, TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName,
                 TestConstants.User1.LastName);

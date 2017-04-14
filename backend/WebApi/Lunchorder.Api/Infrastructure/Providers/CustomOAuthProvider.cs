@@ -36,7 +36,20 @@ namespace Lunchorder.Api.Infrastructure.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-            var localUserManager = _userManager();
+            UserManager<ApplicationUser> localUserManager;
+            try
+            {
+                 localUserManager = _userManager();
+
+
+                //var appUser = new ApplicationUser { Id = Guid.NewGuid().ToString(), UserName = "user1", Email = "user@cod.com", FirstName = "user", LastName = "122" };
+                //IdentityResult result = await localUserManager.CreateAsync(appUser, "user*1234");
+                //var b = "";
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
             ApplicationUser user = await localUserManager.FindAsync(context.UserName, context.Password);
             
             if (user == null)

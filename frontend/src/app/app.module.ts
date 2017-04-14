@@ -24,12 +24,13 @@ import { MenuService } from './services/menuService';
 import { BalanceService } from './services/balanceService';
 import { BadgeService } from './services/badgeService';
 import { OrderService } from './services/orderService';
+import { ReminderService } from './services/reminderService';
 import { ServiceworkerService } from './services/serviceworkerService';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
-import { UPLOAD_DIRECTIVES } from 'ng2-uploader/ng2-uploader';
+import { UPLOAD_DIRECTIVES } from 'ngx-uploader/ngx-uploader';
 
 import { StickCartDirective } from './directives/stickCartDirective';
 
@@ -69,6 +70,7 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         HttpClient,
         MenuService,
         OrderService,
+        ReminderService,
         ToasterService,
         TokenHelper,
         ServiceworkerService,

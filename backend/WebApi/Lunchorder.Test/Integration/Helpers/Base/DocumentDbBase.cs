@@ -66,7 +66,7 @@ namespace Lunchorder.Test.Integration.Helpers.Base {
 
         private async Task CreateCollection()
         {
-            await DocumentStore.CreateCollection(true);
+            //await DocumentStore.CreateCollection(true);
         }
 
         private async Task CreateDatabase()

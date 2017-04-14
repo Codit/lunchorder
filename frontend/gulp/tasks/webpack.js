@@ -47,7 +47,7 @@
         var compiler = webpack(myConfig);
 
         new WebpackDevServer(compiler, {
-            path: myConfig.output.path,
+            // path: myConfig.output.path,
             publicPath: myConfig.output.publicPath,
             https: true,
             stats: {

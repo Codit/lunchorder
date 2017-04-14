@@ -9,12 +9,14 @@ using Lunchorder.Api.Configuration.IoC;
 using Lunchorder.Api.Infrastructure.Filters;
 using Lunchorder.Api.Infrastructure.Services;
 using Lunchorder.Common.Extensions;
+using Lunchorder.Domain.Dtos;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.ActiveDirectory;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Owin;
+using todo;
 using Startup = Lunchorder.Api.Startup;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -29,6 +31,7 @@ namespace Lunchorder.Api
 
         public void Configuration(IAppBuilder app)
         {
+            //DocumentDBRepository2<Menu>.Initialize();
             if (_container == null)
             {
                 _container = new WindsorContainer();
@@ -36,8 +39,8 @@ namespace Lunchorder.Api
 
                 SwaggerConfig.Register(HttpConfiguration);
                 var seedService = _container.Resolve<SeedService>();
-                seedService.SeedDocuments().Wait();
-                seedService.SeedStoredProcedures().Wait();
+                //seedService.SeedDocuments().Wait();
+                //seedService.SeedStoredProcedures().Wait();
             }
             
             var oAuthBearerOptions = _container.Resolve<JwtBearerAuthenticationOptions>();

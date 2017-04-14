@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ElCamino.AspNet.Identity.DocumentDB.Model;
 using Lunchorder.Domain.Entities.DocumentDb;
 using Microsoft.AspNet.Identity;
 using MenuEntryFavorite = Lunchorder.Domain.Entities.DocumentDb.MenuEntryFavorite;
 
 namespace Lunchorder.Domain.Entities.Authentication
 {
-    public class ApplicationUser : DocumentDB.AspNet.Identity.IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         private IEnumerable<LastOrder> _last5Orders;
         private IEnumerable<UserBalanceAuditItem> _last5BalanceAuditItems;

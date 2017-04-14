@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lunchorder.Api", "Lunchorder.Api\Lunchorder.Api.csproj", "{E309087B-2766-4437-98EF-34BF59C5EA33}"
 EndProject
@@ -13,32 +13,51 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lunchorder.Domain", "Luncho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lunchorder.Common", "Lunchorder.Common\Lunchorder.Common.csproj", "{412F593D-987F-4483-A07C-99C0F5295081}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElCamino.AspNet.Identity.DocumentDB", "..\..\..\identitydocumentdb\src\identity.documentdb\ElCamino.AspNet.Identity.DocumentDB.csproj", "{F1F21307-0F10-42DA-B01D-AD9884AD900D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Signed|Any CPU = Signed|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E309087B-2766-4437-98EF-34BF59C5EA33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E309087B-2766-4437-98EF-34BF59C5EA33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E309087B-2766-4437-98EF-34BF59C5EA33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E309087B-2766-4437-98EF-34BF59C5EA33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E309087B-2766-4437-98EF-34BF59C5EA33}.Signed|Any CPU.ActiveCfg = Release|Any CPU
+		{E309087B-2766-4437-98EF-34BF59C5EA33}.Signed|Any CPU.Build.0 = Release|Any CPU
 		{1D26D824-065E-4DC5-8450-BBE368741258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D26D824-065E-4DC5-8450-BBE368741258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D26D824-065E-4DC5-8450-BBE368741258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D26D824-065E-4DC5-8450-BBE368741258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D26D824-065E-4DC5-8450-BBE368741258}.Signed|Any CPU.ActiveCfg = Release|Any CPU
+		{1D26D824-065E-4DC5-8450-BBE368741258}.Signed|Any CPU.Build.0 = Release|Any CPU
 		{087CD9F4-F627-4F20-9D4E-8E66472EA305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{087CD9F4-F627-4F20-9D4E-8E66472EA305}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{087CD9F4-F627-4F20-9D4E-8E66472EA305}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{087CD9F4-F627-4F20-9D4E-8E66472EA305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{087CD9F4-F627-4F20-9D4E-8E66472EA305}.Signed|Any CPU.ActiveCfg = Release|Any CPU
+		{087CD9F4-F627-4F20-9D4E-8E66472EA305}.Signed|Any CPU.Build.0 = Release|Any CPU
 		{97E6C179-1629-4636-BC45-56C2124E8278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{97E6C179-1629-4636-BC45-56C2124E8278}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97E6C179-1629-4636-BC45-56C2124E8278}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97E6C179-1629-4636-BC45-56C2124E8278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E6C179-1629-4636-BC45-56C2124E8278}.Signed|Any CPU.ActiveCfg = Release|Any CPU
+		{97E6C179-1629-4636-BC45-56C2124E8278}.Signed|Any CPU.Build.0 = Release|Any CPU
 		{412F593D-987F-4483-A07C-99C0F5295081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{412F593D-987F-4483-A07C-99C0F5295081}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{412F593D-987F-4483-A07C-99C0F5295081}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{412F593D-987F-4483-A07C-99C0F5295081}.Release|Any CPU.Build.0 = Release|Any CPU
+		{412F593D-987F-4483-A07C-99C0F5295081}.Signed|Any CPU.ActiveCfg = Release|Any CPU
+		{412F593D-987F-4483-A07C-99C0F5295081}.Signed|Any CPU.Build.0 = Release|Any CPU
+		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Signed|Any CPU.ActiveCfg = Signed|Any CPU
+		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Signed|Any CPU.Build.0 = Signed|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
