@@ -8,7 +8,8 @@
 				<div class="col-sm-4 wow fadeInDown text-center">
 					<img class="rotate" src="../assets/css/img/icon/map.svg" alt="Generic placeholder image">
 					<h3>Venue</h3>
-					<p class="lead">{{menu?.vendor?.name}} </p>
+					<p class="lead" style="margin-bottom: 0px;">{{menu?.vendor?.name}} </p>
+					<p *ngIf="menu?.vendor?.website"><a [href]="menu?.vendor?.website" target="_blank">{{menu?.vendor?.website}}</a> </p>
 					<p>Phone: {{menu?.vendor?.address?.phone}} </p>
 					<p *ngIf="menu?.vendor?.address?.fax">Fax: {{menu?.vendor?.address?.fax}}</p>
 				</div>
