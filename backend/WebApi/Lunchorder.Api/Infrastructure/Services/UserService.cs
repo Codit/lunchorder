@@ -10,11 +10,12 @@ namespace Lunchorder.Api.Infrastructure.Services
     public class ApplicationUserService : IUserService
     {
         private readonly Func<UserManager<ApplicationUser>> _userManager;
+        private readonly Func<RoleManager<ApplicationRole, string>> _roleManager;
 
-        public ApplicationUserService(Func<UserManager<ApplicationUser>> userManager)
+        public ApplicationUserService(Func<UserManager<ApplicationUser>> userManager, Func<RoleManager<ApplicationRole, string>> roleManager)
         {
-            if (userManager == null) throw new ArgumentNullException(nameof(userManager));
-            _userManager = userManager;
+            _roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
         /// <summary>
@@ -46,8 +47,6 @@ namespace Lunchorder.Api.Infrastructure.Services
         /// <returns></returns>
         public async Task<ApplicationUser> Create(string username, string email, string firstName, string lastName, string password)
         {
-            
-            
             var user = new ApplicationUser { Id = Guid.NewGuid().ToString(), Balance = new Random().Next(100), UserName = username, Email = email, FirstName = firstName, LastName = lastName };
             IdentityResult result = await _userManager().CreateAsync(user, password);
 
@@ -62,6 +61,23 @@ namespace Lunchorder.Api.Infrastructure.Services
             var user = await userManager.FindByIdAsync(userId);
             user.Picture = url;
             await userManager.UpdateAsync(user);
+        }
+
+        /// <summary>
+        /// Adds a user to a specific role
+        /// </summary>
+        /// <param name="userId">the id of the user</param>
+        /// <param name="roleName">the name of the role</param>
+        /// <returns></returns>
+        public async Task AddUserToRole(string userId, string roleName)
+        {
+            await _userManager().AddToRoleAsync(userId, roleName);
+        }
+
+        public async Task AddRole(string roleName)
+        {
+            await _roleManager().CreateAsync(new ApplicationRole { Name = roleName });
+
         }
 
         private void HandleError(IdentityResult result)

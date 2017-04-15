@@ -39,8 +39,8 @@ namespace Lunchorder.Api
 
                 SwaggerConfig.Register(HttpConfiguration);
                 var seedService = _container.Resolve<SeedService>();
-                //seedService.SeedDocuments().Wait();
-                //seedService.SeedStoredProcedures().Wait();
+                seedService.SeedDocuments().Wait();
+                seedService.SeedStoredProcedures().Wait();
             }
             
             var oAuthBearerOptions = _container.Resolve<JwtBearerAuthenticationOptions>();

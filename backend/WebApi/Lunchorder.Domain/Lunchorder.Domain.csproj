@@ -102,6 +102,7 @@
     <Compile Include="Dtos\VendorHistoryEntryRule.cs" />
     <Compile Include="Dtos\VendorOrderHistory.cs" />
     <Compile Include="Dtos\VendorOrderHistoryEntry.cs" />
+    <Compile Include="Entities\Authentication\ApplicationRole.cs" />
     <Compile Include="Entities\Configuration\ApplicationElement.cs" />
     <Compile Include="Entities\Configuration\AzureStorageConnectionElement.cs" />
     <Compile Include="Entities\Configuration\AzureStorageInfo.cs" />

@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Lunchorder.Common.Extensions;
 using Lunchorder.Common.Interfaces;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
-using Lunchorder.Domain.Entities.Authentication;
 using Microsoft.AspNet.Identity;
-using Newtonsoft.Json;
 
 namespace Lunchorder.Common.ControllerServices
 {
@@ -92,6 +87,11 @@ namespace Lunchorder.Common.ControllerServices
         {
             var userInfo = await _databaseRepository.GetUserInfo(claimsIdentity.GetUserName());
             return userInfo.Last5Orders;
+        }
+
+        public async Task PromoteUserToPrepay(string userid)
+        {
+            await _userService.AddUserToRole(userid, Roles.PrepayAdmin);
         }
     }
 }

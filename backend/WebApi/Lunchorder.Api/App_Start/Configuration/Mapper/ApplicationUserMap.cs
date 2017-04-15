@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Entities.Authentication;
 
@@ -11,6 +12,7 @@ namespace Lunchorder.Api.Configuration.Mapper
             CreateMap<ApplicationUser, Domain.Dtos.Responses.GetUserInfoResponse>()
                 .ForMember(x => x.UserToken, y => y.Ignore())
                 .ForMember(x => x.Profile, y => y.Ignore())
+                .ForMember(x => x.Roles, y => y.MapFrom(z => z.Roles.Select(x => x.RoleName)))
                 .AfterMap((src, dest) => dest.Profile = new UserProfile
                 {
                     FirstName = src.FirstName,

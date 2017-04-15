@@ -201,7 +201,7 @@ namespace Lunchorder.Test.Integration.Repositories
         }
 
         [Test]
-        public async Task AddOrder_Should_Fail_When_Insufficient_Balance()
+        public void AddOrder_Should_Fail_When_Insufficient_Balance()
         {
             var userId = TestConstants.User3.Id;
             var userName = TestConstants.User3.UserName;
