@@ -7,7 +7,7 @@ export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<Menu
     name: string;
     address: MenuVendorAddress;
     website: string;
-    submitOrderTime: string;
+    submitOrderTime: Date;
     logo: string;
     closingDateRanges: MenuVendorClosingDateRange[];
 
@@ -32,7 +32,7 @@ export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<Menu
         this.website = input.website;
 
         var momentUtc = moment.utc(input.submitOrderTime).toDate();
-        var local = moment(momentUtc).local().format('YYYY-MM-DD HH:mm:ss');
+        var local = moment(momentUtc).local().toDate();
         this.submitOrderTime = local;
         this.logo = input.logo;
 

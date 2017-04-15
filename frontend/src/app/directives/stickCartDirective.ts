@@ -1,12 +1,13 @@
-import {Directive, ElementRef, Input, HostListener} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import { Directive, ElementRef, Input, HostListener } from '@angular/core';
+import { Observable } from 'rxjs/rx';
+import { WindowRef } from '../services/windowRef';
 
 @Directive({
     selector: '[stick-cart-rx]'
 })
 export class StickCartDirective {
 
-    constructor(private _element: ElementRef, private window: Window) {
+    constructor(private _element: ElementRef, private windowRef: WindowRef) {
 
         this.subscribeForScrollEvent();
     }
@@ -24,7 +25,7 @@ export class StickCartDirective {
         var elementScrollHeight = parentElement.offsetTop;
 
         // scrolled from the upper left corner of the window, vertically
-        var userScrolledHeight = this.window.pageYOffset;
+        var userScrolledHeight = this.windowRef.nativeWindow.pageYOffset;
 
         // the inner height of an element in pixels, including padding but not the horizontal scrollbar height, border, or margin.
         var elementHeight = parentElement.clientHeight;
@@ -34,7 +35,7 @@ export class StickCartDirective {
         var isOverscrolled = userScrolledHeight - (elementScrollHeight + elementHeight - 250) > 0;
         var isInTargetArea = (userScrolledHeight - elementScrollHeight) > 0;
 
-        if (!isOverscrolled && isInTargetArea){// && Math.abs(margin) < elementHeight) {
+        if (!isOverscrolled && isInTargetArea) {// && Math.abs(margin) < elementHeight) {
             this.isSet = false;
             this._element.nativeElement.classList.add('fixed');
             // todo replace with original top from subscribe

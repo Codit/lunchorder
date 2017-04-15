@@ -83,7 +83,7 @@ declare module app.domain.dto {
         name: string;
         address: IMenuVendorAddress;
         website: string;
-        submitOrderTime: string;
+        submitOrderTime: Date;
         logo: string;
         closingDateRanges: IMenuVendorClosingDateRange[];
     }

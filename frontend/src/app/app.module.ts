@@ -17,6 +17,7 @@ import { MenuCategoryRow } from './app.menu-category-row';
 import { MenuEntryRow } from './app.menu-entry-row';
 import { ReminderComponent } from './app.reminder';
 
+import { WindowRef } from './services/windowRef';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';
 import { ErrorHandlerService } from './services/errorHandlerService';
@@ -59,7 +60,8 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         ReminderComponent,
         UPLOAD_DIRECTIVES,
         MenuEntryPipe,
-        MenuFilterPipe
+        MenuFilterPipe,
+        StickCartDirective
     ],
     providers: [
         AccountService,
@@ -74,8 +76,7 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         ToasterService,
         TokenHelper,
         ServiceworkerService,
-        StickCartDirective,
-        {provide: Window, useValue: window}
+        WindowRef
     ],
     bootstrap: [AppComponent]
 })
