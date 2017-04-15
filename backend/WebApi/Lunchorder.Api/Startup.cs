@@ -16,7 +16,6 @@ using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Owin;
-using todo;
 using Startup = Lunchorder.Api.Startup;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -31,7 +30,6 @@ namespace Lunchorder.Api
 
         public void Configuration(IAppBuilder app)
         {
-            //DocumentDBRepository2<Menu>.Initialize();
             if (_container == null)
             {
                 _container = new WindsorContainer();

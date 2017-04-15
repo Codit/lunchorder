@@ -16,10 +16,8 @@ namespace Lunchorder.Test.Integration.Helpers.Base {
 
         public DocumentDbBase(IDocumentStore documentStore, SeedService seedService)
         {
-            if (documentStore == null) throw new ArgumentNullException(nameof(documentStore));
-            if (seedService == null) throw new ArgumentNullException(nameof(seedService));
-            DocumentStore = documentStore;
-            _seedService = seedService;
+            DocumentStore = documentStore ?? throw new ArgumentNullException(nameof(documentStore));
+            _seedService = seedService ?? throw new ArgumentNullException(nameof(seedService));
         }
 
         public IDocumentStore DocumentStore { get; set; }
@@ -66,7 +64,7 @@ namespace Lunchorder.Test.Integration.Helpers.Base {
 
         private async Task CreateCollection()
         {
-            //await DocumentStore.CreateCollection(true);
+            await DocumentStore.CreateCollection();
         }
 
         private async Task CreateDatabase()

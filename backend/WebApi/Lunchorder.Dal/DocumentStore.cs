@@ -86,12 +86,7 @@ namespace Lunchorder.Dal
         public async Task CreateDatabase()
         {
             var dbName = _configurationService.DocumentDb.Database;
-            Database docDb = DocumentDbClient.CreateDatabaseQuery().Where(db => db.Id == dbName).ToArray().FirstOrDefault();
-            if (docDb == null)
-            {
-                var database = new Database { Id = dbName };
-                await DocumentDbClient.CreateDatabaseAsync(database);
-            }
+            await DocumentDbClient.CreateDatabaseIfNotExistsAsync(new Database{Id = dbName});
         }
         
         public IQueryable<T> GetItems<T>(Expression<Func<T, bool>> predicate)
@@ -254,6 +249,13 @@ namespace Lunchorder.Dal
         {
             ResourceResponse<Document> updated = await DocumentDbClient.UpsertDocumentAsync(CollectionUri, document);
             return updated;
+        }
+
+        public async Task CreateCollection()
+        {
+            await DocumentDbClient.CreateDocumentCollectionIfNotExistsAsync(
+                UriFactory.CreateDatabaseUri(_configurationService.DocumentDb.Database),
+                new DocumentCollection {Id = _configurationService.DocumentDb.Collection});
         }
 
         public Document GetDocument(Expression<Func<Document, bool>> predicate)

@@ -28,5 +28,6 @@ namespace Lunchorder.Common.Interfaces
         Task SetIndexMode(IndexingMode mode);
         Document GetDocument(Expression<Func<Document, bool>> predicate);
         Task<ResourceResponse<Document>> ReplaceDocument(object document);
+        Task CreateCollection();
     }
 }

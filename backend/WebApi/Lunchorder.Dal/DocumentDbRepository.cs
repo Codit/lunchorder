@@ -221,7 +221,7 @@ namespace Lunchorder.Dal
             balanceHistory.Audits = balanceHistory.Audits.OrderByDescending(x => x.Date).ToList();
             balanceHistoryDto = _mapper.Map<UserBalanceAudit, Domain.Dtos.UserBalanceAudit>(balanceHistory);
 
-            var userQuery = _documentStore.GetItems<ApplicationUser>(x => x.Id == userId).AsDocumentQuery();
+            var userQuery = _documentStore.GetItems<ApplicationUser>(x => x.UserId == userId).AsDocumentQuery();
             var userQueryResponse = await userQuery.ExecuteNextAsync<ApplicationUser>();
             var user = userQueryResponse.FirstOrDefault();
 

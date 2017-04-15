@@ -56,6 +56,17 @@ namespace Lunchorder.Test.Integration.Helpers
             public class Favorite2 { public const string MenuEntryId = "bd341859-1e68-4650-a8a5-31c409f91b3a"; }
             public class Favorite3 { public const string MenuEntryId = "63a04825-1489-46cb-83c5-8dfda58c27c0"; }
         }
+        
+        public class User5
+        {
+            public const string Id = "271c6786-126d-4f15-82ae-96e17de295f4";
+            public const string UserName = "balanceuser";
+            public const string Email = "products@codit.eu";
+            public const string Password = "test-us3r";
+            public static string FullName => $"{FirstName} {LastName}";
+            public const string FirstName = "balance";
+            public const string LastName = "user";
+        }
 
         public class User4
         {
@@ -76,7 +87,7 @@ namespace Lunchorder.Test.Integration.Helpers
             public const string Picture = "http://pic.tu.re";
             public const decimal Balance = 1M;
 
-            public static string FullName { get { return $"{FirstName} {LastName}"; } }
+            public static string FullName => $"{FirstName} {LastName}";
         }
 
         public class User2
@@ -89,7 +100,7 @@ namespace Lunchorder.Test.Integration.Helpers
             public const string FirstName = "Test2";
             public const string LastName = "User2";
 
-            public static string FullName { get { return $"{FirstName} {LastName}"; } }
+            public static string FullName => $"{FirstName} {LastName}";
         }
 
         public class User1

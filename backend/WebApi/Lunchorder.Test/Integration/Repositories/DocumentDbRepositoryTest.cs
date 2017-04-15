@@ -32,7 +32,7 @@ namespace Lunchorder.Test.Integration.Repositories
         public async Task SetNewReminder()
         {
             var userId = TestConstants.User1.Id;
-            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.AddOrUpdate, Minutes = 15, Type = Domain.Entities.DocumentDb.ReminderType.DesktopNotification };
+            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.AddOrUpdate, Minutes = 15, Type = ReminderType.DesktopNotification };
             await DatabaseRepository.SetReminder(reminder, userId);
             var userInfo = (await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName));
             Assert.NotNull(userInfo.Reminders);
@@ -51,7 +51,7 @@ namespace Lunchorder.Test.Integration.Repositories
         {
             var userId = TestConstants.User2.Id;
             
-            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.AddOrUpdate, Minutes = 15, Type = Domain.Entities.DocumentDb.ReminderType.DesktopNotification };
+            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.AddOrUpdate, Minutes = 15, Type = ReminderType.DesktopNotification };
             await DatabaseRepository.SetReminder(reminder, userId);
 
             var userInfo = (await DatabaseRepository.GetUserInfo(TestConstants.User2.UserName));
@@ -198,6 +198,39 @@ namespace Lunchorder.Test.Integration.Repositories
             var userId = TestConstants.User3.Id;
             var updatedBalance = await DatabaseRepository.UpdateBalance(userId, amount, originator);
             Assert.AreEqual(TestConstants.User3.Balance + amount, updatedBalance);
+        }
+
+        /// <summary>
+        /// Tests for Github issue #89 (long decimal balance), 
+        /// Repro: User balance €5, places order of €4.9, final balance will be €0.0999999999999996 in document db.
+        /// </summary>
+        [Test]
+        public async Task AddOrder_Should_Have_Correct_Decimals()
+        {
+            var userId = TestConstants.User5.Id;
+            var userName = TestConstants.User5.UserName;
+
+            var vendorId = Guid.NewGuid().ToString();
+
+            var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
+            {
+                new UserOrderHistoryEntry
+                {
+                    Id = Guid.NewGuid(),
+                    MenuEntryId = Guid.NewGuid(),
+                    Price = 4.9M,
+                    Rules = new List<UserOrderHistoryRule>(),
+                    Name = "test item"
+                },
+            };
+
+            var orderDate = new DateGenerator().GenerateDateFormat(DateTime.UtcNow);
+
+            var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
+
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory, TestConstants.User5.FullName);
+            var balance = await DatabaseRepository.GetUserBalanceAndHistory(TestConstants.User5.Id);
+            Assert.AreEqual(balance.Balance, 0.10);
         }
 
         [Test]

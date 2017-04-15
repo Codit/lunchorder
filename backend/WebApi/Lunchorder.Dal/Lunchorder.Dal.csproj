@@ -95,7 +95,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Seed\Stored Procedures\migrateUserRole.js">
+    <EmbeddedResource Include="Seed\Stored Procedures\migrateUsers.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

@@ -1,11 +1,11 @@
 ﻿{
-  "FirstName": "Prepay",
-  "LastName": "Admin1",
+  "FirstName": "Balance",
+  "LastName": "User",
   "Language": null,
   "Culture": "en-US",
   "Picture": "http://pic.tu.re",
-  "id": "1a987242-09ad-42f9-808c-ba995d533406",
-  "UserName": "padmin",
+  "id": "271c6786-126d-4f15-82ae-96e17de295f4",
+  "UserName": "balanceuser",
   "Email": "products@codit.eu",
   "EmailConfirmed": false,
   "PasswordHash": "AMhMWrBUK8kO0RRCE6pKFO4KvSbcW5LgFzBZZ57bKOWYnpbLZV0CF3uYiLDAWlNZWg==",
@@ -16,7 +16,7 @@
   "LockoutEnd": "0001-01-01T01:00:00+01:00",
   "LockoutEnabled": true,
   "AccessFailedCount": 0,
-  "Balance": 1,
+  "Balance": 5,
   "Badges": [
     {
       "BadgeId": "5de5ecfd-6e4d-47e3-b129-96614e745ee5",
@@ -36,14 +36,8 @@
     }
 
   ],
-  "Roles": [
-    {
-      "kver": 2,
-      "id": "R_B36A5F40125153879FB0EFE8236BF4518EA674E0ADC466DC65DE2A4740015517",
-      "name": "prepay-admin"
-    }
-  ],
-  "UserId": "1a987242-09ad-42f9-808c-ba995d533406",
+  "Roles": [],
+  "UserId": "271c6786-126d-4f15-82ae-96e17de295f4",
   "kver": 2,
   "Last5Orders": [],
   "Last5BalanceAuditItems": []
