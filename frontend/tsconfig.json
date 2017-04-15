@@ -11,10 +11,7 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "lib": [ "es2016", "dom"],
-    "suppressImplicitAnyIndexErrors": true,
-    "types": [
-      "node", "jasmine", "angular"
-         ]
+    "suppressImplicitAnyIndexErrors": true
   },
     "exclude": [
         "node_modules",

@@ -14,6 +14,8 @@ import 'rxjs';
 import 'jquery';
 // import 'bootstrap-loader';
 import 'bootstrap/dist/js/bootstrap';
+const momentTz = require('moment'); 
+
 require('bootstrap/dist/css/bootstrap.css')
 require('font-awesome/css/font-awesome.css')
 require('./script.js');
