@@ -124,11 +124,10 @@ namespace Lunchorder.Dal
             if (checkIfExists || overwrite)
             {
                 StoredProcedure dbSp =
-                    await DocumentDbClient.ReadStoredProcedureAsync(StoredProcedureUri(storedProcedure.Id)); 
-
-                    //DocumentDbClient.CreateStoredProcedureQuery(StoredProcedureUri(storedProcedure.Id))
-                    //    .AsEnumerable()
-                    //    .FirstOrDefault();
+                    DocumentDbClient.CreateStoredProcedureQuery(CollectionUri)
+                        .Where(c => c.Id == storedProcedure.Id)
+                        .AsEnumerable()
+                        .FirstOrDefault();
 
                 if (overwrite && dbSp != null)
                 {

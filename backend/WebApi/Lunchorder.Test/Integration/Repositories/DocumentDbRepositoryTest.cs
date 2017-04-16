@@ -227,10 +227,11 @@ namespace Lunchorder.Test.Integration.Repositories
             var orderDate = new DateGenerator().GenerateDateFormat(DateTime.UtcNow);
 
             var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
-
+            await DatabaseRepository.UpdateBalance(userId, 5, new SimpleUser { FullName = "Some Balance User", Id = TestConstants.User1.Id, UserName = TestConstants.User1.UserName });
             await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory, TestConstants.User5.FullName);
             var balance = await DatabaseRepository.GetUserBalanceAndHistory(TestConstants.User5.Id);
-            Assert.AreEqual(balance.Balance, 0.10);
+            Assert.AreEqual(1, balance.Audits.Count(), "There should only be one balance update for this user");
+            Assert.AreEqual(0.10, balance.Balance);
         }
 
         [Test]

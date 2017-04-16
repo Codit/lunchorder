@@ -20,7 +20,10 @@
 
     function updateUserBalance(userDocument) {
         userDocument.Balance = userDocument.Balance - docDbUserOrderHistory.FinalPrice;
-        
+
+        // neat trick to round up to 2 numbers after comma that returns a number instead of string.
+        userDocument.Balance = Math.round(userDocument.Balance  * 1e2) / 1e2;
+
         if (userDocument.Balance < 0) {
             throw "Not enough money in your wallet";
         }
