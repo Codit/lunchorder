@@ -4,6 +4,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using FluentValidation.WebApi;
 using Lunchorder.Api.Infrastructure.Filters;
 using Lunchorder.Common.Interfaces;
 using Microsoft.Owin.Security.DataProtection;
@@ -26,6 +27,7 @@ namespace Lunchorder.Api.Configuration.IoC
             container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
 
             container.Install(new ApiControllerInstaller());
+            container.Install(new ValidationInstaller());
             container.Install(new ControllerServiceInstaller());
             container.Install(new ConfigurationInstaller());
             container.Install(new AutoMapperInstaller());
@@ -37,6 +39,8 @@ namespace Lunchorder.Api.Configuration.IoC
 
             var configurationService = container.Resolve<IConfigurationService>();
             _httpconfiguration.Filters.Add(new ApiKeyActionFilter(configurationService));
+
+            FluentValidationModelValidatorProvider.Configure(_httpconfiguration, provider => provider.ValidatorFactory = new WindsorValidatorFactory(container));
 
             foreach (var i in container.ResolveAll<IRequiresInitialization>())
             {

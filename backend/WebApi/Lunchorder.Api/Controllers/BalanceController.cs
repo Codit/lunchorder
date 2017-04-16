@@ -4,6 +4,7 @@ using System.Security.Claims;
 using Lunchorder.Common.Interfaces;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Lunchorder.Api.Infrastructure.Filters;
 using Lunchorder.Common.Extensions;
 using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos;
@@ -20,8 +21,7 @@ namespace Lunchorder.Api.Controllers
 
         public BalanceController(IBalanceControllerService balanceControllerService)
         {
-            if (balanceControllerService == null) throw new ArgumentNullException(nameof(balanceControllerService));
-            _balanceControllerService = balanceControllerService;
+            _balanceControllerService = balanceControllerService ?? throw new ArgumentNullException(nameof(balanceControllerService));
         }
 
         /// <summary>
@@ -31,6 +31,7 @@ namespace Lunchorder.Api.Controllers
         [Authorize(Roles = Roles.PrepayAdmin)]
         [HttpPut]
         [Route("")]
+        [ValidateModelStateFilter]
         [SwaggerResponse(HttpStatusCode.Created, Type = typeof(decimal))]
         public async Task<IHttpActionResult> Put(PutBalanceRequest putBalanceRequest)
         {

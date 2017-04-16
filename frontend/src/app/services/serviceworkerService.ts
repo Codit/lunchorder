@@ -34,7 +34,6 @@ export class ServiceworkerService {
                 reg.pushManager.subscribe({
                     userVisibleOnly: true
                 }).then((sub : any) => {
-                    debugger;
                     this.serviceWorkerDetail = new ServiceWorkerDetail();
                     this.serviceWorkerDetail.endpoint = sub.endpoint;
                     console.log('endpoint:', sub.endpoint);

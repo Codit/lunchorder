@@ -271,9 +271,11 @@
     <Compile Include="App_Start\Configuration\IoC\OAuthInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\SchedulerInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\ServiceInstaller.cs" />
+    <Compile Include="App_Start\Configuration\IoC\ValidationInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WebInstaller.cs" />
     <Compile Include="App_Start\Configuration\IoC\WindsorCompositionRoot.cs" />
     <Compile Include="App_Start\Configuration\IoC\WindsorJobFactory.cs" />
+    <Compile Include="App_Start\Configuration\IoC\WindsorValidatorFactory.cs" />
     <Compile Include="App_Start\Configuration\Mapper\AddressMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\BadgeMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\ApplicationUserMap.cs" />
@@ -319,6 +321,7 @@
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
     <Compile Include="Infrastructure\Filters\ApiKeyActionFilter.cs" />
     <Compile Include="Infrastructure\Filters\ExceptionHandlingFilter.cs" />
+    <Compile Include="Infrastructure\Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Infrastructure\Jobs\BackupJob.cs" />
     <Compile Include="Infrastructure\Providers\CustomJwtFormat.cs" />
     <Compile Include="Infrastructure\Providers\CustomOAuthProvider.cs" />

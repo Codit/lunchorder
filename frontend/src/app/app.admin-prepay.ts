@@ -52,7 +52,6 @@ export class AdminPrepayComponent implements OnInit {
 	}
 
 	addBalance() {
-		debugger;
 		this.isBusy = true;
 		this.userBalanceError = "";
 
@@ -66,7 +65,7 @@ export class AdminPrepayComponent implements OnInit {
 			},
 			error => {
 				this.userBalanceError = <any>error,
-					this.toasterService.pop('error', 'Failure', 'Something went wrong');
+					this.toasterService.pop('error', 'Failure', this.userBalanceError);
 				this.isBusy = false;
 			});
 	};
