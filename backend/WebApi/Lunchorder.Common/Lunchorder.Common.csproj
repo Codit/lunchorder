@@ -167,10 +167,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\identitydocumentdb\src\identity.documentdb\ElCamino.AspNet.Identity.DocumentDB.csproj">
-      <Project>{F1F21307-0F10-42DA-B01D-AD9884AD900D}</Project>
-      <Name>ElCamino.AspNet.Identity.DocumentDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lunchorder.Domain\Lunchorder.Domain.csproj">
       <Project>{97E6C179-1629-4636-BC45-56C2124E8278}</Project>
       <Name>Lunchorder.Domain</Name>

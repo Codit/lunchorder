@@ -79,10 +79,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\identitydocumentdb\src\identity.documentdb\ElCamino.AspNet.Identity.DocumentDB.csproj">
-      <Project>{F1F21307-0F10-42DA-B01D-AD9884AD900D}</Project>
-      <Name>ElCamino.AspNet.Identity.DocumentDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lunchorder.Common\Lunchorder.Common.csproj">
       <Project>{412f593d-987f-4483-a07c-99c0f5295081}</Project>
       <Name>Lunchorder.Common</Name>
