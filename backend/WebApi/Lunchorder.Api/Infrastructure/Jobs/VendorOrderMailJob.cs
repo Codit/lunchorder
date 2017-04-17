@@ -5,26 +5,6 @@ using Lunchorder.Common.Interfaces;
 
 namespace Lunchorder.Api.Infrastructure.Jobs
 {
-    public class SendReminderJob : IJob
-    {
-        private readonly IJobService _jobService;
-        private readonly ILogger _logger;
-
-        public SendReminderJob(IJobService jobService, ILogger logger)
-        {
-            if (jobService == null) throw new ArgumentNullException(nameof(jobService));
-            if (logger == null) throw new ArgumentNullException(nameof(logger));
-            _jobService = jobService;
-            _logger = logger;
-        }
-
-        public void Execute()
-        {
-            _logger.Info($"Reminder schedule triggered at {DateTime.UtcNow} UTC");
-            _jobService.RemindUsers();
-        }
-    }
-
     public class VendorOrderMailJob : IJob
     {
         private readonly IEmailService _emailService;
@@ -35,15 +15,11 @@ namespace Lunchorder.Api.Infrastructure.Jobs
 
         public VendorOrderMailJob(IEmailService emailService, ICacheService cacheService, IDatabaseRepository databaseRepository, IConfigurationService configurationService, ILogger logger)
         {
-            if (emailService == null) throw new ArgumentNullException(nameof(emailService));
-            if (cacheService == null) throw new ArgumentNullException(nameof(cacheService));
-            if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
-            if (logger == null) throw new ArgumentNullException(nameof(logger));
-            _emailService = emailService;
-            _cacheService = cacheService;
-            _databaseRepository = databaseRepository;
-            _configurationService = configurationService;
-            _logger = logger;
+            _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
+            _databaseRepository = databaseRepository ?? throw new ArgumentNullException(nameof(databaseRepository));
+            _configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public void Execute()

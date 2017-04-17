@@ -9,7 +9,6 @@ using Lunchorder.Api.Configuration.IoC;
 using Lunchorder.Api.Infrastructure.Filters;
 using Lunchorder.Api.Infrastructure.Services;
 using Lunchorder.Common.Extensions;
-using Lunchorder.Domain.Dtos;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.ActiveDirectory;
 using Microsoft.Owin.Security.Jwt;

@@ -91,6 +91,7 @@
     <Compile Include="Dtos\Requests\PostReminderRequest.cs" />
     <Compile Include="Dtos\Requests\PutBalanceRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
+    <Compile Include="Dtos\Requests\RegistrationIdRequest.cs" />
     <Compile Include="Dtos\Responses\GetAllUsersResponse.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
     <Compile Include="Dtos\SimpleUser.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Entities\Configuration\EventingElement.cs" />
     <Compile Include="Entities\Configuration\JobElement.cs" />
     <Compile Include="Entities\Configuration\JobsElementCollection.cs" />
+    <Compile Include="Entities\Configuration\PushProviderFirebaseElement.cs" />
     <Compile Include="Entities\Configuration\PushProvidersElement.cs" />
     <Compile Include="Entities\Configuration\PushProviderFirebaseInfo.cs" />
     <Compile Include="Entities\Configuration\PushProviderInfo.cs" />

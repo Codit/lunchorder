@@ -150,6 +150,7 @@
     <Compile Include="Integration\Repositories\DocumentDbRepositoryTest.cs" />
     <Compile Include="Integration\Services\ApplicationUserServiceTest.cs" />
     <Compile Include="Integration\Services\JobServiceTest.cs" />
+    <Compile Include="Unit\Services\PushTokenServiceTest.cs" />
     <Compile Include="SampleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

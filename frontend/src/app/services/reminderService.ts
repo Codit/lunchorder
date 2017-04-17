@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { Reminder } from '../domain/dto/reminder';
 import { HttpClient } from '../helpers/httpClient';
 import { ErrorHandlerService } from './errorHandlerService';
+import  { PostReminderRequest } from '../domain/dto/postReminderRequest';
 
 @Injectable()
 export class ReminderService {
@@ -13,7 +14,8 @@ export class ReminderService {
   private reminderApiUri = `${this.configService.apiPrefix}/reminders`;
 
   saveReminder(reminder: Reminder): Observable<Reminder> {
-    return this.http.post(`${this.reminderApiUri}`, reminder)
+    var request = new PostReminderRequest().deserialize({ reminder: reminder });
+    return this.http.post(`${this.reminderApiUri}`, request)
       .catch(this.errorHandlerService.handleError);
   }
 

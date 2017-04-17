@@ -8,6 +8,7 @@ import { MenuEntry } from './domain/dto/menuEntry';
 import { MenuOrder } from './domain/dto/menuOrder';
 import { OrderService } from './services/orderService';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
+import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
 
 @Component({
 	selector: '[menu]',
@@ -17,7 +18,13 @@ import { ToasterService } from 'angular2-toaster/angular2-toaster';
 export class MenuComponent implements OnInit {
 
 	// todo move orderservice button to other component.
-	constructor(private configService: ConfigService, private menuService: MenuService, private orderService: OrderService, private accountService: AccountService, private toasterService: ToasterService) { }
+	constructor(private configService: ConfigService, private menuService: MenuService, private orderService: OrderService, private accountService: AccountService, private toasterService: ToasterService) {
+		this.accountService.user$.subscribe(user => {
+			this.user = user;
+		});
+	 }
+
+	 user: GetUserInfoResponse;
 	isModalOpen: boolean;
 	menu: Menu;
 	// todo, inspect error object.
@@ -49,7 +56,7 @@ export class MenuComponent implements OnInit {
 	}
 
 	getBalance(): number {
-		return this.accountService.user.balance - this.orderService.totalPrice();
+		return this.user.balance - this.orderService.totalPrice();
 	}
 
 	removeOrders(menuOrder: MenuOrder) {
@@ -83,15 +90,15 @@ export class MenuComponent implements OnInit {
 
 		this.orderService.postMenuOrders().subscribe(menu => {
 			this.toasterService.pop('success', 'Success', 'Order submitted');
-			console.log("current balance: " + this.accountService.user.balance);
+			console.log("current balance: " + this.user.balance);
 			console.log("total price: " + this.orderService.totalPrice())
-			this.accountService.user.balance -= this.orderService.totalPrice();
-			console.log("differnt balance: " + this.accountService.user.balance);
+			this.user.balance -= this.orderService.totalPrice();
+			console.log("differnt balance: " + this.user.balance);
 			this.orderService.menuOrders = new Array<MenuOrder>();
 			this.closeModal();
 
 			this.accountService.getLast5Orders().subscribe(lastOrders => {
-				this.accountService.user.last5Orders = lastOrders;
+				this.user.last5Orders = lastOrders;
 			});
 		},
 			error => {

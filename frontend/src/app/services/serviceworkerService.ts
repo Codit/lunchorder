@@ -10,14 +10,14 @@ export class ServiceworkerService {
     constructor(private http: Http, private httpClient: HttpClient, private configService: ConfigService, private accountService: AccountService) {
         this.serviceWorkerDetail = new ServiceWorkerDetail();
         
-        this.accountService.isAuthenticated$.subscribe((isAuthenticated) => {
-            if (isAuthenticated && this.serviceWorkerDetail && this.serviceWorkerDetail.endpoint) {
+        this.accountService.user$.subscribe(user => {
+            if (user.userToken && this.serviceWorkerDetail && this.serviceWorkerDetail.endpoint) {
                 // update token if different.
-                if (this.accountService.user.pushToken !== this.serviceWorkerDetail.endpoint) {
+                if (user.pushToken !== this.serviceWorkerDetail.endpoint) {
                     this.httpClient.post(`${this.remindersApiUrl}/register?token=${this.serviceWorkerDetail.endpoint}`, null).subscribe();
                 }
             }
-        });
+        })
     }
 
     serviceWorkerDetail: ServiceWorkerDetail;

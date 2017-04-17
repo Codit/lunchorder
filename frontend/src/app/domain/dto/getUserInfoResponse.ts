@@ -21,15 +21,6 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
     last5BalanceAuditItems: UserBalanceAuditItem[];
     reminders: Reminder[];
 
-    getNotificationReminder() : Reminder {
-        if (this.reminders) {
-            // todo, enum type?
-            var match = this.reminders.filter(x => x.type === 0);
-            if (match && match.length == 1) {
-                return match[0];
-            }
-        }
-    }
 
     deserialize(input: any): GetUserInfoResponse {
         this.id = input.id;
@@ -66,7 +57,7 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
 
         this.roles = input.roles;
         this.pushToken = input.pushToken;
-
+        this.reminders = input.reminders;
         return this;
     }
 }

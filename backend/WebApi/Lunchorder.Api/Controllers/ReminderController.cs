@@ -45,6 +45,7 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
+        [Route("")]
         [SwaggerResponse(HttpStatusCode.OK)]
         public async Task<IHttpActionResult> SetReminder(PostReminderRequest request)
         {
@@ -58,20 +59,22 @@ namespace Lunchorder.Api.Controllers
         }
 
         /// <summary>
-        /// Delete a reminder
+        /// Disables reminder
         /// </summary>
         /// <returns></returns>
         [HttpDelete]
         [Authorize]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public async Task<IHttpActionResult> DeleteReminder(int type)
+        [Route("")]
+        public async Task<IHttpActionResult> DisableReminders()
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
 
             if (claimsIdentity == null)
                 return InternalServerError();
 
-            await _reminderControllerService.DeleteReminder(type, claimsIdentity);
+            // todo, when more reminders, fine grain functionality
+            await _reminderControllerService.DeleteReminder(0, claimsIdentity);
             return Ok();
         }
 

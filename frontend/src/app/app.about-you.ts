@@ -7,6 +7,7 @@ import { ServiceworkerService } from './services/serviceworkerService';
 import { RemindOption } from './domain/dto/remindOption';
 import { ReminderService } from './services/reminderService';
 import { Reminder } from './domain/dto/reminder';
+import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
 
 @Component({
   selector: '[about-you]',
@@ -24,18 +25,32 @@ export class AboutYouComponent implements OnInit {
     this.remindOptions.push(new RemindOption("1 hour 30 minutes", 90));
     this.remindOptions.push(new RemindOption("2 hours", 120));
 
-    this.setExistingNotification();
+    this.accountService.user$.subscribe(user => {
+      this.user = user;
+      this.setExistingNotification(user);
+    });
   }
+  user: GetUserInfoResponse;
 
   hasNotificationConfigured: boolean;
   selectedNotificationOption: RemindOption;
-  setExistingNotification(): void {
-    var notificationReminder = this.accountService.user.getNotificationReminder();
+  setExistingNotification(user: GetUserInfoResponse): void {
+    var notificationReminder = this.getReminders(user.reminders);
     if (notificationReminder) {
       this.hasNotificationConfigured = true;
       var remindOption = this.remindOptions.filter(x => x.minutes == notificationReminder.minutes);
       if (remindOption && remindOption.length == 1) {
         this.selectedNotificationOption = remindOption[0];
+      }
+    }
+  }
+
+  getReminders(reminders: Reminder[]) {
+    if (reminders) {
+      // todo, enum type?
+      var match = reminders.filter(x => x.type === 0);
+      if (match && match.length == 1) {
+        return match[0];
       }
     }
   }
@@ -55,31 +70,35 @@ export class AboutYouComponent implements OnInit {
   }
 
   remindOptions: Array<RemindOption>;
-  private isReminderModal: boolean;
+  isReminderModal: boolean;
   private uploadsApiUri = `${this.configService.apiPrefix}/uploads`;
-  private isBusyModal: boolean;
+  isBusyModal: boolean;
   isServiceworkerEnabled(): boolean {
     return this.serviceworkerService.serviceWorkerDetail.isBrowserEnabled();
   }
 
-  save() {
+  reminderNotificationChange(option: RemindOption) {
+    this.selectedNotificationOption = option;
+  }
+
+  saveReminder() {
     this.isBusyModal = true;
     this.toggleReminderModal();
     if (this.hasNotificationConfigured) {
       var reminder = new Reminder(0, this.selectedNotificationOption.minutes);
       this.reminderService.saveReminder(reminder).subscribe(() => {
-
-        // set in user object.
-
+this.isBusyModal = false;
+this.hasNotificationConfigured = true;
+      }, error => {
+        this.isBusyModal = false;
       });
     }
     else {
       this.reminderService.deleteReminder(0).subscribe(() => {
-
-        // set in user object.
-
+        this.isBusyModal = false;
+        this.hasNotificationConfigured = false;
       });;
-     }
+    }
   }
 
   toggleReminderModal() {
@@ -97,13 +116,16 @@ export class AboutYouComponent implements OnInit {
     if (data && data.response) {
       data = JSON.parse(data.response);
       this.uploadFile = data;
-      this.accountService.user.profile.picture = data;
+      this.user.profile.picture = data;
     }
   }
 
   getName(): string {
-    if (this.accountService.user.profile && this.accountService.user.profile.firstName && this.accountService.user.profile.lastName)
-      return `${this.accountService.user.profile.firstName} ${this.accountService.user.profile.lastName}`
-    return this.accountService.user.userName;
+    if (this.user) {
+      if (this.user.profile && this.user.profile.firstName && this.user.profile.lastName) {
+        return `${this.user.profile.firstName} ${this.user.profile.lastName}`
+      }
+      return this.user.userName;
+    }
   }
 }

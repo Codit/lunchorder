@@ -23,7 +23,7 @@
         if (!userDocument.Reminders) {
             userDocument.Reminders = [];
         } else {
-            var foundIndex;
+            var foundIndex = null;
             // lookup if there is an existing reminder type
             for (var i = 0; i < userDocument.Reminders.length; i++) {
                 if (userDocument.Reminders[i].Type === reminder.Type) {
@@ -34,6 +34,7 @@
                 userDocument.Reminders.splice(foundIndex, 1);
             }
         }
+        userDocument.PushToken = null;
     };
 
     function updateUserReminder(userDocument) {

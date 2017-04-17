@@ -1,29 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Lunchorder.Common.Interfaces;
-using Lunchorder.Domain.Entities.DocumentDb;
-using Newtonsoft.Json;
 using MenuVendorClosingDateRange = Lunchorder.Domain.Dtos.MenuVendorClosingDateRange;
 
 namespace Lunchorder.Common
 {
     public class JobService : IJobService
     {
+        private readonly IPushTokenService _pushTokenService;
         private readonly ICacheService _cacheService;
-        private readonly IDatabaseRepository _databaseRepository;
-        private readonly IConfigurationService _configurationService;
 
-        public JobService(ICacheService cacheService, IDatabaseRepository databaseRepository, IConfigurationService configurationService)
+        public JobService(ICacheService cacheService, IPushTokenService pushTokenService)
         {
-            if (cacheService == null) throw new ArgumentNullException(nameof(cacheService));
-            if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
-            if (configurationService == null) throw new ArgumentNullException(nameof(configurationService));
-            _cacheService = cacheService;
-            _databaseRepository = databaseRepository;
-            _configurationService = configurationService;
+            _pushTokenService = pushTokenService ?? throw new ArgumentNullException(nameof(pushTokenService));
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
         }
 
         public async Task RemindUsers()
@@ -38,53 +29,8 @@ namespace Lunchorder.Common
                     return;
                 }
 
-                var pushTokens = await _databaseRepository.GetPushTokens();
-                await SendPushNotification(pushTokens);
+                await _pushTokenService.SendPushNotification();
             }
-
-        }
-
-        private async Task SendPushNotification(IEnumerable<PushTokenItem> pushTokens)
-        {
-            var tokens = new List<string>();
-            foreach (var pushToken in pushTokens)
-            {
-                if (pushToken.Token.StartsWith("https://android.googleapis.com/gcm/send"))
-                {
-                    var splitTokenUrl = pushToken.Token.Split('/');
-                    tokens.Add(splitTokenUrl[splitTokenUrl.Length - 1]);
-                }
-            }
-
-            using (var client = new HttpClient())
-            {
-                var registrationIdsRequest = new RegistrationIdRequest { RegistrationIds = tokens };
-                var jsonRequest = JsonConvert.SerializeObject(registrationIdsRequest);
-                var apiKeyHeader = $"key={_configurationService.PushProviders.Firebase.ApiKey}";
-
-                var request = new HttpRequestMessage
-                {
-                    RequestUri = new Uri("https://android.googleapis.com/gcm/send"),
-                    Method = HttpMethod.Post,
-                    Content = new StringContent(jsonRequest, Encoding.UTF8, "application/json"),
-                };
-
-                request.Headers.TryAddWithoutValidation("Authorization", apiKeyHeader);
-
-                var response = await client.SendAsync(request);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    var responseString = await response.Content.ReadAsStringAsync();
-
-                }
-            }
-        }
-
-        public class RegistrationIdRequest
-        {
-            [JsonProperty("registration_ids")]
-            public IEnumerable<string> RegistrationIds { get; set; }
         }
 
         /// <summary>

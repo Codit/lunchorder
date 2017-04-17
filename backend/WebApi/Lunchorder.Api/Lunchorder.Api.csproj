@@ -323,12 +323,14 @@
     <Compile Include="Infrastructure\Filters\ExceptionHandlingFilter.cs" />
     <Compile Include="Infrastructure\Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Infrastructure\Jobs\BackupJob.cs" />
+    <Compile Include="Infrastructure\Jobs\SendReminderJob.cs" />
     <Compile Include="Infrastructure\Providers\CustomJwtFormat.cs" />
     <Compile Include="Infrastructure\Providers\CustomOAuthProvider.cs" />
     <Compile Include="Infrastructure\Services\ConfigurationService.cs" />
     <Compile Include="Infrastructure\Services\EventingService.cs" />
     <Compile Include="Infrastructure\Jobs\VendorOrderMailJob.cs" />
     <Compile Include="Infrastructure\Services\MemoryCacheService.cs" />
+    <Compile Include="Infrastructure\Services\PushTokenService.cs" />
     <Compile Include="Infrastructure\Services\SendGridMailService.cs" />
     <Compile Include="Infrastructure\Services\ServicebusMessagingService.cs" />
     <Compile Include="Infrastructure\Services\SeedService.cs" />

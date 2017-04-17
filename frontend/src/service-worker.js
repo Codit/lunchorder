@@ -14,13 +14,13 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('push', function(event) {
   console.log('Push message', event);
 
-  var title = 'Push message';
+  var title = 'Lunch Order';
 
   event.waitUntil(
     self.registration.showNotification(title, {
-     body: 'The Message',
-     icon: 'images/icon.png',
-     tag: 'my-tag'
+     body: 'Do not forget to order!',
+     icon: 'https://github.com/CoditEU/lunchorder/blob/master/frontend/src/assets/css/img/logo/notification.png?raw=true',
+     tag: 'order'
    }));
 });
 

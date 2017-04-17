@@ -15,6 +15,7 @@ import { FooterComponent } from './app.footer';
 import { StickRxDirective } from './directives/stickDirective';
 import { ToasterConfig, ToasterService } from 'angular2-toaster/angular2-toaster';
 import { ServiceworkerService } from './services/serviceworkerService';
+import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
 
 @Component({
 	selector: 'lunchorder-app',
@@ -30,9 +31,15 @@ export class AppComponent implements OnInit {
 	});
 	loginForm: LoginForm;
 
-	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService, private serviceworkerService: ServiceworkerService) { 
+	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService, private serviceworkerService: ServiceworkerService) {
 		serviceworkerService.init();
+
+		this.accountService.user$.subscribe(user => {
+			this.user = user;
+		});
 	}
+
+	user: GetUserInfoResponse;
 
 	ngOnInit() {
 		this.loginForm = new LoginForm();
@@ -58,8 +65,8 @@ export class AppComponent implements OnInit {
 	}
 
 	public isAdminPrepay() {
-		if (this.accountService.user && this.accountService.user.roles) {
-			return this.accountService.user.roles.find(x => x == "prepay-admin");
+		if (this.user && this.user.roles) {
+			return this.user.roles.find(x => x == "prepay-admin");
 		}
 		return null;
 	}

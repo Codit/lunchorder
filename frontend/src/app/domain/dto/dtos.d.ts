@@ -217,6 +217,11 @@ declare module app.domain.dto {
     export interface IGetAllUsersResponse {
         users: IPlatformUserListItem[];
     }
+
+    export interface IPostReminderRequest
+    {
+        reminder: IReminder;
+    }
     
     export interface IGetUserInfoResponse {
         id: string;
