@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lunchorder.Domain", "Luncho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lunchorder.Common", "Lunchorder.Common\Lunchorder.Common.csproj", "{412F593D-987F-4483-A07C-99C0F5295081}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElCamino.AspNet.Identity.DocumentDB", "..\..\..\identitydocumentdb\src\identity.documentdb\ElCamino.AspNet.Identity.DocumentDB.csproj", "{F1F21307-0F10-42DA-B01D-AD9884AD900D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,12 +50,6 @@ Global
 		{412F593D-987F-4483-A07C-99C0F5295081}.Release|Any CPU.Build.0 = Release|Any CPU
 		{412F593D-987F-4483-A07C-99C0F5295081}.Signed|Any CPU.ActiveCfg = Release|Any CPU
 		{412F593D-987F-4483-A07C-99C0F5295081}.Signed|Any CPU.Build.0 = Release|Any CPU
-		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Signed|Any CPU.ActiveCfg = Signed|Any CPU
-		{F1F21307-0F10-42DA-B01D-AD9884AD900D}.Signed|Any CPU.Build.0 = Signed|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
