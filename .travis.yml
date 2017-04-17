@@ -6,10 +6,6 @@ before_install:
 before_script:
   - npm install -g gulp
 script:
-  - npm run testbuild
   - gulp release-package
-after_success:
-  - codeclimate-test-reporter < ./coverage/lcov-frontend-remapped.info
-  - 'cat ./coverage/lcov-frontend-remapped.info | ./node_modules/.bin/coveralls'
 notifications:
   slack: coditproducts:j1aqpLDXRWKFO7x07wkMWIrx
