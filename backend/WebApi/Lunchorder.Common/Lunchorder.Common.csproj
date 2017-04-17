@@ -41,6 +41,9 @@
       <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ElCamino.AspNet.Identity.DocumentDB">
+      <HintPath>..\..\lib\ElCamino.AspNet.Identity.DocumentDB.dll</HintPath>
+    </Reference>
     <Reference Include="FluentScheduler, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentScheduler.5.0.0\lib\net40\FluentScheduler.dll</HintPath>
       <Private>True</Private>
@@ -164,10 +167,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\identitydocumentdb\src\identity.documentdb\ElCamino.AspNet.Identity.DocumentDB.csproj">
-      <Project>{F1F21307-0F10-42DA-B01D-AD9884AD900D}</Project>
-      <Name>ElCamino.AspNet.Identity.DocumentDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lunchorder.Domain\Lunchorder.Domain.csproj">
       <Project>{97E6C179-1629-4636-BC45-56C2124E8278}</Project>
       <Name>Lunchorder.Domain</Name>

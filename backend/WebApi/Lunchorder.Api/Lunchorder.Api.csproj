@@ -65,6 +65,10 @@
       <HintPath>..\packages\Castle.Windsor.Lifestyles.0.4.0\lib\net45\Castle.Windsor.Lifestyles.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ElCamino.AspNet.Identity.DocumentDB, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\ElCamino.AspNet.Identity.DocumentDB.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\elmah.1.2\lib\Elmah.dll</HintPath>
       <Private>True</Private>
@@ -349,10 +353,6 @@
     <None Include="Web.Release.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\identitydocumentdb\src\identity.documentdb\ElCamino.AspNet.Identity.DocumentDB.csproj">
-      <Project>{F1F21307-0F10-42DA-B01D-AD9884AD900D}</Project>
-      <Name>ElCamino.AspNet.Identity.DocumentDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lunchorder.Common\Lunchorder.Common.csproj">
       <Project>{412F593D-987F-4483-A07C-99C0F5295081}</Project>
       <Name>Lunchorder.Common</Name>
