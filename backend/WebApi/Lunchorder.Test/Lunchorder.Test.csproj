@@ -218,10 +218,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\identitydocumentdb\src\identity.documentdb\ElCamino.AspNet.Identity.DocumentDB.csproj">
-      <Project>{F1F21307-0F10-42DA-B01D-AD9884AD900D}</Project>
-      <Name>ElCamino.AspNet.Identity.DocumentDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lunchorder.Api\Lunchorder.Api.csproj">
       <Project>{e309087b-2766-4437-98ef-34bf59c5ea33}</Project>
       <Name>Lunchorder.Api</Name>
