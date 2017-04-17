@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
 					}
 					this.isBusyMenu = false;
 				},
-				error => this.error = <any>error);
+				(error : any) => this.error = <any>error);
 		}
 	}
 

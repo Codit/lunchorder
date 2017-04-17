@@ -6,7 +6,7 @@ import { Menu } from '../domain/dto/menu';
 import { MenuRule } from '../domain/dto/menuRule';
 import { MenuCategory } from '../domain/dto/menuCategory';
 import { HttpClient } from '../helpers/httpClient';
-import { ReplaySubject } from 'rxjs/rx';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable()
 export class MenuService {

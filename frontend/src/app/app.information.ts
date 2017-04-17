@@ -19,7 +19,7 @@ export class InformationComponent implements OnInit {
 
 	ngOnInit() {
 		this.menuService.menu$.subscribe(
-			menu => {
+			(menu : Menu) => {
 				this.menu = menu
 			},
 			error => this.error = <any>error);
