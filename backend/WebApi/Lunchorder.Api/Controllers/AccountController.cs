@@ -72,5 +72,20 @@ namespace Lunchorder.Api.Controllers
         {
             return Ok(await _accountControllerService.GetAllUsers());
         }
+
+        
+        /// <summary>
+        /// Promote user to prepay admin
+        /// </summary>
+        /// <returns></returns>
+        [Route("users/promote/prepay")]
+        [HttpGet]
+        [Authorize(Roles = Roles.PrepayAdmin)]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(GetAllUsersResponse))]
+        public async Task<IHttpActionResult> PromoteUserToPrepay(string userid)
+        {
+            await _accountControllerService.PromoteUserToPrepay(userid);
+            return Ok();
+        }
     }
 }

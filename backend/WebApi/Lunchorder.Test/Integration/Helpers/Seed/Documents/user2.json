@@ -23,12 +23,18 @@
       "TimesEarned": 2
     }
   ],
+  "Reminders": [
+    {
+      "Minutes": 30,
+      "Type": 0
+    }
+  ],
   "Favorites": [
     { "MenuEntryId": "f2d6b026-0e57-45a9-9270-f8fa4590079c" },
     { "MenuEntryId": "bd341859-1e68-4650-a8a5-31c409f91b3a" },
     { "MenuEntryId": "63a04825-1489-46cb-83c5-8dfda58c27c0" }
   ],
-  "Logins": [ ],
+  "Logins": [],
   "Claims": [
     {
       "ClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
@@ -36,7 +42,9 @@
     }
 
   ],
-  "Roles": [ ],
-  "Last5Orders": [ ],
-  "Last5BalanceAuditItems":  [ ] 
+  "Roles": [],
+  "UserId": "f28763cf-569c-4043-a31e-e92842eba077",
+  "kver": 2,
+  "Last5Orders": [],
+  "Last5BalanceAuditItems": []
 }

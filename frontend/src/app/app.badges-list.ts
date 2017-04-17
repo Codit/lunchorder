@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AdalService } from 'angular2-adal/core';
 import { ConfigService } from './services/configService';
 import { BadgeService } from './services/badgeService';
 import { Badge } from './domain/dto/badge';
@@ -7,9 +6,9 @@ import { BadgeRow } from './app.badge-row';
 
 @Component({
 	selector: '[badges-list]',
-	directives: [BadgeRow],
-	 inputs: ['badges: badgesList'], 
-	templateUrl: 'app.badges-list.html'})
+	inputs: ['badges: badgesList'],
+	templateUrl: 'app.badges-list.html'
+})
 
 export class BadgesList implements OnInit {
 
@@ -19,7 +18,7 @@ export class BadgesList implements OnInit {
 
 	ngOnInit() {
 		this.badgeService.getBadges().subscribe(
-			badges => { 
+			badges => {
 				this.badges = badges;
 				// todo map badges with current user badges
 			},

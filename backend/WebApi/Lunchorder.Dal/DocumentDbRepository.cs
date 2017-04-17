@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
 using Lunchorder.Domain.Entities.DocumentDb;
 using Microsoft.Azure.Documents.Linq;
+using todo;
 using Badge = Lunchorder.Domain.Dtos.Badge;
 using Menu = Lunchorder.Domain.Dtos.Menu;
 using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
@@ -61,6 +63,8 @@ namespace Lunchorder.Dal
 
         public async Task<Menu> GetEnabledMenu()
         {
+            //var menu2= await DocumentDBRepository2<Domain.Entities.DocumentDb.Menu>.GetItemsAsync(
+                //x => x.Type == DocumentDbType.Menu && x.Enabled && !x.Deleted);
             var menu = await GetMenuItem(x => x.Type == DocumentDbType.Menu && x.Enabled && !x.Deleted);
             return _mapper.Map<Domain.Entities.DocumentDb.Menu, Menu>(menu);
         }
@@ -217,7 +221,7 @@ namespace Lunchorder.Dal
             balanceHistory.Audits = balanceHistory.Audits.OrderByDescending(x => x.Date).ToList();
             balanceHistoryDto = _mapper.Map<UserBalanceAudit, Domain.Dtos.UserBalanceAudit>(balanceHistory);
 
-            var userQuery = _documentStore.GetItems<ApplicationUser>(x => x.Id == userId).AsDocumentQuery();
+            var userQuery = _documentStore.GetItems<ApplicationUser>(x => x.UserId == userId).AsDocumentQuery();
             var userQueryResponse = await userQuery.ExecuteNextAsync<ApplicationUser>();
             var user = userQueryResponse.FirstOrDefault();
 
@@ -237,6 +241,49 @@ namespace Lunchorder.Dal
         public async Task UpgradeUserHistory()
         {
             await _documentStore.ExecuteStoredProcedure<string>("upgradeUserHistory");
+        }
+
+        public async Task SavePushToken(string token, string userId)
+        {
+            var pushTokenDocument = new PushTokenList
+            {
+                Id = Guid.NewGuid().ToString(),
+                PushTokens = new List<PushTokenItem>
+                {
+                    new PushTokenItem
+                    {
+                        UserId = userId,
+                        LastModified = DateTime.UtcNow,
+                        Token = token
+                    }
+                }
+            };
+
+            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.StorePushToken, pushTokenDocument);
+        }
+
+        public async Task DeletePushTokenForUsers(IEnumerable<string> userIds)
+        {
+            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.DeletePushToken, DocumentDbType.PushTokenList, userIds);
+        }
+
+        public async Task<IEnumerable<PushTokenItem>> GetPushTokens()
+        {
+            var pushTokensQuery = _documentStore.GetItems<PushTokenList>(x => x.Type == DocumentDbType.PushTokenList).AsDocumentQuery();
+            var queryResponse = await pushTokensQuery.ExecuteNextAsync<PushTokenList>();
+            var pushTokensList = queryResponse.FirstOrDefault();
+
+            if (pushTokensList == null)
+            {
+                throw new Exception("Push token list could not be retrieved");
+            }
+
+            return pushTokensList.PushTokens;
+        }
+
+        public async Task SetReminder(Reminder dbReminder, string userId)
+        {
+            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.UpdateReminder, dbReminder, userId);
         }
 
         private async Task<Domain.Entities.DocumentDb.Menu> GetMenuItem(Expression<Func<Domain.Entities.DocumentDb.Menu, bool>> predicate)

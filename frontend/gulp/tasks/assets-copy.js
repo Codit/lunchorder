@@ -33,7 +33,6 @@ module.exports = function (paths, dist) {
                 .pipe(gulp.dest('.'));
         });
 
-
     gulp.task("copy:webConfig",
         function (cb) {
             return gulp.src(input.webConfig)

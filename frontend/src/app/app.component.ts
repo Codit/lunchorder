@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES, RouteConfig, RouterOutlet} from '@angular/router-deprecated';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';
 import { BalanceService } from './services/balanceService';
@@ -14,15 +13,15 @@ import { LoginForm } from './domain/dto/loginForm';
 import { AdminPrepayComponent } from './app.admin-prepay';
 import { FooterComponent } from './app.footer';
 import { StickRxDirective } from './directives/stickDirective';
-import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
+import { ToasterConfig, ToasterService } from 'angular2-toaster/angular2-toaster';
+import { ServiceworkerService } from './services/serviceworkerService';
+import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
+import * as moment from 'moment';
 
 @Component({
 	selector: 'lunchorder-app',
-	// question: why do we need a provider here for a component that has its own descriptor?
-	providers: [BalanceService, ToasterService],
-	directives: [InformationComponent, MenuComponent, AboutYouComponent, ReminderComponent, BadgesList, StickRxDirective, AdminPrepayComponent, ToasterContainerComponent, FooterComponent],
-
-	templateUrl: 'app.component.html'})
+	templateUrl: 'app.component.html'
+})
 
 export class AppComponent implements OnInit {
 	userInfo: app.domain.dto.IGetUserInfoResponse;
@@ -33,18 +32,54 @@ export class AppComponent implements OnInit {
 	});
 	loginForm: LoginForm;
 
-	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService) { }
+	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService, private serviceworkerService: ServiceworkerService) {
+		serviceworkerService.init();
+
+		this.accountService.user$.subscribe(user => {
+			this.user = user;
+		});
+	}
+
+	getIntroClass() {
+		if (!this._introClass) {
+			if (this.getEaster()) {
+				return this._introClass = 'intro-header-img6';
+			}
+
+			var quarter = moment().quarter();
+			return this._introClass = `intro-header-img${quarter}`;
+		}
+		else {
+			return this._introClass;
+		}
+
+	}
+	private _introClass: string;
+	getEaster(): boolean {
+		var easterDates = ['2017/04/16', '2018/04/01', '2019/04/21', '2020/04/12', '2021/04/04'];
+		for (var easterDate of easterDates) {
+			var today = moment();
+			var startEaster = moment(easterDate);
+			var endEaster = moment(easterDate).add(3, 'd');
+
+			if (today.isBetween(startEaster, endEaster, 'days', '[]')) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	user: GetUserInfoResponse;
 
 	ngOnInit() {
 		this.loginForm = new LoginForm();
 
 		this.accountService.isAuthenticated$.subscribe((value) => {
 			this.isAuthenticated = value;
-			debugger;
-		})
+		});
 	}
 
-	isAuthenticated : boolean = false;
+	isAuthenticated: boolean = false;
 
 	loginUserPass($event: any, form: any) {
 		this.accountService.loginUserPassword(this.loginForm).subscribe(
@@ -60,13 +95,13 @@ export class AppComponent implements OnInit {
 	}
 
 	public isAdminPrepay() {
-		if (this.accountService.user && this.accountService.user.roles) {
-			return this.accountService.user.roles.find(x => x == "prepay-admin");
+		if (this.user && this.user.roles) {
+			return this.user.roles.find(x => x == "prepay-admin");
 		}
 		return null;
 	}
 
 	public login() {
-        this.accountService.login();
-    }
+		this.accountService.login();
+	}
 }

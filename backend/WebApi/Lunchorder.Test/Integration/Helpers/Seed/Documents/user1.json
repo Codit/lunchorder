@@ -15,6 +15,7 @@
   "TwoFactorEnabled": false,
   "LockoutEnd": "0001-01-01T01:00:00+01:00",
   "LockoutEnabled": true,
+  "PushToken": "pushToken1234567489_5454896M",
   "AccessFailedCount": 0,
   "Balance": 50.50,
   "Badges": [
@@ -28,7 +29,7 @@
     { "MenuEntryId": "bd341859-1e68-4650-a8a5-31c409f91b3a" },
     { "MenuEntryId": "63a04825-1489-46cb-83c5-8dfda58c27c0" }
   ],
-  "Logins": [ ],
+  "Logins": [],
   "Claims": [
     {
       "ClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
@@ -36,7 +37,9 @@
     }
 
   ],
-  "Roles": [ ],
-  "Last5Orders": [ ],
-  "Last5BalanceAuditItems": [ ]
+  "Roles": [],
+  "UserId": "9761a644-c2f6-476d-978f-58accaa09d0a",
+  "kver": 2,
+  "Last5Orders": [],
+  "Last5BalanceAuditItems": []
 }

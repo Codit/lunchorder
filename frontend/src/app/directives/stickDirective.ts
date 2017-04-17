@@ -1,14 +1,12 @@
 import {Directive, ElementRef, Input, HostListener} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
-import {WindowRef} from '../services/windowService';
-
 @Directive({
     selector: '[stick-rx]'
 })
 export class StickRxDirective {
 
-    constructor(private _element: ElementRef, private _window: WindowRef) {
+    constructor(private _element: ElementRef, private window: Window) {
 
         this.subscribeForScrollEvent();
     }
@@ -22,7 +20,7 @@ export class StickRxDirective {
     }
 
     handleScrollEvent(e: any) {
-        var scroll = this._window.nativeWindow.pageYOffset;
+        var scroll = this.window.pageYOffset;
 
         if (scroll >= this.stickyOffset) { this._element.nativeElement.classList.add('stick-rx'); }
 

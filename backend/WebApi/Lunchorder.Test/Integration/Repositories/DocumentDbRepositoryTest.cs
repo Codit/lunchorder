@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lunchorder.Common;
 using Lunchorder.Domain.Dtos;
+using Lunchorder.Domain.Entities.DocumentDb;
 using Lunchorder.Test.Integration.Helpers;
 using Lunchorder.Test.Integration.Helpers.Base;
 using Microsoft.Azure.Documents;
@@ -15,6 +16,8 @@ using MenuEntry = Lunchorder.Domain.Dtos.MenuEntry;
 using MenuRule = Lunchorder.Domain.Dtos.MenuRule;
 using MenuVendor = Lunchorder.Domain.Dtos.MenuVendor;
 using MenuVendorAddress = Lunchorder.Domain.Dtos.MenuVendorAddress;
+using PlatformUserListItem = Lunchorder.Domain.Dtos.PlatformUserListItem;
+using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
 using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
 using UserOrderHistoryEntry = Lunchorder.Domain.Dtos.UserOrderHistoryEntry;
 
@@ -25,6 +28,104 @@ namespace Lunchorder.Test.Integration.Repositories
     {
         // todo add test to check audit document creation
         // todo add test to check autit document update
+        [Test]
+        public async Task SetNewReminder()
+        {
+            var userId = TestConstants.User1.Id;
+            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.AddOrUpdate, Minutes = 15, Type = ReminderType.DesktopNotification };
+            await DatabaseRepository.SetReminder(reminder, userId);
+            var userInfo = (await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName));
+            Assert.NotNull(userInfo.Reminders);
+            var reminders = userInfo.Reminders.ToList();
+            Assert.AreEqual(1, reminders.Count);
+            Assert.AreEqual((int)reminder.Type, reminders[0].Type);
+            Assert.AreEqual(reminder.Minutes, reminders[0].Minutes);
+        }
+
+        /// <summary>
+        /// User 2 has a desktop reminder of 15minutes. See if we can change it to 30
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OverwriteExistingReminder()
+        {
+            var userId = TestConstants.User2.Id;
+            
+            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.AddOrUpdate, Minutes = 15, Type = ReminderType.DesktopNotification };
+            await DatabaseRepository.SetReminder(reminder, userId);
+
+            var userInfo = (await DatabaseRepository.GetUserInfo(TestConstants.User2.UserName));
+            Assert.NotNull(userInfo.Reminders);
+            var reminders = userInfo.Reminders.ToList();
+            Assert.AreEqual(1, reminders.Count);
+            Assert.AreEqual((int)reminder.Type, reminders[0].Type);
+            Assert.AreEqual(reminder.Minutes, reminders[0].Minutes);
+        }
+
+        [Test]
+        public async Task DeleteExistingReminder()
+        {
+            var userId = TestConstants.User3.Id;
+
+            var reminder = new Domain.Entities.DocumentDb.Reminder { Action = ActionType.Delete, Type = ReminderType.DesktopNotification };
+            await DatabaseRepository.SetReminder(reminder, userId);
+
+            var userInfo = (await DatabaseRepository.GetUserInfo(TestConstants.User3.UserName));
+            Assert.NotNull(userInfo.Reminders);
+            var reminders = userInfo.Reminders.ToList();
+            Assert.AreEqual(0, reminders.Count);
+        }
+
+        [Test]
+        public async Task InsertUniquePushToken()
+        {
+            var token = "token123";
+            var userId = TestConstants.User3.Id;
+
+            await DatabaseRepository.SavePushToken(token, userId);
+            var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
+            Assert.AreEqual(3, pushTokens.Count);
+
+            var pushToken = pushTokens.SingleOrDefault(x => x.Token == token && x.UserId == userId);
+            Assert.NotNull(pushToken);
+
+            var userInfo = await DatabaseRepository.GetUserInfo(TestConstants.User3.UserName);
+            Assert.AreEqual(token, userInfo.PushToken);
+        }
+
+        [Test]
+        public async Task UpdatePushToken()
+        {
+            var token = "token123456";
+            var userId = TestConstants.User1.Id;
+
+            await DatabaseRepository.SavePushToken(token, userId);
+            var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
+
+            Assert.AreEqual(3, pushTokens.Count());
+            var pushToken = pushTokens.SingleOrDefault(x => x.Token == token && x.UserId == userId);
+            Assert.NotNull(pushToken);
+        }
+
+        /// <summary>
+        /// Seed data contains push token for user1 in userObject, should be deleted
+        /// Seed data contains push token for user1 in push tokens document, should be deleted
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task DeletePushToken()
+        {
+            var userIds = new List<string> { TestConstants.User1.Id };
+
+            await DatabaseRepository.DeletePushTokenForUsers(userIds);
+            var pushTokens = (await DatabaseRepository.GetPushTokens()).ToList();
+
+            var pushToken = pushTokens.SingleOrDefault(x => x.UserId == userIds[0]);
+            Assert.Null(pushToken);
+
+            var userInfo = await DatabaseRepository.GetUserInfo(TestConstants.User1.UserName);
+            Assert.IsEmpty(userInfo.PushToken);
+        }
 
         [Test]
         public async Task UpgradeUserHistory()
@@ -52,11 +153,12 @@ namespace Lunchorder.Test.Integration.Repositories
         [Test]
         public async Task AddToUserList()
         {
+            var originalUserList = (await DatabaseRepository.GetUsers()).ToList();
             await DatabaseRepository.AddToUserList(TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName, TestConstants.User1.LastName);
             var users = await DatabaseRepository.GetUsers();
             Assert.NotNull(users);
             var usersList = users.ToList();
-            Assert.AreEqual(1, usersList.Count);
+            Assert.AreEqual(originalUserList.Count + 1, usersList.Count);
             var firstUser = usersList.First();
             AssertUsers(firstUser, TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName,
                 TestConstants.User1.LastName);
@@ -66,7 +168,7 @@ namespace Lunchorder.Test.Integration.Repositories
             users = await DatabaseRepository.GetUsers();
             Assert.NotNull(users);
             usersList = users.ToList();
-            Assert.AreEqual(2, usersList.Count);
+            Assert.AreEqual(originalUserList.Count + 2, usersList.Count);
             firstUser = usersList.First();
             AssertUsers(firstUser, TestConstants.User1.Id, TestConstants.User1.UserName, TestConstants.User1.FirstName,
                 TestConstants.User1.LastName);
@@ -78,9 +180,9 @@ namespace Lunchorder.Test.Integration.Repositories
         private void AssertUsers(PlatformUserListItem user, string userId, string userName, string firstName, string lastName)
         {
             Assert.AreEqual(userId, user.UserId);
-            Assert.AreEqual(userName,  user.UserName);
+            Assert.AreEqual(userName, user.UserName);
             Assert.AreEqual(firstName, user.FirstName);
-            Assert.AreEqual(lastName,  user.LastName);
+            Assert.AreEqual(lastName, user.LastName);
         }
 
         [Test]
@@ -98,8 +200,42 @@ namespace Lunchorder.Test.Integration.Repositories
             Assert.AreEqual(TestConstants.User3.Balance + amount, updatedBalance);
         }
 
+        /// <summary>
+        /// Tests for Github issue #89 (long decimal balance), 
+        /// Repro: User balance €5, places order of €4.9, final balance will be €0.0999999999999996 in document db.
+        /// </summary>
         [Test]
-        public async Task AddOrder_Should_Fail_When_Insufficient_Balance()
+        public async Task AddOrder_Should_Have_Correct_Decimals()
+        {
+            var userId = TestConstants.User5.Id;
+            var userName = TestConstants.User5.UserName;
+
+            var vendorId = Guid.NewGuid().ToString();
+
+            var userOrderHistoryEntries = new List<UserOrderHistoryEntry>
+            {
+                new UserOrderHistoryEntry
+                {
+                    Id = Guid.NewGuid(),
+                    MenuEntryId = Guid.NewGuid(),
+                    Price = 4.9M,
+                    Rules = new List<UserOrderHistoryRule>(),
+                    Name = "test item"
+                },
+            };
+
+            var orderDate = new DateGenerator().GenerateDateFormat(DateTime.UtcNow);
+
+            var userOrderHistory = new UserOrderHistory { Entries = userOrderHistoryEntries, OrderTime = DateTime.UtcNow };
+            await DatabaseRepository.UpdateBalance(userId, 5, new SimpleUser { FullName = "Some Balance User", Id = TestConstants.User1.Id, UserName = TestConstants.User1.UserName });
+            await DatabaseRepository.AddOrder(userId, userName, vendorId, orderDate, userOrderHistory, TestConstants.User5.FullName);
+            var balance = await DatabaseRepository.GetUserBalanceAndHistory(TestConstants.User5.Id);
+            Assert.AreEqual(1, balance.Audits.Count(), "There should only be one balance update for this user");
+            Assert.AreEqual(0.10, balance.Balance);
+        }
+
+        [Test]
+        public void AddOrder_Should_Fail_When_Insufficient_Balance()
         {
             var userId = TestConstants.User3.Id;
             var userName = TestConstants.User3.UserName;

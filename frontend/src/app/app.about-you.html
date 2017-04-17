@@ -1,88 +1,122 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-12 text-center wrap_title ">
-            <h2>About you</h2>
-            <p class="lead" style="margin-top:0">Check your latest actions.</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="pull-left image">
-                        <img alt="User Image" class="img-circle shadow userImage sample" [hidden]="accountService.user.profile?.picture" src="../assets/css/img/icon/icon-user.png"
-                        />
-                        <img alt="User Image" class="img-circle shadow userImage sample" [src]="accountService.user.profile?.picture" [hidden]="!accountService.user.profile?.picture"
-                        />
-                        <label class="myLabel" style="display:block;font-size: 12px;margin-top: -15px;width: 100px;cursor: pointer;">
+	<div class="row">
+		<div class="col-md-12 text-center wrap_title ">
+			<h2>About you</h2>
+			<p class="lead" style="margin-top:0">Check your latest actions.</p>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="col-md-2">
+						<img alt="User Image" class="img-circle shadow userImage sample" [hidden]="user?.profile?.picture" src="../assets/css/img/icon/icon-user.png"
+						/>
+						<img alt="User Image" class="img-circle shadow userImage sample" [src]="user?.profile?.picture" [hidden]="!user?.profile?.picture"
+						/>
+						<label class="myLabel" style="display:block;font-size: 12px;margin-top: -15px;width: 100px;cursor: pointer;">
                             <input type="file" ngFileSelect
        [options]="options" style="visibility: hidden;" accept="image/*" (onUpload)="handleUpload($event)">
                         <span>Upload</span>
                     </label>
-                    </div>
-                    <p style="text-align: left; font-size: 28px;">{{getName()}}</p>
-                </div>
-                <div class="col-md-6">
-                    <p style="text-align: left; font-size: 28px;float:right;"><i class="fa fa-balance-scale" style="padding-right: 10px;font-size: 24px;"></i>{{accountService.user.balance
-                        | currency:'EUR':true:'1.2-2'}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div>
-                        <h4>Last 5 Orders</h4>
-                    </div>
-                    <table class="table history table-striped">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Name</th>
-                                <th style="white-space: nowrap;">Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let lastOrder of accountService.user.last5Orders">
-                                <td>
-                                    <div style="text-align: left;">{{lastOrder.orderTime | date: 'medium'}}</div>
-                                </td>
-                                <td>
+					</div>
+					<div class="col-md-10">
+						<span style="text-align: left;font-size: 28px;display:block">{{getName()}}</span>
+						<div (click)="toggleReminderModal()" style="cursor:pointer">
+							<span style="text-align: left;display:block" *ngIf="!hasNotificationConfigured"><span class="label label-info">notifications are disabled</span></span>
+							<span style="text-align: left;display:block" *ngIf="hasNotificationConfigured"><span class="label label-success">notifications are enabled</span></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<p style="text-align: left; font-size: 28px;float:right;"><i class="fa fa-balance-scale" style="padding-right: 10px;font-size: 24px;"></i>{{user?.balance | currency:'EUR':true:'1.2-2'}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div>
+						<h4>Last 5 Orders</h4>
+					</div>
+					<table class="table history table-striped">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Name</th>
+								<th style="white-space: nowrap;">Total Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let lastOrder of user?.last5Orders">
+								<td>
+									<div style="text-align: left;">{{lastOrder.orderTime | date: 'medium'}}</div>
+								</td>
+								<td>
 
-                                    <div style="text-align: left;" *ngFor="let entry of lastOrder.lastOrderEntries">
-                                        <span>{{ entry.name }} ({{entry.price | currency:'EUR':true:'1.2-2' }})</span>
-                                        <span class="detail">{{ entry.appliedRules }}</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="text-align: left;">{{ lastOrder.finalPrice | currency:'EUR':true:'1.2-2' }}</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <div>
-                        <h4>Last 5 Payments</h4>
-                    </div>
-                    <table class="table history table-striped">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Originator</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let audit of accountService.user.last5BalanceAuditItems">
-                                <td>
-                                    <div style="text-align: left;">{{audit.date | date: 'medium'}}</div>
-                                </td>
-                                <td>
-                                    <div style="text-align: left;"><span>{{ audit.originatorName }}</span></div>
-                                </td>
-                                <td>
-                                    <div style="text-align: left;">{{ audit.amount | currency:'EUR':true:'1.2-2' }}</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+									<div style="text-align: left;" *ngFor="let entry of lastOrder.lastOrderEntries">
+										<span>{{ entry.name }} ({{entry.price | currency:'EUR':true:'1.2-2' }})</span>
+										<span class="detail">{{ entry.appliedRules }}</span>
+									</div>
+								</td>
+								<td>
+									<div style="text-align: left;">{{ lastOrder.finalPrice | currency:'EUR':true:'1.2-2' }}</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-6">
+					<div>
+						<h4>Last 5 Payments</h4>
+					</div>
+					<table class="table history table-striped">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Originator</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let audit of user?.last5BalanceAuditItems">
+								<td>
+									<div style="text-align: left;">{{audit.date | date: 'medium'}}</div>
+								</td>
+								<td>
+									<div style="text-align: left;"><span>{{ audit.originatorName }}</span></div>
+								</td>
+								<td>
+									<div style="text-align: left;">{{ audit.amount | currency:'EUR':true:'1.2-2' }}</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modalDialog active checkout" *ngIf="isReminderModal">
+		<div>
+			<i (click)="toggleReminderModal()" title="Close" class="fa fa-times close"></i>
+			<i class="fa fa-bell" title="Configure reminders"></i>
+			<p>We only notify you when you did not order for that day.</p>
+			<div>
+				<h4 style="width: 100%">Desktop notifications <label class="switch switch-green pull-right">
+      <input type="checkbox" class="switch-input"  [checked]="hasNotificationConfigured" (change)="hasNotificationConfigured = $event.target.checked">
+      <span class="switch-label" style="font-size: 10px;" data-on="On" data-off="Off"></span>
+      <span class="switch-handle"></span>
+    </label></h4>
+				<p [hidden]="isServiceworkerEnabled()">You do not have notifications enabled in your browser or your browser does not support this, click here to read more
+					about this feature.</p>
+				<div *ngIf="isServiceworkerEnabled() && hasNotificationConfigured">
+					Notify me
+					<select [ngModel]="selectedNotificationOption" (ngModelChange)="reminderNotificationChange($event)" class="form-control" style="margin-left: 10px;margin-right:10px;display: inline;width: auto;">
+    <option [ngValue]="item" *ngFor="let item of remindOptions">{{item.text}}</option>
+</select> before an order is finalized.
+				</div>
+			</div>
+			<!--<div>
+				<h4>Email reminder</h4>
+				<p>Every day at ...</p>
+			</div>-->
+			<div class="clear">
+				 <button type="button" class="btn btn-primary btn-sm pull-right" style="font-weight:bold;" (click)="saveReminder()"><i class="fa fa-spinner fa-spin" *ngIf="isBusyModal"></i> Save</button>
+            <button type="button" class="btn btn-sm pull-right" style="font-weight:bold; margin-right:20px;" (click)="toggleReminderModal()">Cancel</button>
+
+			</div>
+		</div>

@@ -28,7 +28,7 @@
     { "MenuEntryId": "bd341859-1e68-4650-a8a5-31c409f91b3a" },
     { "MenuEntryId": "63a04825-1489-46cb-83c5-8dfda58c27c0" }
   ],
-  "Logins": [ ],
+  "Logins": [],
   "Claims": [
     {
       "ClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
@@ -36,7 +36,15 @@
     }
 
   ],
-  "Roles": [ "prepay-admin" ],
-  "Last5Orders": [ ],
-  "Last5BalanceAuditItems": [ ]
+  "Roles": [
+    {
+      "kver": 2,
+      "id": "R_B36A5F40125153879FB0EFE8236BF4518EA674E0ADC466DC65DE2A4740015517",
+      "name": "prepay-admin"
+    }
+  ],
+  "UserId": "1a987242-09ad-42f9-808c-ba995d533406",
+  "kver": 2,
+  "Last5Orders": [],
+  "Last5BalanceAuditItems": []
 }

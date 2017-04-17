@@ -83,18 +83,14 @@ declare module app.domain.dto {
         name: string;
         address: IMenuVendorAddress;
         website: string;
-        submitOrderTime: string;
+        submitOrderTime: Date;
         logo: string;
         closingDateRanges: IMenuVendorClosingDateRange[];
     }
-    
+    export interface IMenuVendorAddress extends IAddress{}
     export interface IMenuVendorClosingDateRange {
         from: string;
-        untill: string;
-    }
-
-    export interface IMenuVendorAddress extends IAddress {
-        
+        until: string;
     }
     
     export interface IPlatformUserList {
@@ -109,6 +105,11 @@ declare module app.domain.dto {
         lastName: string;
     }
     
+    export interface IReminder {
+        type: number;
+        minutes: number;
+    }
+    
     export interface ISimpleUser {
         id: string;
         userName: string;
@@ -121,6 +122,19 @@ declare module app.domain.dto {
     export interface IUserBadge {
         badgeId: string;
         timesEarned: number;
+    }
+    
+    export interface IUserBalanceAudit {
+        id: string;
+        userId: string;
+        balance: number;
+        audits: IUserBalanceAuditItem[];
+    }
+    
+    export interface IUserBalanceAuditItem {
+        date: Date;
+        originatorName: string;
+        amount: number;
     }
     
     export interface IUserOrderHistory {
@@ -171,6 +185,7 @@ declare module app.domain.dto {
         id: string;
         name: string;
         menuEntryId: string;
+        freeText: string;
         userId: string;
         userName: string;
         finalPrice: number;
@@ -202,6 +217,11 @@ declare module app.domain.dto {
     export interface IGetAllUsersResponse {
         users: IPlatformUserListItem[];
     }
+
+    export interface IPostReminderRequest
+    {
+        reminder: IReminder;
+    }
     
     export interface IGetUserInfoResponse {
         id: string;
@@ -211,7 +231,10 @@ declare module app.domain.dto {
         badges: IUserBadge[];
         favorites: IMenuEntryFavorite[];
         last5Orders: ILastOrder[];
+        last5BalanceAuditItems: IUserBalanceAuditItem[];
         roles: string[];
+        reminders: IReminder[];
+        pushToken: string;
         userToken: string;
     }
 }

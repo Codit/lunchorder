@@ -6,6 +6,7 @@ using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos.Requests;
 using Swashbuckle.Swagger.Annotations;
+using todo;
 
 namespace Lunchorder.Api.Controllers
 {
@@ -29,6 +30,7 @@ namespace Lunchorder.Api.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(Domain.Dtos.Menu))]
         public async Task<IHttpActionResult> Get()
         {
+            
             var menu = await _menuControllerService.GetActiveMenu();
             return Ok(menu);
         }

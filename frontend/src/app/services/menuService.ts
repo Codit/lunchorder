@@ -6,24 +6,31 @@ import { Menu } from '../domain/dto/menu';
 import { MenuRule } from '../domain/dto/menuRule';
 import { MenuCategory } from '../domain/dto/menuCategory';
 import { HttpClient } from '../helpers/httpClient';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable()
 export class MenuService {
   constructor(private http: HttpClient, private configService: ConfigService) {
   }
 
+     private menuSource = new ReplaySubject<Menu>(1);
+
+    public menu$ = this.menuSource.asObservable();
+
   private menuApiUri = `${this.configService.apiPrefix}/menus`;
 
   getMenu(): Observable<Menu> {
     return this.http.get(`${this.menuApiUri}`)
       .map(this.mapMenu)
-      .catch(this.handleError);
+      .catch(this.handleError)
+      .share();
   }
 
   mapMenu = (res: Response): Menu => {
     let body = res.json();
     var menu: Menu;
     menu = new Menu().deserialize(body);
+    this.menuSource.next(menu);
     return menu;
   }
   

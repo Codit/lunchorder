@@ -11,5 +11,6 @@ namespace Lunchorder.Common.Interfaces
         Task<GetUserInfoResponse> GetUserInfo(ClaimsIdentity claimsIdentity);
         Task<GetAllUsersResponse> GetAllUsers();
         Task<IEnumerable<LastOrder>> GetLast5Orders(ClaimsIdentity claimsIdentity);
+        Task PromoteUserToPrepay(string userid);
     }
 }

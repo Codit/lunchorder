@@ -3,12 +3,10 @@ import { BalanceService } from './services/balanceService';
 import { AccountService } from './services/accountService';
 import { PlatformUserListItem } from './domain/dto/platformUserListItem';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/common';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
 	selector: '[admin-prepay]',
-	directives: [REACTIVE_FORM_DIRECTIVES],
 	templateUrl: 'app.admin-prepay.html'})
 
 export class AdminPrepayComponent implements OnInit {
@@ -54,7 +52,6 @@ export class AdminPrepayComponent implements OnInit {
 	}
 
 	addBalance() {
-		debugger;
 		this.isBusy = true;
 		this.userBalanceError = "";
 
@@ -68,7 +65,7 @@ export class AdminPrepayComponent implements OnInit {
 			},
 			error => {
 				this.userBalanceError = <any>error,
-					this.toasterService.pop('error', 'Failure', 'Something went wrong');
+					this.toasterService.pop('error', 'Failure', this.userBalanceError);
 				this.isBusy = false;
 			});
 	};

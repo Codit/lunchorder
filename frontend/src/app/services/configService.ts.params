@@ -19,14 +19,14 @@ export class ConfigService {
     }
 
     public get demoConfig() : any {
-            return {
-                isDemo: '____isDemo____',
-                demoAdmin: '____demoAdmin____',
-                demoAdminPass: '____demoAdminPass____',
-                demoUser: '____demoUser____',
-                demoUserPass: '____demoUserPass____'
-            }
+        return {
+            isDemo: '____isDemo____',
+            demoAdmin: '____demoAdmin____',
+            demoAdminPass: '____demoAdminPass____',
+            demoUser: '____demoUser____',
+            demoUserPass: '____demoUserPass____'
         }
+    }
 
     public get allowWeekendOrders() : string {
         return '____allowWeekendOrders____';

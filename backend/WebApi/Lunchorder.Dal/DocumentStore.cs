@@ -23,37 +23,50 @@ namespace Lunchorder.Dal
             DocumentDbAuthKey = _configurationService.DocumentDb.AuthKey;
         }
 
-        private DocumentClient _documentDbClient;
+        private static DocumentClient _documentDbClient;
+        public static DocumentClient DocumentDbClient
+        {
+            get
+            {
+                
+                return _documentDbClient ?? (_documentDbClient = new DocumentClient(new Uri(DocumentDbEndpoint), DocumentDbAuthKey, new ConnectionPolicy { EnableEndpointDiscovery = false,  ConnectionMode = ConnectionMode.Direct, ConnectionProtocol = Protocol.Https }));
+            }
+        }
         private Database _database;
         private DocumentCollection _documentCollection;
 
-        private string DocumentDbEndpoint { get; }
-        private string DocumentDbAuthKey { get; }
+        private static string DocumentDbEndpoint { get; set; }
+        private static string DocumentDbAuthKey { get; set; }
 
-        private DocumentClient DocumentDbClient
+        
+        private Uri CollectionUri
         {
             get
             {
-                return _documentDbClient ?? (_documentDbClient = new DocumentClient(new Uri(DocumentDbEndpoint), DocumentDbAuthKey));
+                var uri = UriFactory.CreateDocumentCollectionUri(_configurationService.DocumentDb.Database,
+                    _configurationService.DocumentDb.Collection);
+                return uri;
             }
         }
 
-        private Database Database
-            =>
-                _database ??
-                (_database = DocumentDbClient.CreateDatabaseQuery().Where(d => d.Id == _configurationService.DocumentDb.Database).AsEnumerable().FirstOrDefault());
-
-        private DocumentCollection Collection
+        private Uri StoredProcedureUri(string procedure)
         {
-            get
-            {
-                return _documentCollection ??
-                       (_documentCollection = DocumentDbClient.CreateDocumentCollectionQuery(Database.SelfLink)
-                           .Where(c => c.Id == _configurationService.DocumentDb.Collection)
-                           .AsEnumerable()
-                           .FirstOrDefault());
-            }
+                var uri = UriFactory.CreateStoredProcedureUri(_configurationService.DocumentDb.Database,
+                    _configurationService.DocumentDb.Collection, procedure);
+                return uri;
         }
+
+        //private DocumentCollection Collection
+        //{
+        //    get
+        //    {
+        //        return _documentCollection ??
+        //               (_documentCollection = DocumentDbClient.CreateDocumentCollectionQuery(Database.SelfLink)
+        //                   .Where(c => c.Id == _configurationService.DocumentDb.Collection)
+        //                   .AsEnumerable()
+        //                   .FirstOrDefault());
+        //    }
+        //}
 
 
         public IQueryable<T> GetItems<T>()
@@ -63,7 +76,7 @@ namespace Lunchorder.Dal
 
         public IQueryable<T> GetItemsByExpression<T>(string sqlExpression)
         {
-            return DocumentDbClient.CreateDocumentQuery<T>(Collection.DocumentsLink, sqlExpression);
+            return DocumentDbClient.CreateDocumentQuery<T>(CollectionUri, sqlExpression);
         }
 
         /// <summary>
@@ -73,20 +86,15 @@ namespace Lunchorder.Dal
         public async Task CreateDatabase()
         {
             var dbName = _configurationService.DocumentDb.Database;
-            Database docDb = DocumentDbClient.CreateDatabaseQuery().Where(db => db.Id == dbName).ToArray().FirstOrDefault();
-            if (docDb == null)
-            {
-                var database = new Database { Id = dbName };
-                await DocumentDbClient.CreateDatabaseAsync(database);
-            }
+            await DocumentDbClient.CreateDatabaseIfNotExistsAsync(new Database{Id = dbName});
         }
-
+        
         public IQueryable<T> GetItems<T>(Expression<Func<T, bool>> predicate)
         {
             if (predicate == null)
-                return DocumentDbClient.CreateDocumentQuery<T>(Collection.DocumentsLink);
+                return DocumentDbClient.CreateDocumentQuery<T>(CollectionUri, new FeedOptions { MaxItemCount = -1 });
 
-            return DocumentDbClient.CreateDocumentQuery<T>(Collection.DocumentsLink)
+            return DocumentDbClient.CreateDocumentQuery<T>(CollectionUri, new FeedOptions { MaxItemCount = -1 })
                 .Where(predicate);
         }
 
@@ -98,7 +106,7 @@ namespace Lunchorder.Dal
         public async Task<ResourceResponse<StoredProcedure>> GetStoredProcedure(string id)
         {
             StoredProcedure dbSp =
-                    DocumentDbClient.CreateStoredProcedureQuery(Collection.SelfLink)
+                    DocumentDbClient.CreateStoredProcedureQuery(CollectionUri)
                         .Where(c => c.Id == id)
                         .AsEnumerable()
                         .FirstOrDefault();
@@ -116,7 +124,7 @@ namespace Lunchorder.Dal
             if (checkIfExists || overwrite)
             {
                 StoredProcedure dbSp =
-                    DocumentDbClient.CreateStoredProcedureQuery(Collection.SelfLink)
+                    DocumentDbClient.CreateStoredProcedureQuery(CollectionUri)
                         .Where(c => c.Id == storedProcedure.Id)
                         .AsEnumerable()
                         .FirstOrDefault();
@@ -140,7 +148,7 @@ namespace Lunchorder.Dal
 
         public async Task<T> ExecuteStoredProcedure<T>(string storedProcedureName, params dynamic[] parameters)
         {
-            var storedProc = DocumentDbClient.CreateStoredProcedureQuery(Collection.StoredProceduresLink).Where(p => p.Id == storedProcedureName).AsEnumerable().FirstOrDefault();
+            var storedProc = DocumentDbClient.CreateStoredProcedureQuery(CollectionUri).Where(p => p.Id == storedProcedureName).AsEnumerable().FirstOrDefault();
 
             if (storedProc == null)
             {
@@ -155,41 +163,49 @@ namespace Lunchorder.Dal
 
         private async Task CreateStoredProcedure(StoredProcedure storedProcedure)
         {
-            await DocumentDbClient.CreateStoredProcedureAsync(Collection.DocumentsLink, storedProcedure);
+            await DocumentDbClient.CreateStoredProcedureAsync(CollectionUri, storedProcedure);
         }
 
-        public async Task CreateCollection(bool checkIfExists)
-        {
-            await CreateCollection(_configurationService.DocumentDb.Collection, checkIfExists);
-        }
+        //public async Task CreateCollection(bool checkIfExists)
+        //{
+        //    await CreateCollection(_configurationService.DocumentDb.Collection, checkIfExists);
+        //}
 
-        public async Task CreateCollection(string collectionName, bool checkIfExists)
-        {
-            var collectionDefinition = new DocumentCollection
-            {
-                Id = collectionName,
-                IndexingPolicy = new IndexingPolicy(new RangeIndex(DataType.String) { Precision = -1 })
-            };
 
-            if (checkIfExists)
-            {
-                DocumentCollection dbCollection =
-                    DocumentDbClient.CreateDocumentCollectionQuery(Database.SelfLink)
-                        .Where(c => c.Id == collectionName)
-                        .AsEnumerable()
-                        .FirstOrDefault();
 
-                if (dbCollection == null)
-                {
-                    await DocumentDbClient.CreateDocumentCollectionAsync(Database.SelfLink, collectionDefinition,
-                            new RequestOptions());
-                }
-            }
-            else
-            {
-                await DocumentDbClient.CreateDocumentCollectionAsync(Database.SelfLink, collectionDefinition, new RequestOptions());
-            }
-        }
+
+        //private Database Database
+        //    =>
+        //        _database ??
+        //        (_database = DocumentDbClient.CreateDatabaseQuery().Where(d => d.Id == _configurationService.DocumentDb.Database).AsEnumerable().FirstOrDefault());
+
+        //public async Task CreateCollection(string collectionName, bool checkIfExists)
+        //{
+        //    var collectionDefinition = new DocumentCollection
+        //    {
+        //        Id = collectionName,
+        //        IndexingPolicy = new IndexingPolicy(new RangeIndex(DataType.String) { Precision = -1 })
+        //    };
+
+        //    if (checkIfExists)
+        //    {
+        //        DocumentCollection dbCollection =
+        //            DocumentDbClient.CreateDocumentCollectionQuery(Database.SelfLink)
+        //                .Where(c => c.Id == collectionName)
+        //                .AsEnumerable()
+        //                .FirstOrDefault();
+
+        //        if (dbCollection == null)
+        //        {
+        //            await DocumentDbClient.CreateDocumentCollectionAsync(Database.SelfLink, collectionDefinition,
+        //                    new RequestOptions());
+        //        }
+        //    }
+        //    else
+        //    {
+        //        await DocumentDbClient.CreateDocumentCollectionAsync(Database.SelfLink, collectionDefinition, new RequestOptions());
+        //    }
+        //}
 
         public async Task UpsertDocument<T>(T document)
         {
@@ -198,13 +214,13 @@ namespace Lunchorder.Dal
             //JObject.Parse(doc)
 
             ResourceResponse<Document> result = await DocumentDbClient.UpsertDocumentAsync(
-                Collection.DocumentsLink,
+                CollectionUri,
                 document);
         }
 
         public async Task UpsertDocument(object document)
         {
-            ResourceResponse<Document> result = await DocumentDbClient.UpsertDocumentAsync(Collection.DocumentsLink, JObject.FromObject(document));
+            ResourceResponse<Document> result = await DocumentDbClient.UpsertDocumentAsync(CollectionUri, JObject.FromObject(document));
         }
 
         public async Task UpsertDocumentIfNotExists(string id, object document)
@@ -223,20 +239,27 @@ namespace Lunchorder.Dal
 
         public async Task<T> GetItem<T>(string sqlExpression)
         {
-            var documentQuery = DocumentDbClient.CreateDocumentQuery(Collection.DocumentsLink, sqlExpression).AsDocumentQuery();
+            var documentQuery = DocumentDbClient.CreateDocumentQuery(CollectionUri, sqlExpression).AsDocumentQuery();
             var response =  await documentQuery.ExecuteNextAsync<T>();
             return response.FirstOrDefault();
         }
 
         public async Task<ResourceResponse<Document>> ReplaceDocument(object document)
         {
-            ResourceResponse<Document> updated = await DocumentDbClient.UpsertDocumentAsync(Collection.DocumentsLink, document);
+            ResourceResponse<Document> updated = await DocumentDbClient.UpsertDocumentAsync(CollectionUri, document);
             return updated;
+        }
+
+        public async Task CreateCollection()
+        {
+            await DocumentDbClient.CreateDocumentCollectionIfNotExistsAsync(
+                UriFactory.CreateDatabaseUri(_configurationService.DocumentDb.Database),
+                new DocumentCollection {Id = _configurationService.DocumentDb.Collection});
         }
 
         public Document GetDocument(Expression<Func<Document, bool>> predicate)
         {
-            Document doc = DocumentDbClient.CreateDocumentQuery<Document>(Collection.DocumentsLink)
+            Document doc = DocumentDbClient.CreateDocumentQuery<Document>(CollectionUri)
                                         .Where(predicate)
                                         .AsEnumerable()
                                         .SingleOrDefault();
@@ -246,14 +269,18 @@ namespace Lunchorder.Dal
 
         public async Task CreateIndex(IncludedPath index)
         {
-            Collection.IndexingPolicy.IncludedPaths.Add(index);
-            await DocumentDbClient.ReplaceDocumentCollectionAsync(Collection);
+            var collection = new DocumentCollection { Id = _configurationService.DocumentDb.Collection };
+
+            collection.IndexingPolicy.IncludedPaths.Add(index);
+            await DocumentDbClient.ReplaceDocumentCollectionAsync(collection);
         }
 
         public async Task SetIndexMode(IndexingMode mode)
         {
-            Collection.IndexingPolicy.IndexingMode = mode;
-            await DocumentDbClient.ReplaceDocumentCollectionAsync(Collection);
+            var collection = new DocumentCollection { Id = _configurationService.DocumentDb.Collection };
+
+            collection.IndexingPolicy.IndexingMode = mode;
+            await DocumentDbClient.ReplaceDocumentCollectionAsync(collection);
         }
     }
 }

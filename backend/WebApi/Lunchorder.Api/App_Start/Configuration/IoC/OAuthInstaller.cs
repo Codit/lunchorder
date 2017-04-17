@@ -3,13 +3,14 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using DocumentDB.AspNet.Identity;
+using ElCamino.AspNet.Identity.DocumentDB;
 using Lunchorder.Api.Infrastructure;
 using Lunchorder.Api.Infrastructure.Providers;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Entities.Authentication;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.ActiveDirectory;
@@ -59,12 +60,20 @@ namespace Lunchorder.Api.Configuration.IoC
             container.Register(Component.For<IOAuthAuthorizationServerProvider>()
                 .ImplementedBy<CustomOAuthProvider>().LifeStyle.HybridPerWebRequestTransient());
 
-            container.Register(Component.For<Func<UserManager<ApplicationUser>>>().Instance(() => container.Resolve<UserManager<ApplicationUser>>())
+            container.Register(Component.For<Func<UserManager<ApplicationUser>>>().Instance(container.Resolve<UserManager<ApplicationUser>>)
+                .LifeStyle.HybridPerWebRequestTransient());
+
+            container.Register(Component.For<Func<RoleManager<ApplicationRole, string>>>().Instance(container.Resolve<RoleManager<ApplicationRole, string>>)
+                .LifeStyle.HybridPerWebRequestTransient());
+
+            container.Register(Component.For<RoleManager<ApplicationRole, string>>()
+                .ImplementedBy<ApplicationRoleManager>()
+                .UsingFactoryMethod(SetupApplicationRoleManager)
                 .LifeStyle.HybridPerWebRequestTransient());
 
             container.Register(Component.For<UserManager<ApplicationUser>>()
                 .ImplementedBy<ApplicationUserManager>()
-                .UsingFactoryMethod(SetupApplicationManager)
+                .UsingFactoryMethod(SetupApplicationUserManager)
                 .LifeStyle.HybridPerWebRequestTransient());
         }
 
@@ -104,12 +113,27 @@ namespace Lunchorder.Api.Configuration.IoC
             };
         }
 
-        private ApplicationUserManager SetupApplicationManager(IKernel container)
+        private ApplicationRoleManager SetupApplicationRoleManager(IKernel container)
         {
             var configurationService = container.Resolve<IConfigurationService>();
             var docDb = configurationService.DocumentDb;
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(new Uri(docDb.Endpoint), docDb.AuthKey,
-                docDb.Database, docDb.Collection));
+
+            var applicationRoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(
+                    new IdentityCloudContext(docDb.Endpoint, docDb.AuthKey, docDb.Database,
+                        new ConnectionPolicy { ConnectionMode = ConnectionMode.Direct, ConnectionProtocol = Protocol.Https }, configurationService.DocumentDb.Collection, configurationService.DocumentDb.Collection)
+                ));
+
+            return applicationRoleManager;
+        }
+
+        private ApplicationUserManager SetupApplicationUserManager(IKernel container)
+        {
+            var configurationService = container.Resolve<IConfigurationService>();
+            var docDb = configurationService.DocumentDb;
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(
+                new IdentityCloudContext<ApplicationUser>(docDb.Endpoint, docDb.AuthKey,
+                    docDb.Database,
+                    new ConnectionPolicy {ConnectionMode = ConnectionMode.Direct, ConnectionProtocol = Protocol.Https}, configurationService.DocumentDb.Collection, configurationService.DocumentDb.Collection)));
 
             var dataProtectionProvider = container.Resolve<IdentityFactoryOptions<ApplicationUserManager>>();
 

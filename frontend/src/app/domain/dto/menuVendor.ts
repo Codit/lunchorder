@@ -1,12 +1,13 @@
 import { MenuVendorAddress } from './menuVendorAddress'
 import { MenuVendorClosingDateRange } from './menuVendorClosingDateRange';
+import * as moment from 'moment';
 
 export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<MenuVendor> {
     id: string;
     name: string;
     address: MenuVendorAddress;
     website: string;
-    submitOrderTime: string;
+    submitOrderTime: Date;
     logo: string;
     closingDateRanges: MenuVendorClosingDateRange[];
 
@@ -14,9 +15,9 @@ export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<Menu
         var today = new Date();
         for (var closingDateRange of this.closingDateRanges) {
             var fromDate = new Date(closingDateRange.from);
-            var untillDate = new Date(closingDateRange.untill);
+            var untilDate = new Date(closingDateRange.until);
 
-            if (today >= fromDate && today <= untillDate){
+            if (today >= fromDate && today <= untilDate){
                 return true;
             }
         }
@@ -29,7 +30,10 @@ export class MenuVendor implements app.domain.dto.IMenuVendor, Serializable<Menu
         this.name = input.name;
         this.address = new MenuVendorAddress().deserialize(input.address);
         this.website = input.website;
-        this.submitOrderTime = input.submitOrderTime;
+
+        var momentUtc = moment.utc(input.submitOrderTime).toDate();
+        var local = moment(momentUtc).local().toDate();
+        this.submitOrderTime = local;
         this.logo = input.logo;
 
         this.closingDateRanges = new Array<MenuVendorClosingDateRange>();

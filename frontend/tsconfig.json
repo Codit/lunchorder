@@ -9,7 +9,9 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "lib": [ "es2016", "dom"],
+    "suppressImplicitAnyIndexErrors": true
   },
     "exclude": [
         "node_modules",

@@ -41,7 +41,7 @@ namespace Lunchorder.Test.Integration.ApiController
             var token = await AuthorizeUser(TestConstants.User4.UserName, TestConstants.User4.Password);
             Assert.IsNotNullOrEmpty(token.Token);
 
-            var apiKeyHeader = new Dictionary<string, string> {{HeaderConstants.ApiKeyHeader, "123456789"}};
+            var apiKeyHeader = new Dictionary<string, string> {{HeaderConstants.ApiKeyHeader, "__apiKey1__" } };
             var response = await PostAuthorizeAsync(new { }, $"{_routePrefix}/vendors/emails", apiKeyHeader);
 
             MockedApiInstaller.MockedOrderControllerService.Verify(x => x.SendEmailVendorHistory(It.IsAny<DateTime>()), Times.Once);

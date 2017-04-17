@@ -20,11 +20,11 @@ module.exports = webpackMerge(commonConfig, {
     devServer: {
         historyApiFallback: true,
         stats: 'minimal',
-        proxy: {
-            '/api/*': {
-                target: 'http://localhost:82/',
-                secure: false
-            }
-        }
+        // proxy: {
+        //     '/api/*': {
+        //         target: 'http://localhost:82/',
+        //         secure: false
+        //     }
+        // }
     }
 });

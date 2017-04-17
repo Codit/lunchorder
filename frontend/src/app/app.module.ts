@@ -5,8 +5,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 
-import { bootstrap }    from '@angular/platform-browser-dynamic';
 import { AppComponent } from './app.component';
+import { AboutYouComponent } from './app.about-you';
+import { AdminPrepayComponent } from './app.admin-prepay';
+import { BadgeRow } from './app.badge-row';
+import { BadgesList } from './app.badges-list';
+import { FooterComponent } from './app.footer';
+import { InformationComponent } from './app.information';
+import { MenuComponent } from './app.menu';
+import { MenuCategoryRow } from './app.menu-category-row';
+import { MenuEntryRow } from './app.menu-entry-row';
+import { ReminderComponent } from './app.reminder';
+
+import { WindowRef } from './services/windowRef';
 import { ConfigService } from './services/configService';
 import { AccountService } from './services/accountService';
 import { ErrorHandlerService } from './services/errorHandlerService';
@@ -14,11 +25,18 @@ import { MenuService } from './services/menuService';
 import { BalanceService } from './services/balanceService';
 import { BadgeService } from './services/badgeService';
 import { OrderService } from './services/orderService';
+import { ReminderService } from './services/reminderService';
+import { ServiceworkerService } from './services/serviceworkerService';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
-import { WindowRef, BrowserWindowRef, WINDOW } from './services/windowService';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
+import { UPLOAD_DIRECTIVES } from 'ngx-uploader/ngx-uploader';
+
+import { StickCartDirective } from './directives/stickCartDirective';
+
+import { MenuEntryPipe } from './pipes/menuEntry.pipe';
+import { MenuFilterPipe } from './pipes/menuFilter.pipe';
 
 @NgModule({
     imports: [
@@ -29,7 +47,21 @@ import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster
         ToasterModule
     ],
     declarations: [
-        AppComponent
+        AppComponent,
+        AboutYouComponent,
+        AdminPrepayComponent,
+        BadgeRow,
+        BadgesList,
+        FooterComponent,
+        InformationComponent,
+        MenuComponent,
+        MenuCategoryRow,
+        MenuEntryRow,
+        ReminderComponent,
+        UPLOAD_DIRECTIVES,
+        MenuEntryPipe,
+        MenuFilterPipe,
+        StickCartDirective
     ],
     providers: [
         AccountService,
@@ -40,15 +72,12 @@ import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster
         HttpClient,
         MenuService,
         OrderService,
+        ReminderService,
         ToasterService,
         TokenHelper,
-        { provide: WindowRef, useClass: BrowserWindowRef },
-        { provide: WINDOW, useFactory: _window, deps: [] }
+        ServiceworkerService,
+        WindowRef
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-function _window(): any {
-    return window;
-}

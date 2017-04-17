@@ -52,6 +52,20 @@ namespace Lunchorder.Api.Infrastructure.Services
             get { return JobsElementCollection.ToList(); }
         }
 
+        [ConfigurationProperty("pushProviders")]
+        private PushProvidersElement PushProvidersElement
+        {
+            get { return (PushProvidersElement)this["pushProviders"]; }
+        }
+
+        public PushProviderInfo PushProviders => new PushProviderInfo
+        {
+            Firebase = new PushProviderFirebaseInfo
+            {
+                ApiKey = PushProvidersElement.Firebase?.ApiKey
+            }
+        };
+
         public EmailInfo Email => new EmailInfo
         {
             ApiKey = EmailSetting.Sendgrid.ApiKey,

@@ -4,7 +4,7 @@ using Lunchorder.Domain.Entities.Configuration;
 namespace Lunchorder.Common.Interfaces
 {
     /// <summary>
-    /// Interface for the custom configuration file section mezurio
+    /// Interface for the custom configuration file section lunchorder
     /// </summary>
     public interface IConfigurationService
     {
@@ -36,6 +36,8 @@ namespace Lunchorder.Common.Interfaces
         CompanyInfo Company { get; }
 
         List<JobElement> Jobs { get; }
+
+        PushProviderInfo PushProviders { get; }
 
         AzureStorageInfo AzureStorage { get; }
     }

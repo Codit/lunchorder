@@ -9,7 +9,7 @@ import { TokenHelper } from '../helpers/tokenHelper';
 import { LastOrder } from '../domain/dto/lastOrder'
 import { LoginForm } from '../domain/dto/loginForm'
 import { ErrorHandlerService } from './errorHandlerService';
-import { Subject }    from 'rxjs/Subject';
+import { Subject, ReplaySubject }    from 'rxjs';
 
 @Injectable()
 export class AccountService {
@@ -18,17 +18,12 @@ export class AccountService {
      this._isAuthenticated$ = <Subject<boolean>>new Subject();
      this._isAuthenticated$.next(false);
 
-    // todo enable adal
-    // this.adalService.init(this.configService.adalConfig);
-    // this.adalService.handleWindowCallback();
-    // if (this.adalService) {
-    //   if (this.adalService.userInfo.isAuthenticated) {
     var token = this.tokenHelper.getToken();
 
     if (token) {
         this.getUserProfile().subscribe(
           userInfo => {
-            this.user = userInfo;
+            this.userSource.next(userInfo);
             if (userInfo.userToken) {
               this.tokenHelper.authToken = userInfo.userToken;
             history.pushState("", document.title, window.location.pathname);
@@ -39,32 +34,16 @@ export class AccountService {
     }
   }
   
+  private userSource = new ReplaySubject<GetUserInfoResponse>(1);
+    public user$ = this.userSource.asObservable();
+
 
 get isAuthenticated$() : Observable<boolean>  {
     return this._isAuthenticated$.asObservable();
   }
 
   private _isAuthenticated$: Subject<boolean>; 
-
-
-  // private _isAuthenticated = new Subject<boolean>();
-  // get isAuthenticated(): Subject<boolean> {
-  //   return this._isAuthenticated.asObservable();
-  // }
-  // set isAuthenticated(isAuthenticated: Subject<boolean>) {
-  //   this._isAuthenticated = isAuthenticated;
-  // }
-
   private accountApiUrl = `${this.configService.apiPrefix}/accounts`;
-
-  private _user: GetUserInfoResponse = new GetUserInfoResponse();
-  get user(): GetUserInfoResponse {
-    return this._user;
-  }
-  set user(user: GetUserInfoResponse) {
-    this._user = user;
-  }
-
   userInfoError: any;
 
   loginUserPassword(loginForm: LoginForm) : Observable<any> {
@@ -82,10 +61,11 @@ get isAuthenticated$() : Observable<boolean>  {
     let body = res.json();
     var userObject = JSON.parse(body.payload);
     
-    this.user = new GetUserInfoResponse().deserialize(userObject);
-    this.user.userToken = body.access_token;
-    this.tokenHelper.authToken = this.user.userToken;
+    var response = new GetUserInfoResponse().deserialize(userObject);
+    this.tokenHelper.authToken =  body.access_token;
     this._isAuthenticated$.next(true);
+    this.userSource.next(response);
+
     return body || {};
   }
 
@@ -132,7 +112,7 @@ get isAuthenticated$() : Observable<boolean>  {
 
   private extractLoginData(res: Response) {
     let body = res.json();
-    this.user = new GetUserInfoResponse().deserialize(body);
+    this.userSource.next(new GetUserInfoResponse().deserialize(body));
     return body || {};
   }
 }

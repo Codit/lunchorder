@@ -31,6 +31,7 @@ namespace Lunchorder.Common.ControllerServices
             var cacheMenu = MemoryCacher.GetValue(Cache.Menu) as Menu;
             if (cacheMenu != null) return cacheMenu;
 
+
             var menu = await _databaseRepository.GetEnabledMenu();
             if (menu != null)
                 MemoryCacher.Add(Cache.Menu, menu);
