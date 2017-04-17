@@ -16,6 +16,7 @@ import { StickRxDirective } from './directives/stickDirective';
 import { ToasterConfig, ToasterService } from 'angular2-toaster/angular2-toaster';
 import { ServiceworkerService } from './services/serviceworkerService';
 import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
+import * as moment from 'moment';
 
 @Component({
 	selector: 'lunchorder-app',
@@ -37,6 +38,35 @@ export class AppComponent implements OnInit {
 		this.accountService.user$.subscribe(user => {
 			this.user = user;
 		});
+	}
+
+	getIntroClass() {
+		if (!this._introClass) {
+			if (this.getEaster()) {
+				return this._introClass = 'intro-header-img6';
+			}
+
+			var quarter = moment().quarter();
+			return this._introClass = `intro-header-img${quarter}`;
+		}
+		else {
+			return this._introClass;
+		}
+
+	}
+	private _introClass: string;
+	getEaster(): boolean {
+		var easterDates = ['2017/04/16', '2018/04/01', '2019/04/21', '2020/04/12', '2021/04/04'];
+		for (var easterDate of easterDates) {
+			var today = moment();
+			var startEaster = moment(easterDate);
+			var endEaster = moment(easterDate).add(3, 'd');
+
+			if (today.isBetween(startEaster, endEaster, 'days', '[]')) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	user: GetUserInfoResponse;

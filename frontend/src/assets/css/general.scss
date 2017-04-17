@@ -194,15 +194,67 @@ color: #ECEBEB;
 	font-size: 16px;
 	font-weight: 400;
 }
-
+ 
 .intro-header {
 	height: 100%; /* Full Page */
 	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
 	padding-bottom: 50px;
 	color: #f8f8f8;
-	background: url(img/intro/intro6.jpg) no-repeat center center;
 	background-size: cover;
 	text-align: center;
+}
+
+.intro-header-img1 {
+	background: url(img/intro/intro1.jpg) no-repeat center center;
+}
+
+.intro-header-img2 {
+	background: url(img/intro/intro2.jpg) no-repeat center center;
+}
+
+.intro-header-img2 .h1_home, .intro-header-img2 .h3_home {
+    color: #000;
+}
+
+.intro-header-img3 {
+	background: url(img/intro/intro3.jpg) no-repeat center center;
+}
+
+.intro-header-img3 .h1_home, .intro-header-img3 .h3_home {
+    color: #000;
+}
+
+.intro-header-img4 {
+	background: url(img/intro/intro4.jpg) no-repeat center center;
+}
+
+.intro-header-img4 .h1_home, .intro-header-img4 .h3_home {
+    color: #000;
+}
+
+.intro-header-img4 .abcen1 {
+    background: rgba(222, 222, 222, 0.62);
+    padding-bottom: 20px;
+}
+
+.intro-header-img5 {
+	background: url(img/intro/intro5.jpg) no-repeat center center;
+}
+
+.intro-header-img6 {
+	background: url(img/intro/intro6.jpg) no-repeat center center;
+}
+
+.intro-header-img6 .h1_home {
+    color: #424242;
+}
+
+ 
+
+
+
+.intro-header-img1 {
+	background: url(img/intro/intro6.jpg) no-repeat center center;
 }
 
 .list-inline {
