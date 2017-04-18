@@ -24,4 +24,4 @@ const moment = require('moment');
 require('bootstrap/dist/css/bootstrap.css')
 require('font-awesome/css/font-awesome.css')
 require('./script.js');
-require('angular2-toaster/lib/toaster.css');
+require('angular2-toaster/toaster.css');
