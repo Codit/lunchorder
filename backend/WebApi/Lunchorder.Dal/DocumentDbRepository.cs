@@ -11,7 +11,6 @@ using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
 using Lunchorder.Domain.Entities.DocumentDb;
 using Microsoft.Azure.Documents.Linq;
-using todo;
 using Badge = Lunchorder.Domain.Dtos.Badge;
 using Menu = Lunchorder.Domain.Dtos.Menu;
 using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;

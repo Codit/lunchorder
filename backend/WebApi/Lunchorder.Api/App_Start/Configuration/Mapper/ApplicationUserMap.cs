@@ -7,7 +7,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class ApplicationUserMap : Profile
     {
-        protected override void Configure()
+        public ApplicationUserMap()
         {
             CreateMap<ApplicationUser, Domain.Dtos.Responses.GetUserInfoResponse>()
                 .ForMember(x => x.UserToken, y => y.Ignore())

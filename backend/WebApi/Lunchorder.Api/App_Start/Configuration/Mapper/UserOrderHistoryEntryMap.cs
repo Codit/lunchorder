@@ -6,7 +6,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class UserOrderHistoryEntryMap : Profile
     {
-        protected override void Configure()
+        public UserOrderHistoryEntryMap()
         {
             CreateMap<Domain.Entities.DocumentDb.UserOrderHistoryEntry, Domain.Dtos.UserOrderHistoryEntry>();
             CreateMap<Domain.Entities.DocumentDb.UserOrderHistoryEntry, Domain.Entities.DocumentDb.LastOrderEntry>()

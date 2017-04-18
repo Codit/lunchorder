@@ -6,7 +6,6 @@ using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Dtos.Requests;
 using Swashbuckle.Swagger.Annotations;
-using todo;
 
 namespace Lunchorder.Api.Controllers
 {

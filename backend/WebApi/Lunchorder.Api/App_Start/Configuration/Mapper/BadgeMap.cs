@@ -5,7 +5,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class BadgeMap : Profile
     {
-        protected override void Configure()
+        public BadgeMap()
         {
             CreateMap<Badge, Domain.Dtos.Badge>();
         }

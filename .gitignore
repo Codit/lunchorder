@@ -47,5 +47,3 @@ backend/WebApi/**/App.Debug.config
 backend/WebApi/**/App.config
 backend/WebApi/**/App_Data/**
 backend/WebApi/**/PublishProfiles/**/*
-
-!backend/lib/*.dll

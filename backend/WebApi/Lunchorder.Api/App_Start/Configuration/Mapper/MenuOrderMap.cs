@@ -5,7 +5,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class MenuOrderMap : Profile
     {
-        protected override void Configure()
+        public MenuOrderMap()
         {
             CreateMap<Domain.Dtos.MenuOrder, Domain.Dtos.UserOrderHistoryEntry>()
                 .ForMember(dest => dest.Id, source => source.UseValue(Guid.NewGuid()))

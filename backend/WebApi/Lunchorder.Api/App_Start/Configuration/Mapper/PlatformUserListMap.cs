@@ -5,7 +5,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class PlatformUserListMap : Profile
     {
-        protected override void Configure()
+        public PlatformUserListMap()
         {
             CreateMap<PlatformUserList, Domain.Dtos.PlatformUserList>(); 
         }
