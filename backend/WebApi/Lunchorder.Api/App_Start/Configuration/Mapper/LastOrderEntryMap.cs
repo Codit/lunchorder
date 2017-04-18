@@ -4,7 +4,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class LastOrderEntryMap : Profile
     {
-        protected override void Configure()
+        public LastOrderEntryMap()
         {
             CreateMap<Domain.Entities.DocumentDb.LastOrderEntry, Domain.Dtos.LastOrderEntry>();
         }

@@ -1,11 +1,10 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace Lunchorder.Api.Configuration.Mapper
 {
     public class UserOrderHistoryMap : Profile
     {
-        protected override void Configure()
+        public UserOrderHistoryMap()
         {
             CreateMap<Domain.Entities.DocumentDb.UserOrderHistory, Domain.Dtos.UserOrderHistory>();
 

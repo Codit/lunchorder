@@ -4,7 +4,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class SimpleUserMap : Profile
     {
-        protected override void Configure()
+        public SimpleUserMap()
         {
             CreateMap<Domain.Dtos.SimpleUser, Domain.Entities.DocumentDb.SimpleUser>();
 

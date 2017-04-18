@@ -4,7 +4,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class MenuCategoryMap : Profile
     {
-        protected override void Configure()
+        public MenuCategoryMap()
         {
             CreateMap<Domain.Entities.DocumentDb.MenuCategory, Domain.Dtos.MenuCategory>();
             CreateMap<Domain.Dtos.MenuCategory, Domain.Entities.DocumentDb.MenuCategory>();

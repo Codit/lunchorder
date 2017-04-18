@@ -4,7 +4,7 @@ namespace Lunchorder.Api.Configuration.Mapper
 {
     public class VendorHistoryEntryRuleMap : Profile
     {
-        protected override void Configure()
+        public VendorHistoryEntryRuleMap()
         {
             CreateMap<Domain.Entities.DocumentDb.VendorHistoryEntryRule, Domain.Dtos.VendorHistoryEntryRule>();
         }
