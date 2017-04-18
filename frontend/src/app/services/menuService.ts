@@ -30,6 +30,7 @@ export class MenuService {
     let body = res.json();
     var menu: Menu;
     menu = new Menu().deserialize(body);
+    debugger;
     this.menuSource.next(menu);
     return menu;
   }
