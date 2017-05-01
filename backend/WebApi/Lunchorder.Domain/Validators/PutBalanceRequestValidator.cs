@@ -7,7 +7,7 @@ namespace Lunchorder.Domain.Validators
         {
             public PutBalanceRequestValidator()
             {
-                RuleFor(req => req.Amount).GreaterThan(0);
+                RuleFor(req => req.Amount).NotEmpty();
             }
         }
 }

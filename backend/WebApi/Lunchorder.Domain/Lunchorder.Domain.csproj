@@ -180,7 +180,7 @@
     <Compile Include="Entities\Eventing\Eventing.cs" />
     <Compile Include="Exceptions\BusinessException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validators\AddBalanceValidator.cs" />
+    <Compile Include="Validators\PutBalanceRequestValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
