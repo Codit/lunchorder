@@ -10,10 +10,23 @@ namespace Lunchorder.Domain.Entities.Authentication
 {
     public class ApplicationUser : IdentityUser
     {
+        public new string UserId
+        {
+            get => base.UserId.ToLower();
+            set => base.UserId = value;
+        }
+
+        public new string Id
+        {
+            get => base.Id.ToLower();
+            set => base.Id = value;
+        }
+
         private IEnumerable<LastOrder> _last5Orders;
         private IEnumerable<UserBalanceAuditItem> _last5BalanceAuditItems;
         private IEnumerable<UserBadge> _badges;
         private IEnumerable<MenuEntryFavorite> _favorites;
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
