@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from './services/configService';
+import { ConfigService } from './services/config.service';
 import { MenuEntry } from './domain/dto/menuEntry';
 import { MenuRule } from './domain/dto/menuRule';
-import { OrderService } from './services/orderService';
+import { OrderService } from './services/order.service';
 import { MenuOrder } from './domain/dto/menuOrder';
 
 @Component({

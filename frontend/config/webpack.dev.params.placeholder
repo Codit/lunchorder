@@ -1,0 +1,40 @@
+var webpackMerge = require('webpack-merge');
+
+module.exports = {
+    module: {
+        loaders: [
+            {
+                "test": /app\.config\.service\.ts$/,
+                "loader": "string-replace-loader",
+                "query": {
+                    "multiple": [
+                        /* authentication */
+                        { "search": "____configTenant____", "replace": "" },
+                        { "search": "____configClientId____", "replace": "" },
+                        { "search": "____activeDirectoryEnabled____", "replace": "" },
+                        { "search": "____usernamePasswordEnabled____", "replace": "" },
+
+                        /* demo */
+                        { "search": "____isDemo____", "replace": "" },
+                        { "search": "____demoAdmin____", "replace": "" },
+                        { "search": "____demoAdminPass____", "replace": "" },
+                        { "search": "____demoUser____", "replace": "" },
+                        { "search": "____demoUserPass____", "replace": "" },
+
+                        /* various */
+                        { "search": "____allowWeekendOrders____", "replace": "" },
+                    ]
+                }
+            },
+            {
+                "test": /app\.footer\.html$/,
+                "loader": "string-replace-loader",
+                "query": {
+                    "multiple": [
+                        { "search": "____version____", "replace": "1.0.0.0", strict: true }
+                    ]
+                }
+            }
+        ]
+    }
+};

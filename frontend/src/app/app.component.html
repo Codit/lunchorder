@@ -9,7 +9,7 @@
 					<button *ngIf="configService.authConfig.activeDirectoryEnabled" class="btn btn-lg mybutton_cyano wow fadeIn" style="width: 100%;"
 						data-wow-delay="0.8s" (click)="login()"><span class="network-name">Login using Company Account</span></button>
 					<div *ngIf="configService.authConfig.usernamePasswordEnabled">
-						<div *ngIf="configService.demoConfig.isDemo">
+						<div *ngIf="configService.demoConfig.isDemo == 'true'">
 							<p style="color: #f10000;font-weight: bold;">Admin user: {{configService.demoConfig.demoAdmin}}, pass: {{configService.demoConfig.demoAdminPass}}</p>
 							<p style="color: #f10000;font-weight: bold;">App user: {{configService.demoConfig.demoUser}}, pass: {{configService.demoConfig.demoUserPass}}</p>
 						</div>

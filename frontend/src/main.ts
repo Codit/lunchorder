@@ -13,4 +13,5 @@ if (process.env.ENV === 'production') {
     enableProdMode();
 }
 const platform = platformBrowserDynamic();
-platform.bootstrapModule(AppModule);
+platform.bootstrapModule(AppModule).then(success => {})
+.catch(err => console.error(err));

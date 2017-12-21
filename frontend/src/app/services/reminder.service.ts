@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ConfigService } from './configService';
+import { ConfigService } from './config.service';
 import { Observable } from 'rxjs/Rx';
 import { Reminder } from '../domain/dto/reminder';
 import { HttpClient } from '../helpers/httpClient';
-import { ErrorHandlerService } from './errorHandlerService';
+import { ErrorHandlerService } from './error-handler.service';
 import  { PostReminderRequest } from '../domain/dto/postReminderRequest';
 
 @Injectable()

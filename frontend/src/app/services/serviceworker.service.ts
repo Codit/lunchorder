@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { HttpClient } from '../helpers/httpClient';
 import { ServiceWorkerDetail } from '../domain/dto/serviceWorkerDetail';
-import { ConfigService } from './configService';
-import { AccountService } from './accountService';
+import { ConfigService } from './config.service';
+import { AccountService } from './account.service';
 
 @Injectable()
 export class ServiceworkerService {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from './services/configService';
-import { AccountService } from './services/accountService';
-import { BalanceService } from './services/balanceService';
+import { ConfigService } from './services/config.service';
+import { AccountService } from './services/account.service';
+import { BalanceService } from './services/balance.service';
 import { InformationComponent } from './app.information';
 import { MenuComponent } from './app.menu';
 import { AboutYouComponent } from './app.about-you';
@@ -14,7 +14,7 @@ import { AdminPrepayComponent } from './app.admin-prepay';
 import { FooterComponent } from './app.footer';
 import { StickRxDirective } from './directives/stickDirective';
 import { ToasterConfig, ToasterService } from 'angular2-toaster/angular2-toaster';
-import { ServiceworkerService } from './services/serviceworkerService';
+import { ServiceworkerService } from './services/serviceworker.service';
 import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
 import * as moment from 'moment';
 

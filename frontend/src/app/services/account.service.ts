@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-import { ConfigService } from './configService';
+import { ConfigService } from './config.service';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '../helpers/httpClient';
 import { GetUserInfoResponse } from '../domain/dto/getUserInfoResponse'
@@ -8,7 +8,7 @@ import { GetAllUsersResponse } from '../domain/dto/getAllUsersResponse'
 import { TokenHelper } from '../helpers/tokenHelper';
 import { LastOrder } from '../domain/dto/lastOrder'
 import { LoginForm } from '../domain/dto/loginForm'
-import { ErrorHandlerService } from './errorHandlerService';
+import { ErrorHandlerService } from './error-handler.service';
 import { Subject, ReplaySubject }    from 'rxjs';
 
 @Injectable()

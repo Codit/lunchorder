@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from './services/accountService';
-import { BalanceService } from './services/balanceService';
-import { ConfigService } from './services/configService';
+import { AccountService } from './services/account.service';
+import { BalanceService } from './services/balance.service';
+import { ConfigService } from './services/config.service';
 import { TokenHelper } from './helpers/tokenHelper';
-import { ServiceworkerService } from './services/serviceworkerService';
+import { ServiceworkerService } from './services/serviceworker.service';
 import { RemindOption } from './domain/dto/remindOption';
-import { ReminderService } from './services/reminderService';
+import { ReminderService } from './services/reminder.service';
 import { Reminder } from './domain/dto/reminder';
 import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
 

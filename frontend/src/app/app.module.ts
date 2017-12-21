@@ -18,25 +18,25 @@ import { MenuEntryRow } from './app.menu-entry-row';
 import { ReminderComponent } from './app.reminder';
 
 import { WindowRef } from './services/windowRef';
-import { ConfigService } from './services/configService';
-import { AccountService } from './services/accountService';
-import { ErrorHandlerService } from './services/errorHandlerService';
-import { MenuService } from './services/menuService';
-import { BalanceService } from './services/balanceService';
-import { BadgeService } from './services/badgeService';
-import { OrderService } from './services/orderService';
-import { ReminderService } from './services/reminderService';
-import { ServiceworkerService } from './services/serviceworkerService';
+import { ConfigService } from './services/config.service';
+import { AccountService } from './services/account.service';
+import { ErrorHandlerService } from './services/error-handler.service';
+import { MenuService } from './services/menu.service';
+import { BalanceService } from './services/balance.service';
+import { BadgeService } from './services/badge.service';
+import { OrderService } from './services/order.service';
+import { ReminderService } from './services/reminder.service';
+import { ServiceworkerService } from './services/serviceworker.service';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
-import { UPLOAD_DIRECTIVES } from 'ngx-uploader/ngx-uploader';
+import { NgUploaderModule } from 'ngx-uploader/ngx-uploader';
 
 import { StickCartDirective } from './directives/stickCartDirective';
 
-import { MenuEntryPipe } from './pipes/menuEntry.pipe';
-import { MenuFilterPipe } from './pipes/menuFilter.pipe';
+import { MenuEntryPipe } from './pipes/menu-entry.pipe';
+import { MenuFilterPipe } from './pipes/menu-filter.pipe';
 
 @NgModule({
     imports: [
@@ -44,7 +44,8 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
-        ToasterModule
+        ToasterModule,
+        NgUploaderModule
     ],
     declarations: [
         AppComponent,
@@ -58,7 +59,6 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         MenuCategoryRow,
         MenuEntryRow,
         ReminderComponent,
-        UPLOAD_DIRECTIVES,
         MenuEntryPipe,
         MenuFilterPipe,
         StickCartDirective
