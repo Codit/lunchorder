@@ -34,7 +34,7 @@ namespace Lunchorder.Dal
 
         public async Task<GetUserInfoResponse> GetUserInfo(string username)
         {
-            var userQuery = _documentStore.GetItems<ApplicationUser>(o => o.UserName == username).AsDocumentQuery();
+            var userQuery = _documentStore.GetItems<ApplicationUser>(o => o.UserName == username && o.Type == DocumentDbType.User).AsDocumentQuery();
             var queryResponse = await userQuery.ExecuteNextAsync<ApplicationUser>();
             var user = queryResponse.FirstOrDefault();
             var userInfo = _mapper.Map<ApplicationUser, GetUserInfoResponse>(user);

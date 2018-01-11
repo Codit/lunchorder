@@ -17,6 +17,7 @@
   "LockoutEnabled": true,
   "PushToken": "pushToken1234567489_5454896M",
   "AccessFailedCount": 0,
+  "Type": "User",
   "Balance": 50.50,
   "Badges": [
     {

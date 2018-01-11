@@ -4,7 +4,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                "test": /configService\.ts$/,
+                "test": /config\.service\.ts$/,
                 "loader": "string-replace-loader",
                 "query": {
                     "multiple": [
@@ -22,8 +22,7 @@ module.exports = {
                         { "search": "____demoUserPass____", "replace": "", strict: true },
 
                         /* various */
-                        { "search": "____allowWeekendOrders____", "replace": "false", strict: true },
-                        { "search": "____version____", "replace": "1.0.0.0", strict: true }
+                        { "search": "____allowWeekendOrders____", "replace": "false", strict: true }
                     ]
                 }
             },

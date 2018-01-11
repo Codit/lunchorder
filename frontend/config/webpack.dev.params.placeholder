@@ -4,7 +4,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                "test": /app\.config\.service\.ts$/,
+                "test": /config\.service\.ts$/,
                 "loader": "string-replace-loader",
                 "query": {
                     "multiple": [
