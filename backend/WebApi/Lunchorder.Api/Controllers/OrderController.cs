@@ -73,7 +73,7 @@ namespace Lunchorder.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        //[ApiKeyActionFilterAttribute]
+        [ApiKeyActionFilterAttribute]
         [Route("vendors/emails")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(bool))]
         public async Task<IHttpActionResult> SendVendorEmailFormat()
