@@ -5,7 +5,6 @@ import { BalanceService } from './services/balance.service';
 import { InformationComponent } from './app.information';
 import { MenuComponent } from './app.menu';
 import { AboutYouComponent } from './app.about-you';
-import { ReminderComponent } from './app.reminder';
 import { BadgesList } from './app.badges-list';
 import { Badge } from './domain/dto/badge';
 import { ErrorDescriptor } from './domain/dto/errorDescriptor';
@@ -14,7 +13,6 @@ import { AdminPrepayComponent } from './app.admin-prepay';
 import { FooterComponent } from './app.footer';
 import { StickRxDirective } from './directives/stickDirective';
 import { ToasterConfig, ToasterService } from 'angular2-toaster/angular2-toaster';
-import { ServiceworkerService } from './services/serviceworker.service';
 import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
 import * as moment from 'moment';
 
@@ -32,9 +30,7 @@ export class AppComponent implements OnInit {
 	});
 	loginForm: LoginForm;
 
-	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService, private serviceworkerService: ServiceworkerService) {
-		serviceworkerService.init();
-
+	constructor(private accountService: AccountService, private configService: ConfigService, private toasterService: ToasterService) {
 		this.accountService.user$.subscribe(user => {
 			this.user = user;
 		});

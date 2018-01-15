@@ -13,7 +13,6 @@ import { InformationComponent } from './app.information';
 import { MenuComponent } from './app.menu';
 import { MenuCategoryRow } from './app.menu-category-row';
 import { MenuEntryRow } from './app.menu-entry-row';
-import { ReminderComponent } from './app.reminder';
 
 import { WindowRef } from './services/windowRef';
 import { ConfigService } from './services/config.service';
@@ -23,8 +22,6 @@ import { MenuService } from './services/menu.service';
 import { BalanceService } from './services/balance.service';
 import { BadgeService } from './services/badge.service';
 import { OrderService } from './services/order.service';
-import { ReminderService } from './services/reminder.service';
-import { ServiceworkerService } from './services/serviceworker.service';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -56,7 +53,6 @@ import { MenuFilterPipe } from './pipes/menu-filter.pipe';
         MenuComponent,
         MenuCategoryRow,
         MenuEntryRow,
-        ReminderComponent,
         MenuEntryPipe,
         MenuFilterPipe,
         StickCartDirective
@@ -70,10 +66,8 @@ import { MenuFilterPipe } from './pipes/menu-filter.pipe';
         HttpClient,
         MenuService,
         OrderService,
-        ReminderService,
         ToasterService,
         TokenHelper,
-        ServiceworkerService,
         WindowRef
     ],
     bootstrap: [AppComponent]
