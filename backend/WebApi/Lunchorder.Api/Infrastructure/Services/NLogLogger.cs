@@ -6,52 +6,52 @@ namespace Lunchorder.Api.Infrastructure.Services
 {
     public class NLogLogger : ILogger
     {
-        private readonly Logger logger;
+        private readonly Logger _logger;
 
         public NLogLogger(Type loggerType)
         {
             if (loggerType == null) throw new ArgumentNullException(nameof(loggerType));
-            logger = LogManager.GetLogger(loggerType.FullName);
+            _logger = LogManager.GetLogger(loggerType.FullName);
         }
 
         public void Debug(string message)
         {
-            logger.Debug(message);
+            Debug(message);
         }
 
         public void Trace(string message)
         {
-            logger.Trace(message);
+            Trace(message);
         }
 
         public void Info(string message)
         {
-            logger.Info(message);
+            Info(message);
         }
 
         public void Warning(string message)
         {
-            logger.Warn(message);
+            _logger.Warn(message);
         }
 
         public void Error(string message)
         {
-            logger.Error(message);
+            Error(message);
         }
 
         public void Error(string message, Exception exception)
         {
-            logger.ErrorException(message, exception);
+            Error(message, exception);
         }
 
         public void Fatal(string message)
         {
-            logger.Fatal(message);
+            Fatal(message);
         }
 
         public void Fatal(string message, Exception exception)
         {
-            logger.FatalException(message, exception);
+            Fatal(message, exception);
         }
     }
 }

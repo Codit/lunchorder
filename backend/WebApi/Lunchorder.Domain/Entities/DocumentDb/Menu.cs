@@ -14,7 +14,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// The identifier for the menu
         /// </summary>
         [JsonProperty("id")]
-        public new Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Field that represents the enabled state
