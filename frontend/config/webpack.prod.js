@@ -4,6 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var ZipPlugin = require('zip-webpack-plugin');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
@@ -16,7 +17,11 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     plugins: [
-      new webpack.NoEmitOnErrorsPlugin(), 
+      new webpack.NoEmitOnErrorsPlugin(),
+      new ZipPlugin({
+        path: '../_package',
+        filename: 'package-release.zip'
+      }), 
       new UglifyJsPlugin({
         uglifyOptions: {
             parallel: true, 

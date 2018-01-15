@@ -71,6 +71,7 @@
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.0",
     "webpack-merge": "^4.1.1",
-    "wow": "matthieua/WOW#1.1.2"
+    "wow": "matthieua/WOW#1.1.2",
+    "zip-webpack-plugin": "^2.1.0"
   }
 }
