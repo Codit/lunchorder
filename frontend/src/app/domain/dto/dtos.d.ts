@@ -105,11 +105,6 @@ declare module app.domain.dto {
         lastName: string;
     }
     
-    export interface IReminder {
-        type: number;
-        minutes: number;
-    }
-    
     export interface ISimpleUser {
         id: string;
         userName: string;
@@ -217,11 +212,6 @@ declare module app.domain.dto {
     export interface IGetAllUsersResponse {
         users: IPlatformUserListItem[];
     }
-
-    export interface IPostReminderRequest
-    {
-        reminder: IReminder;
-    }
     
     export interface IGetUserInfoResponse {
         id: string;
@@ -233,8 +223,6 @@ declare module app.domain.dto {
         last5Orders: ILastOrder[];
         last5BalanceAuditItems: IUserBalanceAuditItem[];
         roles: string[];
-        reminders: IReminder[];
-        pushToken: string;
         userToken: string;
     }
 }
