@@ -50,7 +50,7 @@ module.exports = {
     plugins: [
         new CopyWebpackPlugin([
             // {output}/file.txt
-            { from: 'src/manifest.json' }]),
+            { from: 'web.config' }]),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
         }),
