@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from './services/configService';
-import { AccountService } from './services/accountService';
-import { MenuService } from './services/menuService';
+import { ConfigService } from './services/config.service';
+import { AccountService } from './services/account.service';
+import { MenuService } from './services/menu.service';
 import { Menu } from './domain/dto/menu';
 import { MenuCategoryRow } from './app.menu-category-row';
 import { MenuEntry } from './domain/dto/menuEntry';
 import { MenuOrder } from './domain/dto/menuOrder';
-import { OrderService } from './services/orderService';
+import { OrderService } from './services/order.service';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
 

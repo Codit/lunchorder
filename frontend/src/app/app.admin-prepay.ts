@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BalanceService } from './services/balanceService';
-import { AccountService } from './services/accountService';
+import { BalanceService } from './services/balance.service';
+import { AccountService } from './services/account.service';
 import { PlatformUserListItem } from './domain/dto/platformUserListItem';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';

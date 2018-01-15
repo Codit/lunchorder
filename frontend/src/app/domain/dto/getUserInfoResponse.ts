@@ -3,7 +3,6 @@ import { UserBadge } from './userBadge';
 import { MenuEntryFavorite } from './menuEntryFavorite';
 import { LastOrder } from './lastOrder';
 import { UserBalanceAuditItem } from './userBalanceAuditItem';
-import { Reminder } from './reminder';
 
 export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse, Serializable<GetUserInfoResponse> {
     constructor() { }
@@ -19,7 +18,6 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
     roles: string[];
     pushToken: string;
     last5BalanceAuditItems: UserBalanceAuditItem[];
-    reminders: Reminder[];
 
 
     deserialize(input: any): GetUserInfoResponse {
@@ -57,7 +55,6 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
 
         this.roles = input.roles;
         this.pushToken = input.pushToken;
-        this.reminders = input.reminders;
         return this;
     }
 }

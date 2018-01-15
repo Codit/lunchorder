@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from './services/configService';
-import { AccountService } from './services/accountService';
-import { MenuService } from './services/menuService';
+import { ConfigService } from './services/config.service';
+import { AccountService } from './services/account.service';
+import { MenuService } from './services/menu.service';
 import { Menu } from './domain/dto/menu';
 
 @Component({

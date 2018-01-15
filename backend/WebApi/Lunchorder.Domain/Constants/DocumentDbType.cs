@@ -8,6 +8,6 @@
         public const string VendorOrderHistory = "VendorOrderHistory";
         public const string UserBalanceAudit = "UserBalanceAudit";
         public const string PlatformUserList = "PlatformUserList";
-        public const string PushTokenList = "PushTokenList";
+        public const string User = "User";
     }
 }

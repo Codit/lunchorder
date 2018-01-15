@@ -1,6 +1,4 @@
-﻿/// <reference path="../../node_modules/angular2-toaster/angular2-toaster.d.ts" />
-
-import { NgModule }      from '@angular/core';
+﻿import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
@@ -15,28 +13,25 @@ import { InformationComponent } from './app.information';
 import { MenuComponent } from './app.menu';
 import { MenuCategoryRow } from './app.menu-category-row';
 import { MenuEntryRow } from './app.menu-entry-row';
-import { ReminderComponent } from './app.reminder';
 
 import { WindowRef } from './services/windowRef';
-import { ConfigService } from './services/configService';
-import { AccountService } from './services/accountService';
-import { ErrorHandlerService } from './services/errorHandlerService';
-import { MenuService } from './services/menuService';
-import { BalanceService } from './services/balanceService';
-import { BadgeService } from './services/badgeService';
-import { OrderService } from './services/orderService';
-import { ReminderService } from './services/reminderService';
-import { ServiceworkerService } from './services/serviceworkerService';
+import { ConfigService } from './services/config.service';
+import { AccountService } from './services/account.service';
+import { ErrorHandlerService } from './services/error-handler.service';
+import { MenuService } from './services/menu.service';
+import { BalanceService } from './services/balance.service';
+import { BadgeService } from './services/badge.service';
+import { OrderService } from './services/order.service';
 import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
-import { UPLOAD_DIRECTIVES } from 'ngx-uploader/ngx-uploader';
+import { NgUploaderModule } from 'ngx-uploader';
 
 import { StickCartDirective } from './directives/stickCartDirective';
 
-import { MenuEntryPipe } from './pipes/menuEntry.pipe';
-import { MenuFilterPipe } from './pipes/menuFilter.pipe';
+import { MenuEntryPipe } from './pipes/menu-entry.pipe';
+import { MenuFilterPipe } from './pipes/menu-filter.pipe';
 
 @NgModule({
     imports: [
@@ -44,7 +39,8 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
-        ToasterModule
+        ToasterModule,
+        NgUploaderModule
     ],
     declarations: [
         AppComponent,
@@ -57,8 +53,6 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         MenuComponent,
         MenuCategoryRow,
         MenuEntryRow,
-        ReminderComponent,
-        UPLOAD_DIRECTIVES,
         MenuEntryPipe,
         MenuFilterPipe,
         StickCartDirective
@@ -72,10 +66,8 @@ import { MenuFilterPipe } from './pipes/menuFilter.pipe';
         HttpClient,
         MenuService,
         OrderService,
-        ReminderService,
         ToasterService,
         TokenHelper,
-        ServiceworkerService,
         WindowRef
     ],
     bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from './services/configService';
+import { ConfigService } from './services/config.service';
 import { MenuCategory } from './domain/dto/category';
 import { MenuEntry } from './domain/dto/menuEntry';
 

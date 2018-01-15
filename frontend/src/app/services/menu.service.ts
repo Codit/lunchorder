@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ConfigService } from './configService';
+import { ConfigService } from './config.service';
 import { Observable } from 'rxjs/Rx';
 import { Menu } from '../domain/dto/menu';
 import { MenuRule } from '../domain/dto/menuRule';

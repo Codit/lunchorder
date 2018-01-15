@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ConfigService } from './configService';
+import { ConfigService } from './config.service';
 import { Observable } from 'rxjs/Rx';
 import { Badge } from '../domain/dto/badge';
 import { HttpClient } from '../helpers/httpClient';

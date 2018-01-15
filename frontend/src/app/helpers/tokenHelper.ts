@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ConfigService } from '../services/configService';
+import { ConfigService } from '../services/config.service';
 
 @Injectable()
 export class TokenHelper {
