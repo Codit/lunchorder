@@ -31,9 +31,5 @@ namespace Lunchorder.Common.Interfaces
         Task<UserBalanceAudit> GetUserBalanceAndHistory(string userId);
         Task UpdateUserPicture(string userId, string pictureUrl);
         Task UpgradeUserHistory();
-        Task SavePushToken(string token, string getUserId);
-        Task DeletePushTokenForUsers(IEnumerable<string> userIds);
-        Task<IEnumerable<PushTokenItem>> GetPushTokens();
-        Task SetReminder(Reminder dbReminder, string getUserId);
     }
 }

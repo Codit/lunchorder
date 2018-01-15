@@ -276,7 +276,6 @@
     <Compile Include="App_Start\Configuration\Mapper\MenuVendorClosingDateMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\PlatformUserListMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\PlatformUserListItemMap.cs" />
-    <Compile Include="App_Start\Configuration\Mapper\ReminderMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\SimpleUserMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserBadgeMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuEntryMap.cs" />
@@ -305,7 +304,6 @@
     <Compile Include="Controllers\BalanceController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\ReminderController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
@@ -313,7 +311,6 @@
     <Compile Include="Infrastructure\Filters\ExceptionHandlingFilter.cs" />
     <Compile Include="Infrastructure\Filters\ValidateModelStateFilter.cs" />
     <Compile Include="Infrastructure\Jobs\BackupJob.cs" />
-    <Compile Include="Infrastructure\Jobs\SendReminderJob.cs" />
     <Compile Include="Infrastructure\Providers\CustomJwtFormat.cs" />
     <Compile Include="Infrastructure\Providers\CustomOAuthProvider.cs" />
     <Compile Include="Infrastructure\Services\ConfigurationService.cs" />
@@ -321,7 +318,6 @@
     <Compile Include="Infrastructure\Jobs\VendorOrderMailJob.cs" />
     <Compile Include="Infrastructure\Services\MemoryCacheService.cs" />
     <Compile Include="Infrastructure\Services\NLogLogger.cs" />
-    <Compile Include="Infrastructure\Services\PushTokenService.cs" />
     <Compile Include="Infrastructure\Services\SendGridMailService.cs" />
     <Compile Include="Infrastructure\Services\ServicebusMessagingService.cs" />
     <Compile Include="Infrastructure\Services\SeedService.cs" />

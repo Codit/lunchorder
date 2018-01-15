@@ -18,12 +18,6 @@
   "AccessFailedCount": 0,
   "Type": "User",
   "Balance": 1,
-  "Reminders": [
-    {
-      "Minutes": 30,
-      "Type": 0
-    }
-  ],
   "Badges": [
     {
       "BadgeId": "5de5ecfd-6e4d-47e3-b129-96614e745ee5",

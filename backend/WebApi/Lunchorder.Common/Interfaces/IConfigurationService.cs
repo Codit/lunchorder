@@ -37,8 +37,6 @@ namespace Lunchorder.Common.Interfaces
 
         List<JobElement> Jobs { get; }
 
-        PushProviderInfo PushProviders { get; }
-
         AzureStorageInfo AzureStorage { get; }
     }
 }
