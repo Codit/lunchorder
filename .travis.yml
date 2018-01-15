@@ -4,8 +4,7 @@ node_js:
 before_install:
   - cd frontend
 before_script:
-  - npm install -g gulp
 script:
-  - gulp release-package
+  - npm run prod-build
 notifications:
   slack: coditproducts:j1aqpLDXRWKFO7x07wkMWIrx

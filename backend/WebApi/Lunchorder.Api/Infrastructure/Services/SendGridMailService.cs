@@ -47,7 +47,7 @@ namespace Lunchorder.Api.Infrastructure.Services
             }
             else
             {
-                _logger.Info($"Email '{subject}' has been successfully sent to '{toEmail}'");
+                _logger.Info($"Email '{subject}' has been successfully sent to '{toEmail}' at {DateTime.UtcNow.ToLongTimeString()}");
             }
         }
     }

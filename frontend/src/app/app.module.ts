@@ -1,6 +1,4 @@
-﻿/// <reference path="../../node_modules/angular2-toaster/angular2-toaster.d.ts" />
-
-import { NgModule }      from '@angular/core';
+﻿import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
