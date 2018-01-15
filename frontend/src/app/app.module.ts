@@ -29,7 +29,7 @@ import { HttpClient } from './helpers/httpClient';
 import { TokenHelper } from './helpers/tokenHelper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
-import { NgUploaderModule } from 'ngx-uploader/ngx-uploader';
+import { NgUploaderModule } from 'ngx-uploader';
 
 import { StickCartDirective } from './directives/stickCartDirective';
 
