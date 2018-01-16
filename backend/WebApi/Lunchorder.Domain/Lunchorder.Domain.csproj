@@ -93,7 +93,6 @@
     <Compile Include="Dtos\Requests\PostOrderRequest.cs" />
     <Compile Include="Dtos\Requests\PutBalanceRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
-    <Compile Include="Dtos\Requests\RegistrationIdRequest.cs" />
     <Compile Include="Dtos\Responses\GetAllUsersResponse.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
     <Compile Include="Dtos\SimpleUser.cs" />

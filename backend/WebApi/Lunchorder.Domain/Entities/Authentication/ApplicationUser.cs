@@ -2,11 +2,11 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ElCamino.AspNet.Identity.DocumentDB.Model;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Entities.DocumentDb;
 using Microsoft.AspNet.Identity;
-using MenuEntryFavorite = Lunchorder.Domain.Entities.DocumentDb.MenuEntryFavorite;
-using Lunchorder.Domain.Constants;
 using Newtonsoft.Json;
+using MenuEntryFavorite = Lunchorder.Domain.Entities.DocumentDb.MenuEntryFavorite;
 
 namespace Lunchorder.Domain.Entities.Authentication
 {
@@ -14,17 +14,17 @@ namespace Lunchorder.Domain.Entities.Authentication
     {
         public new string UserId
         {
-            get { return base.UserId.ToLower(); }
-            set { base.UserId = value; }
+            get => base.UserId.ToLower();
+            set => base.UserId = value;
         }
 
         [JsonProperty("id")]
         public new string Id
         {
-            get { return base.Id.ToLower(); }
-            set { base.Id = value; }
+            get => base.Id.ToLower();
+            set => base.Id = value;
         }
-        
+
         private IEnumerable<LastOrder> _last5Orders;
         private IEnumerable<UserBalanceAuditItem> _last5BalanceAuditItems;
         private IEnumerable<UserBadge> _badges;
@@ -33,9 +33,13 @@ namespace Lunchorder.Domain.Entities.Authentication
         public string Type => DocumentDbType.User;
 
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
+
         public string Picture { get; set; }
+
         public string Culture { get; set; }
+
         public decimal Balance { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)

@@ -6,37 +6,37 @@ namespace Lunchorder.Api.Infrastructure.Services
 {
     public class NLogLogger : ILogger
     {
-        private readonly Logger _logger;
+        private readonly Logger logger;
 
         public NLogLogger(Type loggerType)
         {
             if (loggerType == null) throw new ArgumentNullException(nameof(loggerType));
-            _logger = LogManager.GetLogger(loggerType.FullName);
+            logger = LogManager.GetLogger(loggerType.FullName);
         }
 
         public void Debug(string message)
         {
-            Debug(message);
+            logger.Debug(message);
         }
 
         public void Trace(string message)
         {
-            Trace(message);
+            logger.Trace(message);
         }
 
         public void Info(string message)
         {
-            Info(message);
+            logger.Info(message);
         }
 
         public void Warning(string message)
         {
-            _logger.Warn(message);
+            logger.Warn(message);
         }
 
         public void Error(string message)
         {
-            Error(message);
+            logger.Error(message);
         }
 
         public void Error(string message, Exception exception)
@@ -46,12 +46,12 @@ namespace Lunchorder.Api.Infrastructure.Services
 
         public void Fatal(string message)
         {
-            Fatal(message);
+            logger.Fatal(message);
         }
 
         public void Fatal(string message, Exception exception)
         {
-            Fatal(message, exception);
+            logger.FatalException(message, exception);
         }
     }
 }

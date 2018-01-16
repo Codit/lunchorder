@@ -26,6 +26,9 @@ namespace Lunchorder.Test.Integration.Repositories
     [TestFixture]
     public class DocumentDbRepositoryTest : RepositoryBase
     {
+        // todo add test to check audit document creation
+        // todo add test to check autit document update
+
         [Test]
         public async Task UpgradeUserHistory()
         {

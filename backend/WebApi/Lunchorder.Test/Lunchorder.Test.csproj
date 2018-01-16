@@ -159,7 +159,9 @@
     <None Include="app.Base.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="app.config" />
+    <Content Include="app.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="app.Debug.config">
       <SubType>Designer</SubType>
     </None>
@@ -232,7 +234,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Integration\Helpers\Seed\DevDocument\" />
-    <Folder Include="Unit\Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

@@ -21,7 +21,8 @@ module.exports = webpackMerge(commonConfig, {
       new ZipPlugin({
         path: '../_package',
         filename: 'package-release.zip'
-      }), 
+      })
+      , 
       new UglifyJsPlugin({
         uglifyOptions: {
             parallel: true, 

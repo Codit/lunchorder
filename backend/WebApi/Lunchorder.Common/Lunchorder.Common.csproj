@@ -158,7 +158,6 @@
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IEventingService.cs" />
     <Compile Include="Interfaces\IFavoriteControllerService.cs" />
-    <Compile Include="Interfaces\IJobService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IMenuControllerService.cs" />
     <Compile Include="Interfaces\IMessagingService.cs" />

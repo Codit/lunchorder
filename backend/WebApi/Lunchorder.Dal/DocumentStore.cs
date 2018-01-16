@@ -32,6 +32,8 @@ namespace Lunchorder.Dal
                 return _documentDbClient ?? (_documentDbClient = new DocumentClient(new Uri(DocumentDbEndpoint), DocumentDbAuthKey, new ConnectionPolicy { EnableEndpointDiscovery = false,  ConnectionMode = ConnectionMode.Direct, ConnectionProtocol = Protocol.Https }));
             }
         }
+        private Database _database;
+        private DocumentCollection _documentCollection;
 
         private static string DocumentDbEndpoint { get; set; }
         private static string DocumentDbAuthKey { get; set; }
