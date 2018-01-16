@@ -242,49 +242,6 @@ namespace Lunchorder.Dal
             await _documentStore.ExecuteStoredProcedure<string>("upgradeUserHistory");
         }
 
-        public async Task SavePushToken(string token, string userId)
-        {
-            var pushTokenDocument = new PushTokenList
-            {
-                Id = Guid.NewGuid().ToString(),
-                PushTokens = new List<PushTokenItem>
-                {
-                    new PushTokenItem
-                    {
-                        UserId = userId,
-                        LastModified = DateTime.UtcNow,
-                        Token = token
-                    }
-                }
-            };
-
-            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.StorePushToken, pushTokenDocument);
-        }
-
-        public async Task DeletePushTokenForUsers(IEnumerable<string> userIds)
-        {
-            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.DeletePushToken, DocumentDbType.PushTokenList, userIds);
-        }
-
-        public async Task<IEnumerable<PushTokenItem>> GetPushTokens()
-        {
-            var pushTokensQuery = _documentStore.GetItems<PushTokenList>(x => x.Type == DocumentDbType.PushTokenList).AsDocumentQuery();
-            var queryResponse = await pushTokensQuery.ExecuteNextAsync<PushTokenList>();
-            var pushTokensList = queryResponse.FirstOrDefault();
-
-            if (pushTokensList == null)
-            {
-                throw new Exception("Push token list could not be retrieved");
-            }
-
-            return pushTokensList.PushTokens;
-        }
-
-        public async Task SetReminder(Reminder dbReminder, string userId)
-        {
-            await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.UpdateReminder, dbReminder, userId);
-        }
-
         private async Task<Domain.Entities.DocumentDb.Menu> GetMenuItem(Expression<Func<Domain.Entities.DocumentDb.Menu, bool>> predicate)
         {
             var menuQuery = _documentStore.GetItems(predicate).AsDocumentQuery();

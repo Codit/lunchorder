@@ -88,14 +88,11 @@
     <Compile Include="Dtos\MenuVendorClosingDateRange.cs" />
     <Compile Include="Dtos\PlatformUserList.cs" />
     <Compile Include="Dtos\PlatformUserListItem.cs" />
-    <Compile Include="Dtos\Reminder.cs" />
     <Compile Include="Dtos\Requests\PostFavoriteRequest.cs" />
     <Compile Include="Dtos\Requests\PostMenuRequest.cs" />
     <Compile Include="Dtos\Requests\PostOrderRequest.cs" />
-    <Compile Include="Dtos\Requests\PostReminderRequest.cs" />
     <Compile Include="Dtos\Requests\PutBalanceRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
-    <Compile Include="Dtos\Requests\RegistrationIdRequest.cs" />
     <Compile Include="Dtos\Responses\GetAllUsersResponse.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
     <Compile Include="Dtos\SimpleUser.cs" />
@@ -122,10 +119,6 @@
     <Compile Include="Entities\Configuration\EventingElement.cs" />
     <Compile Include="Entities\Configuration\JobElement.cs" />
     <Compile Include="Entities\Configuration\JobsElementCollection.cs" />
-    <Compile Include="Entities\Configuration\PushProviderFirebaseElement.cs" />
-    <Compile Include="Entities\Configuration\PushProvidersElement.cs" />
-    <Compile Include="Entities\Configuration\PushProviderFirebaseInfo.cs" />
-    <Compile Include="Entities\Configuration\PushProviderInfo.cs" />
     <Compile Include="Entities\Configuration\SendgridElement.cs" />
     <Compile Include="Entities\Configuration\ServicebusElement.cs" />
     <Compile Include="Entities\Configuration\ServicebusInfo.cs" />
@@ -141,10 +134,6 @@
     <Compile Include="Entities\DocumentDb\MenuVendorClosingDateRange.cs" />
     <Compile Include="Entities\DocumentDb\PlatformUserList.cs" />
     <Compile Include="Entities\DocumentDb\PlatformUserListItem.cs" />
-    <Compile Include="Entities\DocumentDb\PushTokenItem.cs" />
-    <Compile Include="Entities\DocumentDb\PushTokenList.cs" />
-    <Compile Include="Entities\DocumentDb\Reminder.cs" />
-    <Compile Include="Entities\DocumentDb\ReminderType.cs" />
     <Compile Include="Entities\DocumentDb\SimpleUser.cs" />
     <Compile Include="Entities\DocumentDb\UserBadge.cs" />
     <Compile Include="Entities\DocumentDb\UserBadgeStats.cs" />

@@ -149,8 +149,6 @@
     <Compile Include="Integration\Helpers\TestConstants.cs" />
     <Compile Include="Integration\Repositories\DocumentDbRepositoryTest.cs" />
     <Compile Include="Integration\Services\ApplicationUserServiceTest.cs" />
-    <Compile Include="Integration\Services\JobServiceTest.cs" />
-    <Compile Include="Unit\Services\PushTokenServiceTest.cs" />
     <Compile Include="SampleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -161,14 +159,13 @@
     <None Include="app.Base.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="app.config" />
+    <Content Include="app.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="app.Debug.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="app.Release.config">
-    </None>
-    <None Include="Integration\Helpers\Seed\Documents\storePushTokens.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Integration\Helpers\Seed\Documents\menu4.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
