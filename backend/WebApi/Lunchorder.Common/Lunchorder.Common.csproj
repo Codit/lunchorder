@@ -139,6 +139,7 @@
     <Compile Include="ControllerServices\FavoriteControllerService.cs" />
     <Compile Include="ControllerServices\MenuControllerService.cs" />
     <Compile Include="ControllerServices\OrderControllerService.cs" />
+    <Compile Include="ControllerServices\ReminderControllerService.cs" />
     <Compile Include="ControllerServices\UploadControllerService.cs" />
     <Compile Include="DateGenerator.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
@@ -163,9 +164,12 @@
     <Compile Include="Interfaces\IMenuControllerService.cs" />
     <Compile Include="Interfaces\IMessagingService.cs" />
     <Compile Include="Interfaces\IOrderControllerService.cs" />
+    <Compile Include="Interfaces\IPushTokenService.cs" />
+    <Compile Include="Interfaces\IReminderControllerService.cs" />
     <Compile Include="Interfaces\IRequireInitialization.cs" />
     <Compile Include="Interfaces\IUploadControllerService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="JobService.cs" />
     <Compile Include="MemoryCacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

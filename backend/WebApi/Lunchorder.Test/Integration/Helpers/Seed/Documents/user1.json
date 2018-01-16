@@ -15,8 +15,8 @@
   "TwoFactorEnabled": false,
   "LockoutEnd": "0001-01-01T01:00:00+01:00",
   "LockoutEnabled": true,
+  "PushToken": "pushToken1234567489_5454896M",
   "AccessFailedCount": 0,
-  "Type": "User",
   "Balance": 50.50,
   "Badges": [
     {

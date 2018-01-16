@@ -96,12 +96,10 @@ namespace Lunchorder.Common.ControllerServices
 
             var menu = await _cacheService.GetMenu();
             var vendorHistory = await GetVendorHistory(dateTime);
-            if (vendorHistory != null) { 
             var htmlOutput = HtmlHelper.CreateVendorHistory(_configurationService, vendorHistory);
             await _emailService.SendHtmlEmail($"Order for {dateTime.ToString("D")}", menu.Vendor.Address.Email, htmlOutput);
 
-                // todo, set vendor history sent to true
-            }
+            // todo, set vendor history sent to true
         }
 
 
