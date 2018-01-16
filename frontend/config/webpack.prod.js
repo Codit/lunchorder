@@ -23,19 +23,19 @@ module.exports = webpackMerge(commonConfig, {
         filename: 'package-release.zip'
       })
       , 
-    //   new UglifyJsPlugin({
-    //     uglifyOptions: {
-    //         parallel: true, 
-    //         ie8: false,
-    //         output: {
-    //             beautify: false,
-    //             comments: false
-    //          },
-    //         mangle: {
-    //             keep_fnames: true 
-    //         }
-    //     }
-    //   }),
+      new UglifyJsPlugin({
+        uglifyOptions: {
+            parallel: true, 
+            ie8: false,
+            output: {
+                beautify: false,
+                comments: false
+             },
+            mangle: {
+                keep_fnames: true 
+            }
+        }
+      }),
       new ExtractTextPlugin('[name].[hash].css'),
       new webpack.DefinePlugin({
           'process.env': {
