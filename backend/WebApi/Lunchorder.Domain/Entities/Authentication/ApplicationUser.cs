@@ -2,8 +2,10 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ElCamino.AspNet.Identity.DocumentDB.Model;
+using Lunchorder.Domain.Constants;
 using Lunchorder.Domain.Entities.DocumentDb;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using MenuEntryFavorite = Lunchorder.Domain.Entities.DocumentDb.MenuEntryFavorite;
 
 namespace Lunchorder.Domain.Entities.Authentication
@@ -16,6 +18,7 @@ namespace Lunchorder.Domain.Entities.Authentication
             set => base.UserId = value;
         }
 
+        [JsonProperty("id")]
         public new string Id
         {
             get => base.Id.ToLower();
@@ -26,6 +29,8 @@ namespace Lunchorder.Domain.Entities.Authentication
         private IEnumerable<UserBalanceAuditItem> _last5BalanceAuditItems;
         private IEnumerable<UserBadge> _badges;
         private IEnumerable<MenuEntryFavorite> _favorites;
+
+        public string Type => DocumentDbType.User;
 
         public string FirstName { get; set; }
 
