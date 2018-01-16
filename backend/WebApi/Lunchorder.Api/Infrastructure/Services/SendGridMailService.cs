@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http.Tracing;
 using Lunchorder.Common.Interfaces;
 using NLog;
 using SendGrid;
@@ -50,7 +46,7 @@ namespace Lunchorder.Api.Infrastructure.Services
 
         public void Error(string message, Exception exception)
         {
-            logger.ErrorException(message, exception);
+            Error(message, exception);
         }
 
         public void Fatal(string message)
@@ -80,32 +76,30 @@ namespace Lunchorder.Api.Infrastructure.Services
         public async Task SendHtmlEmail(string subject, string toEmail, string content)
         {
             string apiKey = _configurationService.Email.ApiKey;
-            dynamic sg = new SendGridAPIClient(apiKey);
+            var client = new SendGridClient(apiKey);
 
-            Email from = new Email(_configurationService.Email.From);
-            Email to = new Email(toEmail);
-            Content mailContent = new Content("text/html", content);
-            Mail mail = new Mail(from, subject, to, mailContent);
-
-            var personalization = new Personalization();
-            personalization.AddTo(to);
+            var from = new EmailAddress(_configurationService.Email.From);
+            var to = new EmailAddress(toEmail);
+            var mail = MailHelper.CreateSingleEmail(from, to, subject, content, content);
 
             if (_configurationService.Email.Bcc != null && _configurationService.Email.Bcc.Any())
             {
-
                 foreach (var bcc in _configurationService.Email.Bcc)
                 {
-                    personalization.AddBcc(new Email(bcc));
+                    mail.AddBcc(new EmailAddress(bcc));
                 }
-                mail.AddPersonalization(personalization);
             }
 
-            dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());
+            var response = await client.SendEmailAsync(mail);
 
             if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
             {
                 var responseMsg = response.Body.ReadAsStringAsync().Result;
                 _logger.Error($"Unable to send email: {responseMsg}");
+            }
+            else
+            {
+                _logger.Info($"Email '{subject}' has been successfully sent to '{toEmail}' at {DateTime.UtcNow.ToLongTimeString()}");
             }
         }
     }

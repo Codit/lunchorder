@@ -29,6 +29,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -174,13 +175,8 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SendGrid, Version=8.0.2.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sendgrid.8.0.2\lib\SendGrid.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SendGrid.CSharp.HTTP.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=79219bf4e5ecaaca, processorArchitecture=MSIL">
-      <HintPath>..\packages\SendGrid.CSharp.HTTP.Client.3.0.0\lib\SendGrid.CSharp.HTTP.Client.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SendGrid, Version=9.8.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.9.9.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.3.2\lib\net40\Swashbuckle.Core.dll</HintPath>
