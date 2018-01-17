@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lunchorder.Domain.Dtos.Responses;
+using Lunchorder.Domain.Entities.Authentication;
 using Lunchorder.Domain.Entities.DocumentDb;
 using Badge = Lunchorder.Domain.Dtos.Badge;
 using Menu = Lunchorder.Domain.Dtos.Menu;
@@ -31,5 +32,6 @@ namespace Lunchorder.Common.Interfaces
         Task<UserBalanceAudit> GetUserBalanceAndHistory(string userId);
         Task UpdateUserPicture(string userId, string pictureUrl);
         Task UpgradeUserHistory();
+        Task<ApplicationUser> GetApplicationUser(string username);
     }
 }

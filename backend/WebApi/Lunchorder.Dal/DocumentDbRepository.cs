@@ -34,12 +34,17 @@ namespace Lunchorder.Dal
 
         public async Task<GetUserInfoResponse> GetUserInfo(string username)
         {
-            var userQuery = _documentStore.GetItems<ApplicationUser>(o => o.UserName == username && o.Type == DocumentDbType.User).AsDocumentQuery();
-            var queryResponse = await userQuery.ExecuteNextAsync<ApplicationUser>();
-            var user = queryResponse.FirstOrDefault();
-            var userInfo = _mapper.Map<ApplicationUser, GetUserInfoResponse>(user);
-
+            var applicationUser = await GetApplicationUser(username);
+            var userInfo = _mapper.Map<ApplicationUser, GetUserInfoResponse>(applicationUser);
             return userInfo;
+        }
+
+        public async Task<ApplicationUser> GetApplicationUser(string username)
+        {
+            var applicationUserQuery = _documentStore.GetItems<ApplicationUser>(o => o.UserName == username && o.Type == DocumentDbType.User).AsDocumentQuery();
+            var queryResponse = await applicationUserQuery.ExecuteNextAsync<ApplicationUser>();
+            var applicationUser = queryResponse.FirstOrDefault();
+            return applicationUser;
         }
 
         public async Task<IEnumerable<Badge>> GetBadges()

@@ -29,6 +29,7 @@ namespace Lunchorder.Domain.Entities.Authentication
         private IEnumerable<UserBalanceAuditItem> _last5BalanceAuditItems;
         private IEnumerable<UserBadge> _badges;
         private IEnumerable<MenuEntryFavorite> _favorites;
+        private Statistics _statistics;
 
         public string Type => DocumentDbType.User;
 
@@ -68,7 +69,11 @@ namespace Lunchorder.Domain.Entities.Authentication
             set { _badges = value; }
         }
 
-        public UserBadgeStats UserBadgeStats { get; set; }
+        public Statistics Statistics
+        {
+            get { return _statistics ?? (_statistics = new Statistics()); }
+            set { _statistics = value; }
+        }
 
         public IEnumerable<MenuEntryFavorite> Favorites
         {
