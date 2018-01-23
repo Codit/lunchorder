@@ -10,7 +10,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// Reference to the actual badge
         /// </summary>
-        public Guid BadgeId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Times the badge has been assigned to the user

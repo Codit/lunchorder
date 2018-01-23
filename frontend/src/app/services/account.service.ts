@@ -64,7 +64,6 @@ get isAuthenticated$() : Observable<boolean>  {
     var response = new GetUserInfoResponse().deserialize(userObject);
     this.tokenHelper.authToken =  body.access_token;
 
-    debugger;
     this._isAuthenticated$.next(true);
     this.userSource.next(response);
 
@@ -114,7 +113,6 @@ get isAuthenticated$() : Observable<boolean>  {
 
   private extractLoginData = (res: Response) => {
     let body = res.json();
-    debugger;
     this.userSource.next(new GetUserInfoResponse().deserialize(body));
     return body || {};
   }

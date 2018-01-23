@@ -90,6 +90,13 @@ export class AppComponent implements OnInit {
 
 	}
 
+	public isLoggedIn() {
+		if (this.user) {
+			return true;
+		}
+		return false;
+	}
+
 	public isAdminPrepay() {
 		if (this.user && this.user.roles) {
 			return this.user.roles.find(x => x == "prepay-admin");

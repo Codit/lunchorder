@@ -8,6 +8,7 @@ namespace Lunchorder.Api.Configuration.Mapper
         public UserBadgeMap()
         {
             CreateMap<UserBadge, Domain.Dtos.UserBadge>();
+            CreateMap<Domain.Dtos.UserBadge, UserBadge>();
         }
     }
 }

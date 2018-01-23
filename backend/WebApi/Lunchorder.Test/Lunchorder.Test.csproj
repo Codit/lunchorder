@@ -147,6 +147,7 @@
     <Compile Include="Integration\Helpers\Base\TestStartup.cs" />
     <Compile Include="Integration\Helpers\Base\TokenResponse.cs" />
     <Compile Include="Integration\Helpers\TestConstants.cs" />
+    <Compile Include="Integration\Migrate\MigrateStatistics.cs" />
     <Compile Include="Integration\Repositories\DocumentDbRepositoryTest.cs" />
     <Compile Include="Integration\Services\ApplicationUserServiceTest.cs" />
     <Compile Include="SampleTest.cs" />

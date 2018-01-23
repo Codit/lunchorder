@@ -7,6 +7,16 @@ namespace Lunchorder.Domain.Dtos
     /// </summary>
     public class Badge
     {
+        public Badge(Guid id, string name, bool canEarnMultipleTimes, string description, string thumbnail, string image)
+        {
+            Id = id;
+            Name = name;
+            CanEarnMultipleTimes = canEarnMultipleTimes;
+            Description = description;
+            Thumbnail = thumbnail;
+            Image = image;
+        }
+
         /// <summary>
         /// The id of the badge
         /// </summary>
@@ -18,13 +28,23 @@ namespace Lunchorder.Domain.Dtos
         public string Name { get; set; }
 
         /// <summary>
-        /// Specific icon to represent a badge
+        /// Can the badge be earned multiple times?
         /// </summary>
-        public string Icon { get; set; }
+        public bool CanEarnMultipleTimes { get; set; }
 
         /// <summary>
-        /// Description of the badge
+        /// The description of the badge
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// The link to the badge thumbnail image
+        /// </summary>
+        public string Thumbnail { get; set; }
+
+        /// <summary>
+        /// The link to the badge image
+        /// </summary>
+        public string Image { get; set; }
     }
 }

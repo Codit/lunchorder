@@ -267,7 +267,6 @@
     <Compile Include="App_Start\Configuration\IoC\WindsorJobFactory.cs" />
     <Compile Include="App_Start\Configuration\IoC\WindsorValidatorFactory.cs" />
     <Compile Include="App_Start\Configuration\Mapper\AddressMap.cs" />
-    <Compile Include="App_Start\Configuration\Mapper\BadgeMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\ApplicationUserMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\LastOrderEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\LastOrderMap.cs" />
@@ -313,6 +312,7 @@
     <Compile Include="Infrastructure\Jobs\BackupJob.cs" />
     <Compile Include="Infrastructure\Providers\CustomJwtFormat.cs" />
     <Compile Include="Infrastructure\Providers\CustomOAuthProvider.cs" />
+    <Compile Include="Infrastructure\Services\BadgeService.cs" />
     <Compile Include="Infrastructure\Services\ConfigurationService.cs" />
     <Compile Include="Infrastructure\Services\EventingService.cs" />
     <Compile Include="Infrastructure\Jobs\VendorOrderMailJob.cs" />
@@ -321,6 +321,7 @@
     <Compile Include="Infrastructure\Services\SendGridMailService.cs" />
     <Compile Include="Infrastructure\Services\ServicebusMessagingService.cs" />
     <Compile Include="Infrastructure\Services\SeedService.cs" />
+    <Compile Include="Infrastructure\Services\StatisticsService.cs" />
     <Compile Include="Infrastructure\Services\UserService.cs" />
     <Compile Include="JobRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
-using Lunchorder.Domain.Entities.DocumentDb;
-using Badge = Lunchorder.Domain.Dtos.Badge;
 using Menu = Lunchorder.Domain.Dtos.Menu;
 using PlatformUserListItem = Lunchorder.Domain.Dtos.PlatformUserListItem;
 using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
@@ -16,7 +14,6 @@ namespace Lunchorder.Common.Interfaces
     public interface IDatabaseRepository
     {
         Task<GetUserInfoResponse> GetUserInfo(string userName);
-        Task<IEnumerable<Badge>> GetBadges();
         Task AddMenu(Menu menu);
         Task<Menu> GetEnabledMenu();
         Task<Menu> GetMenu(string menuId);

@@ -106,16 +106,26 @@ namespace Lunchorder.Test.Integration.Migrate
                     weeklyTotal.Amount += entry.FinalPrice;
                     monthlyTotal.OrderCount += 1;
                     monthlyTotal.Amount += entry.FinalPrice;
+                    applicationUser.Statistics.AppTotalSpend += entry.FinalPrice;
                 }
-
-
-                // calculate badges
-
-                // remove historical data
-
-                // save document
-
             }
+
+            var userPrepays = DocumentDbBase.DocumentStore.GetItems<UserBalanceAudit>(x => x.UserId == userId);
+
+            foreach (var prepay in userPrepays)
+            {
+                foreach (var audit in prepay.Audits)
+                {
+                    applicationUser.Statistics.PrepayedTotal += audit.Amount;
+                }
+            }
+
+            // calculate badges
+
+            // remove historical data
+
+            // save document
+
         }
     }
 }

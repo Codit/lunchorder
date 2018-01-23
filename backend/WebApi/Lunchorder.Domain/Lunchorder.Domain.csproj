@@ -94,6 +94,7 @@
     <Compile Include="Dtos\Requests\PutBalanceRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
     <Compile Include="Dtos\Responses\GetAllUsersResponse.cs" />
+    <Compile Include="Dtos\Responses\GetBadgesResponse.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
     <Compile Include="Dtos\SimpleUser.cs" />
     <Compile Include="Dtos\Test.cs" />
@@ -124,8 +125,6 @@
     <Compile Include="Entities\Configuration\ServicebusInfo.cs" />
     <Compile Include="Entities\DocumentDb\ActionType.cs" />
     <Compile Include="Entities\DocumentDb\Address.cs" />
-    <Compile Include="Entities\DocumentDb\Badge.cs" />
-    <Compile Include="Entities\DocumentDb\BadgeResponse.cs" />
     <Compile Include="Entities\DocumentDb\Buyer.cs" />
     <Compile Include="Entities\DocumentDb\BuyerAddress.cs" />
     <Compile Include="Entities\DocumentDb\LastOrder.cs" />
@@ -136,7 +135,7 @@
     <Compile Include="Entities\DocumentDb\PlatformUserListItem.cs" />
     <Compile Include="Entities\DocumentDb\SimpleUser.cs" />
     <Compile Include="Entities\DocumentDb\UserBadge.cs" />
-    <Compile Include="Entities\DocumentDb\UserBadgeStats.cs" />
+    <Compile Include="Entities\DocumentDb\Statistics.cs" />
     <Compile Include="Entities\DocumentDb\UserBalanceAudit.cs" />
     <Compile Include="Entities\DocumentDb\UserBalanceAuditItem.cs" />
     <Compile Include="Entities\DocumentDb\VendorHistoryEntryRule.cs" />

@@ -1,3 +1,7 @@
 <div class="container">
-    <badge-row *ngFor="let b of badges" [badge]="b"></badge-row>
+    <div class="col-md-12 text-center wrap_title ">
+        <h2>Your badges</h2>
+        <p class="lead" style="margin-top:0">Earn badges by ordering or adding funds.</p>
+    </div>
+<badge-row *ngFor="let b of badges" [badge]="b"></badge-row>
 </div>

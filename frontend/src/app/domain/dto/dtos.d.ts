@@ -11,7 +11,8 @@ declare module app.domain.dto {
     export interface IBadge {
         id: string;
         name: string;
-        icon: string;
+        thumbnail: string;
+        image: string;
         description: string;
     }
     
@@ -213,6 +214,10 @@ declare module app.domain.dto {
         users: IPlatformUserListItem[];
     }
     
+    export interface IGetBadgesResponse {
+        badges: IBadge[];
+    }
+
     export interface IGetUserInfoResponse {
         id: string;
         userName: string;

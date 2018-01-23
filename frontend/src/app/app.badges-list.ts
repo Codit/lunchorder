@@ -3,6 +3,7 @@ import { ConfigService } from './services/config.service';
 import { BadgeService } from './services/badge.service';
 import { Badge } from './domain/dto/badge';
 import { BadgeRow } from './app.badge-row';
+import { AccountService } from './services/account.service';
 
 @Component({
 	selector: '[badges-list]',
@@ -12,7 +13,7 @@ import { BadgeRow } from './app.badge-row';
 
 export class BadgesList implements OnInit {
 
-	constructor(private configService: ConfigService, private badgeService: BadgeService) { }
+	constructor(private configService: ConfigService, private badgeService: BadgeService, private accountService: AccountService) { }
 	badges: Badge[];
 	badgeError: string;
 
@@ -20,7 +21,19 @@ export class BadgesList implements OnInit {
 		this.badgeService.getBadges().subscribe(
 			badges => {
 				this.badges = badges;
-				// todo map badges with current user badges
+
+				this.accountService.user$.subscribe(user => {
+					if (user.badges) {
+						user.badges.forEach(badge => {
+								var pBadge = this.badges.find(pBadge => {
+									return pBadge.id == badge.badgeId;
+								});
+								if (pBadge) {
+									pBadge.timesEarned = badge.timesEarned;
+								}
+						})
+					}
+				  });
 			},
 			error => this.badgeError = <any>error);
 	}

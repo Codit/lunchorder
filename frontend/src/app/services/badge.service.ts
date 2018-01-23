@@ -4,6 +4,7 @@ import { ConfigService } from './config.service';
 import { Observable } from 'rxjs/Rx';
 import { Badge } from '../domain/dto/badge';
 import { HttpClient } from '../helpers/httpClient';
+import { GetBadgesResponse } from '../domain/dto/getBadgesResponse';
 
 @Injectable()
 export class BadgeService {
@@ -19,9 +20,9 @@ export class BadgeService {
 
   private mapBadges(res: Response): Badge[] {
     let body = res.json();
+    var response = new GetBadgesResponse().deserialize(body);
 
-    // todo, deserialize in domain object.
-    var badges: Badge[] = body;
+    var badges: Badge[] = response.badges;
     return badges;
   }
 

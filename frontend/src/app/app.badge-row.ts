@@ -11,7 +11,11 @@ export class BadgeRow implements OnInit {
 
 	constructor(private configService: ConfigService) { }
 	badgeItem : Badge;
+	hasBadge: boolean;
 
 	ngOnInit() {
+		if (this.badgeItem.timesEarned > 0) {
+			this.hasBadge = true;
+		}
 	}
 }

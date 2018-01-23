@@ -47,18 +47,6 @@ namespace Lunchorder.Dal
             return applicationUser;
         }
 
-        public async Task<IEnumerable<Badge>> GetBadges()
-        {
-            var badgesQuery = _documentStore.GetItems<Domain.Entities.DocumentDb.BadgeResponse>(x => x.Type == DocumentDbType.Badges).AsDocumentQuery();
-            var queryResponse = await badgesQuery.ExecuteNextAsync<Domain.Entities.DocumentDb.BadgeResponse>();
-
-            var badgeResponse = queryResponse.FirstOrDefault();
-            if (badgeResponse == null) return null;
-
-            var badges = _mapper.Map<IEnumerable<Domain.Entities.DocumentDb.Badge>, IEnumerable<Badge>>(badgeResponse.Badges);
-            return badges;
-        }
-
         public async Task AddMenu(Menu menu)
         {
             var entityMenu = _mapper.Map<Menu, Domain.Entities.DocumentDb.Menu>(menu);

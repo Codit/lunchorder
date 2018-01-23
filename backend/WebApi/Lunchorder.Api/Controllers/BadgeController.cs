@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Lunchorder.Common.Interfaces;
-using Lunchorder.Domain.Dtos;
+using Lunchorder.Domain.Dtos.Responses;
 using Swashbuckle.Swagger.Annotations;
 
 namespace Lunchorder.Api.Controllers
@@ -16,8 +15,7 @@ namespace Lunchorder.Api.Controllers
 
         public BadgeController(IBadgeControllerService badgeControllerService)
         {
-            if (badgeControllerService == null) throw new ArgumentNullException(nameof(badgeControllerService));
-            _badgeControllerService = badgeControllerService;
+            _badgeControllerService = badgeControllerService ?? throw new ArgumentNullException(nameof(badgeControllerService));
         }
 
         /// <summary>
@@ -26,7 +24,7 @@ namespace Lunchorder.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Badge>))]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(GetBadgesResponse))]
         public async Task<IHttpActionResult> Get()
         {
             var result = await _badgeControllerService.Get();
