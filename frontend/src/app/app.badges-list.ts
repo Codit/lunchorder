@@ -4,6 +4,7 @@ import { BadgeService } from './services/badge.service';
 import { Badge } from './domain/dto/badge';
 import { BadgeRow } from './app.badge-row';
 import { AccountService } from './services/account.service';
+import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse';
 
 @Component({
 	selector: '[badges-list]',
@@ -16,6 +17,7 @@ export class BadgesList implements OnInit {
 	constructor(private configService: ConfigService, private badgeService: BadgeService, private accountService: AccountService) { }
 	badges: Badge[];
 	badgeError: string;
+	user: GetUserInfoResponse;
 
 	ngOnInit() {
 		this.badgeService.getBadges().subscribe(
@@ -23,10 +25,12 @@ export class BadgesList implements OnInit {
 				this.badges = badges;
 
 				this.accountService.user$.subscribe(user => {
+					this.user = user;
 					if (user.badges) {
 						user.badges.forEach(badge => {
+								debugger;
 								var pBadge = this.badges.find(pBadge => {
-									return pBadge.id == badge.badgeId;
+									return pBadge.id == badge.id;
 								});
 								if (pBadge) {
 									pBadge.timesEarned = badge.timesEarned;

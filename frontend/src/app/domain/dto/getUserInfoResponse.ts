@@ -3,6 +3,7 @@ import { UserBadge } from './userBadge';
 import { MenuEntryFavorite } from './menuEntryFavorite';
 import { LastOrder } from './lastOrder';
 import { UserBalanceAuditItem } from './userBalanceAuditItem';
+import { Statistics } from './statistics';
 
 export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse, Serializable<GetUserInfoResponse> {
     constructor() { }
@@ -18,6 +19,7 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
     roles: string[];
     pushToken: string;
     last5BalanceAuditItems: UserBalanceAuditItem[];
+    statistics: Statistics;
 
 
     deserialize(input: any): GetUserInfoResponse {
@@ -26,6 +28,7 @@ export class GetUserInfoResponse implements app.domain.dto.IGetUserInfoResponse,
         this.balance = input.balance;
         this.profile = new UserProfile().deserialize(input.profile);
         this.badges = new Array<UserBadge>();
+        this.statistics = new Statistics().deserialize(input.statistics);
 
         if (input.badges) {
             for (var badge of input.badges) {

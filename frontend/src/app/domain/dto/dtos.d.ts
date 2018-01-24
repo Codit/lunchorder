@@ -12,6 +12,7 @@ declare module app.domain.dto {
         id: string;
         name: string;
         thumbnail: string;
+        canEarnMultipleTimes: boolean;
         image: string;
         description: string;
     }
@@ -116,7 +117,7 @@ declare module app.domain.dto {
     }
     
     export interface IUserBadge {
-        badgeId: string;
+        id: string;
         timesEarned: number;
     }
     
@@ -228,6 +229,17 @@ declare module app.domain.dto {
         last5Orders: ILastOrder[];
         last5BalanceAuditItems: IUserBalanceAuditItem[];
         roles: string[];
+        statistics: IStatistics;
         userToken: string;
+    }
+
+    export interface IStatistics {
+        appTotalSpend: number;
+        weeklyTotalAmount: number;
+        monthlyTotalAmount: number;
+        weeklyHealthyOrders: number;
+        yearlyTotalAmount: number;
+        yearlyPastas: number;
+        prepayedTotal: number;
     }
 }

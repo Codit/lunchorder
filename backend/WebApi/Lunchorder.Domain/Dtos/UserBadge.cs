@@ -10,7 +10,7 @@ namespace Lunchorder.Domain.Dtos
         /// <summary>
         /// Reference to the actual badge
         /// </summary>
-        public Guid BadgeId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Times the badge has been assigned to the user

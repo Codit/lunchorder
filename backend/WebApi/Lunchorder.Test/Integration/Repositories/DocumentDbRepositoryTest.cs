@@ -1902,7 +1902,7 @@ namespace Lunchorder.Test.Integration.Repositories
             var userBadges = userInfo.Badges.ToList();
             Assert.AreEqual(1, userBadges.Count);
             var firstUserBadge = userBadges.First();
-            Assert.AreEqual(TestConstants.Badges.Badge1.Id, firstUserBadge.BadgeId.ToString());
+            Assert.AreEqual(TestConstants.Badges.Badge1.Id, firstUserBadge.Id.ToString());
             Assert.AreEqual(2, firstUserBadge.TimesEarned);
 
             Assert.IsNotNull(userInfo.Favorites);

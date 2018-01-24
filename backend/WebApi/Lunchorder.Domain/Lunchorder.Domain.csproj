@@ -97,6 +97,7 @@
     <Compile Include="Dtos\Responses\GetBadgesResponse.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
     <Compile Include="Dtos\SimpleUser.cs" />
+    <Compile Include="Dtos\Statistics.cs" />
     <Compile Include="Dtos\Test.cs" />
     <Compile Include="Dtos\UserBadge.cs" />
     <Compile Include="Dtos\UserBalanceAudit.cs" />

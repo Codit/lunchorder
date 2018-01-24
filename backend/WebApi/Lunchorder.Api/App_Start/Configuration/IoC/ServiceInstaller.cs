@@ -15,6 +15,9 @@ namespace Lunchorder.Api.Configuration.IoC
         /// <param name="container">The container.</param><param name="store">The configuration store.</param>
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Component.For<IBadgeService>().ImplementedBy<BadgeService>()
+                .LifeStyle.HybridPerWebRequestTransient());
+
             container.Register(Component.For<IUserService>().ImplementedBy<ApplicationUserService>()
                 .LifeStyle.HybridPerWebRequestTransient());
 
@@ -25,7 +28,7 @@ namespace Lunchorder.Api.Configuration.IoC
                 .LifeStyle.HybridPerWebRequestTransient());
 
             container.Register(Component.For<SeedService>().LifeStyle.HybridPerWebRequestTransient());
-
+            
             container.Register(Component.For<ILogger>().UsingFactoryMethod((m, v, i) =>
                     new NLogLogger(i.Handler.ComponentModel.Implementation)));
         }

@@ -56,19 +56,6 @@ namespace Lunchorder.Dal
                 return uri;
         }
 
-        //private DocumentCollection Collection
-        //{
-        //    get
-        //    {
-        //        return _documentCollection ??
-        //               (_documentCollection = DocumentDbClient.CreateDocumentCollectionQuery(Database.SelfLink)
-        //                   .Where(c => c.Id == _configurationService.DocumentDb.Collection)
-        //                   .AsEnumerable()
-        //                   .FirstOrDefault());
-        //    }
-        //}
-
-
         public IQueryable<T> GetItems<T>()
         {
             return this.GetItems<T>(null);
@@ -166,53 +153,8 @@ namespace Lunchorder.Dal
             await DocumentDbClient.CreateStoredProcedureAsync(CollectionUri, storedProcedure);
         }
 
-        //public async Task CreateCollection(bool checkIfExists)
-        //{
-        //    await CreateCollection(_configurationService.DocumentDb.Collection, checkIfExists);
-        //}
-
-
-
-
-        //private Database Database
-        //    =>
-        //        _database ??
-        //        (_database = DocumentDbClient.CreateDatabaseQuery().Where(d => d.Id == _configurationService.DocumentDb.Database).AsEnumerable().FirstOrDefault());
-
-        //public async Task CreateCollection(string collectionName, bool checkIfExists)
-        //{
-        //    var collectionDefinition = new DocumentCollection
-        //    {
-        //        Id = collectionName,
-        //        IndexingPolicy = new IndexingPolicy(new RangeIndex(DataType.String) { Precision = -1 })
-        //    };
-
-        //    if (checkIfExists)
-        //    {
-        //        DocumentCollection dbCollection =
-        //            DocumentDbClient.CreateDocumentCollectionQuery(Database.SelfLink)
-        //                .Where(c => c.Id == collectionName)
-        //                .AsEnumerable()
-        //                .FirstOrDefault();
-
-        //        if (dbCollection == null)
-        //        {
-        //            await DocumentDbClient.CreateDocumentCollectionAsync(Database.SelfLink, collectionDefinition,
-        //                    new RequestOptions());
-        //        }
-        //    }
-        //    else
-        //    {
-        //        await DocumentDbClient.CreateDocumentCollectionAsync(Database.SelfLink, collectionDefinition, new RequestOptions());
-        //    }
-        //}
-
         public async Task UpsertDocument<T>(T document)
         {
-            //var doc = JsonConvert.SerializeObject(document,
-            //    new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
-            //JObject.Parse(doc)
-
             ResourceResponse<Document> result = await DocumentDbClient.UpsertDocumentAsync(
                 CollectionUri,
                 document);

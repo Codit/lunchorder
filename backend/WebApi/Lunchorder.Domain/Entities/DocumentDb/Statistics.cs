@@ -86,6 +86,16 @@ namespace Lunchorder.Domain.Entities.DocumentDb
 
     public class DayTotal
     {
+        public DayTotal()
+        {
+            DayDate = CurrentDayDate();
+        }
+
+        public DayTotal(DateTime dateTime)
+        {
+            DayDate = ParseDay(dateTime);
+        }
+
         /// <summary>
         /// The current week in YYYYDAYOFYEAR format
         /// </summary>
@@ -104,12 +114,16 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// <summary>
         /// Helper method to construct the correct <see cref="DayDate"/>
         /// </summary>
-        /// <param name="year">The year</param>
-        /// <param name="dayOfYear">The day of the year</param>
+        /// <param name="dateTime">A datetime to get the parse the DayDate format</param>
         /// <returns></returns>
-        public string ParseWeek(int year, int dayOfYear)
+        public string ParseDay(DateTime dateTime)
         {
-            return $"{year}{dayOfYear}";
+            return $"{dateTime.Year}{dateTime.DayOfYear}";
+        }
+
+        public string CurrentDayDate()
+        {
+            return ParseDay(DateTime.UtcNow);
         }
     }
 
@@ -144,6 +158,16 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         public decimal Amount { get; set; }
 
         /// <summary>
+        /// Keeps track if the High Roller Badge has been earned yet
+        /// </summary>
+        public bool HasHighRollerBadge { get; set; }
+
+        /// <summary>
+        /// Keeps track if the Healthy Badge has been earned yet
+        /// </summary>
+        public bool HasHealthyBadge { get; set; }
+
+        /// <summary>
         /// The total healthy orders for this week
         /// </summary>
         public int HealthyOrderCount { get; set; }
@@ -167,8 +191,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         {
             var dateTimeFormatInfo = DateTimeFormatInfo.InvariantInfo;
             var calendar = dateTimeFormatInfo.Calendar;
-            var weekOfYear = calendar.GetWeekOfYear(DateTime.UtcNow, dateTimeFormatInfo.CalendarWeekRule,
-                dateTimeFormatInfo.FirstDayOfWeek);
+            var weekOfYear = calendar.GetWeekOfYear(date, dateTimeFormatInfo.CalendarWeekRule, dateTimeFormatInfo.FirstDayOfWeek);
 
             return weekOfYear;
         }
@@ -198,6 +221,11 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// The times an order has been made
         /// </summary>
         public int OrderCount { get; set; }
+
+        /// <summary>
+        /// Keeps track if the Deep Pockets Badge has been earned yet
+        /// </summary>
+        public bool HasDeepPocketsBadge { get; set; }
 
         /// <summary>
         /// The total amount spent for this month

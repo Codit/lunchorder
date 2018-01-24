@@ -7,6 +7,11 @@ namespace Lunchorder.Domain.Dtos
     /// </summary>
     public class Badge
     {
+        public Badge()
+        {
+            
+        }
+
         public Badge(Guid id, string name, bool canEarnMultipleTimes, string description, string thumbnail, string image)
         {
             Id = id;

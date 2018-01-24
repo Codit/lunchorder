@@ -268,6 +268,7 @@
     <Compile Include="App_Start\Configuration\IoC\WindsorValidatorFactory.cs" />
     <Compile Include="App_Start\Configuration\Mapper\AddressMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\ApplicationUserMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\BadgeMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\LastOrderEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\LastOrderMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuCategoryMap.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="App_Start\Configuration\Mapper\PlatformUserListMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\PlatformUserListItemMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\SimpleUserMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\StatisticsMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\UserBadgeMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuMap.cs" />
