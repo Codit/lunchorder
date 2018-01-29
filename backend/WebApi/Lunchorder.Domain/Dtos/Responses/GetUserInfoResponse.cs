@@ -16,6 +16,7 @@ namespace Lunchorder.Domain.Dtos.Responses
         public IEnumerable<LastOrder> Last5Orders { get; set; }
         public IEnumerable<UserBalanceAuditItem> Last5BalanceAuditItems { get; set; }
         public IEnumerable<string> Roles { get; set; }
+        public Statistics Statistics { get; set; }
 
         /// <summary>
         /// A new token for the user in case of user creation in our database.

@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Lunchorder.Domain.Dtos;
+using Lunchorder.Domain.Dtos.Responses;
 
 namespace Lunchorder.Common.Interfaces
 {
     public interface IBadgeControllerService
     {
-        Task<IEnumerable<Badge>> Get();
+        Task<GetBadgesResponse> Get();
+        Task<IEnumerable<string>> SetOrderBadges(string username, string userId);
+        Task<IEnumerable<string>> SetPrepayBadges(string userId);
     }
 }

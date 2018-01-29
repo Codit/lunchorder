@@ -22,7 +22,7 @@ module.exports = webpackMerge(devParamsConfig, commonConfig, {
         quiet: false,
         proxy: {
             '/api': {
-                pathRewrite: { '^/api': '' } ,
+                // pathRewrite: { '^/api': '' } ,
                 target: 'https://localhost:82/',
                 secure: false
             }

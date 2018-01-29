@@ -7,11 +7,20 @@ declare module app.domain.dto {
         fax: string;
         email: string;
     }
+
+    export interface IBadgeRanking {
+        userId: string;
+        userName: string;
+        picture: string;
+        totalBadges: string;
+    }
     
     export interface IBadge {
         id: string;
         name: string;
-        icon: string;
+        thumbnail: string;
+        canEarnMultipleTimes: boolean;
+        image: string;
         description: string;
     }
     
@@ -56,6 +65,8 @@ declare module app.domain.dto {
         categoryId: string;
         price: number;
         enabled: boolean;
+        healthy: boolean;
+        pasta: boolean;
     }
     
     export interface IMenuEntryFavorite {
@@ -68,6 +79,8 @@ declare module app.domain.dto {
         freeText: string;
         appliedMenuRules: IMenuRule[];
         price: number;
+        healthy: boolean;
+        pasta: boolean;
     }
     
     export interface IMenuRule {
@@ -115,7 +128,7 @@ declare module app.domain.dto {
     }
     
     export interface IUserBadge {
-        badgeId: string;
+        id: string;
         timesEarned: number;
     }
     
@@ -213,6 +226,11 @@ declare module app.domain.dto {
         users: IPlatformUserListItem[];
     }
     
+    export interface IGetBadgesResponse {
+        badgeRankings: IBadgeRanking[];
+        badges: IBadge[];
+    }
+
     export interface IGetUserInfoResponse {
         id: string;
         userName: string;
@@ -223,6 +241,17 @@ declare module app.domain.dto {
         last5Orders: ILastOrder[];
         last5BalanceAuditItems: IUserBalanceAuditItem[];
         roles: string[];
+        statistics: IStatistics;
         userToken: string;
+    }
+
+    export interface IStatistics {
+        appTotalSpend: number;
+        weeklyTotalAmount: number;
+        monthlyTotalAmount: number;
+        weeklyHealthyOrders: number;
+        yearlyTotalAmount: number;
+        yearlyPastas: number;
+        prepayedTotal: number;
     }
 }

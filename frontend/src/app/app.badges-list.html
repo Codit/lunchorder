@@ -1,3 +1,24 @@
 <div class="container">
-    <badge-row *ngFor="let b of badges" [badge]="b"></badge-row>
+    <div class="col-md-12 text-center wrap_title ">
+        <h2>Your badges</h2>
+        <p class="lead" style="margin: 0;">Earn badges by ordering or prepaying funds.</p>
+        <p class="lead" style="margin: 0;">You ordered {{user?.statistics?.yearlyPastas}} pasta's this year, {{user?.statistics?.weeklyHealthyOrders}} healthy
+            orders this week.</p>
+        <p class="lead" style="margin: 0;">You have spent &euro;{{user?.statistics?.appTotalSpend}} in total, &euro;{{user?.statistics?.yearlyTotalAmount}}
+            this year, &euro;{{user?.statistics?.monthlyTotalAmount}} this month, &euro;{{user?.statistics?.weeklyTotalAmount}}
+            this week.</p>
+    </div>
+    
+    <badge-row *ngFor="let b of badges; let i=index" (click)="open(i)" [badge]="b"></badge-row>
+    <div class="row" style="clear: both;">
+            <h3 class="text-center">Overall ranking</h3>
+    <div class="col-md-4 text-center" *ngFor="let br of badgeRankings; let i=index">
+            <div>
+                <i class="fa fa-trophy" style="font-size: 25px;"></i>
+                <span class="" style="position: absolute;left: 49.2%;font-size: 10px;top: -2%;color: white;font-weight: bolder;">{{i+1}}</span>
+            </div>
+            <div> {{ br.userName }} ({{br.totalBadges}} badges)
+                </div>
+    </div>
+    </div>
 </div>

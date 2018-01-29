@@ -7,4 +7,6 @@ export class MenuOrder implements app.domain.dto.IMenuOrder {
         appliedMenuRules: MenuRule[];
         price: number;
         name: string;
+        healthy: boolean;
+        pasta: boolean;
 }

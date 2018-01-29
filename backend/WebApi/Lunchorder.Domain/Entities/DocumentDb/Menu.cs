@@ -55,7 +55,7 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// How many times has it been updated
         /// </summary>
         public int Revision { get; set; }
-
+        
         /// <summary>
         /// Easy query
         /// </summary>

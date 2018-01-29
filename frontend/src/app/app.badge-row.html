@@ -1,8 +1,7 @@
 <div class="block wow bounceIn">
     <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-        <img src='/css/images/badges/{{badgeItem?.icon}}' title='{{badgeItem?.description}}' style='opacity: 0.3;
-								max-height: 100%;
-								max-width: 100%;' />
+        <span *ngIf="badgeItem.canEarnMultipleTimes" class="badge badge-default" style="position: absolute;top: 145px;left: 83px;background:#349e13">{{badgeItem.timesEarned}}</span>
+        <img src='/assets/{{badgeItem?.thumbnail}}' title='{{badgeItem?.description}}' [ngClass]="{'lo-badge': true, 'lo-hasBadge': hasBadge, 'lo-noBadge': !hasBadge}" />
         <p class='text-center'>{{badgeItem?.name}}</p>
     </div>
 </div>

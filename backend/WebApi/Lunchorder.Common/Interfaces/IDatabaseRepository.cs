@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
-using Lunchorder.Domain.Entities.DocumentDb;
-using Badge = Lunchorder.Domain.Dtos.Badge;
+using Lunchorder.Domain.Entities.Authentication;
 using Menu = Lunchorder.Domain.Dtos.Menu;
 using PlatformUserListItem = Lunchorder.Domain.Dtos.PlatformUserListItem;
 using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
 using UserBalanceAudit = Lunchorder.Domain.Dtos.UserBalanceAudit;
+using UserBalanceAuditItem = Lunchorder.Domain.Entities.DocumentDb.UserBalanceAuditItem;
 using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
 using VendorOrderHistory = Lunchorder.Domain.Dtos.VendorOrderHistory;
 
@@ -15,7 +16,6 @@ namespace Lunchorder.Common.Interfaces
     public interface IDatabaseRepository
     {
         Task<GetUserInfoResponse> GetUserInfo(string userName);
-        Task<IEnumerable<Badge>> GetBadges();
         Task AddMenu(Menu menu);
         Task<Menu> GetEnabledMenu();
         Task<Menu> GetMenu(string menuId);
@@ -31,5 +31,11 @@ namespace Lunchorder.Common.Interfaces
         Task<UserBalanceAudit> GetUserBalanceAndHistory(string userId);
         Task UpdateUserPicture(string userId, string pictureUrl);
         Task UpgradeUserHistory();
+        Task<ApplicationUser> GetApplicationUser(string username);
+        Task<Domain.Entities.DocumentDb.UserOrderHistory> GetLastOrder(string userId);
+        Task<UserBalanceAuditItem> GetLastUserBalanceAudit(string userId);
+        void SaveApplicationUser(ApplicationUser applicationUser);
+        void SaveUserOrder(Domain.Entities.DocumentDb.UserOrderHistory lastOrder);
+        Task<IEnumerable<BadgeRanking>> GetBadgeRanking();
     }
 }

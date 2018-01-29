@@ -27,8 +27,9 @@ namespace Lunchorder.Domain.Entities.Authentication
 
         private IEnumerable<LastOrder> _last5Orders;
         private IEnumerable<UserBalanceAuditItem> _last5BalanceAuditItems;
-        private IEnumerable<UserBadge> _badges;
+        private List<UserBadge> _badges;
         private IEnumerable<MenuEntryFavorite> _favorites;
+        private Statistics _statistics;
 
         public string Type => DocumentDbType.User;
 
@@ -41,6 +42,8 @@ namespace Lunchorder.Domain.Entities.Authentication
         public string Culture { get; set; }
 
         public decimal Balance { get; set; }
+
+        public string FullName => $"{FirstName}{LastName}";
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -62,13 +65,17 @@ namespace Lunchorder.Domain.Entities.Authentication
             set { _last5BalanceAuditItems = value; }
         }
 
-        public IEnumerable<UserBadge> Badges
+        public List<UserBadge> Badges
         {
             get { return _badges ?? (_badges = new List<UserBadge>()); }
             set { _badges = value; }
         }
 
-        public UserBadgeStats UserBadgeStats { get; set; }
+        public Statistics Statistics
+        {
+            get { return _statistics ?? (_statistics = new Statistics()); }
+            set { _statistics = value; }
+        }
 
         public IEnumerable<MenuEntryFavorite> Favorites
         {

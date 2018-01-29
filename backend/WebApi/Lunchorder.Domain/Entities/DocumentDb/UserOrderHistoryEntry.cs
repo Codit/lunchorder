@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace Lunchorder.Domain.Entities.DocumentDb
@@ -31,6 +30,16 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// Field where the user can add instructions for the vendor about this order
         /// </summary>
         public string FreeText { get; set; }
+
+        /// <summary>
+        /// Is the order a healthy item
+        /// </summary>
+        public bool Healthy { get; set; }
+
+        /// <summary>
+        /// Is the order a pasta item
+        /// </summary>
+        public bool Pasta { get; set; }
 
         /// <summary>
         /// The price of the menu entry without applying any possible rules

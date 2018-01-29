@@ -34,7 +34,10 @@ export class MenuEntryRow implements OnInit {
 		menuOrder.appliedMenuRules = new Array<MenuRule>();
 		menuOrder.name = this.menuEntry.name;
 		menuOrder.id = 1 + this.orderService.menuOrders.length;
-		for (let menuRule of this.menuEntry.rules) {
+		menuOrder.pasta = this.menuEntry.pasta;
+		menuOrder.healthy = this.menuEntry.healthy;
+
+		for (var menuRule of this.menuEntry.rules) {
 		     if (value[menuRule.id]) {
 			  menuOrder.appliedMenuRules.push(menuRule);
 			  }

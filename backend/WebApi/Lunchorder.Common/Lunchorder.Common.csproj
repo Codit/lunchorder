@@ -148,6 +148,7 @@
     <Compile Include="HtmlHelper.cs" />
     <Compile Include="Interfaces\IAccountControllerService.cs" />
     <Compile Include="Interfaces\IBadgeControllerService.cs" />
+    <Compile Include="Interfaces\IBadgeService.cs" />
     <Compile Include="Interfaces\IBalanceControllerService.cs" />
     <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\IChecklistControllerService.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Interfaces\IFavoriteControllerService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IMenuControllerService.cs" />
+    <Compile Include="Interfaces\IMenuService.cs" />
     <Compile Include="Interfaces\IMessagingService.cs" />
     <Compile Include="Interfaces\IOrderControllerService.cs" />
     <Compile Include="Interfaces\IRequireInitialization.cs" />

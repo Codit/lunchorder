@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Lunchorder.Common.Interfaces;
 using Lunchorder.Domain.Constants;
+using Lunchorder.Domain.Dtos;
 using Lunchorder.Domain.Dtos.Responses;
 using Lunchorder.Domain.Entities.Authentication;
-using Lunchorder.Domain.Entities.DocumentDb;
 using Microsoft.Azure.Documents.Linq;
 using Badge = Lunchorder.Domain.Dtos.Badge;
 using Menu = Lunchorder.Domain.Dtos.Menu;
+using PlatformUserList = Lunchorder.Domain.Entities.DocumentDb.PlatformUserList;
+using PlatformUserListItem = Lunchorder.Domain.Entities.DocumentDb.PlatformUserListItem;
 using SimpleUser = Lunchorder.Domain.Dtos.SimpleUser;
-using UserOrderHistory = Lunchorder.Domain.Dtos.UserOrderHistory;
+using UserBalanceAudit = Lunchorder.Domain.Entities.DocumentDb.UserBalanceAudit;
+using UserBalanceAuditItem = Lunchorder.Domain.Entities.DocumentDb.UserBalanceAuditItem;
+using UserOrderHistory = Lunchorder.Domain.Entities.DocumentDb.UserOrderHistory;
 using VendorOrderHistory = Lunchorder.Domain.Entities.DocumentDb.VendorOrderHistory;
 
 namespace Lunchorder.Dal
@@ -34,24 +38,17 @@ namespace Lunchorder.Dal
 
         public async Task<GetUserInfoResponse> GetUserInfo(string username)
         {
-            var userQuery = _documentStore.GetItems<ApplicationUser>(o => o.UserName == username && o.Type == DocumentDbType.User).AsDocumentQuery();
-            var queryResponse = await userQuery.ExecuteNextAsync<ApplicationUser>();
-            var user = queryResponse.FirstOrDefault();
-            var userInfo = _mapper.Map<ApplicationUser, GetUserInfoResponse>(user);
-
+            var applicationUser = await GetApplicationUser(username);
+            var userInfo = _mapper.Map<ApplicationUser, GetUserInfoResponse>(applicationUser);
             return userInfo;
         }
 
-        public async Task<IEnumerable<Badge>> GetBadges()
+        public async Task<ApplicationUser> GetApplicationUser(string username)
         {
-            var badgesQuery = _documentStore.GetItems<Domain.Entities.DocumentDb.BadgeResponse>(x => x.Type == DocumentDbType.Badges).AsDocumentQuery();
-            var queryResponse = await badgesQuery.ExecuteNextAsync<Domain.Entities.DocumentDb.BadgeResponse>();
-
-            var badgeResponse = queryResponse.FirstOrDefault();
-            if (badgeResponse == null) return null;
-
-            var badges = _mapper.Map<IEnumerable<Domain.Entities.DocumentDb.Badge>, IEnumerable<Badge>>(badgeResponse.Badges);
-            return badges;
+            var applicationUserQuery = _documentStore.GetItems<ApplicationUser>(o => o.UserName == username && o.Type == DocumentDbType.User).AsDocumentQuery();
+            var queryResponse = await applicationUserQuery.ExecuteNextAsync<ApplicationUser>();
+            var applicationUser = queryResponse.FirstOrDefault();
+            return applicationUser;
         }
 
         public async Task AddMenu(Menu menu)
@@ -92,9 +89,9 @@ namespace Lunchorder.Dal
             await _documentStore.ReplaceDocument(dbMenu);
         }
 
-        public async Task AddOrder(string userId, string userName, string vendorId, string formattedOrderDate, UserOrderHistory userOrderHistory, string fullName)
+        public async Task AddOrder(string userId, string userName, string vendorId, string formattedOrderDate, Domain.Dtos.UserOrderHistory userOrderHistory, string fullName)
         {
-            var docDbUserOrderHistory = _mapper.Map<UserOrderHistory, Domain.Entities.DocumentDb.UserOrderHistory>(userOrderHistory);
+            var docDbUserOrderHistory = _mapper.Map<Domain.Dtos.UserOrderHistory, UserOrderHistory>(userOrderHistory);
             docDbUserOrderHistory.Id = Guid.NewGuid();
             docDbUserOrderHistory.UserId = userId;
             docDbUserOrderHistory.UserName = userName;
@@ -208,11 +205,40 @@ namespace Lunchorder.Dal
             await _documentStore.ExecuteStoredProcedure<string>(DocumentDbSp.MarkAsSubmitted, vendorOrderHistoryId);
         }
 
-        public async Task<Domain.Dtos.UserBalanceAudit> GetUserBalanceAndHistory(string userId)
+        public async Task<Domain.Entities.DocumentDb.UserBalanceAuditItem> GetLastUserBalanceAudit(string userId)
+        {
+            var balanceHistory = await GetUserBalanceHistory(userId);
+            return balanceHistory.Audits.OrderByDescending(x => x.Date).FirstOrDefault();
+        }
+
+        public void SaveApplicationUser(ApplicationUser applicationUser)
+        {
+            _documentStore.UpsertDocument(applicationUser);
+        }
+
+        public void SaveUserOrder(UserOrderHistory lastOrder)
+        {
+            _documentStore.UpsertDocument(lastOrder);
+        }
+
+        public async Task<IEnumerable<BadgeRanking>> GetBadgeRanking()
+        {
+            var badgesRankings = await _documentStore.ExecuteStoredProcedure<List<Domain.Entities.DocumentDb.BadgeRanking>>(DocumentDbSp.GetBadgeRanking);
+            var badgesRankingsDto = _mapper.Map<List<Domain.Entities.DocumentDb.BadgeRanking>, List<BadgeRanking>>(badgesRankings);
+            return badgesRankingsDto;
+        }
+
+        private async Task<UserBalanceAudit> GetUserBalanceHistory(string userId)
         {
             var balanceHistoryQuery = _documentStore.GetItems<UserBalanceAudit>(x => x.Type == DocumentDbType.UserBalanceAudit && x.UserId == userId).AsDocumentQuery();
             var balanceHistoryQueryResponse = await balanceHistoryQuery.ExecuteNextAsync<UserBalanceAudit>();
             var balanceHistory = balanceHistoryQueryResponse.FirstOrDefault();
+            return balanceHistory;
+        }
+
+        public async Task<Domain.Dtos.UserBalanceAudit> GetUserBalanceAndHistory(string userId)
+        {
+            var balanceHistory = await GetUserBalanceHistory(userId);
             var balanceHistoryDto = new Domain.Dtos.UserBalanceAudit();
 
             if (balanceHistory == null) return balanceHistoryDto;
@@ -266,6 +292,13 @@ namespace Lunchorder.Dal
             document.Enabled = true;
 
             await _documentStore.ReplaceDocument(document);
+        }
+
+        public async Task<UserOrderHistory> GetLastOrder(string userId)
+        {
+            var userOrderHistoryQuery = _documentStore.GetItemsOrderByDescending<UserOrderHistory>(x => x.UserId == userId && x.Type == DocumentDbType.UserHistory, x=> x.OrderTime).AsDocumentQuery();
+            var userOrderHistory = await userOrderHistoryQuery.ExecuteNextAsync<UserOrderHistory>();
+            return userOrderHistory.FirstOrDefault();
         }
     }
 }

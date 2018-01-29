@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Lunchorder.Domain.Entities.DocumentDb;
+using UserBadge = Lunchorder.Domain.Entities.DocumentDb.UserBadge;
 
 namespace Lunchorder.Api.Configuration.Mapper
 {
@@ -8,6 +8,7 @@ namespace Lunchorder.Api.Configuration.Mapper
         public UserBadgeMap()
         {
             CreateMap<UserBadge, Domain.Dtos.UserBadge>();
+            CreateMap<Domain.Dtos.UserBadge, UserBadge>();
         }
     }
 }

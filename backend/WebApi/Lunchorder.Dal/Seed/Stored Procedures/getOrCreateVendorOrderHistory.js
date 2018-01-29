@@ -20,7 +20,7 @@
              vendorOrderHistory,
              function (err, documentCreated) {
                  if (err) { throw new Error('Error' + err.message); }
-                 context.getResponse().setBody(documentCreated.id)
+                 context.getResponse().setBody(documentCreated.id);
              });
                 if (!created) return;
             }

@@ -1,9 +1,9 @@
 export class UserBadge implements app.domain.dto.IUserBadge, Serializable<UserBadge> {
-    badgeId: string;
+    id: string;
     timesEarned: number;
 
     deserialize(input: any) : UserBadge {
-        this.badgeId = input.badgeId;
+        this.id = input.id;
         this.timesEarned = input.timesEarned;
         return this;
     }

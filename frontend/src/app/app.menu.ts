@@ -9,6 +9,7 @@ import { MenuOrder } from './domain/dto/menuOrder';
 import { OrderService } from './services/order.service';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
+import { BadgeService } from './services/badge.service';
 
 @Component({
 	selector: '[menu]',
@@ -18,7 +19,7 @@ import { GetUserInfoResponse } from './domain/dto/getUserInfoResponse'
 export class MenuComponent implements OnInit {
 
 	// todo move orderservice button to other component.
-	constructor(private configService: ConfigService, private menuService: MenuService, private orderService: OrderService, private accountService: AccountService, private toasterService: ToasterService) {
+	constructor(private configService: ConfigService, private menuService: MenuService, private orderService: OrderService, private accountService: AccountService, private toasterService: ToasterService, private badgeService: BadgeService) {
 		this.accountService.user$.subscribe(user => {
 			this.user = user;
 		});
@@ -99,6 +100,10 @@ export class MenuComponent implements OnInit {
 
 			this.accountService.getLast5Orders().subscribe(lastOrders => {
 				this.user.last5Orders = lastOrders;
+			});
+
+			this.badgeService.postOrderBadge().subscribe(badgeTexts => {
+				badgeTexts.forEach(x => this.toasterService.pop('success', 'Badge', x));
 			});
 		},
 			error => {

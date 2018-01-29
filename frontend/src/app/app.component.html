@@ -66,15 +66,15 @@
 		</div>
 	</nav>
 
-	<div information id="information" class="content-section-a" style="border-top: 0"></div>
+	<div information id="information" *ngIf="isLoggedIn()" class="content-section-a" style="border-top: 0"></div>
 
-	<div about-you id="balance" class="content-section-b"></div>
+	<div about-you id="balance" *ngIf="isLoggedIn()" class="content-section-b"></div>
 
-	<div menu id="order" class="content-section-a"></div>
+	<div menu *ngIf="isLoggedIn()" id="order" class="content-section-a"></div>
 
-	<div admin-prepay *ngIf="isAdminPrepay()" id="adminPrepay" class="content-section-b"></div>
-
-	<!-- <div badges-list [badgesList]="userBadges" id="badges" class="content-section-a"></div>-->
+	<div badges-list *ngIf="isLoggedIn()" [badgesList]="userBadges" id="badges" class="content-section-b" style="padding: 50px 0;"></div>
+	
+	<div admin-prepay *ngIf="isAdminPrepay()" id="adminPrepay" class="content-section-a"></div>
 
 	<div id="downloadlink" class="banner">
 		<div class="container">

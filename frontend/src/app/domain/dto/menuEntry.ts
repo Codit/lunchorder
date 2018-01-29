@@ -9,6 +9,8 @@ export class MenuEntry implements app.domain.dto.IMenuEntry, Serializable<MenuEn
     price: number;
     enabled: boolean;
     rules: MenuRule[];
+    healthy: boolean;
+    pasta: boolean;
 
     deserialize(input: any): MenuEntry {
         this.id = input.id;
@@ -18,6 +20,8 @@ export class MenuEntry implements app.domain.dto.IMenuEntry, Serializable<MenuEn
         this.picture = input.picture;
         this.price = input.price;
         this.enabled = input.enabled;
+        this.healthy = input.healthy;
+        this.pasta = input.pasta;
 
         this.rules = new Array<MenuRule>();
         if (input.rules) {

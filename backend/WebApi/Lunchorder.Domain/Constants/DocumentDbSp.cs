@@ -8,5 +8,6 @@
         public const string AddToUserList = "addToUserList";
         public const string MarkAsSubmitted = "markAsSubmitted";
         public const string UpdateUserPicture = "updateUserPicture";
+        public const string GetBadgeRanking = "getBadgeRanking";
     }
 }

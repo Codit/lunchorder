@@ -34,6 +34,16 @@ namespace Lunchorder.Domain.Dtos
         public decimal Price { get; set; }
 
         /// <summary>
+        /// Is the order a healthy item
+        /// </summary>
+        public bool Healthy { get; set; }
+
+        /// <summary>
+        /// Is the order a pasta item
+        /// </summary>
+        public bool Pasta { get; set; }
+
+        /// <summary>
         /// A set of rules that were applied to the order at that specific time
         /// </summary>
         public IEnumerable<UserOrderHistoryRule> Rules { get; set; }

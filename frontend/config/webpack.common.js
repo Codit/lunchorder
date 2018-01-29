@@ -25,9 +25,16 @@ module.exports = {
                 test: /\.html$/,
                 loader: 'html-loader'
             },
+            
             {
                 test: /\.(png|jpe?g|gif|ico)$/,
+                exclude: /badges/,
                 loader: 'file-loader?name=assets/[name].[hash].[ext]'
+            },
+            {
+                test: /\.(png|jpe?g|gif|ico)$/,
+                include: /badges/,
+                loader: 'file-loader?name=assets/[name].[ext]'
             },
             {
                 test: /\.css$/,

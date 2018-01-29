@@ -1,7 +1,8 @@
-﻿import { NgModule }      from '@angular/core';
+﻿import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AboutYouComponent } from './app.about-you';
@@ -32,15 +33,18 @@ import { StickCartDirective } from './directives/stickCartDirective';
 
 import { MenuEntryPipe } from './pipes/menu-entry.pipe';
 import { MenuFilterPipe } from './pipes/menu-filter.pipe';
+import { LightboxModule } from 'angular2-lightbox';
 
 @NgModule({
     imports: [
+        BrowserAnimationsModule,
         BrowserModule,
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
         ToasterModule,
-        NgUploaderModule
+        NgUploaderModule,
+        LightboxModule 
     ],
     declarations: [
         AppComponent,

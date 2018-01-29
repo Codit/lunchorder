@@ -14,7 +14,8 @@ namespace Lunchorder.Api.Configuration.Mapper
 
             CreateMap<Domain.Dtos.UserOrderHistory, Domain.Entities.DocumentDb.UserOrderHistory>()
                 .ForMember(dest => dest.Type, source => source.Ignore())
-                .ForMember(dest => dest.UserId, source => source.Ignore());
+                .ForMember(dest => dest.UserId, source => source.Ignore())
+                .ForMember(dest => dest.StatisticsProcessed, source => source.Ignore());
         }
     }
 }
