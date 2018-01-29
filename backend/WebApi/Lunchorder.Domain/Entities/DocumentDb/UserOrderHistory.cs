@@ -57,6 +57,11 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// </summary>
         public string Type = DocumentDbType.UserHistory;
 
+        /// <summary>
+        /// Flag to see if it has already been included in statistics calculation.
+        /// </summary>
+        public bool StatisticsProcessed { get; set; }
+
         private IEnumerable<UserOrderHistoryEntry> _entries;
     }
 }

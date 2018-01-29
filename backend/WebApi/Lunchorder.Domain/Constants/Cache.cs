@@ -4,5 +4,6 @@
     {
         public const string Badges = "Badges";
         public const string Menu = "Menu";
+        public const string BadgeRanking = "BadgeRanking";
     }
 }

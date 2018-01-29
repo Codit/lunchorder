@@ -7,6 +7,13 @@ declare module app.domain.dto {
         fax: string;
         email: string;
     }
+
+    export interface IBadgeRanking {
+        userId: string;
+        userName: string;
+        picture: string;
+        totalBadges: string;
+    }
     
     export interface IBadge {
         id: string;
@@ -58,6 +65,8 @@ declare module app.domain.dto {
         categoryId: string;
         price: number;
         enabled: boolean;
+        healthy: boolean;
+        pasta: boolean;
     }
     
     export interface IMenuEntryFavorite {
@@ -70,6 +79,8 @@ declare module app.domain.dto {
         freeText: string;
         appliedMenuRules: IMenuRule[];
         price: number;
+        healthy: boolean;
+        pasta: boolean;
     }
     
     export interface IMenuRule {
@@ -216,6 +227,7 @@ declare module app.domain.dto {
     }
     
     export interface IGetBadgesResponse {
+        badgeRankings: IBadgeRanking[];
         badges: IBadge[];
     }
 

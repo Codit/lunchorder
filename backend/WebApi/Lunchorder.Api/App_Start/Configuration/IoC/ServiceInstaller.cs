@@ -2,7 +2,6 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Lunchorder.Api.Infrastructure.Services;
-using Lunchorder.Common;
 using Lunchorder.Common.Interfaces;
 
 namespace Lunchorder.Api.Configuration.IoC
@@ -25,6 +24,9 @@ namespace Lunchorder.Api.Configuration.IoC
                 .LifeStyle.HybridPerWebRequestTransient());
 
             container.Register(Component.For<ICacheService>().ImplementedBy<MemoryCacheService>()
+                .LifeStyle.HybridPerWebRequestTransient());
+
+            container.Register(Component.For<IMenuService>().ImplementedBy<MenuService>()
                 .LifeStyle.HybridPerWebRequestTransient());
 
             container.Register(Component.For<SeedService>().LifeStyle.HybridPerWebRequestTransient());

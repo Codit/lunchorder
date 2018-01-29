@@ -12,6 +12,8 @@ namespace Lunchorder.Common.Interfaces
         IQueryable<T> GetItems<T>();
         IQueryable<T> GetItemsByExpression<T>(string sqlExpression);
         IQueryable<T> GetItems<T>(Expression<Func<T, bool>> predicate);
+        IQueryable<T> GetItemsOrderByDescending<T>(Expression<Func<T, bool>> wherePredicate,
+            Expression<Func<T, DateTime>> orderPredicate);
         Task<T> GetItem<T>(string sqlExpression);
         Task UpsertDocument<T>(T document);
         Task DeleteDocuments(string documentLink);

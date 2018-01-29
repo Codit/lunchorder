@@ -11,12 +11,13 @@ namespace Lunchorder.Common.ControllerServices
     {
         private readonly IDatabaseRepository _databaseRepository;
         private readonly ILogger _logger;
+        private readonly IMenuService _menuService;
         private readonly Fixture _fixture;
 
-        public MenuControllerService(IDatabaseRepository databaseRepository, ILogger logger)
+        public MenuControllerService(IDatabaseRepository databaseRepository, ILogger logger, IMenuService menuService)
         {
-            if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
-            _databaseRepository = databaseRepository;
+            _databaseRepository = databaseRepository ?? throw new ArgumentNullException(nameof(databaseRepository));
+            _menuService = menuService ?? throw new ArgumentNullException(nameof(menuService));
             _logger = logger;
             _fixture = new Fixture();
         }
@@ -28,15 +29,7 @@ namespace Lunchorder.Common.ControllerServices
 
         public async Task<Menu> GetActiveMenu()
         {
-            var cacheMenu = MemoryCacher.GetValue(Cache.Menu) as Menu;
-            if (cacheMenu != null) return cacheMenu;
-
-
-            var menu = await _databaseRepository.GetEnabledMenu();
-            if (menu != null)
-                MemoryCacher.Add(Cache.Menu, menu);
-
-            return menu;
+            return await _menuService.GetActiveMenu();
         }
 
         public async Task Add(Menu menu)

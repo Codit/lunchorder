@@ -21,8 +21,7 @@ namespace Lunchorder.Api.Controllers
 
         public OrderController(IOrderControllerService orderControllerService)
         {
-            if (orderControllerService == null) throw new ArgumentNullException(nameof(orderControllerService));
-            _orderControllerService = orderControllerService;
+            _orderControllerService = orderControllerService ?? throw new ArgumentNullException(nameof(orderControllerService));
         }
 
         /// <summary>

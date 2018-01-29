@@ -75,7 +75,7 @@ namespace Lunchorder.Dal
             var dbName = _configurationService.DocumentDb.Database;
             await DocumentDbClient.CreateDatabaseIfNotExistsAsync(new Database{Id = dbName});
         }
-        
+
         public IQueryable<T> GetItems<T>(Expression<Func<T, bool>> predicate)
         {
             if (predicate == null)
@@ -83,6 +83,15 @@ namespace Lunchorder.Dal
 
             return DocumentDbClient.CreateDocumentQuery<T>(CollectionUri, new FeedOptions { MaxItemCount = -1 })
                 .Where(predicate);
+        }
+
+        public IQueryable<T> GetItemsOrderByDescending<T>(Expression<Func<T, bool>> wherePredicate, Expression<Func<T, DateTime>> orderPredicate)
+        {
+            if (wherePredicate == null)
+                return DocumentDbClient.CreateDocumentQuery<T>(CollectionUri, new FeedOptions { MaxItemCount = -1 });
+
+            return DocumentDbClient.CreateDocumentQuery<T>(CollectionUri, new FeedOptions { MaxItemCount = -1 })
+                .Where(wherePredicate).OrderByDescending(orderPredicate);
         }
 
         public async Task CreateStoredProcedure(StoredProcedure storedProcedure, bool checkIfExists)

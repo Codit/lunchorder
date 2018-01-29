@@ -11,8 +11,7 @@ namespace Lunchorder.Common.ControllerServices
 
         public BalanceControllerService(IDatabaseRepository databaseRepository)
         {
-            if (databaseRepository == null) throw new ArgumentNullException(nameof(databaseRepository));
-            _databaseRepository = databaseRepository;
+            _databaseRepository = databaseRepository ?? throw new ArgumentNullException(nameof(databaseRepository));
         }
 
         public async Task<decimal> UpdateBalance(string userId, decimal amount, SimpleUser originator)

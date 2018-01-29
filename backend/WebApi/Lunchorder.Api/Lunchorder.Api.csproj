@@ -269,6 +269,7 @@
     <Compile Include="App_Start\Configuration\Mapper\AddressMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\ApplicationUserMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\BadgeMap.cs" />
+    <Compile Include="App_Start\Configuration\Mapper\BadgeRankingMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\LastOrderEntryMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\LastOrderMap.cs" />
     <Compile Include="App_Start\Configuration\Mapper\MenuCategoryMap.cs" />
@@ -319,6 +320,7 @@
     <Compile Include="Infrastructure\Services\EventingService.cs" />
     <Compile Include="Infrastructure\Jobs\VendorOrderMailJob.cs" />
     <Compile Include="Infrastructure\Services\MemoryCacheService.cs" />
+    <Compile Include="Infrastructure\Services\MenuService.cs" />
     <Compile Include="Infrastructure\Services\NLogLogger.cs" />
     <Compile Include="Infrastructure\Services\SendGridMailService.cs" />
     <Compile Include="Infrastructure\Services\ServicebusMessagingService.cs" />

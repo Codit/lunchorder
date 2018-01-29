@@ -18,4 +18,5 @@ export class BadgeRow implements OnInit {
 			this.hasBadge = true;
 		}
 	}
+
 }

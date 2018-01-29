@@ -41,5 +41,15 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         /// Represents if the entry is in an enabled state
         /// </summary>
         public bool Enabled { get; set; }
+
+        /// <summary>
+        /// Is the order a healthy item
+        /// </summary>
+        public bool Healthy { get; set; }
+
+        /// <summary>
+        /// Is the order a pasta item
+        /// </summary>
+        public bool Pasta { get; set; }
     }
 }

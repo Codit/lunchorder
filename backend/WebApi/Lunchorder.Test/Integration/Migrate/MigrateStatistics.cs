@@ -89,7 +89,6 @@ namespace Lunchorder.Test.Integration.Migrate
             var allUsersQuery = DocumentDbBase.DocumentStore.GetItems<ApplicationUser>(x => x.Type == DocumentDbType.User);
             var allUsers = allUsersQuery.ToList();
            
-
             foreach (var applicationUser in allUsers)
             {
                 //start with a clean slate for each user
@@ -140,20 +139,28 @@ namespace Lunchorder.Test.Integration.Migrate
                             weeklyTotal.HealthyOrderCount += 1;
                         }
 
-
                         yearlyTotal.OrderCount += 1;
-                        yearlyTotal.Amount += entry.FinalPrice;
+                        yearlyTotal.Amount += entry.Price;
                         weeklyTotal.OrderCount += 1;
-                        weeklyTotal.Amount += entry.FinalPrice;
+                        weeklyTotal.Amount += entry.Price;
                         monthlyTotal.OrderCount += 1;
-                        monthlyTotal.Amount += entry.FinalPrice;
-                        applicationUser.Statistics.AppTotalSpend += entry.FinalPrice;
-                        dailyTotal.Amount += entry.FinalPrice;
+                        monthlyTotal.Amount += entry.Price;
+                        dailyTotal.Amount += entry.Price;
                         dailyTotal.OrderCount += 1;
 
                         // calculate badges
-                        BadgeService.ExtractOrderBadges(applicationUser, userOrderHistory, DateTime.Parse("01/01/2001 10:00:00"));
+                        DateTime orderTime = DateTime.Parse("01/01/2001 10:00:00");
+                        if (userOrderHistory.OrderTime < DateTime.Parse("12/06/2017 10:00:00"))
+                        {
+                            orderTime = DateTime.Parse("01/01/2001 9:00:00");
+                        }
+                        BadgeService.ExtractOrderBadges(applicationUser, userOrderHistory, orderTime);
                     }
+
+                    applicationUser.Statistics.AppTotalSpend += userOrderHistory.FinalPrice;
+
+                    await DocumentDbBase.DocumentStore.UpsertDocument(userOrderHistory);
+
                 }
 
                 var userPrepaysQuery = DocumentDbBase.DocumentStore.GetItems<UserBalanceAudit>(x => x.UserId == applicationUser.UserId && x.Type == DocumentDbType.UserBalanceAudit);
@@ -163,6 +170,7 @@ namespace Lunchorder.Test.Integration.Migrate
                 {
                     foreach (var audit in prepay.Audits)
                     {
+                        // there might be a difference in prepayedTotal as in first versions this was not been audited.
                         applicationUser.Statistics.PrepayedTotal += audit.Amount;
                     }
                 }
@@ -186,3 +194,4 @@ namespace Lunchorder.Test.Integration.Migrate
         }
     }
 }
+

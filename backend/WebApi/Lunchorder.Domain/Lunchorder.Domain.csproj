@@ -75,6 +75,7 @@
     <Compile Include="Constants\ServicebusType.cs" />
     <Compile Include="Dtos\Address.cs" />
     <Compile Include="Dtos\Badge.cs" />
+    <Compile Include="Dtos\BadgeRanking.cs" />
     <Compile Include="Dtos\LastOrder.cs" />
     <Compile Include="Dtos\LastOrderEntry.cs" />
     <Compile Include="Dtos\Menu.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Dtos\Requests\PostOrderRequest.cs" />
     <Compile Include="Dtos\Requests\PutBalanceRequest.cs" />
     <Compile Include="Dtos\Requests\PutMenuRequest.cs" />
+    <Compile Include="Dtos\Requests\SetPrepayBadgesRequest.cs" />
     <Compile Include="Dtos\Responses\GetAllUsersResponse.cs" />
     <Compile Include="Dtos\Responses\GetBadgesResponse.cs" />
     <Compile Include="Dtos\Responses\GetUserInfoResponse.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Entities\Configuration\ServicebusInfo.cs" />
     <Compile Include="Entities\DocumentDb\ActionType.cs" />
     <Compile Include="Entities\DocumentDb\Address.cs" />
+    <Compile Include="Entities\DocumentDb\BadgeRankingItem.cs" />
     <Compile Include="Entities\DocumentDb\Buyer.cs" />
     <Compile Include="Entities\DocumentDb\BuyerAddress.cs" />
     <Compile Include="Entities\DocumentDb\LastOrder.cs" />

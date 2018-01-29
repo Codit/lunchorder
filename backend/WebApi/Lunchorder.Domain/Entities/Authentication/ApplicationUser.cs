@@ -43,6 +43,8 @@ namespace Lunchorder.Domain.Entities.Authentication
 
         public decimal Balance { get; set; }
 
+        public string FullName => $"{FirstName}{LastName}";
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);

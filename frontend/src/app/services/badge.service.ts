@@ -12,18 +12,34 @@ export class BadgeService {
 
   private badgeApiUri = `${this.configService.apiPrefix}/badges`;
 
-  getBadges(): Observable<Badge[]> {
+  getBadges(): Observable<GetBadgesResponse> {
     return this.http.get(`${this.badgeApiUri}`)
       .map(this.mapBadges)
       .catch(this.handleError);
   }
 
-  private mapBadges(res: Response): Badge[] {
+  postOrderBadge(): Observable<string[]> {
+    return this.http.post(`${this.badgeApiUri}/order`, null)
+      .map(this.mapBadgeAlerts)
+      .catch(this.handleError);
+  }
+
+  postPrepayBadge(username: string): Observable<string[]> {
+    return this.http.post(`${this.badgeApiUri}/prepay`, { "username": username })
+      .map(this.mapBadgeAlerts)
+      .catch(this.handleError);
+  }
+
+  private mapBadgeAlerts(res: Response): string[] {
+    let body = res.json();
+    return body;
+  }
+
+  private mapBadges(res: Response): GetBadgesResponse {
     let body = res.json();
     var response = new GetBadgesResponse().deserialize(body);
 
-    var badges: Badge[] = response.badges;
-    return badges;
+    return response;
   }
 
   private handleError(error: any) {

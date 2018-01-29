@@ -39,7 +39,11 @@ export class AppComponent implements OnInit {
 	getIntroClass() {
 		if (!this._introClass) {
 			if (this.getEaster()) {
-				return this._introClass = 'intro-header-img6';
+				return this._introClass = 'intro-header-img8';
+			}
+
+			if (moment().isBetween(moment("2018-02-01"), moment("2018-02-03"), 'days', '[]')) {
+				return this._introClass = 'intro-header-img7';
 			}
 
 			var quarter = moment().quarter();

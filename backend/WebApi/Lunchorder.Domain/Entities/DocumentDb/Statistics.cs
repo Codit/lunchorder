@@ -279,6 +279,11 @@ namespace Lunchorder.Domain.Entities.DocumentDb
         public int PastaOrderCount { get; set; }
 
         /// <summary>
+        /// Keep track if you already had the pasta badge for this year
+        /// </summary>
+        public bool HasYearlyPastaBadge { get;set; }
+
+        /// <summary>
         /// The total amount spent for this year
         /// </summary>
         public decimal Amount { get; set; }
