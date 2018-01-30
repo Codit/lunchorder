@@ -114,7 +114,7 @@ namespace Lunchorder.Api.Infrastructure.Services
 
         public List<string> ExtractOrderBadges(ApplicationUser applicationUser, Domain.Entities.DocumentDb.UserOrderHistory userOrderHistory, DateTime vendorClosingTime)
         {
-            //CalculateStatistics(applicationUser, userOrderHistory);
+            CalculateStatistics(applicationUser, userOrderHistory);
 
             var badgeAlerts = new List<string>();
             if (AssignFirstOrder(applicationUser)) { badgeAlerts.Add(OrderBadgeMessage(Domain.Constants.Badges.FirstOrder)); }
@@ -123,7 +123,7 @@ namespace Lunchorder.Api.Infrastructure.Services
             if (Consumer(applicationUser)) { badgeAlerts.Add(OrderBadgeMessage(Domain.Constants.Badges.Consumer)); }
             if (Enjoyer(applicationUser)) { badgeAlerts.Add(OrderBadgeMessage(Domain.Constants.Badges.Enjoyer)); }
             if (DieHard(applicationUser)) { badgeAlerts.Add(OrderBadgeMessage(Domain.Constants.Badges.DieHard)); }
-            //if (Bankrupt(applicationUser)) { badgeAlerts.Add(OrderBadgeMessage(Domain.Constants.Badges.Bankrupt)); }
+            if (Bankrupt(applicationUser)) { badgeAlerts.Add(OrderBadgeMessage(Domain.Constants.Badges.Bankrupt)); }
             if (Healthy(applicationUser)) { badgeAlerts.Add(OrderBadgeMessage(Domain.Constants.Badges.Healthy)); }
             if (PastaAddict(applicationUser)) { badgeAlerts.Add(OrderBadgeMessage(Domain.Constants.Badges.PastaAddict)); }
 
