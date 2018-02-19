@@ -15,6 +15,8 @@ In essence, it should solve the following problems:
 
 The application is being been developed primarily to get a better understanding on how [angular2] works.
 
+![Codit](./media/codit.png)
+
 ## Running the application
 Please see the [wiki installation section]
 
